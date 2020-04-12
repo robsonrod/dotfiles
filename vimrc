@@ -12,6 +12,8 @@ call vundle#begin()
 " plugin to enable Vundle 
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'Valloric/YouCompleteMe'
+
 " plugin to enable git integration
 Plugin 'tpope/vim-fugitive'
 
@@ -24,6 +26,10 @@ Plugin 'honza/vim-snippets'
 " enable NERD tree - allows you to explore your filesystem 
 " and to open files and directories.
 Plugin 'scrooloose/nerdtree.git'
+
+" airline (powerline)
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " enable CTRLP - Full path fuzzy file, buffer, mru, tag, 
 " etc, finder for Vim
@@ -47,6 +53,12 @@ Plugin 'jlanzarotta/bufexplorer'
 
 "enable GDB integration
 Plugin 'vim-scripts/Conque-GDB'
+
+"enable switch files (*.h/*.c/*.cpp)
+Plugin 'vim-scripts/a.vim'
+
+" Track the engine.
+Plugin 'SirVer/ultisnips'
 
 " end of Vundle initialization
 call vundle#end()
@@ -90,7 +102,7 @@ set ruler
 syntax on
 
 " turn line numbers on
-"set number
+set number
 
 " highlight matching braces
 set showmatch
@@ -139,6 +151,15 @@ function! MyPrev()
         execute ":bprev"
     endif
 endfunction
+
+" C and C++
+let g:alternateExtensions_h = "c,cpp,cxx,cc,CC"
+let g:alternateExtensions_H = "C,CPP,CXX,CC"
+let g:alternateExtensions_cpp = "h,hpp"
+let g:alternateExtensions_CPP = "H,HPP"
+let g:alternateExtensions_c = "h"
+let g:alternateExtensions_C = "H"
+let g:alternateExtensions_cxx = "h"
 
 " OmniCppComplete options
 let OmniCpp_NamespaceSearch = 1      
@@ -201,7 +222,67 @@ let g:ConqueTerm_StartMessages = 0 " display warning messages if conqueTerm is c
 " COMMANDS ALIAS
 ca gdb ConqueGdb
 
+" ################ Airline ##########################
+
+" vim airline fonts
+if !exists('g:airline_symbols')
+	let g:airline_symbols= {}
+endif
+
+
+" unicode symbols
+let g:airline_left_alt_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.maxlinenr = '☰'
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = '∄'
+let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_powerline_fonts = 1
+" ################ UltiSnips ########################
+
+" make a dir Ultisnips in: '~/.config/nvim/UltiSnips/'
+" and put your snippets in there
+" eg. cpp.snippets
+
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsUsePythonVersion = 3
+
+
+" ################ YouCompleteMe ####################
+
+let g:ycm_show_diagnostics_ui = 0
+
+let g:ycm_key_list_select_completion = ['<C-k>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-l>', '<Up>']
+let g:SuperTabDefaulCompletionType = '<C-k>'
+
+" disable annoying ycm confirmation
+let g:ycm_confirm_extra_conf = 0
+
+" add path to ycm_extra_conf.py (you could also copy the file in the home folder)
+" delete '...98' argument from .ycm_extra_conf.py, otherwise syntastic does
+" not work properly
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
 " MAPPINGS
+
+" (CTRL-C) Copy
+noremap <C-c> "+y
+" (CTRL-V) Paste
+noremap <C-v> "+p
+" (CTRL-V) Cut
+noremap <C-x> "+d
+" (CTRL-V) Paste in insert mode
+inoremap <C-v> <Esc>"+pa
 
 " (F2, CTRL-S) Save file
 nmap <c-s> :w<CR>
