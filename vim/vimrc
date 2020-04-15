@@ -12,7 +12,7 @@ call vundle#begin()
 " plugin to enable Vundle 
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'OmniCppComplete'
 
 " plugin to enable git integration
 Plugin 'tpope/vim-fugitive'
@@ -30,6 +30,9 @@ Plugin 'scrooloose/nerdtree.git'
 " airline (powerline)
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+
+Plugin 'sheerun/vim-polyglot'
+Plugin 'joshdick/onedark.vim'
 
 " enable CTRLP - Full path fuzzy file, buffer, mru, tag, 
 " etc, finder for Vim
@@ -57,13 +60,19 @@ Plugin 'vim-scripts/Conque-GDB'
 "enable switch files (*.h/*.c/*.cpp)
 Plugin 'vim-scripts/a.vim'
 
-" Track the engine.
-Plugin 'SirVer/ultisnips'
-
 " end of Vundle initialization
 call vundle#end()
 filetype plugin indent on
 filetype on
+
+let g:airline_theme='onedark'
+colorscheme onedark
+
+set cursorline
+hi cursorline cterm=none term=none
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal cursorline
+highlight CursorLine guibg=#303000 ctermbg=234
 
 " disable Linux Kernel Coding Style
 let g:loaded_linuxsty=1
@@ -245,33 +254,6 @@ let g:airline_symbols.spell = 'Ꞩ'
 let g:airline_symbols.notexists = '∄'
 let g:airline_symbols.whitespace = 'Ξ'
 let g:airline_powerline_fonts = 1
-" ################ UltiSnips ########################
-
-" make a dir Ultisnips in: '~/.config/nvim/UltiSnips/'
-" and put your snippets in there
-" eg. cpp.snippets
-
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:UltiSnipsUsePythonVersion = 3
-
-
-" ################ YouCompleteMe ####################
-
-let g:ycm_show_diagnostics_ui = 0
-
-let g:ycm_key_list_select_completion = ['<C-k>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-l>', '<Up>']
-let g:SuperTabDefaulCompletionType = '<C-k>'
-
-" disable annoying ycm confirmation
-let g:ycm_confirm_extra_conf = 0
-
-" add path to ycm_extra_conf.py (you could also copy the file in the home folder)
-" delete '...98' argument from .ycm_extra_conf.py, otherwise syntastic does
-" not work properly
-let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 
 " MAPPINGS
 
