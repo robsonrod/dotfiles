@@ -16,6 +16,8 @@ Plugin 'OmniCppComplete'
 
 " plugin to enable git integration
 Plugin 'tpope/vim-fugitive'
+Plugin 'mhinz/vim-signify'
+
 
 " plugins to enable snippets support
 Plugin 'MarcWeber/vim-addon-mw-utils'
