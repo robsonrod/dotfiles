@@ -53,6 +53,8 @@ Plugin 'vim-scripts/VimRepress'
 " checkers and displays any resulting errors to the user.
 Plugin 'scrooloose/syntastic'
 
+Plugin 'rhysd/vim-clang-format'
+
 " buffer explorer
 Plugin 'jlanzarotta/bufexplorer'
 
@@ -193,7 +195,6 @@ set cscopetag
 set tags+=tags;                     " search tags automagically
 
 " project tags
-" let g:ProjTags = ["/opt/labs/ex/02/linux/"]
 " let g:ProjTags = [["/opt/labs/ex/", "/opt/labs/ex/02/linux/tags"]]
 
 " open a NERDTree automatically when vim starts up if no files were specified
@@ -224,6 +225,19 @@ let g:syntastic_auto_loc_list = 1
 "let g:syntastic_check_on_wq = 1
 let b:syntastic_mode = 'passive'
 let g:syntastic_c_checkers=['gcc','cppcheck']
+let g:syntastic_cpp_compiler = 'g++'
+let g:syntastic_cpp_compiler_options = ' --std=c++17 -stdlib=libc++'
+let g:syntastic_cpp_checkers=['gcc','cppcheck', 'flawfinder']
+"let g:syntastic_debug=1
+
+" Clang format - auto formatting
+ 
+"let g:clang_format#command = 'clang-format-6'
+let g:clang_format#detect_style_file = 1
+let g:clang_format#auto_format = 1
+" shortcuts for autoformatting the entire file: Ctrl+f
+inoremap <C-j> <Esc>:ClangFormat<CR>a
+nnoremap <C-j> <Esc>:ClangFormat<CR>
 
 " ConqueGDB configuration
 let g:ConqueTerm_Color = 2         " 1: strip color after 200 lines, 2: always with color
