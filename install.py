@@ -21,4 +21,4 @@ if os.path.exists(f'{home}/.vim/bundle'):
 else:
     os.system('git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim')
 
-os.system('nvim +PluginInstall +qall +silent')
+os.system('nvim --headless +PluginInstall +qall 2>/dev/null')
