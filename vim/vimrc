@@ -64,6 +64,10 @@ Plugin 'vim-scripts/Conque-GDB'
 "enable switch files (*.h/*.c/*.cpp)
 Plugin 'vim-scripts/a.vim'
 
+" enable gnu global with ctags
+Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'skywind3000/gutentags_plus'
+
 " end of Vundle initialization
 call vundle#end()
 filetype plugin indent on
@@ -137,13 +141,13 @@ set smartcase    " ... unless they contain at least one capital letter
 nnoremap <CR> :noh<CR><CR>
 
 " DoxygenToolkit
-let g:DoxygenToolkit_briefTag_pre="@Synopsis  "
-let g:DoxygenToolkit_paramTag_pre="@Param "
-let g:DoxygenToolkit_returnTag="@Returns   "
-let g:DoxygenToolkit_blockHeader="-------------------------------"
-let g:DoxygenToolkit_blockFooter="---------------------------------"
-let g:DoxygenToolkit_authorName="Sergio Prado <sergio.prado@e-labworks.com>"
-let g:DoxygenToolkit_licenseTag="MIT"
+let g:DoxygenToolkit_briefTag_pre="@synopsis "
+let g:DoxygenToolkit_paramTag_pre="@param "
+let g:DoxygenToolkit_returnTag="@returns "
+let g:DoxygenToolkit_blockHeader="================================================================================"
+let g:DoxygenToolkit_blockFooter="================================================================================"
+let g:DoxygenToolkit_authorName="Author <author@author.com>"
+let g:DoxygenToolkit_licenseTag="GPL"
 
 " MyNext() and MyPrev(): Movement between tabs OR buffers
 function! MyNext()
@@ -194,11 +198,36 @@ set cscopetag
 " tags definition
 set tags+=tags;                     " search tags automagically
 
+" enable gtags module
+let g:gutentags_modules = ['ctags', 'gtags_cscope']
+
+" config project root markers.
+let g:gutentags_add_default_project_roots = 0
+let g:gutentags_project_root = ['package.json', '.git']
+
+" generating database tags
+let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
+
+" update tags
+let g:gutentags_generate_on_new = 1
+let g:gutentags_generate_on_missing = 1
+let g:gutentags_generate_on_write = 1
+let g:gutentags_generate_on_empty_buffer = 0
+
+" generating more info for the tags
+let g:gutentags_ctags_extra_args = [
+            \ '-R',
+            \ '--extra=+fq',
+            \ '--c-kinds=+px',
+            \ '--tag-relative=yes',
+            \ '--fields=+ailmnS',
+      \ ]
+
+" change focus to quickfix window after search (optional).
+let g:gutentags_plus_switch = 1
+
 " project tags
 " let g:ProjTags = [["/opt/labs/ex/", "/opt/labs/ex/02/linux/tags"]]
-
-" open a NERDTree automatically when vim starts up if no files were specified
-" autocmd vimenter * if !argc() | NERDTree | endif
 
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -253,7 +282,6 @@ ca gdb ConqueGdb
 if !exists('g:airline_symbols')
 	let g:airline_symbols= {}
 endif
-
 
 " unicode symbols
 let g:airline_left_alt_sep = ''
