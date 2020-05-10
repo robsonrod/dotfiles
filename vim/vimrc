@@ -12,12 +12,12 @@ call vundle#begin()
 " plugin to enable Vundle 
 Plugin 'VundleVim/Vundle.vim'
 
+" c/c++ autocomplete plugin
 Plugin 'OmniCppComplete'
 
 " plugin to enable git integration
 Plugin 'tpope/vim-fugitive'
 Plugin 'mhinz/vim-signify'
-
 
 " plugins to enable snippets support
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -28,6 +28,7 @@ Plugin 'honza/vim-snippets'
 " enable NERD tree - allows you to explore your filesystem 
 " and to open files and directories.
 Plugin 'scrooloose/nerdtree.git'
+Plugin 'majutsushi/tagbar'
 
 " airline (powerline)
 Plugin 'vim-airline/vim-airline'
@@ -46,13 +47,14 @@ Plugin 'vivien/vim-addon-linux-coding-style'
 " enable doxygen plugin
 Plugin 'mrtazz/DoxygenToolkit.vim'
 
-" enable Wordpress Integration plugin
-Plugin 'vim-scripts/VimRepress'
+" enable wiki integration plugin
+Plugin 'vimwiki/vimwiki'
 
 " syntax checking plugin for Vim that runs files through external syntax
 " checkers and displays any resulting errors to the user.
 Plugin 'scrooloose/syntastic'
 
+" clang-format plugin
 Plugin 'rhysd/vim-clang-format'
 
 " buffer explorer
