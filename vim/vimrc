@@ -70,6 +70,8 @@ Plugin 'vim-scripts/a.vim'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'skywind3000/gutentags_plus'
 
+Plugin 'terryma/vim-multiple-cursors'
+
 " end of Vundle initialization
 call vundle#end()
 filetype plugin indent on
