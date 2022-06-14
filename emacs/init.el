@@ -1,3 +1,5 @@
+
+
 ;; -*- coding: utf-8; lexical-binding: t -*-
 
 ;; startup fast
@@ -104,7 +106,7 @@
   (split-window-right)
   (balance-windows))
 
-(bind-key "C-c 2" #'pt/split-window-two)
+(global-set-key (kbd "C-c 2") #'pt/split-window-two)
 
 
 ;; changing yes or no question
