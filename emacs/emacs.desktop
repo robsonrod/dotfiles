@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Emacs
+Comment=Emacs Window Manager
+Exec=sh /home/robson/dotfiles/emacs/start-emacs-wm.sh
+TryExec=sh
+Type=Application
+X-LightDM-DesktopName=emacs
+DesktopNames=emacs

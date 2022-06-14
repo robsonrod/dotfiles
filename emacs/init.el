@@ -1,66 +1,138 @@
-;; The default is 800 kilobytes.  Measured in bytes.
+;; -*- coding: utf-8; lexical-binding: t -*-
 
-;; ********** General config editor
+;; startup fast
 (setq gc-cons-threshold (* 50 1000 1000) read-process-output-max (* 1000 1000)
       treemacs-space-between-root-nodes nil company-idle-delay 0.0 company-minimum-prefix-length 1
       lsp-idle-delay 0.1)
 
 ;; Profile emacs startup
 (add-hook 'emacs-startup-hook (lambda () 
-				(message "*** Emacs loaded in %s with %d garbage collections."
-					 (format "%.2f seconds" (float-time (time-subtract
-									     after-init-time
-									     before-init-time)))
-					 gcs-done)))
+                                (message "*** Emacs loaded in %s with %d garbage collections."
+                                         (format "%.2f seconds" (float-time (time-subtract
+                                                                             after-init-time
+                                                                             before-init-time)))
+                                         gcs-done)))
 
-;; Thanks, but no thanks
-(setq inhibit-startup-message t)
+(setq
+ ;; No need to see GNU agitprop.
+ inhibit-startup-message t
+ ;; No need to remind me what a scratch buffer is.
+ initial-scratch-message nil
+ ;; Double-spaces after periods is morally wrong.
+ sentence-end-double-space nil
+ ;; Never ding at me, ever.
+ ring-bell-function 'ignore
+ ;; Save existing clipboard text into the kill ring before replacing it.
+ save-interprogram-paste-before-kill t
+ ;; Prompts should go in the minibuffer, not in a GUI.
+ use-dialog-box nil
+ ;; Fix undo in commands affecting the mark.
+ mark-even-if-inactive nil
+ ;; Let C-k delete the whole line.
+ kill-whole-line t
+ ;; search should be case-sensitive by default
+ case-fold-search nil
+ ;; no need to prompt for the read command _every_ time
+ compilation-read-command nil
+ ;; scroll to first error
+ compilation-scroll-output 'first-error
+ ;; accept 'y' or 'n' instead of yes/no
+ use-short-answers t
+ ;; eke out a little more scrolling performance
+ fast-but-imprecise-scrolling t
+ ;; prefer newer elisp files
+ load-prefer-newer t
+ ;; when I say to quit, I mean quit
+ confirm-kill-processes nil
+ ;; if native-comp is having trouble, there's not very much I can do
+ native-comp-async-report-warnings-erros 'silent
+ ;; unicode ellipses are better
+ truncate-string-ellipsis "...")
 
-;; Enababling line numbers
+;; never mix tabs and spaces. Never use tabs, period.
+(setq-default indent-tabs-mode nil)
+
+;; nnababling line numbers
+(delete-selection-mode t)
 (column-number-mode)
 (global-display-line-numbers-mode t)
 
-;; Disable line numbers for some modes
+;; disable line numbers for some modes
 (dolist (mode '(org-mode-hook term-mode-hook shell-mode-hook eshell-mode-hook)) 
   (add-hook mode (lambda () 
-		   (display-line-numbers-mode 0))))
+                   (display-line-numbers-mode 0))))
 
-(global-hl-line-mode +1)
-(scroll-bar-mode -1)			; Disable visible scrollbar
-(tool-bar-mode -1)			; Disable the toolbar
-(tooltip-mode -1)			; Disable tooltips
-(set-fringe-mode 10)			; Give some breathing room
-(menu-bar-mode -1)			; Disable the menu bar
+;; ignore backup files
+(setq make-backup-files nil auto-save-default nil create-lockfiles nil)
+
+;; gui enhacements
+(when (window-system) 
+  (scroll-bar-mode -1) 
+  (tool-bar-mode -1) 
+  (tooltip-mode -1) 
+  (set-fringe-mode 10) 
+  (global-hl-line-mode +1) 
+  (menu-bar-mode -1))
+
 (set-frame-parameter (selected-frame) 'alpha '(95 . 50))
 (add-to-list 'default-frame-alist '(alpha . (95 . 50)))
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(set-face-attribute 'default nil 
-		    :font "Fira Code" 
-		    :height 72)
 
+;; font configuration
+(set-face-attribute 'default nil 
+                    :font "Fira Code Retina" 
+                    :height 72)
+
+;; changing cursor type.
 (setq-default cursor-type 'bar)
 
-;; ESC Cancels alls
+;; ESC cancels all commands
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;; Changing yes or no question
+;; custom window management
+(global-set-key (kbd "C-<tab>") 'other-window)
+(global-set-key (kbd "M-<down>") 'enlarge-window)
+(global-set-key (kbd "M-<up>") 'shrink-window)
+(global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "M-<left>") 'shrink-window-horizontally)
+
+(defun pt/split-window-two ()
+  "Split a window into two."
+  (interactive)
+  (split-window-right)
+  (balance-windows))
+
+(bind-key "C-c 2" #'pt/split-window-two)
+
+
+;; changing yes or no question
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; Set encoding
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
+;; set encoding
+(prefer-coding-system 'iso-8859-1)
+(set-default-coding-systems 'iso-8859-1)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
-(defun kill-other-buffers () 
-  "Kill all other buffers." 
+;; buffer killer
+(defun kill-this-buffer () 
+  "Kill the current buffer." 
   (interactive) 
-  (mapc 'kill-buffer (delq (current-buffer) 
-			   (remove-if-not 'buffer-file-name (buffer-list)))))
+  (kill-buffer nil))
 
-(global-set-key (kbd "C-x k") 'kill-other-buffers)
+(defun kill-all-buffers () 
+  "Close all buffers." 
+  (interactive) 
+  (let ((lsp-restart 'ignore)) 
+    (delete-other-windows) 
+    (save-some-buffers) 
+    (let ((kill-buffer-query-functions '())) 
+      (mapc 'kill-buffer (buffer-list)))))
+
+(global-set-key (kbd "C-x k") #'kill-this-buffer)
+(global-set-key (kbd "C-x K") #'kill-all-buffers)
 
 ;; ********** Config packges
 
@@ -68,9 +140,9 @@
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/") 
-			 ("melpa-stable" . "https://stable.melpa.org/packages/") 
-			 ("org" . "https://orgmode.org/elpa/") 
-			 ("elpa" . "https://elpa.gnu.org/packages/")))
+                         ("melpa-stable" . "https://stable.melpa.org/packages/") 
+                         ("org" . "https://orgmode.org/elpa/") 
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
 
@@ -81,6 +153,15 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+
+(setq rar/exwm-enabled (and (eq window-system 'x) 
+                            (seq-contains command-line-args "--use-exwm")))
+
+(when rar/exwm-enabled 
+  (require 'exwm) 
+  (require 'exwm-config) 
+  (exwm-config-default))
+
 ;; Theme
 (use-package 
   doom-themes 
@@ -89,6 +170,15 @@
   (load-theme 'doom-dracula t))
 
 ;; Rainbow delimiters
+(use-package 
+  paren 
+  :config (show-paren-mode) 
+  :custom (show-paren-style 'parenthesis))
+(set-face-background 'show-paren-match (face-background 'default))
+(set-face-foreground 'show-paren-match "#def")
+(set-face-attribute 'show-paren-match nil 
+                    :weight 'extra-bold)
+
 (use-package 
   rainbow-delimiters 
   :ensure t 
@@ -101,27 +191,21 @@
   :diminish which-key-mode 
   :config (setq which-key-idle-delay 0.3))
 
-;; Switch buffer using counsel
-(global-set-key (kbd "C-M-j") 'counsel-switch-buffer)
-(global-set-key (kbd "C-c r") 'counsel-rg)
-(global-set-key (kbd "C-c z") 'counsel-fzf)
-(global-set-key (kbd "M-y") 'counsel-yank-pop)
-
 ;; Enhanced completition framework
 (use-package 
   ivy 
   :ensure t 
   :diminish 
   :bind (("C-s" . swiper) :map ivy-minibuffer-map ("TAB" . ivy-alt-done) 
-	 ("C-f" . ivy-alt-done) 
-	 ("C-l" . ivy-alt-done) 
-	 ("C-j" . ivy-next-line) 
-	 ("C-k" . ivy-previous-line) 
-	 :map ivy-switch-buffer-map ("C-k" . ivy-previous-line) 
-	 ("C-l" . ivy-done) 
-	 ("C-d" . ivy-switch-buffer-kill) 
-	 :map ivy-reverse-i-search-map ("C-k" . ivy-previous-line) 
-	 ("C-d" . ivy-reverse-i-search-kill)) 
+         ("C-f" . ivy-alt-done) 
+         ("C-l" . ivy-alt-done) 
+         ("C-j" . ivy-next-line) 
+         ("C-k" . ivy-previous-line) 
+         :map ivy-switch-buffer-map ("C-k" . ivy-previous-line) 
+         ("C-l" . ivy-done) 
+         ("C-d" . ivy-switch-buffer-kill) 
+         :map ivy-reverse-i-search-map ("C-k" . ivy-previous-line) 
+         ("C-d" . ivy-reverse-i-search-kill)) 
   :init (ivy-mode 1) 
   (setq ivy-use-virtual-buffers t) 
   (setq ivy-wrap t) 
@@ -147,15 +231,20 @@
 (use-package 
   counsel 
   :bind (("M-x" . counsel-M-x) 
-	 ("C-x b" . counsel-ibuffer) 
-	 ("C-x C-f" . counsel-find-file) 
-	 :map minibuffer-local-map ("C-r" . 'counsel-minibuffer-history)) 
+         ("C-x b" . counsel-ibuffer) 
+         ("C-x C-f" . counsel-find-file) 
+         ("C-c R" . counsel-rg) 
+         ("C-c F" . counsel-fzf) 
+         ("C-M-j" . counsel-switch-buffer) 
+         ("M-y" . counsel-yank-pop) 
+         :map minibuffer-local-map ("C-r" . 'counsel-minibuffer-history)) 
   :config (setq ivy-initial-inputs-alias nil) 
   (setq counsel-find-file-ignore-regexp ".*cache"))
 
 (use-package 
-  ivy-rich
-  :after ivy counsel
+  ivy-rich 
+  :after ivy 
+  counsel 
   :init (ivy-rich-mode 1))
 
 (use-package 
@@ -182,85 +271,31 @@
   :init (doom-modeline-mode 1) 
   :custom ((doom-modeline-height 15)))
 
-;; Hook to modes
-(defun dw/evil-hook () 
-  (dolist (mode '(custom-mode eshell-mode git-rebase-mode erc-mode circe-server-mode circe-chat-mode
-			      circe-query-mode sauron-mode term-mode)) 
-    (add-to-list 'evil-emacs-state-modes mode)))
-
-(global-set-key (kbd "C-M-u") 'universal-argument)
-
-;; Better experience with evil
 (use-package 
-  undo-tree 
-  :init (global-undo-tree-mode 1) 
+  undo-tree
+  :diminish 
+  :init (global-undo-tree-mode +1) 
+  :bind (("C-c _" . undo-tree-visualize)) 
+  :config (unbind-key "M-_" undo-tree-map) 
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo"))))
-
-;; Watch out with arrow keys
-(defun dw/dont-arrow-me-bro () 
-  (interactive) 
-  (message "Arrow keys are bad, you know?"))
 
 (use-package 
   general 
-  :config (general-evil-setup t) 
-  (general-create-definer rar/leader-key-def 
-    :keymaps '(normal insert visual emacs) 
-    :prefix "C-;" 
-    :non-normal-prefix "C-;" 
-    :global-prefix "C-;") 
+  :config (general-create-definer rar/leader-key-def 
+            :prefix "C-c C-;") 
   (general-create-definer ctrl-c-keys 
     :prefix "C-c"))
 
 (rar/leader-key-def "t" 
   '(:ignore t 
-	    :which-key "toggles")
+            :which-key "toggles")
   "tw" 'whitespace-mode "tt" '(counsel-load-theme :which-key "choose theme") "lf"
   'elisp-format-buffer)
 
 (ctrl-c-keys "c" 
   '(:ignore t 
-	    :which-key "chat")
-  "cb" 'erc-switch-to-buffer "cc" 'dw/connect-irc "ca" 'erc-track-switch-buffer)
-
-;; Lets be evil
-(use-package 
-  evil 
-  :init (setq evil-want-integration t) 
-  (setq evil-want-keybinding nil) 
-  (setq evil-want-C-u-scroll t) 
-  (setq evil-want-C-i-jump nil) 
-  (setq evil-respect-visual-line-mode t) 
-  (setq evil-undo-system 'undo-tree) 
-  :config (add-hook 'evil-mode-hook 'dw/evil-hook) 
-  (evil-mode 1) 
-  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state) 
-  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join) 
-  (define-key evil-insert-state-map (kbd "C-s") 'evil-write)
-
-  ;; Use visual line motions even outside of visual-line-mode buffers
-  (evil-global-set-key 'motion "j" 'evil-next-visual-line) 
-  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-
-  ;; Disable arrow keys in normal and visual modes
-  (define-key evil-normal-state-map (kbd "<left>") 'dw/dont-arrow-me-bro) 
-  (define-key evil-normal-state-map (kbd "<right>") 'dw/dont-arrow-me-bro) 
-  (define-key evil-normal-state-map (kbd "<down>") 'dw/dont-arrow-me-bro) 
-  (define-key evil-normal-state-map (kbd "<up>") 'dw/dont-arrow-me-bro) 
-  (evil-global-set-key 'motion (kbd "<left>") 'dw/dont-arrow-me-bro) 
-  (evil-global-set-key 'motion (kbd "<right>") 'dw/dont-arrow-me-bro) 
-  (evil-global-set-key 'motion (kbd "<down>") 'dw/dont-arrow-me-bro) 
-  (evil-global-set-key 'motion (kbd "<up>") 'dw/dont-arrow-me-bro) 
-  (evil-set-initial-state 'messages-buffer-mode 'normal) 
-  (evil-set-initial-state 'dashboard-mode 'normal))
-
-(use-package 
-  evil-collection 
-  :after evil 
-  :init (setq evil-collection-company-use-tng nil) ;; Is this a bug in evil-collection?
-  :custom (evil-collection-outline-bind-tab-p nil) 
-  :config (setq evil-collection-mode-list (remove 'lispy evil-collection-mode-list)) 
-  (evil-collection-init))
+            :which-key "chat")
+  "b" 'erc-switch-to-buffer "c" 'dw/connect-irc "t" 'erc-track-switch-buffer)
 
 (use-package 
   elisp-format 
@@ -279,19 +314,19 @@
   (setq bse (file-name-sans-extension buffer-file-name)) 
   (setq ext (downcase (file-name-extension buffer-file-name))) 
   (cond ((or 
-	  (equal ext "h") 
-	  (equal ext "hpp")) 
-	 (setq nfn (concat bse ".c")) 
-	 (if (file-exists-p nfn) 
-	     (find-file nfn) 
-	   (progn 
-	     (setq nfn (concat bse ".cpp")) 
-	     (find-file nfn)))) 
-	((or 
-	  (equal ext "cpp") 
-	  (equal ext "c")) 
-	 (setq nfn (concat bse ".h")) 
-	 (find-file nfn))))
+          (equal ext "h") 
+          (equal ext "hpp")) 
+         (setq nfn (concat bse ".c")) 
+         (if (file-exists-p nfn) 
+             (find-file nfn) 
+           (progn 
+             (setq nfn (concat bse ".cpp")) 
+             (find-file nfn)))) 
+        ((or 
+          (equal ext "cpp") 
+          (equal ext "c")) 
+         (setq nfn (concat bse ".h")) 
+         (find-file nfn))))
 
 (global-set-key (kbd "C-c s") 'dts-switch-between-header-and-source)
 
@@ -322,7 +357,7 @@
   :demand t 
   :bind-keymap ("C-c p" . projectile-command-map) 
   :init (when (file-directory-p "~/Projetos") 
-	  (setq projectile-project-search-path '("~/Projetos"))) 
+          (setq projectile-project-search-path '("~/Projetos"))) 
   (setq projectile-switch-project-action #'switch-project-action))
 
 (use-package 
@@ -341,8 +376,8 @@
   :init (setq persp-suppress-no-prefix-key-warning t) 
   :demand t 
   :bind (("C-M-k" . persp-switch) 
-	 ("C-M-n" . persp-next) 
-	 ("C-x k" . persp-kill-buffer*)) 
+         ("C-M-n" . persp-next) 
+         ("C-x k" . persp-kill-buffer*)) 
   :custom (persp-initial-frame-name "Main") 
   :config
   ;; Running `persp-mode' multiple times resets the perspective list...
@@ -358,10 +393,10 @@
 
 (rar/leader-key-def "g" 
   '(:ignore t 
-	    :which-key "git")
+            :which-key "git")
   "gs"  'magit-status "gd"  'magit-diff-unstaged "gc"  'magit-branch-or-checkout "gl" 
   '(:ignore t 
-	    :which-key "log")
+            :which-key "log")
   "glc" 'magit-log-current "glf" 'magit-log-buffer-file "gb"  'magit-branch "gP" 'magit-push-current
   "gp"  'magit-pull-branch "gf"  'magit-fetch "gF"  'magit-fetch-all "gr" 'magit-rebase)
 
@@ -377,9 +412,9 @@
   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
 
 (add-hook 'before-save-hook (lambda () 
-			      (when (eq major-mode 'c++-mode) 
-				(set-buffer-file-coding-system 'iso-8859-1) 
-				(message "Covertido"))))
+                              (when (eq major-mode 'c++-mode) 
+                                (set-buffer-file-coding-system 'iso-8859-1) 
+                                (message "Covertido"))))
 
 ;; Language server provider
 (use-package 
@@ -387,8 +422,8 @@
   :ensure t 
   :commands (lsp lsp-deferred) 
   :hook ((c-mode . lsp) 
-	 (c++-mode . lsp) 
-	 (lsp-mode . lsp-enable-which-key-integration)) 
+         (c++-mode . lsp) 
+         (lsp-mode . lsp-enable-which-key-integration)) 
   :config (setq lsp-keymap-prefix "C-c l") 
   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map) 
   (setq lsp-file-watch-threshold 15000))
@@ -399,7 +434,7 @@
 
 (rar/leader-key-def "l" 
   '(:ignore t 
-	    :which-key "lsp")
+            :which-key "lsp")
   "ld" 'xref-find-definitions "lr" 'xref-find-references "ln" 'lsp-ui-find-next-reference "lp"
   'lsp-ui-find-prev-reference "ls" 'counsel-imenu "le" 'lsp-ui-flycheck-list "lS"
   'lsp-ui-sideline-mode "lX" 'lsp-execute-code-action)
@@ -429,11 +464,11 @@
   :bind ("C-M-/" . company-complete-common-or-cycle) 
   :init (add-hook 'after-init-hook 'global-company-mode) 
   :config (setq company-show-numbers t company-minimum-prefix-length 1 company-idle-delay 0.5
-		company-backends '((company-files ; files & directory
+                company-backends '((company-files ; files & directory
 				    company-keywords ; keywords
 				    company-capf     ; what is this?
 				    company-yasnippet) 
-				   (company-abbrev company-dabbrev))))
+                                   (company-abbrev company-dabbrev))))
 
 (use-package 
   company-box 
@@ -441,19 +476,23 @@
   :after company 
   :hook (company-mode . company-box-mode))
 
+(use-package lsp-treemacs
+  :ensure t
+  :commands lsp-treemacs-erros-list)
+
 (use-package 
   yasnippet 
   :hook (prog-mode . yas-minor-mode) 
   :config (yas-reload-all))
 
-;;; Build system
+;; Build system
 (defun bearmake-compile-command () 
   "Bear make compile command." 
   (interactive) 
   (set (make-local-variable 'compile-command) 
        (concat "make distclean -j6 && bear make -C src -j6 && make -C mock -j6 && make -C test -j6"
-	       (if buffer-file-name (shell-quote-argument (file-name-sans-extension
-							   buffer-file-name))))) 
+               (if buffer-file-name (shell-quote-argument (file-name-sans-extension
+                                                           buffer-file-name))))) 
   (call-interactively 'compile))
 
 (defhydra hydra-build 
@@ -465,114 +504,143 @@
 ;; Go Lang
 (use-package 
   go-mode 
-  :hook (go-mode . lsp-deferred))
-
-
-;; Lisp
-(use-package 
-  lispy 
-  :hook ((emacs-lisp-mode . lispy-mode) 
-	 (scheme-mode . lispy-mode)))
+  :defer t 
+  :hook (go-mode . lsp-deferred) 
+  :config (add-hook 'before-save-hook #'gofmt-before-save))
 
 (use-package 
-  lispyville 
-  :hook ((lispy-mode . lispyville-mode)) 
-  :config (lispyville-set-key-theme '(operators c-w additional additional-movement slurp/barf-cp
-						prettify)))
+  go-snippets 
+  :defer t)
+
+(defun fix-messed-up-gofmt-path () 
+  (interactive) 
+  (setq gofmt-command (string-trim (shell-command-to-string "which gofmt"))))
+
+(use-package 
+  gotest 
+  :bind (:map go-mode-map
+              ("C-c a t" . #'go-test-current-test)))
+
+;; Rust
+(use-package 
+  rust-mode 
+  :defer t 
+  :custom (rust-format-on-save t) 
+  (lsp-rust-server 'rust-analyzer))
 
 (rar/leader-key-def "e" 
   '(:ignore t 
-	    :which-key "eval")
+            :which-key "eval")
   "eb"  '(eval-buffer :which-key "eval buffer"))
 
 (rar/leader-key-def :keymaps '(visual) 
   "er" '(eval-region :which-key "eval region"))
 
+;; clojure
 (use-package 
   cider 
   :mode "\\.clj[sc]?\\'" 
-  :config (evil-collection-cider-setup))
+  :config)
+
+(use-package 
+  yaml-mode 
+  :defer t)
+(use-package 
+  dockerfile-mode 
+  :defer t)
+(use-package 
+  toml-mode 
+  :defer t)
+(use-package 
+  asn1-mode 
+  :defer t)
 
 ;; RSS reader
-(use-package
-  elfeed
-  :ensure t
+(use-package 
+  elfeed 
+  :ensure t 
   :commands elfeed 
   :config (setq elfeed-feeds '("https://www.fluentcpp.com/feed"
-			       "https://www.reddit.com/r/emacs/.rss"
-			       "https://blog.rust-lang.org/feed.xml"
-			       "https://www.reddit.com/r/golang/.rss"
-			       "https://golangnews.com/index.xmle"
-			       "https://www.reddit.com/r/EmuDev/.rss"
-			       "https://www.reddit.com/r/rust/.rss"
-			       "https://clojure-diary.gitlab.io/feed.xml"
-			       "https://www.reddit.com/r/Clojure/.rss") elfeed-db-directory (expand-file-name "elfeed" user-emacs-directory))
-:bind ("C-x w" . elfeed))
+                               "https://www.reddit.com/r/emacs/.rss"
+                               "https://blog.rust-lang.org/feed.xml"
+                               "https://www.reddit.com/r/golang/.rss"
+                               "https://golangnews.com/index.xmle"
+                               "https://www.reddit.com/r/EmuDev/.rss"
+                               "https://www.reddit.com/r/rust/.rss"
+                               "https://clojure-diary.gitlab.io/feed.xml"
+                               "https://www.reddit.com/r/Clojure/.rss") elfeed-db-directory
+                               (expand-file-name "elfeed" user-emacs-directory)) 
+  :bind ("C-x w" . elfeed))
 
 (rar/leader-key-def "f" 
   '(:ignore t 
-	    :which-key "feed")
-  "fi"  '(elfeed :which-key "elfeed init") "fa"  '(elfeed-update :which-key "elfeed init"))
+            :which-key "feed")
+  "i"  '(elfeed :which-key "elfeed init") "u"  '(elfeed-update :which-key "elfeed init"))
 
 ;; Nerd commenter
 (use-package 
   evil-nerd-commenter 
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+  :bind ("M-/" . 'evilnc-comment-or-uncomment-lines) 
+  ("C-c C-l" . 'evilnc-quick-comment-or-uncomment-to-the-line) 
+  ("C-c C-c" . 'evilnc-copy-and-comment-lines) 
+  ("C-c C-p" . 'evilnc-comment-or-uncomment-paragraphs))
 
-(use-package 
-  all-the-icons-dired)
+(use-package all-the-icons-dired
+  :after all-the-icons
+  :hook (dired-mode . all-the-icons-dired-mode))
+
 (use-package 
   dired 
   :ensure nil 
   :defer 1 
   :commands (dired dired-jump) 
   :config (setq dired-listing-switches "-agho --group-directories-first" dired-omit-files
-		"^\\.[^.].*" dired-omit-verbose nil dired-hide-details-hide-symlink-targets nil
-		delete-by-moving-to-trash t) 
+                "^\\.[^.].*" dired-omit-verbose nil dired-hide-details-hide-symlink-targets nil
+                delete-by-moving-to-trash t) 
   (autoload 'dired-omit-mode "dired-x") 
   (add-hook 'dired-load-hook (lambda () 
-			       (interactive) 
-			       (dired-collapse))) 
+                               (interactive) 
+                               (dired-collapse))) 
   (add-hook 'dired-mode-hook (lambda () 
-			       (interactive) 
-			       (dired-omit-mode 1) 
-			       (dired-hide-details-mode 1) 
-			       (all-the-icons-dired-mode 1) 
-			       (hl-line-mode 1))) 
+                               (interactive) 
+                               (dired-omit-mode 1) 
+                               (dired-hide-details-mode 1) 
+                               (all-the-icons-dired-mode 1) 
+                               (hl-line-mode 1))) 
   (use-package 
     dired-rainbow 
     :defer 2 
     :config (dired-rainbow-define-chmod directory "#6cb2eb" "d.*") 
     (dired-rainbow-define html "#eb5286" ("css" "less" "sass" "scss" "htm" "html" "jhtm" "mht" "eml"
-					  "mustache" "xhtml")) 
+                                          "mustache" "xhtml")) 
     (dired-rainbow-define xml "#f2d024" ("xml" "xsd" "xsl" "xslt" "wsdl" "bib" "json" "msg" "pgn"
-					 "rss" "yaml" "yml" "rdata")) 
+                                         "rss" "yaml" "yml" "rdata")) 
     (dired-rainbow-define document "#9561e2" ("docm" "doc" "docx" "odb" "odt" "pdb" "pdf" "ps" "rtf"
-					      "djvu" "epub" "odp" "ppt" "pptx")) 
+                                              "djvu" "epub" "odp" "ppt" "pptx")) 
     (dired-rainbow-define markdown "#ffed4a" ("org" "etx" "info" "markdown" "md" "mkd" "nfo" "pod"
-					      "rst" "tex" "textfile" "txt")) 
+                                              "rst" "tex" "textfile" "txt")) 
     (dired-rainbow-define database "#6574cd" ("xlsx" "xls" "csv" "accdb" "db" "mdb" "sqlite" "nc")) 
     (dired-rainbow-define media "#de751f" ("mp3" "mp4" "mkv" "MP3" "MP4" "avi" "mpeg" "mpg" "flv"
-					   "ogg" "mov" "mid" "midi" "wav" "aiff" "flac")) 
+                                           "ogg" "mov" "mid" "midi" "wav" "aiff" "flac")) 
     (dired-rainbow-define image "#f66d9b" ("tiff" "tif" "cdr" "gif" "ico" "jpeg" "jpg" "png" "psd"
-					   "eps" "svg")) 
+                                           "eps" "svg")) 
     (dired-rainbow-define log "#c17d11" ("log")) 
     (dired-rainbow-define shell "#f6993f" ("awk" "bash" "bat" "sed" "sh" "zsh" "vim")) 
     (dired-rainbow-define interpreted "#38c172" ("py" "ipynb" "rb" "pl" "t" "msql" "mysql" "pgsql"
-						 "sql" "r" "clj" "cljs" "scala" "js")) 
+                                                 "sql" "r" "clj" "cljs" "scala" "js")) 
     (dired-rainbow-define compiled "#4dc0b5" ("asm" "cl" "lisp" "el" "c" "h" "c++" "h++" "hpp" "hxx"
-					      "m" "cc" "cs" "cp" "cpp" "go" "f" "for" "ftn" "f90"
-					      "f95" "f03" "f08" "s" "rs" "hi" "hs" "pyc" ".java")) 
+                                              "m" "cc" "cs" "cp" "cpp" "go" "f" "for" "ftn" "f90"
+                                              "f95" "f03" "f08" "s" "rs" "hi" "hs" "pyc" ".java")) 
     (dired-rainbow-define executable "#8cc4ff" ("exe" "msi")) 
     (dired-rainbow-define compressed "#51d88a" ("7z" "zip" "bz2" "tgz" "txz" "gz" "xz" "z" "Z" "jar"
-						"war" "ear" "rar" "sar" "xpi" "apk" "xz" "tar")) 
+                                                "war" "ear" "rar" "sar" "xpi" "apk" "xz" "tar")) 
     (dired-rainbow-define packaged "#faad63" ("deb" "rpm" "apk" "jad" "jar" "cab" "pak" "pk3" "vdf"
-					      "vpk" "bsp")) 
+                                              "vpk" "bsp")) 
     (dired-rainbow-define encrypted "#ffed4a" ("gpg" "pgp" "asc" "bfe" "enc" "signature" "sig" "p12"
-					       "pem")) 
+                                               "pem")) 
     (dired-rainbow-define fonts "#6cb2eb" ("afm" "fon" "fnt" "pfb" "pfm" "ttf" "otf")) 
     (dired-rainbow-define partition "#e3342f" ("dmg" "iso" "bin" "nrg" "qcow" "toast" "vcd" "vmdk"
-					       "bak")) 
+                                               "bak")) 
     (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules")) 
     (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*")) 
   (use-package 
@@ -583,32 +651,21 @@
     :defer t) 
   (use-package 
     dired-collapse 
-    :defer t) 
-  (evil-collection-define-key 'normal 'dired-mode-map "h" 'dired-single-up-directory "H"
-    'dired-omit-mode "l" 'dired-single-buffer "y" 'dired-ranger-copy "X" 'dired-ranger-move "p"
-    'dired-ranger-paste))
-
-(defun efs/configure-eshell ()
-  ;; Save command history when commands are entered
-  (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
-
-  ;; Truncate buffer for performance
-  (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
-
-  ;; Bind some useful keys for evil-mode
-  (evil-define-key '(normal insert visual) eshell-mode-map (kbd "C-r") 'counsel-esh-history) 
-  (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'eshell-bol) 
-  (evil-normalize-keymaps) 
-  (setq eshell-history-size         10000 eshell-buffer-maximum-lines 10000 eshell-hist-ignoredups t
-	eshell-scroll-to-bottom-on-input t))
+    :defer t))
 
 (use-package 
-  eshell-git-prompt)
+  vterm 
+  :config (defun turn-off-chrome () 
+            (hl-line-mode -1) 
+            (display-line-numbers-mode -1)) 
+  :hook (vterm-mode . turn-off-chrome))
 
 (use-package 
-  eshell 
-  :hook (eshell-first-time-mode . efs/configure-eshell) 
-  :config (with-eval-after-load 'esh-opt 
-	    (setq eshell-destroy-buffer-when-process-dies t) 
-	    (setq eshell-visual-commands '("htop" "zsh" "vim"))) 
-  (eshell-git-prompt-use-theme 'powerline))
+  vterm-toggle 
+  :custom (vterm-toggle-fullscreen-p nil "Open a vterm in another window.") 
+  (vterm-toggle-scope 'project) 
+  :bind (("C-c t" . #'vterm-toggle) :map vterm-mode-map ("C-\\" . #'popper-cycle) 
+         ("s-t" . #'vterm)		; Open up new tabs quickly
+         ("s-v" . #'vterm-yank)))
+
+
