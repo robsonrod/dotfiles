@@ -4,9 +4,12 @@ eval "$(starship init bash)"
 # Zoxide
 eval "$(zoxide init bash)"
 
+
 # ASDF configuration
-. ${HOME}/.asdf/asdf.sh
-. ${HOME}/.asdf/completions/asdf.bash
+if [ -f ${HOME}/.asdf/asdf.sh ]; then
+   . ${HOME}/.asdf/asdf.sh
+   . ${HOME}/.asdf/completions/asdf.bash
+fi
 
 # Prompt GPG password
 export GPG_TTY=$(tty)
