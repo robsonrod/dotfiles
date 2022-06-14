@@ -144,8 +144,6 @@
 (global-set-key (kbd "C-x K") #'kill-all-buffers)
 
 
-(electric-pair-mode)
-
 ;; ********** Config packges
 
 ;; Initialize package sources
@@ -195,6 +193,13 @@
   rainbow-delimiters 
   :ensure t 
   :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package smartparens
+  :diminish smartparens-mode
+  :init
+  (smartparens-global-mode)
+  :config
+  (require 'smartparens-config))
 
 (use-package iedit :defer t)
 
