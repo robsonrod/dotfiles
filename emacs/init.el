@@ -596,9 +596,7 @@
   :ensure nil 
   :defer 1 
   :commands (dired dired-jump) 
-  :config (setq dired-listing-switches "-agho --group-directories-first" dired-omit-files
-                "^\\.[^.].*" dired-omit-verbose nil dired-hide-details-hide-symlink-targets nil
-                delete-by-moving-to-trash t) 
+  :config
   (autoload 'dired-omit-mode "dired-x") 
   (add-hook 'dired-load-hook (lambda () 
                                (interactive) 
@@ -654,6 +652,10 @@
   (use-package 
     dired-collapse 
     :defer t))
+
+(use-package exec-path-from-shell
+  :init (exec-path-from-shell-initialize))
+
 
 (use-package 
   vterm 
