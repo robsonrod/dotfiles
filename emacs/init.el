@@ -90,6 +90,8 @@
 ;; changing cursor type.
 (setq-default cursor-type 'bar)
 
+(setq custom-file (make-temp-name "/tmp/"))
+
 ;; ESC cancels all commands
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
@@ -106,8 +108,15 @@
   (split-window-right)
   (balance-windows))
 
+
 (global-set-key (kbd "C-c 2") #'pt/split-window-two)
 
+(defun open-init-file ()
+  "Open config file file."
+  (interactive)
+  (find-file "~/.emacs"))
+
+(global-set-key (kbd "C-c i") #'open-init-file)
 
 ;; changing yes or no question
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -135,6 +144,9 @@
 
 (global-set-key (kbd "C-x k") #'kill-this-buffer)
 (global-set-key (kbd "C-x K") #'kill-all-buffers)
+
+
+(electric-pair-mode)
 
 ;; ********** Config packges
 
@@ -185,6 +197,10 @@
   rainbow-delimiters 
   :ensure t 
   :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package iedit :defer t)
+
+(use-package sudo-edit)
 
 ;; Key helper
 (use-package 
