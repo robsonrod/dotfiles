@@ -100,18 +100,18 @@
 (global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-<left>") 'shrink-window-horizontally)
 
-(defun pt/split-window-two ()
-  "Split a window into two."
-  (interactive)
-  (split-window-right)
+(defun pt/split-window-two () 
+  "Split a window into two." 
+  (interactive) 
+  (split-window-right) 
   (balance-windows))
 
 
 (global-set-key (kbd "C-c 2") #'pt/split-window-two)
 
-(defun open-init-file ()
-  "Open config file file."
-  (interactive)
+(defun open-init-file () 
+  "Open config file file." 
+  (interactive) 
   (find-file "~/.emacs"))
 
 (global-set-key (kbd "C-c i") #'open-init-file)
@@ -194,16 +194,18 @@
   :ensure t 
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(use-package smartparens
-  :diminish smartparens-mode
-  :init
-  (smartparens-global-mode)
-  :config
-  (require 'smartparens-config))
+(use-package 
+  smartparens 
+  :diminish smartparens-mode 
+  :init (smartparens-global-mode) 
+  :config (require 'smartparens-config))
 
-(use-package iedit :defer t)
+(use-package 
+  iedit 
+  :defer t)
 
-(use-package sudo-edit)
+(use-package 
+  sudo-edit)
 
 ;; Key helper
 (use-package 
@@ -293,10 +295,13 @@
   :custom ((doom-modeline-height 15)))
 
 (use-package 
-  undo-tree
+  undo-tree 
+
   :diminish 
   :init (global-undo-tree-mode +1) 
-  :bind (("C-c _" . undo-tree-visualize)) 
+  :bind (("C-c _" . undo-tree-visualize) 
+         ("C-c z" . undo-tree-undo) 
+         ("C-c r" . undo-tree-redo)) 
   :config (unbind-key "M-_" undo-tree-map) 
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo"))))
 
@@ -497,8 +502,9 @@
   :after company 
   :hook (company-mode . company-box-mode))
 
-(use-package lsp-treemacs
-  :ensure t
+(use-package 
+  lsp-treemacs 
+  :ensure t 
   :commands lsp-treemacs-erros-list)
 
 (use-package 
@@ -522,8 +528,9 @@
 
 (rar/leader-key-def "mk" '(hydra-build/body :which-key "compile commands"))
 
-(use-package modern-cpp-font-lock
-  :ensure t
+(use-package 
+  modern-cpp-font-lock 
+  :ensure t 
   :config (modern-c++-font-lock-global-mode t))
 
 ;; Go Lang
@@ -610,8 +617,9 @@
   ("C-c C-c" . 'evilnc-copy-and-comment-lines) 
   ("C-c C-p" . 'evilnc-comment-or-uncomment-paragraphs))
 
-(use-package all-the-icons-dired
-  :after all-the-icons
+(use-package 
+  all-the-icons-dired 
+  :after all-the-icons 
   :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package 
@@ -619,8 +627,7 @@
   :ensure nil 
   :defer 1 
   :commands (dired dired-jump) 
-  :config
-  (autoload 'dired-omit-mode "dired-x") 
+  :config (autoload 'dired-omit-mode "dired-x") 
   (add-hook 'dired-load-hook (lambda () 
                                (interactive) 
                                (dired-collapse))) 
@@ -676,7 +683,8 @@
     dired-collapse 
     :defer t))
 
-(use-package exec-path-from-shell
+(use-package 
+  exec-path-from-shell 
   :init (exec-path-from-shell-initialize))
 
 
@@ -694,5 +702,3 @@
   :bind (("C-c t" . #'vterm-toggle) :map vterm-mode-map ("C-\\" . #'popper-cycle) 
          ("s-t" . #'vterm)		; Open up new tabs quickly
          ("s-v" . #'vterm-yank)))
-
-
