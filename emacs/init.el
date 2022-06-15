@@ -522,6 +522,10 @@
 
 (rar/leader-key-def "mk" '(hydra-build/body :which-key "compile commands"))
 
+(use-package modern-cpp-font-lock
+  :ensure t
+  :config (modern-c++-font-lock-global-mode t))
+
 ;; Go Lang
 (use-package 
   go-mode 
