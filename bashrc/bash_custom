@@ -82,6 +82,11 @@ alias cp="cp -i"
 alias mv='mv -i'
 alias rm='rm -i'
 
+tkill() {
+    tmux kill-server
+}
+trap close_tmux EXIT
+
 opendebug () {
  logdt=`date +"%Y-%m-%d"`;
  dev=$1;

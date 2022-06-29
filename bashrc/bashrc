@@ -1,9 +1,9 @@
 #### General ####
-
 export TERM='xterm-256color'
-export EDITOR="emacs"
-export PROJ_HOME="~/Projetos"
-export PAGER="most"
+export EDITOR='emacs'
+export PROJ_HOME='~/Projetos'
+export MANPAGER='most'
+export PAGER='less'
 
 shopt -s histappend
 shopt -s checkwinsize
@@ -14,6 +14,8 @@ case $- in
     *i*) ;;
       *) return;;
 esac
+
+PATH="$HOME/.local/bin":$HOME/bin:/usr/local/bin:$PATH
 
 HISTCONTROL=ignoredups:erasedups
 HISTSIZE=100000
