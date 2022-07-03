@@ -21,6 +21,8 @@ HISTCONTROL=ignoredups:erasedups
 HISTSIZE=100000
 HISTFILESIZE=20000
 
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"

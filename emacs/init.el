@@ -83,7 +83,7 @@
 ;; font configuration
 (set-face-attribute 'default nil 
                     :font "Fira Code Retina" 
-                    :height 72)
+                    :height 80)
 
 ;; changing cursor type.
 (setq-default cursor-type 'bar)
@@ -120,8 +120,8 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; set encoding
-(prefer-coding-system 'iso-8859-1)
-(set-default-coding-systems 'iso-8859-1)
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
@@ -685,8 +685,12 @@
 
 (use-package 
   exec-path-from-shell 
-  :init (exec-path-from-shell-initialize))
-
+  :ensure t 
+  :if (and (equal system-type 'darwin) 
+           (window-system)) 
+  :custom (setq exec-path-from-shell-check-startup-files nil) 
+  (setq exec-path-from-shell-variables . '("PATH" "GOPATH")) 
+  :config (exec-path-from-shell-initialize))
 
 (use-package 
   vterm 
