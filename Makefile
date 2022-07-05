@@ -1,18 +1,12 @@
 SHELL := /bin/sh
 .ONESHELL:
 
-all: mandatory_tools fonts term_tools dev_tools links
+all: mandatory_tools term_tools dev_tools links
 
 mandatory_tools:
 	@echo "mandatory tools"
-	@sudo apt update
-	@sudo apt install -qq -y bash-completion alacritty wget zip unzip git exa ripgrep zoxide fzf tmux neovim terminator fonts-powerline
+	@sudo pacman -Syy --noconfirm bash-completion alacritty wget zip unzip git exa ripgrep zoxide fzf tmux neovim terminator powerline-fonts
 	@echo "done"
-
-emacs_install:
-	@sudo add-apt-repository ppa:kelleyk/emacs
-	@sudo apt update
-	@sudo apt install emacs28
 
 fonts:
 	@echo "installing fonts..."
@@ -49,8 +43,7 @@ term_tools:
 
 dev_tools:
 	@echo "dev tools"
-	@sudo apt-get install -y clangd-12 bear ccls
-	@sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-12 100
+	@sudo pacman -Syy --noconfirm clang bear ccls
 
 	@if [ -d ~/.asdf ]; then
 		@echo "asdf: already done"

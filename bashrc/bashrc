@@ -98,6 +98,9 @@ alias ll='exa -l --color=always --group-directories-first'
 alias lt='exa -aT --color=always --group-directories-first'
 alias tree='exa --tree'
 
+alias up='sudo pacman -Suy'
+alias install='sudo pacman -Sy'
+
 ## archive extraction function ##
 ### Usage: ex <file> ###
 ex ()
