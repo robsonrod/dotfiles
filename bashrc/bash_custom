@@ -48,11 +48,13 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-alias ls="exa"
-alias ll="exa -alh"
-alias tree="exa --tree"
-alias cd="z"
-alias grep="rg"
+alias ls='exa'
+alias ll='exa -alh'
+alias tree='exa --tree'
+alias cd='z'
+alias grep='rg'
+alias cat='bat'
+alias find='fdfind'
 
 ## Archive extraction function ##
 ### Usage: ex <file> ###
