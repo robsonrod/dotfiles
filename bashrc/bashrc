@@ -1,9 +1,22 @@
 #### General ####
 export TERM='xterm-256color'
 export EDITOR='emacs'
-export PROJ_HOME='~/Projetos'
+export PROJ_DIR='~/Projetos'
 export MANPAGER='most'
 export PAGER='less'
+export BROWSER='firefox'
+export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
+
+PATH="$HOME/.local/bin":$PATH
+GOPATH=$HOME/go
+PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
+
+HISTCONTROL=ignoredups:erasedups
+HISTSIZE=1000000
+HISTFILESIZE=20000
+
+PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
+#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 shopt -s histappend
 shopt -s checkwinsize
@@ -15,99 +28,133 @@ case $- in
       *) return;;
 esac
 
-PATH="$HOME/.local/bin":$HOME/bin:/usr/local/bin:$PATH
-
-HISTCONTROL=ignoredups:erasedups
-HISTSIZE=100000
-HISTFILESIZE=20000
-
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
 # set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+case ${TERM} in
+	xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|alacritty|st-256color|konsole*)
+		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
+		;;
+	screen*)
+		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'
+		;;
 esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+# starship 
+eval "$(starship init bash)"
 
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
+# zoxide
+eval "$(zoxide init bash)"
+
+# asdf configuration
+if [ -f ${HOME}/.asdf/asdf.sh ]; then
+   . ${HOME}/.asdf/asdf.sh
+   . ${HOME}/.asdf/completions/asdf.bash
 fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
+# prompt gpg password
+export GPG_TTY=$(tty)
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+# git alias
+alias gclo='git clone'
+alias gadd='git add'
+alias grm='git rm'
+alias gall='git add ./'
+alias gfth='git fetch --all --prune --verbose'
+alias grst='git reset HEAD'
+alias gmrg="git merge"
+alias gsts='git status'
+alias gpll='git pull'
+alias gplp='git pull && git push'
+alias gpsh='git push'
+alias gcmm='git commit -v -m'
+alias gbcm='git branch -m'
+alias gbcd='git branch -D'
+alias gchm='git checkout master'
+alias gchb='git checkout -b'
+alias glgr="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+alias glgs="glgr --stat"
+alias gstb="git stash branch"
+alias gstd="git stash drop"
+alias gstl="git stash list"
+alias gstp="git stash pop"
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+# general aliases
+alias g='git'
+alias h='history'
+alias v='vim'
+alias e='emacs -nw'
+alias cd='z'
+alias grep='rg'
+alias cat='bat'
+alias find='fdfind'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
+alias p='cd ${PROJ_DIR}'
+alias ..='cd ..' 
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ls='exa --color=always --group-directories-first'
+alias la='exa -la --color=always --group-directories-first'
+alias ll='exa -l --color=always --group-directories-first'
+alias lt='exa -aT --color=always --group-directories-first'
+alias tree='exa --tree'
 
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+## archive extraction function ##
+### Usage: ex <file> ###
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1     ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias cp="cp -i"
+alias mv='mv -i'
+alias rm='rm -i'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+tkill() {
+    tmux kill-server
+}
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+opendebug () {
+ logdt=`date +"%Y-%m-%d"`;
+ dev=$1;
+ geo=$3;
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+ log=~/tmp/logue/$2-$logdt;
+ title=$4;
 
-if [ -f ~/.bash_custom ]; then
-    . ~/.bash_custom
-fi
+ shift 4;
+ echo "putty -log $log.log -serial -sercfg 115200,8,n,1 ${dev} -geometry ${geo} -title \"${title}\" $@";
+ putty -log $log.log -sl 2000 -serial -sercfg 115200,8,n,1 ${dev} -geometry ${geo} -title "${title}" $@ &
+ echo "done."
+}
+
+opendebugusb () {
+ opendebug /dev/ttyUSB1 shell 100x80+5290+20 "tty-shell - PuTTY ";
+ opendebug /dev/ttyUSB0 print 80x80+5920+20 "tty-print - PuTTY "
+}
 
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
+fi
+
+if [ -f ~/Projetos/work/bash_work ]; then
+   . ~/Projetos/work/bash_work
 fi
 
 # enable programmable completion features (you don't need to enable
