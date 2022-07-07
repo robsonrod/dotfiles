@@ -1,5 +1,8 @@
 ;; -*- coding: utf-8; lexical-binding: t -*-
 
+;; Remove cl warnings
+(setq byte-compile-warnings '(cl-functions))
+
 ;; startup fast
 (setq gc-cons-threshold (* 50 1000 1000) read-process-output-max (* 1000 1000)
       treemacs-space-between-root-nodes nil company-idle-delay 0.0 company-minimum-prefix-length 1
@@ -52,7 +55,7 @@
 ;; never mix tabs and spaces. Never use tabs, period.
 (setq-default indent-tabs-mode nil)
 
-;; nnababling line numbers
+;; enabling line numbers
 (delete-selection-mode t)
 (column-number-mode)
 (global-display-line-numbers-mode t)
@@ -72,13 +75,14 @@
   (tooltip-mode -1) 
   (set-fringe-mode 10) 
   (global-hl-line-mode +1) 
-  (menu-bar-mode -1))
+  (menu-bar-mode -1) 
+  (auto-revert-mode 1) 
+  (electric-pair-mode 1))
 
-(set-frame-parameter (selected-frame) 'alpha '(95 . 50))
-(add-to-list 'default-frame-alist '(alpha . (95 . 50)))
+(set-frame-parameter (selected-frame) 'alpha '(95 . 70))
+(add-to-list 'default-frame-alist '(alpha . (95 . 70)))
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
 
 ;; font configuration
 (set-face-attribute 'default nil 
@@ -90,8 +94,21 @@
 
 (setq custom-file (make-temp-name "/tmp/"))
 
+;; Disable C-z
+(global-unset-key (kbd "C-z"))
+
 ;; ESC cancels all commands
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+;; eval buffer
+(global-set-key (kbd "C-c e b") 'eval-buffer)
+
+;; elisp format
+(global-set-key (kbd "C-c e f") 'elisp-format-buffer)
+
+;; move cursor
+(global-set-key (kbd "C-c b b") 'beginning-of-buffer)
+(global-set-key (kbd "C-c b e") 'end-of-buffer)
 
 ;; custom window management
 (global-set-key (kbd "C-<tab>") 'other-window)
@@ -306,24 +323,6 @@
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo"))))
 
 (use-package 
-  general 
-  :config (general-create-definer rar/leader-key-def 
-            :prefix "C-c C-;") 
-  (general-create-definer ctrl-c-keys 
-    :prefix "C-c"))
-
-(rar/leader-key-def "t" 
-  '(:ignore t 
-            :which-key "toggles")
-  "tw" 'whitespace-mode "tt" '(counsel-load-theme :which-key "choose theme") "lf"
-  'elisp-format-buffer)
-
-(ctrl-c-keys "c" 
-  '(:ignore t 
-            :which-key "chat")
-  "b" 'erc-switch-to-buffer "c" 'dw/connect-irc "t" 'erc-track-switch-buffer)
-
-(use-package 
   elisp-format 
   :ensure t 
   :init)
@@ -367,8 +366,6 @@
   ("f" nil "finished" 
    :exit t))
 
-(rar/leader-key-def "ts" '(hydra-text-scale/body :which-key "scale text"))
-
 ;; Project manager - Projectile
 (defun switch-project-action () 
   "Switch to a workspace with the project name and start `magit-status'."
@@ -392,11 +389,6 @@
   :bind (("C-M-p" . counsel-projectile-find-file)) 
   :config (counsel-projectile-mode))
 
-(rar/leader-key-def "pf"  'counsel-projectile-find-file "ps"  'counsel-projectile-switch-project
-  "pF"  'counsel-projectile-rg
-					;"pF"  'consult-ripgrep
-  "pp"  'counsel-projectile "pc"  'projectile-compile-project "pd"  'projectile-dired)
-
 (use-package 
   perspective 
   :init (setq persp-suppress-no-prefix-key-warning t) 
@@ -416,15 +408,6 @@
   :bind ("C-M-;" . magit-status) 
   :commands (magit-status magit-get-current-branch) 
   :custom (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
-(rar/leader-key-def "g" 
-  '(:ignore t 
-            :which-key "git")
-  "gs"  'magit-status "gd"  'magit-diff-unstaged "gc"  'magit-branch-or-checkout "gl" 
-  '(:ignore t 
-            :which-key "log")
-  "glc" 'magit-log-current "glf" 'magit-log-buffer-file "gb"  'magit-branch "gP" 'magit-push-current
-  "gp"  'magit-pull-branch "gf"  'magit-fetch "gF"  'magit-fetch-all "gr" 'magit-rebase)
 
 (use-package 
   git-gutter 
@@ -457,13 +440,6 @@
 (setq lsp-ui-doc-enable nil)
 (setq lsp-lens-enable nil)
 (setq lsp-headerline-breadcrumb-enable nil)
-
-(rar/leader-key-def "l" 
-  '(:ignore t 
-            :which-key "lsp")
-  "ld" 'xref-find-definitions "lr" 'xref-find-references "ln" 'lsp-ui-find-next-reference "lp"
-  'lsp-ui-find-prev-reference "ls" 'counsel-imenu "le" 'lsp-ui-flycheck-list "lS"
-  'lsp-ui-sideline-mode "lX" 'lsp-execute-code-action)
 
 (use-package 
   lsp-ui 
@@ -526,8 +502,6 @@
   (:timeout 4)
   "compile" ("B" bearmake-compile-command "Bear Make"))
 
-(rar/leader-key-def "mk" '(hydra-build/body :which-key "compile commands"))
-
 (use-package 
   modern-cpp-font-lock 
   :ensure t 
@@ -559,14 +533,6 @@
   :defer t 
   :custom (rust-format-on-save t) 
   (lsp-rust-server 'rust-analyzer))
-
-(rar/leader-key-def "e" 
-  '(:ignore t 
-            :which-key "eval")
-  "eb"  '(eval-buffer :which-key "eval buffer"))
-
-(rar/leader-key-def :keymaps '(visual) 
-  "er" '(eval-region :which-key "eval region"))
 
 ;; clojure
 (use-package 
@@ -603,11 +569,6 @@
                                "https://www.reddit.com/r/Clojure/.rss") elfeed-db-directory
                                (expand-file-name "elfeed" user-emacs-directory)) 
   :bind ("C-x w" . elfeed))
-
-(rar/leader-key-def "f" 
-  '(:ignore t 
-            :which-key "feed")
-  "i"  '(elfeed :which-key "elfeed init") "u"  '(elfeed-update :which-key "elfeed init"))
 
 ;; Nerd commenter
 (use-package 

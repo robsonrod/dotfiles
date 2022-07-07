@@ -152,21 +152,6 @@ opendebugusb () {
  opendebug /dev/ttyUSB0 print 80x80+5920+20 "tty-print - PuTTY "
 }
 
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
-fi
-
-if [ -f ~/Projetos/work/bash_work ]; then
-   . ~/Projetos/work/bash_work
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+if [ -f ~/.bash_custom ]; then
+   . ~/.bash_custom
 fi

@@ -3,3 +3,13 @@
 if [ -f ~/.bashrc ]; then
    . ~/.bashrc
 fi
+
+# macos
+if [ -f /usr/local/etc/bash_completion ]; then
+ . /usr/local/etc/bash_completion
+fi
+
+# linux
+if [ -f /etc/profile.d/bash_completion.sh ]; then
+   . /etc/profile.d/bash_completion.sh
+fi
