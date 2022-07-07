@@ -4,15 +4,29 @@
 
 # terminal emulator
 super + Return
-	kitty
+        alacritty
 
 # program launcher
-super + shift + d
-	rofi -show run
-
-# program launcher (Apps)
 super + d
-	rofi -show drun -show-icons
+	rofi -modi drun -show drun -line-padding 4 \
+                -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
+                -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"
+
+# show open window
+super + ctrl + d
+	rofi -modi drun -show window -line-padding 4 \
+                -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
+                -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"
+
+# show ssh sesssions
+super + shift + d
+	rofi -modi drun -show ssh -line-padding 4 \
+                -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
+                -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"
+
+# power-menu 
+super + shift + e
+     ~/.config/rofi/powermenu.sh
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -27,7 +41,7 @@ super + alt + {q,r}
 	bspc {quit,wm -r}
 
 # close and kill
-super + {_,shift + }w
+super + {_,shift + }q
 	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
@@ -123,41 +137,56 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+#
+# Special hotkeys
+#
 
-# volume control
-XF86AudioLowerVolume
-	amixer set Master 5%-
+# Multimedia keys
 XF86AudioRaiseVolume
-	amixer set Master 5%+
+  amixer -q set Master 5%+ unmute
+
+# Still multimedia
+XF86AudioLowerVolume
+  amixer -q set Master 5%- unmute
+
+# still
 XF86AudioMute
-	amixer set Master toggle
+  amixer -D pulse sset Master toggle-mute
+  
+# amixer -q set Master toggle
+# Simple amixer command seems to have problems unmuting device
 
-# brightness control
-XF86MonBrightnessDown
-	sudo xbacklight -dec 5
+# Brightness up
 XF86MonBrightnessUp
-	sudo xbacklight -inc 5
+  xbacklight -inc 5
 
-# lock screen
+# And brightness down
+XF86MonBrightnessDown
+  xbacklight -dec 5
+
+# Screenshot
+Print
+  scrot ~/Pictures/Screenshot-$(date +%F_%T).png
+
+super + Print
+  ~/.config/bspwm/scripts/screenshot.sh
+
+# Shortcuts
+
+super + w
+    firefox
+
+super + n
+    thunar
+
+super + s
+    spotify -no-zygote
+
+super + e
+    emacs
+
 super + x
-	betterlockscreen -l
+    ~/.config/bspwm/scripts/i3lock-fancy/i3lock-fancy.sh
 
-# Firefox
-super + alt + f
-	bspc rule -a '*' -o desktop='^2' follow=on; firefox
-
-# Emacs
-super + alt + e
-	bspc rule -a '*' -o desktop='^3' follow=on; emacs
-
-# Alacritty
-super + alt + a
-	bspc rule -a '*' -o desktop='^4' follow=on; alacritty
-	
-# Thunar
-super + alt + t
-	bspc rule -a '*' -o desktop='^6' follow=on; thunar
-
-# Spotify
-super + alt + s
-	bspc rule -a '*' -o desktop='^5' follow=on; spotify -no-zygote
+super + F1
+  ~/.config/bspwm/scripts/keybindings_rofi.sh

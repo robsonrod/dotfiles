@@ -5,6 +5,8 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 #bspc monitor -d I II III IV V VI VII VIII IX X
 bspc monitor -d I II III IV V VI VII
 
+bspc config border_width         2
+bspc config window_gap          12
 
 bspc config top_padding          20
 bspc config bottom_padding       0
@@ -25,16 +27,39 @@ bspc config auto_alternate true
 bspc config auto_cancel true
 bspc config initial_polarity first_child
 
-
 bspc rule -a Gimp desktop='^8' state=floating follow=on
-bspc rule -a firefox desktop='^5'
+bspc rule -a firefox desktop='^2' follow=on
+bspc rule -a emacs desktop='^3' follow=on
+bspc rule -a spotfy desktop='^5' follow=on
+bspc rule -a thunar desktop='^6' follow=on
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
-
 xrdb ${HOME}/.Xresources
-nm-applet &
-picom &
-$HOME/.config/polybar/launch.sh &
-$HOME/.fehbg
+
+#
+# Autostart
+#
+# Set display from arandr saved script
+sh ~/.screenlayout/monitor.sh &
+# Bar
+~/.config/polybar/launch.sh &
+# Notifications
+/usr/bin/dunst &
+# Polkit
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# Wallpaper
+feh --bg-fill ~/.config/wallpaper/solar-system.jpg
+# Dex
+dex -a -s /etc/xdg/autostart/:~/.config/autostart/  
+# Picom
+picom -CGb &
+# Network Applet
+nm-applet --indicator &
+
+# Cursor
+xsetroot -cursor_name left_ptr &
+
+# Low battery notifier
+~/.config/bspwm/scripts/low_bat_notifier.sh
