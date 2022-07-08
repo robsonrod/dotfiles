@@ -38,8 +38,11 @@ case ${TERM} in
 		;;
 esac
 
-# starship 
-eval "$(starship init bash)"
+# starship
+term=$(ps -o 'cmd=' -p $(ps -o 'ppid=' -p $$))
+if [ $term != "urxvt" ]; then
+   eval "$(starship init bash)"
+fi
 
 # zoxide
 eval "$(zoxide init bash)"
@@ -97,9 +100,19 @@ alias la='exa -la --color=always --group-directories-first'
 alias ll='exa -l --color=always --group-directories-first'
 alias lt='exa -aT --color=always --group-directories-first'
 alias tree='exa --tree'
+alias cp="cp -i"
+alias mv='mv -i'
+alias rm='rm -i'
 
-alias up='sudo pacman -Suy'
-alias install='sudo pacman -Sy'
+## void linux commands ##
+alias xbpi='sudo xbps-install -S'
+alias xbpu='sudo xbps-install -u'
+alias xbpq='sudo xbps-install -Rs'
+
+## other aliases ##
+alias tkill='tmux kill-server'
+alias rebuildx='xrdb ~/.Xresources'
+alias reload='exec $BASH'
 
 ## archive extraction function ##
 ### Usage: ex <file> ###
@@ -123,33 +136,6 @@ ex ()
   else
     echo "'$1' is not a valid file"
   fi
-}
-
-alias cp="cp -i"
-alias mv='mv -i'
-alias rm='rm -i'
-
-tkill() {
-    tmux kill-server
-}
-
-opendebug () {
- logdt=`date +"%Y-%m-%d"`;
- dev=$1;
- geo=$3;
-
- log=~/tmp/logue/$2-$logdt;
- title=$4;
-
- shift 4;
- echo "putty -log $log.log -serial -sercfg 115200,8,n,1 ${dev} -geometry ${geo} -title \"${title}\" $@";
- putty -log $log.log -sl 2000 -serial -sercfg 115200,8,n,1 ${dev} -geometry ${geo} -title "${title}" $@ &
- echo "done."
-}
-
-opendebugusb () {
- opendebug /dev/ttyUSB1 shell 100x80+5290+20 "tty-shell - PuTTY ";
- opendebug /dev/ttyUSB0 print 80x80+5920+20 "tty-print - PuTTY "
 }
 
 if [ -f ~/.bash_custom ]; then
