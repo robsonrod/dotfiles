@@ -76,8 +76,7 @@
   (set-fringe-mode 10) 
   (global-hl-line-mode +1) 
   (menu-bar-mode -1) 
-  (auto-revert-mode 1) 
-  (electric-pair-mode 1))
+  (auto-revert-mode 1))
 
 (set-frame-parameter (selected-frame) 'alpha '(95 . 70))
 (add-to-list 'default-frame-alist '(alpha . (95 . 70)))
