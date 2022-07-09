@@ -39,7 +39,7 @@ case ${TERM} in
 esac
 
 # starship
-if [ "$OSTYPE" == "Linux" ]; then
+if [ "$OSTYPE" == "linux-gnu"* ]; then
     term=$(ps -o 'cmd=' -p $(ps -o 'ppid=' -p $$));
     if [ "$term" != "urxvt" ]; then
         eval "$(starship init bash)"
