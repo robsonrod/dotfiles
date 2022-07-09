@@ -5,11 +5,18 @@ if [ -f ~/.bashrc ]; then
 fi
 
 # macos
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-. $(brew --prefix)/etc/bash_completion
-fi
-
-# linux
-if [ -f /etc/profile.d/bash_completion.sh ]; then
-   . /etc/profile.d/bash_completion.sh
-fi
+case "$OSTYPE" in
+    "darwin"*)
+        echo "OSX"
+        if [ -f $(brew --prefix)/etc/bash_completion ]; then
+            . $(brew --prefix)/etc/bash_completion
+        fi
+        ;;
+    "linux-gnu"*)
+        if [ -f /etc/profile.d/bash_completion.sh ]; then
+            . /etc/profile.d/bash_completion.sh
+        fi
+        ;;
+    *)
+        ;;
+esac
