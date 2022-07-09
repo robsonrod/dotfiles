@@ -3,7 +3,7 @@
 /usr/bin/dunst &
 /usr/libexec/xfce-polkit &
 feh --bg-fill $HOME/.config/wallpaper/solar-system.jpg
-udiskie -s &
+udiskie -T &
 thunar --daemon &
 
 $HOME/.config/sxhkd/launch.sh &

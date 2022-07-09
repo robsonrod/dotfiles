@@ -5,7 +5,9 @@ lock="......Lock"
 logout=".....Logout"
 shutdown="....Shutdown"
 reboot="....Reboot"
-sleep="....Sleep"
+sleep=" ...Sleep"
+
+dir="~/.config/rofi/scripts"
 
 # Get answer from user via rofi
 selected_option=$(echo "$lock
@@ -15,7 +17,7 @@ $reboot
 $shutdown" | rofi -dmenu\
                   -i\
                   -p "Power"\
-                  -config "~/.config/rofi/arc_dark_transparent_colors.rasi"\
+                  -config "$dir/powermenu.rasi"\
                   -font "Symbols Nerd Font 12"\
                   -width "15"\
                   -lines 5\

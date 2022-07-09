@@ -250,7 +250,7 @@ label-foreground = #BF616A
 type = custom/text 
 content =" " 
 content-padding = 2
-click-left = bash /home/robson/.config/rofi/scripts/powermenu.sh
+click-left = bash ~/.config/rofi/powermenu.sh
 content-foreground = #f25287
 
 [module/wlan]
