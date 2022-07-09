@@ -5,13 +5,13 @@ all: mandatory_tools fonts term_tools dev_tools links
 
 mandatory_tools:
 	@echo "mandatory tools"
-	@sudo pacman -Syy --noconfirm bash-completion wget zip unzip git exa ripgrep zoxide fzf tmux terminator powerline-fonts wmctrl bat
+	@sudo xbps-install -S bash-completion wget zip unzip git exa ripgrep zoxide fzf tmux terminator wmctrl bat alacritty ImageMagick firefox
 	@echo "done"
 
 fonts:
 	@echo "installing fonts..."
-	if [ ! -d ~/.fonts ]; then
-		@mkdir -p ~/.fonts
+	if [ ! -d ~/.local/share/fonts ]; then
+		@mkdir -p ~/.local/share/fonts
 	fi
 
 	@echo "installing Fira Code"
@@ -21,6 +21,14 @@ fonts:
 	@echo "installing Iosevka"
 	@wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Iosevka.zip -P /tmp
 	@unzip /tmp/Iosevka.zip -d ~/.local/share/fonts/Iosevka > /dev/null
+
+	@echo "installing Awesome"
+	@wget -q https://github.com/FortAwesome/Font-Awesome/releases/download/6.1.1/fontawesome-free-6.1.1-desktop.zip -P /tmp
+	@unzip /tmp/fontawesome-free-6.1.1-desktop.zip -d ~/.local/share/fonts/Awesome > /dev/null
+
+	@echo "installing Devicons"
+	@wget -q https://github.com/vorillaz/devicons/archive/master.zip -P /tmp
+	@unzip /tmp/master.zip -d ~/.local/share/fonts/Devicons > /dev/null
 
 	@echo "updating font cache"
 	@fc-cache -f
@@ -43,7 +51,7 @@ term_tools:
 
 dev_tools:
 	@echo "dev tools"
-	@sudo pacman -Syy --noconfirm clang bear cmake
+	@sudo xbps-install -S base-devel clang Bear cmake 
 
 	@if [ -d ~/.asdf ]; then
 		@echo "asdf: already done"
@@ -64,5 +72,10 @@ links: do_config
 	@ln -sfv ~/dotfiles/emacs/init.el ~/.emacs
 	@mv ~/.bashrc ~/.bashrc.old
 	@ln -sfv ~/dotfiles/bashrc/bashrc ~/.bashrc
-	@ln -sfv ~/dotfiles/bashrc/bash_custom ~/.bash_custom
+	@ln -sfv ~/dotfiles/.Xresources ~/.Xresources
+	@ln -sfv ~/dotfiles/.xinitrc ~/.xinitrc
 	@ln -sfv ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
+
+copy_usb_perms:
+	@sudo mkdir -p /etc/polkit-1/localauthority/50-local.d
+	@sudo cp ./utils/10-udisks.pkla /etc/polkit-1/localauthority/50-local.d/10-udisks.pkla

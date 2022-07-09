@@ -32,14 +32,14 @@ then
     bspc quit
 elif [ "$selected_option" == "$shutdown" ]
 then
-    systemctl poweroff
+    loginctl poweroff
 elif [ "$selected_option" == "$reboot" ]
 then
-    systemctl reboot
+    loginctl reboot
 elif [ "$selected_option" == "$sleep" ]
 then
     amixer set Master mute
-    systemctl suspend
+    loginctl suspend
 else
     echo "No match"
 fi
