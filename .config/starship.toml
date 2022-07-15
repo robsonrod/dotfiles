@@ -5,7 +5,7 @@ command_timeout = 3000
 
 [character]
 error_symbol = "[💀 ➜](bold red) "
-success_symbol = "[🖥 ➜](bold green)"
+success_symbol = "[ ➜](bold green)"
 
 [cmd_duration]
 min_time = 10_000  # Show command duration over 10,000 milliseconds (=10 sec)
@@ -13,7 +13,8 @@ format = " took [$duration]($style)"
 
 [directory]
 truncation_length = 5
-format = "  [$path]($style)[$lock_symbol]($lock_style) "
+style = "bold #ff79c6"
+format = "   [$path]($style)[$lock_symbol]($lock_style) "
 #format = "[$path]($style)[$lock_symbol]($lock_style) "
 
 [sudo]
@@ -23,7 +24,7 @@ disabled = false
 
 [git_branch]
 format = " [$symbol$branch]($style) "
-symbol = "🌿 "
+symbol = " "
 style = "bold blue"
 
 [git_state]
@@ -80,7 +81,7 @@ style = "bold green"
 [time]
 time_format = "%T"
 format = "[🕙 $time]($style) "
-style = "bold bright-green"
+style = "bold bright-yellow"
 disabled = false
 
 [username]

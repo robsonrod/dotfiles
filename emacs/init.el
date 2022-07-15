@@ -100,7 +100,7 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; eval buffer
-(global-set-key (kbd "C-c e b") 'eval-buffer)
+(global-set-key (kbd "C-x C-e") 'eval-buffer)
 
 ;; elisp format
 (global-set-key (kbd "C-c e f") 'elisp-format-buffer)
@@ -137,7 +137,7 @@
 
 ;; set encoding
 (prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
+(set-default-coding-systems 'uft-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
@@ -158,7 +158,7 @@
 
 (global-set-key (kbd "C-x k") #'kill-this-buffer)
 (global-set-key (kbd "C-x K") #'kill-all-buffers)
-
+(global-set-key (kbd "s-w") #'kill-this-buffer)
 
 ;; ********** Config packges
 
@@ -218,7 +218,7 @@
 
 (use-package 
   iedit 
-  :defer t)
+  :ensure t)
 
 (use-package 
   sudo-edit)
@@ -587,6 +587,7 @@
   :ensure nil 
   :defer 1 
   :commands (dired dired-jump) 
+  :bind ("C-x C-j" . dired-jump) 
   :config (autoload 'dired-omit-mode "dired-x") 
   (add-hook 'dired-load-hook (lambda () 
                                (interactive) 
@@ -632,16 +633,15 @@
     (dired-rainbow-define partition "#e3342f" ("dmg" "iso" "bin" "nrg" "qcow" "toast" "vcd" "vmdk"
                                                "bak")) 
     (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules")) 
-    (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*")) 
-  (use-package 
-    dired-single 
-    :defer t) 
-  (use-package 
-    dired-ranger 
-    :defer t) 
-  (use-package 
-    dired-collapse 
-    :defer t))
+    (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*")))
+(use-package 
+  dired-single) 
+(use-package 
+  dired-ranger 
+  :defer t) 
+(use-package 
+  dired-collapse 
+  :defer t)
 
 (use-package 
   exec-path-from-shell 
@@ -651,6 +651,7 @@
   :custom (setq exec-path-from-shell-check-startup-files nil) 
   (setq exec-path-from-shell-variables . '("PATH" "GOPATH")) 
   :config (exec-path-from-shell-initialize))
+
 
 (use-package 
   vterm 
@@ -663,6 +664,5 @@
   vterm-toggle 
   :custom (vterm-toggle-fullscreen-p nil "Open a vterm in another window.") 
   (vterm-toggle-scope 'project) 
-  :bind (("C-c t" . #'vterm-toggle) :map vterm-mode-map ("C-\\" . #'popper-cycle) 
-         ("s-t" . #'vterm)		; Open up new tabs quickly
+  :bind (("C-c t" . #'vterm-toggle) :map vterm-mode-map ("s-t" . #'vterm) ; Open up new tabs quickly
          ("s-v" . #'vterm-yank)))

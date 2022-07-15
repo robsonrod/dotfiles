@@ -38,12 +38,23 @@ case ${TERM} in
 		;;
 esac
 
+function git_branch() {
+    if [ -d .git ] ; then
+        printf "%s" "($(git branch 2> /dev/null | awk '/\*/{print $2}'))";
+    fi
+}
+
 # starship
 if [ "$OSTYPE" == "linux-gnu" ]; then
     term=$(ps -o 'cmd=' -p $(ps -o 'ppid=' -p $$));
-    if [ "$term" != "urxvt" ]; then
-        eval "$(starship init bash)"
-    fi
+    case $term in
+        "urxvt"*|"emacs"*)
+            PS1="\[$(tput bold)\]\[$(tput setaf 2)\]"'$(git_branch)'${pur}" \[$(tput sgr0)\]"$PS1
+            ;;
+        *)
+            eval "$(starship init bash)"
+            ;;
+    esac
 else
     eval "$(starship init bash)"
 fi
@@ -61,23 +72,25 @@ fi
 export GPG_TTY=$(tty)
 
 # git alias
-alias gclo='git clone'
-alias gadd='git add'
+alias gcl='git clone'
+alias ga='git add'
+alias gaa='git add ./'
+alias gs='git status'
+alias gb='git checkout -b'
+alias gd='git diff'
+alias gl="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+alias gcmt='git commit -v -m'
 alias grm='git rm'
-alias gall='git add ./'
 alias gfth='git fetch --all --prune --verbose'
 alias grst='git reset HEAD'
 alias gmrg="git merge"
-alias gsts='git status'
 alias gpll='git pull'
 alias gplp='git pull && git push'
 alias gpsh='git push'
-alias gcmm='git commit -v -m'
+alias gcll='git clean -xfd'
 alias gbcm='git branch -m'
 alias gbcd='git branch -D'
 alias gchm='git checkout master'
-alias gchb='git checkout -b'
-alias glgr="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
 alias glgs="glgr --stat"
 alias gstb="git stash branch"
 alias gstd="git stash drop"
@@ -107,6 +120,9 @@ alias tree='exa --tree'
 alias cp="cp -i"
 alias mv='mv -i'
 alias rm='rm -i'
+alias gh='history|grep'
+alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort"
+alias cpv='rsync -ah --info=progress2'
 
 ## void linux commands ##
 alias xbpi='sudo xbps-install -S'
@@ -120,12 +136,13 @@ alias reload='exec $BASH'
 
 ## archive extraction function ##
 ### Usage: ex <file> ###
-ex ()
+function ex ()
 {
   if [ -f $1 ] ; then
     case $1 in
       *.tar.bz2)   tar xjf $1   ;;
       *.tar.gz)    tar xzf $1   ;;
+      *.tar.xz)    tar xvf $1   ;;
       *.bz2)       bunzip2 $1   ;;
       *.rar)       unrar x $1     ;;
       *.gz)        gunzip $1    ;;
@@ -141,6 +158,32 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
+
+## archive compression function ##
+### Usage: ex <file_compressed> <file/dir2compress> ###
+function cm ()
+{
+  if [ -f $2 ] ; then
+    case $1 in
+      *.tar.bz2)   tar -cjvf $1 $2  ;;
+      *.tar.gz)    tar -czvf $1 $2  ;;
+      *.tar.xz)    tar Jfcv $1 $2  ;;
+      *.bz2)       bzip2 -c $2 > $1  ;;
+      *.gz)        gzip -c $2 > $1  ;;
+      *.tar)       tar cf $1  $2  ;;
+      *.tbz2)      tar cjf $1 $2  ;;
+      *.tgz)       tar czf $1 $2  ;;
+      *.zip)       zip -r $1 $2  ;;
+      *.Z)         compress -c $2 > $1 ;;
+      *.7z)        7z a $1  $2 ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+
 
 if [ -f ~/.bash_custom ]; then
    . ~/.bash_custom
