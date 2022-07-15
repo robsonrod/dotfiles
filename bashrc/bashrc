@@ -183,8 +183,21 @@ function cm ()
   fi
 }
 
-
-
 if [ -f ~/.bash_custom ]; then
    . ~/.bash_custom
 fi
+
+case "$OSTYPE" in
+    "darwin"*)
+        if [ -f $(brew --prefix)/etc/bash_completion ]; then
+            . $(brew --prefix)/etc/bash_completion
+        fi
+        ;;
+    "linux-gnu"*)
+        if [ -f /etc/profile.d/bash_completion.sh ]; then
+            . /etc/profile.d/bash_completion.sh
+        fi
+        ;;
+    *)
+        ;;
+esac
