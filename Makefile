@@ -5,7 +5,7 @@ all: mandatory_tools fonts term_tools dev_tools links
 
 mandatory_tools:
 	@echo "mandatory tools"
-	@sudo xbps-install -S bash-completion wget zip unzip git exa ripgrep zoxide fzf tmux terminator wmctrl bat alacritty ImageMagick firefox
+	@sudo pacman -S bash-completion wget zip unzip git exa ripgrep zoxide fzf tmux terminator wmctrl bat alacritty imagemagick firefox
 	@echo "done"
 
 fonts:
@@ -16,19 +16,27 @@ fonts:
 
 	@echo "installing Fira Code"
 	@wget -q https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -P /tmp
-	@unzip /tmp/Fira_Code_v6.2.zip -d ~/.local/share/fonts/Fira_Code_v6.2 > /dev/null
+	@unzip -o /tmp/Fira_Code_v6.2.zip -d ~/.local/share/fonts/Fira_Code_v6.2 > /dev/null
 
 	@echo "installing Iosevka"
 	@wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Iosevka.zip -P /tmp
-	@unzip /tmp/Iosevka.zip -d ~/.local/share/fonts/Iosevka > /dev/null
+	@unzip -o /tmp/Iosevka.zip -d ~/.local/share/fonts/Iosevka > /dev/null
+
+	@echo "installing JetBrains"
+	@wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip -P /tmp
+	@unzip -o /tmp/JetBrainsMono.zip -d ~/.local/share/fonts/JetBrainsMono > /dev/null
+
+	@echo "installing Ubuntu"
+	@wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Ubuntu.zip -P /tmp
+	@unzip -o /tmp/Ubuntu.zip -d ~/.local/share/fonts/Ubuntu > /dev/null
 
 	@echo "installing Awesome"
 	@wget -q https://github.com/FortAwesome/Font-Awesome/releases/download/6.1.1/fontawesome-free-6.1.1-desktop.zip -P /tmp
-	@unzip /tmp/fontawesome-free-6.1.1-desktop.zip -d ~/.local/share/fonts/Awesome > /dev/null
+	@unzip -o /tmp/fontawesome-free-6.1.1-desktop.zip -d ~/.local/share/fonts/Awesome > /dev/null
 
 	@echo "installing Devicons"
 	@wget -q https://github.com/vorillaz/devicons/archive/master.zip -P /tmp
-	@unzip /tmp/master.zip -d ~/.local/share/fonts/Devicons > /dev/null
+	@unzip -o /tmp/master.zip -d ~/.local/share/fonts/Devicons > /dev/null
 
 	@echo "updating font cache"
 	@fc-cache -f
@@ -51,7 +59,7 @@ term_tools:
 
 dev_tools:
 	@echo "dev tools"
-	@sudo xbps-install -S base-devel clang Bear cmake 
+	@sudo pacman -S base-devel clang bear cmake 
 
 	@if [ -d ~/.asdf ]; then
 		@echo "asdf: already done"
