@@ -1,7 +1,5 @@
-configs/nvim/.config/nvim/.netrwhist
-configs/nvim/.config/nvim/tmp/*
-configs/nvim/.config/nvim/autoload/*
-configs/nvim/.config/nvim/plugged/*
-configs/nvim/.config/nvim/autoload/*
-
-
+nvim/.config/nvim/.netrwhist
+nvim/.config/nvim/tmp/*
+nvim/.config/nvim/plugged/*
+nvim/.config/nvim/autoload/*
+qtile/.config/qtile/__pycache__/*

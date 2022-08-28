@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/bin/bash
 
 mandatory_tools() {
     echo "mandatory tools"
@@ -70,20 +70,6 @@ dev_tools() {
 }
 
 dotfiles() {
-	echo "creating symbolic links"
-	stow alacritty \
-		bash  \
-		dunst  \
-		emacs  \
-		gtk-3.0  \
-		most  \
-		nvim  \
-		others  \
-		picom  \
-		qtile \
-		rofi \
-		starship \
-		terminator \
-		tmux \
-		utils \
-	}
+    echo "creating symbolic links"
+    stow alacritty bash dunst emacs gtk-3.0 most nvim others picom qtile rofi starship terminator tmux utils
+}

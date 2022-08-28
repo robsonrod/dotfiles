@@ -1,1 +1,1 @@
---dir=~/dotfiles/configs --target=~ --dotfiles
+--dir=~/dotfiles --target=~ --dotfiles

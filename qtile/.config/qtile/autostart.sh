@@ -4,7 +4,7 @@
 xdg-user-dirs-gtk-update &
 /usr/bin/dunst &
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
-feh --bg-scale $HOME/.config/wallpaper/wallpaper.jpg
+feh --bg-scale $HOME/.config/qtile/wallpaper/wallpaper.jpg
 udiskie -T &
 thunar --daemon &
 nm-applet &
