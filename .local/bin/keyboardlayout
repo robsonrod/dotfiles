@@ -1,0 +1,12 @@
+#!/bin/bash
+
+layout=$(setxkbmap -query | grep variant | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
+
+case "$layout" in
+    "alt-intl"*)
+        setxkbmap -layout us
+        ;;
+    *)
+        setxkbmap -layout us -variant alt-intl
+        ;;
+esac

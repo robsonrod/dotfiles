@@ -19,12 +19,11 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'mhinz/vim-startify'
-
 " Language server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'sheerun/vim-polyglot'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Language stuff
 Plug 'pangloss/vim-javascript' 
@@ -147,23 +146,6 @@ set cursorline
 " and to all directories under current directory recursively
 set path+=**
 
-let g:startify_lists = [
-        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-        \ { 'type': 'files',     'header': ['   MRU']            },
-        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-        \ { 'type': 'sessions',  'header': ['   Sessions']       },
-        \ { 'type': 'commands',  'header': ['   Commands']       },
-        \ ]
-
-
-let g:startify_bookmarks = [
-        \ {'c':'~/.config/nvim/init.vim'},
-        \ {'p': '~/Projetos/teste'},
-        \]
-
-let g:startify_custom_header =
-        \ startify#fortune#cowsay('', '═','║','╔','╗','╝','╚')
-
 " C and Cpp extensions
 let g:alternateExtensions_h = "c,cpp,cxx,cc,CC"
 let g:alternateExtensions_H = "C,CPP,CXX,CC"
@@ -221,20 +203,6 @@ nmap <c-q> :q<CR>
 imap <c-q> <c-o><c-q>
 
 nmap <c-x> :vsplit<CR>
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()

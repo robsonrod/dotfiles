@@ -1,13 +1,12 @@
 #!/bin/env bash
 
-# Options for powermenu
-lock="......Lock"
-logout=".....Logout"
-shutdown="....Shutdown"
-reboot="....Reboot"
-sleep=" ...Sleep"
+lock="  Lock"
+logout="  Logout"
+shutdown="  Shutdown"
+reboot="  Reboot"
+sleep="  Sleep"
 
-dir="~/.config/rofi/scripts"
+dir="~/.config/rofi/themes"
 
 # Get answer from user via rofi
 selected_option=$(echo "$lock
@@ -17,7 +16,7 @@ $reboot
 $shutdown" | rofi -dmenu\
                   -i\
                   -p "Power"\
-                  -config "$dir/powermenu.rasi"\
+                  -config "$dir/dt-dmenu.rasi"\
                   -font "Symbols Nerd Font 12"\
                   -width "15"\
                   -lines 5\
@@ -28,20 +27,20 @@ $shutdown" | rofi -dmenu\
 # Do something based on selected option
 if [ "$selected_option" == "$lock" ]
 then
-    /home/$USER/.config/bspwm/scripts/i3lock-fancy/i3lock-fancy.sh
+    ~/.config/rofi/screen_lock
 elif [ "$selected_option" == "$logout" ]
 then
-    bspc quit
+    qtile cmd-obj -o cmd -f shutdown
 elif [ "$selected_option" == "$shutdown" ]
 then
-    loginctl poweroff
+    systemctl poweroff
 elif [ "$selected_option" == "$reboot" ]
 then
-    loginctl reboot
+    systemctl reboot
 elif [ "$selected_option" == "$sleep" ]
 then
     amixer set Master mute
-    loginctl suspend
+    systemctl suspend
 else
     echo "No match"
 fi

@@ -136,7 +136,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; set encoding
-(prefer-coding-system 'utf-8)
+(prefer-coding-system 'uft-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -178,15 +178,6 @@
   (package-install 'use-package))
 (require 'use-package)
 (setq use-package-always-ensure t)
-
-
-(setq rar/exwm-enabled (and (eq window-system 'x) 
-                            (seq-contains command-line-args "--use-exwm")))
-
-(when rar/exwm-enabled 
-  (require 'exwm) 
-  (require 'exwm-config) 
-  (exwm-config-default))
 
 ;; Theme
 (use-package 
@@ -310,16 +301,68 @@
   :init (doom-modeline-mode 1) 
   :custom ((doom-modeline-height 15)))
 
-(use-package 
-  undo-tree 
+;; Hook to modes
+(defun evil-hook () 
+  (dolist (mode '(custom-mode eshell-mode git-rebase-mode term-mode dired-mode help-mode helm-grep-mode grep-mode wdired-mode )) 
+    (add-to-list 'evil-emacs-state-modes mode)))
 
-  :diminish 
-  :init (global-undo-tree-mode +1) 
-  :bind (("C-c _" . undo-tree-visualize) 
-         ("C-c z" . undo-tree-undo) 
-         ("C-c r" . undo-tree-redo)) 
-  :config (unbind-key "M-_" undo-tree-map) 
-  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo"))))
+(global-set-key (kbd "C-M-u") 'universal-argument)
+
+;; Watch out with arrow keys
+(defun dont-arrow-me-bro () 
+  (interactive) 
+  (message "Arrow keys are bad, you know?"))
+
+;; Lets be evil
+(use-package 
+  evil 
+  :init (setq evil-want-integration t) 
+  (setq evil-want-keybinding nil) 
+  (setq evil-want-C-u-scroll t) 
+  (setq evil-want-C-i-jump nil) 
+  (setq evil-respect-visual-line-mode t) 
+  (setq evil-undo-system 'undo-redo) 
+  :config (add-hook 'evil-mode-hook 'evil-hook) 
+  (evil-mode 1) 
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state) 
+  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join) 
+  (define-key evil-insert-state-map (kbd "C-s") 'evil-write)
+
+  ;; Use visual line motions even outside of visual-line-mode buffers
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line) 
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  (define-key evil-window-map "d" 'evil-delete-buffer)    ;; C-w d
+  (define-key evil-window-map "\C-d" 'evil-delete-buffer) ;; C-w d
+  (define-key evil-normal-state-map "\C-s" 'save-buffer) 
+  (define-key evil-insert-state-map "\C-s" 'save-buffer)
+  (define-key evil-normal-state-map (kbd "SPC") 'evil-scroll-page-down) 
+  (define-key evil-normal-state-map (kbd "S-SPC") 'evil-scroll-page-up) 
+  (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-forward)
+
+  (define-key evil-normal-state-map (kbd "gr") 'lsp-find-references) 
+  (define-key evil-normal-state-map (kbd "gm") 'lsp-rename) 
+  (define-key evil-normal-state-map (kbd "gl") 'lsp-find-declaration) 
+  (define-key evil-normal-state-map (kbd "gi") 'lsp-find-implementation) 
+  
+  ;; Disable arrow keys in normal and visual modes
+  (define-key evil-normal-state-map (kbd "<left>") 'dont-arrow-me-bro) 
+  (define-key evil-normal-state-map (kbd "<right>") 'dont-arrow-me-bro) 
+  (define-key evil-normal-state-map (kbd "<down>") 'dont-arrow-me-bro) 
+  (define-key evil-normal-state-map (kbd "<up>") 'dont-arrow-me-bro) 
+  (evil-global-set-key 'motion (kbd "<left>") 'dont-arrow-me-bro) 
+  (evil-global-set-key 'motion (kbd "<right>") 'dont-arrow-me-bro) 
+  (evil-global-set-key 'motion (kbd "<down>") 'dont-arrow-me-bro) 
+  (evil-global-set-key 'motion (kbd "<up>") 'dont-arrow-me-bro) 
+  (evil-set-initial-state 'messages-buffer-mode 'normal) 
+  (evil-set-initial-state 'dashboard-mode 'normal))
+
+(use-package 
+  evil-collection 
+  :after evil 
+  :init (setq evil-collection-company-use-tng nil) ;; Is this a bug in evil-collection?
+  :custom (evil-collection-outline-bind-tab-p nil) 
+  :config (setq evil-collection-mode-list (remove 'lispy evil-collection-mode-list)) 
+  (evil-collection-init))
 
 (use-package 
   elisp-format 
@@ -387,19 +430,6 @@
   :after projectile 
   :bind (("C-M-p" . counsel-projectile-find-file)) 
   :config (counsel-projectile-mode))
-
-(use-package 
-  perspective 
-  :init (setq persp-suppress-no-prefix-key-warning t) 
-  :demand t 
-  :bind (("C-M-k" . persp-switch) 
-         ("C-M-n" . persp-next) 
-         ("C-x k" . persp-kill-buffer*)) 
-  :custom (persp-initial-frame-name "Main") 
-  :config
-  ;; Running `persp-mode' multiple times resets the perspective list...
-  (unless (equal persp-mode t) 
-    (persp-mode)))
 
 ;; Git support
 (use-package 
@@ -635,10 +665,10 @@
     (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules")) 
     (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*")))
 (use-package 
-  dired-single) 
+  dired-single)
 (use-package 
   dired-ranger 
-  :defer t) 
+  :defer t)
 (use-package 
   dired-collapse 
   :defer t)

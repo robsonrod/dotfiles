@@ -4,7 +4,7 @@
 command_timeout = 3000
 
 [character]
-error_symbol = "[💀 ➜](bold red) "
+error_symbol = "[💀➜](bold red)"
 success_symbol = "[ ➜](bold green)"
 
 [cmd_duration]
@@ -14,7 +14,7 @@ format = " took [$duration]($style)"
 [directory]
 truncation_length = 5
 style = "bold #ff79c6"
-format = "   [$path]($style)[$lock_symbol]($lock_style) "
+format = " [$path]($style)[$lock_symbol]($lock_style) "
 #format = "[$path]($style)[$lock_symbol]($lock_style) "
 
 [sudo]

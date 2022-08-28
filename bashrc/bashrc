@@ -201,3 +201,23 @@ case "$OSTYPE" in
     *)
         ;;
 esac
+
+function ls_alias() {
+  alias | grep $1 | awk 'match($0,/(\w+)\s(\w+)=\x27(.*)\x27/,a){print a[2],"-",a[3]}' 
+}
+
+function lsalgit() {
+    ls_alias git
+}
+
+function sshkr() {
+    if [ -z $1 ]; then
+        echo 'Invalid parameter';
+    elif [ ! -f $1 ]; then
+        echo 'File not found';
+    else
+        eval $(ssh-agent)
+        ssh-add -q $1
+        echo "Added";
+    fi
+}
