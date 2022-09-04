@@ -1,9 +1,62 @@
-#!/bin/bash
+#!/bin/env bash
+
+set_os_type() {
+    os_type=$(lsb_release -a | grep 'Distributor ID' | awk -F':' '{ print tolower($2)}' | sed -e 's/^[[:space:]]*//')
+}
+
+update_env() {
+    echo "update enviroment..."
+    if [ "$os_type" == "ubuntu" ]; then
+        sudo apt update
+    else
+        sudo xbps-install -Suy
+    fi
+}
+
+select_file() {
+    if [ "$os_type" == "ubuntu" ]; then
+        filename="/tmp/ubuntu-toinstall.dat"
+        if [ -f $filename ]; then
+            rm -rf $filename
+        fi
+        wget -q http://192.168.2.12:8000/home_machine_pkgs.dat -P /tmp
+    else 
+        filename="/tmp/home_machine_pkgs.dat"
+        if [ -f $filename ]; then
+            rm -rf $filename
+        fi
+        wget -q http://192.168.2.12:8000/home_machine_pkgs.dat -P /tmp
+    fi
+}
+
+install_pkgs() {
+    if [ "$os_type" == "ubuntu" ]; then
+        sudo apt install $1
+    else
+        sudo xbps-install -Sy $1
+    fi
+
+}
+
+read_file() {
+    echo "installing packages..."
+    total=$(wc -l <$filename)
+    i=0
+    while IFS='' read -r line; do
+        per=$((i * 100 / $total))
+        echo "$per"
+        install_pkgs $line 
+        i=$((i + 1))
+    done < "$filename" 
+}
 
 mandatory_tools() {
-    echo "mandatory tools"
-    sudo pacman -S stow bash-completion wget zip unzip git exa ripgrep zoxide fzf tmux terminator wmctrl bat alacritty imagemagick firefox
-    echo "done"
+    echo "installing minimal tools..."
+    if [ $os_type == "void" ]; then 
+        echo "mandatory tools"
+        sudo xbps-install -Sy wget git 
+        echo "done"
+    fi
 }
 
 fonts() {
@@ -41,14 +94,16 @@ fonts() {
     echo "done"
 }
 
-term_tools() {
+starship() {
     if [ -x starship ]; then
         echo "starship: already done"
     else
         echo "starship install"
         curl -sS https://starship.rs/install.sh | sh
     fi
+}
 
+tmux_plugins() {
     if [ -d ~/.tmux/plugins/tpm ]; then
         echo "tmux plugins: already done"	
     else
@@ -57,10 +112,8 @@ term_tools() {
     fi
 }
 
-dev_tools() {
+asdf() {
     echo "dev tools"
-    sudo pacman -S base-devel clang bear cmake 
-
     if [ -d ~/.asdf ]; then
         echo "asdf: already done"
     else
@@ -73,3 +126,14 @@ dotfiles() {
     echo "creating symbolic links"
     stow alacritty bash dunst emacs gtk-3.0 most nvim others picom qtile rofi starship terminator tmux utils
 }
+
+set_os_type 
+update_env
+mandatory_tools
+select_file
+read_file
+fonts
+starship
+nvim_plugins
+asdf
+dotfiles

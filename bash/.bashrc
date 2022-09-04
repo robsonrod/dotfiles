@@ -1,11 +1,14 @@
 #### General ####
 export TERM='xterm-256color'
-export EDITOR='emacs'
-export PROJ_DIR='~/Projetos'
+export EDITOR='nvim'
 export MANPAGER='most'
 export PAGER='less'
 export BROWSER='firefox'
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
+export FILE="thunar"
+export PROJECTS="~/projects"
+export PERSONAL_PROJECTS="${PROJECTS}/personal"
+export WORK_PROJECTS="${PROJECTS}/work"
 
 PATH="$HOME/.local/bin":$PATH
 GOPATH=$HOME/go
@@ -25,17 +28,17 @@ shopt -s expand_aliases
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
-      *) return;;
+    *) return;;
 esac
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case ${TERM} in
-	xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|alacritty|st-256color|konsole*)
-		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
-		;;
-	screen*)
-		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'
-		;;
+    xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|alacritty|st-256color|konsole*)
+        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
+        ;;
+    screen*)
+        PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'
+        ;;
 esac
 
 function git_branch() {
@@ -64,8 +67,8 @@ eval "$(zoxide init bash)"
 
 # asdf configuration
 if [ -f ${HOME}/.asdf/asdf.sh ]; then
-   . ${HOME}/.asdf/asdf.sh
-   . ${HOME}/.asdf/completions/asdf.bash
+    . ${HOME}/.asdf/asdf.sh
+    . ${HOME}/.asdf/completions/asdf.bash
 fi
 
 # prompt gpg password
@@ -107,7 +110,6 @@ alias grep='rg'
 alias cat='bat'
 alias find='fdfind'
 
-alias p='cd ${PROJ_DIR}'
 alias ..='cd ..' 
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -138,53 +140,53 @@ alias reload='exec $BASH'
 ### Usage: ex <file> ###
 function ex ()
 {
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.tar.xz)    tar xvf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1     ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
-      *)           echo "'$1' cannot be extracted via ex()" ;;
-    esac
-  else
-    echo "'$1' is not a valid file"
-  fi
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xjf $1   ;;
+            *.tar.gz)    tar xzf $1   ;;
+            *.tar.xz)    tar xvf $1   ;;
+            *.bz2)       bunzip2 $1   ;;
+            *.rar)       unrar x $1     ;;
+            *.gz)        gunzip $1    ;;
+            *.tar)       tar xf $1    ;;
+            *.tbz2)      tar xjf $1   ;;
+            *.tgz)       tar xzf $1   ;;
+            *.zip)       unzip $1     ;;
+            *.Z)         uncompress $1;;
+            *.7z)        7z x $1      ;;
+            *)           echo "'$1' cannot be extracted via ex()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
 }
 
 ## archive compression function ##
 ### Usage: ex <file_compressed> <file/dir2compress> ###
 function cm ()
 {
-  if [ -f $2 ] ; then
-    case $1 in
-      *.tar.bz2)   tar -cjvf $1 $2  ;;
-      *.tar.gz)    tar -czvf $1 $2  ;;
-      *.tar.xz)    tar Jfcv $1 $2  ;;
-      *.bz2)       bzip2 -c $2 > $1  ;;
-      *.gz)        gzip -c $2 > $1  ;;
-      *.tar)       tar cf $1  $2  ;;
-      *.tbz2)      tar cjf $1 $2  ;;
-      *.tgz)       tar czf $1 $2  ;;
-      *.zip)       zip -r $1 $2  ;;
-      *.Z)         compress -c $2 > $1 ;;
-      *.7z)        7z a $1  $2 ;;
-      *)           echo "'$1' cannot be extracted via ex()" ;;
-    esac
-  else
-    echo "'$1' is not a valid file"
-  fi
+    if [ -f $2 ] ; then
+        case $1 in
+            *.tar.bz2)   tar -cjvf $1 $2  ;;
+            *.tar.gz)    tar -czvf $1 $2  ;;
+            *.tar.xz)    tar Jfcv $1 $2  ;;
+            *.bz2)       bzip2 -c $2 > $1  ;;
+            *.gz)        gzip -c $2 > $1  ;;
+            *.tar)       tar cf $1  $2  ;;
+            *.tbz2)      tar cjf $1 $2  ;;
+            *.tgz)       tar czf $1 $2  ;;
+            *.zip)       zip -r $1 $2  ;;
+            *.Z)         compress -c $2 > $1 ;;
+            *.7z)        7z a $1  $2 ;;
+            *)           echo "'$1' cannot be extracted via ex()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
 }
 
 if [ -f ~/.bash_custom ]; then
-   . ~/.bash_custom
+    . ~/.bash_custom
 fi
 
 case "$OSTYPE" in
@@ -203,7 +205,7 @@ case "$OSTYPE" in
 esac
 
 function ls_alias() {
-  alias | grep $1 | awk 'match($0,/(\w+)\s(\w+)=\x27(.*)\x27/,a){print a[2],"-",a[3]}' 
+    alias | grep $1 | awk 'match($0,/(\w+)\s(\w+)=\x27(.*)\x27/,a){print a[2],"-",a[3]}' 
 }
 
 function lsalgit() {
@@ -219,5 +221,23 @@ function sshkr() {
         eval $(ssh-agent)
         ssh-add -q $1
         echo "Added";
+    fi
+}
+
+function mntloop() {
+    if [ $1 != "fdisk" ]; then
+
+        if [  $# -lt 3 ]; then
+            echo "mountloop begin-partition file.img mount-point"
+        else
+            count=$(($1 * 512))
+            sudo mount -o loop,offset=$count $2 $3
+        fi
+    else
+        if [ ! -f $2 ]; then
+            echo "File not found"
+        else
+            sudo fdisk -lu $2
+        fi
     fi
 }

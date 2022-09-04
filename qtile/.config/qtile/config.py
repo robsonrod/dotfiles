@@ -426,7 +426,8 @@ floating_layout = layout.Floating(
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
         Match(title="Simulador"),
-        Match(wm_class="microsoft teams - preview")
+        Match(wm_class="microsoft teams - preview"),
+        Match(wm_class="VirtualBox Manager")
     ]
 )
 
