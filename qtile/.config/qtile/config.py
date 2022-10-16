@@ -19,11 +19,7 @@ editor = 'emacs'
 editor2 = 'code'
 browser = 'firefox'
 file_manager = 'thunar'
-rofi = 'rofi -modi drun -show drun -line-padding 4 -columns 2 -padding 50 -hide-scrollbar -show-icons -drun-icon-theme "Papirus-Dark"'
-screenshot = 'xfce4-screenshooter'
 peek = 'peek'
-rofi_run = 'rofi -modi run -show run -p "run:"'
-rofi_window = 'rofi -modi window -show window -i -p -config ~/.config/rofi/themes/dt-center.rasi -fixed-num-lines: false'
 
 keys = [
     # Switch between windows
@@ -52,17 +48,17 @@ keys = [
     Key([mod, "shift"], "Tab", lazy.prev_layout()),
 
     # Keyboard layout select
-    Key([mod, alt], "k", lazy.spawn('keyboardlayout')),
+    Key([mod, alt], "k", lazy.spawn('keyboardlayout --set')),
     
     # Lauchers
     Key([mod], "Return", lazy.spawn(terminal)),
     Key([mod], "b", lazy.spawn(browser)),
     Key([mod], "f", lazy.spawn(file_manager)),
-    Key([mod], "m", lazy.spawn(rofi)),
-    Key([mod], "r", lazy.spawn(rofi_run)),
-    Key([mod], "w", lazy.spawn(rofi_window)),
+    Key([mod], "m", lazy.spawn("rofimenu --menu")),
+    Key([mod], "r", lazy.spawn("rofimenu --run")),
+    Key([mod], "w", lazy.spawn("rofimenu --window")),
     Key([mod], "x", lazy.spawn('xprop'), desc="List window properties"),
-    Key([mod], "s", lazy.spawn(screenshot)),
+    Key([mod], "s", lazy.spawn('rofiscreenshot')),
     Key([mod, alt], "l", lazy.spawn('screen_lock')),
 
     KeyChord([mod],"p", [
@@ -93,7 +89,7 @@ keys = [
     Key([mod, alt, shift], "q", lazy.spawn(os.path.expanduser('powermenu')), desc="Powermenu"),
 ]
 
-groups = [Group(i) for i in ['', '', '', '', '', '', '', '', '']]
+groups = [Group(i) for i in ['1:', '2:', '3:', '4:', '5:', '6:', '7:', '8:', '9:']]
 group_bind_keys = '123456789'
 
 for g, k in zip(groups, group_bind_keys):
@@ -171,6 +167,7 @@ screens = [
                                 padding_y=5,
                                 boderwidth=1,
                                 rounded=False,
+                                hide_unused=True,
                                 active=theme['foreground'],
                                 inactive=theme['comment'],
                                 highlight_color=theme['background'],
@@ -389,14 +386,14 @@ def send_window_to_group_by_re(window, wmname=None, wmclass=None, role=None, gro
 
 @hook.subscribe.client_new
 def group_app(window):
-    send_window_to_group_by_re(window, wmclass='Thunar', group='')
-    send_window_to_group_by_re(window, wmclass='Emacs', group='')
-    send_window_to_group_by_re(window, wmclass='microsoft teams - preview', group='')
-    send_window_to_group_by_re(window, wmclass='Code', group='')
-    send_window_to_group_by_re(window, wmname='Mozilla Firefox', group='')
-    send_window_to_group_by_re(window, wmclass='Spotify', group='')
-    send_window_to_group_by_re(window, wmclass='VirtualBox Manager', group='')
-    send_window_to_group_by_re(window, wmclass='Simulador', group='')
+    send_window_to_group_by_re(window, wmclass='Thunar', group='6:')
+    send_window_to_group_by_re(window, wmclass='Emacs', group='3:')
+    send_window_to_group_by_re(window, wmclass='microsoft teams - preview', group='4:')
+    send_window_to_group_by_re(window, wmclass='Code', group='8:')
+    send_window_to_group_by_re(window, wmname='Mozilla Firefox', group='1:')
+    send_window_to_group_by_re(window, wmclass='Spotify', group='7:')
+    send_window_to_group_by_re(window, wmclass='VirtualBox Manager', group='9:')
+    send_window_to_group_by_re(window, wmclass='Simulador', group='9:')
     
 @hook.subscribe.client_new
 def floating_dialogs(window):

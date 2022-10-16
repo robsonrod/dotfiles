@@ -8,7 +8,6 @@ feh --bg-scale $HOME/.config/qtile/wallpaper/wallpaper.jpg
 udiskie -T &
 thunar --daemon &
 nm-applet &
-#xfce4-screensaver &
 xautolock -time 3 -locker screen_lock &
 /usr/bin/cshell/launcher &
 /usr/bin/teams %U &
@@ -18,5 +17,5 @@ start-pulseaudio-x11 &
 xiccd &
 /usr/bin/nvidia-settings --load-config-only &
 blueman-applet &
-compton &
+compton -b &
 xsetroot -cursor_name left_ptr &

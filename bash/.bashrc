@@ -1,17 +1,6 @@
 #### General ####
-export TERM='xterm-256color'
-export EDITOR='nvim'
-export MANPAGER='most'
-export PAGER='less'
-export BROWSER='firefox'
-export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
-export FILE="thunar"
-export PROJECTS="~/projects"
-export PERSONAL_PROJECTS="${PROJECTS}/personal"
-export WORK_PROJECTS="${PROJECTS}/work"
 
 PATH="$HOME/.local/bin":$PATH
-GOPATH=$HOME/go
 PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
 
 HISTCONTROL=ignoredups:erasedups
@@ -41,7 +30,7 @@ case ${TERM} in
         ;;
 esac
 
-function git_branch() {
+git_branch() {
     if [ -d .git ] ; then
         printf "%s" "($(git branch 2> /dev/null | awk '/\*/{print $2}'))";
     fi
@@ -106,9 +95,8 @@ alias h='history'
 alias v='vim'
 alias e='emacs -nw'
 alias cd='z'
-alias grep='rg'
 alias cat='bat'
-alias find='fdfind'
+alias open='xdg-open'
 
 alias ..='cd ..' 
 alias ...='cd ../..'
@@ -136,9 +124,7 @@ alias tkill='tmux kill-server'
 alias rebuildx='xrdb ~/.Xresources'
 alias reload='exec $BASH'
 
-## archive extraction function ##
-### Usage: ex <file> ###
-function ex ()
+ex ()
 {
     if [ -f $1 ] ; then
         case $1 in
@@ -161,9 +147,7 @@ function ex ()
     fi
 }
 
-## archive compression function ##
-### Usage: ex <file_compressed> <file/dir2compress> ###
-function cm ()
+cm ()
 {
     if [ -f $2 ] ; then
         case $1 in
@@ -204,15 +188,15 @@ case "$OSTYPE" in
         ;;
 esac
 
-function ls_alias() {
+ls_alias() {
     alias | grep $1 | awk 'match($0,/(\w+)\s(\w+)=\x27(.*)\x27/,a){print a[2],"-",a[3]}' 
 }
 
-function lsalgit() {
+lsalgit() {
     ls_alias git
 }
 
-function sshkr() {
+sshkr() {
     if [ -z $1 ]; then
         echo 'Invalid parameter';
     elif [ ! -f $1 ]; then
@@ -224,7 +208,7 @@ function sshkr() {
     fi
 }
 
-function mntloop() {
+mntloop() {
     if [ $1 != "fdisk" ]; then
 
         if [  $# -lt 3 ]; then
@@ -241,3 +225,17 @@ function mntloop() {
         fi
     fi
 }
+
+skey() {
+    ssh_key=$(ssh-get-key)
+    eval $(ssh-agent) &>/dev/null
+    SSH_ASKPASS="ssh-askpassword" ssh-add -q ~/.ssh/"${ssh_key}" < /dev/null
+}
+
+f() {
+    local files
+    IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
+    [[ -n "$files" ]] && xdg-open "${files[@]}"
+}
+
+

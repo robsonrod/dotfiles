@@ -1,62 +1,47 @@
 #!/bin/env bash
 
-set_os_type() {
-    os_type=$(lsb_release -a | grep 'Distributor ID' | awk -F':' '{ print tolower($2)}' | sed -e 's/^[[:space:]]*//')
-}
-
 update_env() {
     echo "update enviroment..."
-    if [ "$os_type" == "ubuntu" ]; then
-        sudo apt update
-    else
-        sudo xbps-install -Suy
-    fi
+    sudo apt update 
 }
 
-select_file() {
-    if [ "$os_type" == "ubuntu" ]; then
-        filename="/tmp/ubuntu-toinstall.dat"
-        if [ -f $filename ]; then
-            rm -rf $filename
-        fi
-        wget -q http://192.168.2.12:8000/home_machine_pkgs.dat -P /tmp
-    else 
-        filename="/tmp/home_machine_pkgs.dat"
-        if [ -f $filename ]; then
-            rm -rf $filename
-        fi
-        wget -q http://192.168.2.12:8000/home_machine_pkgs.dat -P /tmp
-    fi
+install_deps() {
+    echo "installing deps..."
+    sudo apt install -y wget git 
+    echo "done"
 }
 
-install_pkgs() {
-    if [ "$os_type" == "ubuntu" ]; then
-        sudo apt install $1
-    else
-        sudo xbps-install -Sy $1
+__select_file() {
+    echo "select file"
+    url="http://192.168.2.12:8000/ubuntu-pkgs"
+    filename="/tmp/ubuntu-pkgs"
+    if [ -f $filename ]; then
+        rm -rf $filename
     fi
-
+    curl $url -o $filename  
 }
 
-read_file() {
+__install() {
+    sudo apt install -y $1
+}
+
+__read_file() {
     echo "installing packages..."
     total=$(wc -l <$filename)
     i=0
     while IFS='' read -r line; do
         per=$((i * 100 / $total))
         echo "$per"
-        install_pkgs $line 
+        __install $line 
         i=$((i + 1))
     done < "$filename" 
 }
 
-mandatory_tools() {
-    echo "installing minimal tools..."
-    if [ $os_type == "void" ]; then 
-        echo "mandatory tools"
-        sudo xbps-install -Sy wget git 
-        echo "done"
-    fi
+install_pkgs() {
+    echo "install"
+    __select_file
+    echo "install"
+    __read_file
 }
 
 fonts() {
@@ -103,6 +88,11 @@ starship() {
     fi
 }
 
+vim_plugins() {
+    mkdir -p "~/.config/nvim/autoload"
+    curl -Ls "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > "~/.config/nvim/autoload/plug.vim"
+}
+
 tmux_plugins() {
     if [ -d ~/.tmux/plugins/tpm ]; then
         echo "tmux plugins: already done"	
@@ -118,22 +108,28 @@ asdf() {
         echo "asdf: already done"
     else
         echo "asdf: installed"
-        git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.0
+        git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
     fi
 }
 
-dotfiles() {
+my_dotfiles() {
     echo "creating symbolic links"
-    stow alacritty bash dunst emacs gtk-3.0 most nvim others picom qtile rofi starship terminator tmux utils
+    git clone https://github.com/robsonrod/dotfiles.git ~/dotfiles
+    ~/dotfiles/stow alacritty bash dunst emacs gtk-3.0 most nvim others picom qtile i3 i3status-rust rofi starship terminator tmux utils zathura
 }
 
-set_os_type 
-update_env
-mandatory_tools
-select_file
-read_file
-fonts
-starship
-nvim_plugins
-asdf
-dotfiles
+exec_all() {
+    update_env
+    install_deps
+    install_pkgs
+    services
+    fonts
+    starship
+    vim_plugins
+    tmux_plugins
+    asdf
+    my_dotfiles
+}
+
+exec_all
+

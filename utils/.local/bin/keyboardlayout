@@ -1,12 +1,48 @@
 #!/bin/bash
 
-layout=$(setxkbmap -query | grep variant | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
+set_layout() {
+    layout=$(setxkbmap -query | grep variant | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
 
-case "$layout" in
-    "alt-intl"*)
-        setxkbmap -layout us
-        ;;
-    *)
-        setxkbmap -layout us -variant alt-intl
-        ;;
-esac
+    case "$layout" in
+        "alt-intl"*)
+            setxkbmap -layout us
+            ;;
+        *)
+            setxkbmap -layout us -variant alt-intl
+            ;;
+    esac
+}
+
+get_layout() {
+    layout=$(setxkbmap -query | grep variant | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
+    if [ -z "$layout" ]; then
+        layout=$(setxkbmap -query | grep layout | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
+    fi
+
+    echo $layout
+}
+
+usage() {
+    printf "\nUsage:\n"
+    echo " --set define keyboard layout"
+    echo " --get show keyboard layout"
+}
+
+if [ "$#" -eq 0 ]; then 
+    usage; 
+    exit 1; 
+fi
+
+main() {
+    case $1 in
+        --set)
+           set_layout 
+            ;;
+        --get)
+           get_layout 
+            ;;
+        *) usage ; exit 1;
+    esac
+}
+
+main "$@"

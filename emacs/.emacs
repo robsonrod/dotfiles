@@ -136,8 +136,8 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; set encoding
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
+(prefer-coding-system 'iso-8859-1)
+(set-default-coding-systems 'iso-8859-1)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
@@ -421,8 +421,8 @@
   :config (projectile-mode) 
   :demand t 
   :bind-keymap ("C-c p" . projectile-command-map) 
-  :init (when (file-directory-p "~/Projetos") 
-          (setq projectile-project-search-path '("~/Projetos"))) 
+  :init (when (file-directory-p "~/projects/work") 
+          (setq projectile-project-search-path '("~/projects/work"))) 
   (setq projectile-switch-project-action #'switch-project-action))
 
 (use-package 

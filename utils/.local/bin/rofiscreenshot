@@ -1,0 +1,23 @@
+#!/bin/env bash
+
+# options to be displayed
+option0="screen"
+option1="area"
+option2="window"
+
+# options to be displyed
+options="$option0\n$option1\n$option2"
+
+selected="$(echo -e "$options" | rofi -lines 3 -dmenu -p "scrot")"
+case $selected in
+    $option0)
+        scrot -e 'mv $f '"$SCREENSHOTS_DIR"'/Screenshot-%Y:%m:%d-%H:%M:%S.png'
+        ;;
+    $option1)
+        scrot -s -e 'mv $f '"$SCREENSHOTS_DIR"'/Screenshot-%Y:%m:%d-%H:%M:%S.png'
+        ;;
+    $option2)
+        scrot -u -e 'mv $f '"$SCREENSHOTS_DIR"'/Screenshot-%Y:%m:%d-%H:%M:%S.png'
+        ;;
+esac
+

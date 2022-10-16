@@ -1,7 +1,7 @@
 # ~/.config/starship.toml
 
 # Timeout for commands executed by starship (ms)
-command_timeout = 3000
+command_timeout = 10000
 
 [character]
 error_symbol = "[➜](bold red)"
