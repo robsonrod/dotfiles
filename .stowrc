@@ -1,1 +1,1 @@
---dir=~/dotfiles --target=~ --dotfiles
+--dir=/home/robson/dotfiles --target=/home/robson --dotfiles

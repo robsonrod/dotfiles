@@ -25,3 +25,5 @@ export WORK_PROJECTS="${PROJECTS}/work"
 if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
+
+export SUDO_ASKPASS=~/.local/bin/rofiaskpasswd
