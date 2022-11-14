@@ -1,0 +1,15 @@
+#!/bin/bash
+
+tmpdir=/tmp/lock
+tmpfile=$tmpdir/screen_lock.png
+
+mkdir -p $tmpdir
+scrot $tmpfile
+
+convert ~/.config/qtile/wallpaper/wallpaper.jpg $tmpfile 
+
+i3lock -i $tmpfile
+rm -rf /tmp/lock
+
+# Turn the screen off after a delay.
+sleep 60; pgrep i3lock && xset dpms force off

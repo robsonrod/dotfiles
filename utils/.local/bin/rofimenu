@@ -1,0 +1,42 @@
+#!/bin/env bash
+
+__main_menu() {
+    rofi -modi drun -show drun -line-padding 4 -columns 2 -padding 50 -hide-scrollbar -show-icons -drun-icon-theme "Papirus-Dark"
+}
+
+__run_cmd() {
+    rofi -modi run -show run -p "run:"    
+}
+
+__show_window() {
+    rofi -modi window -show window -i -p -config ~/.config/rofi/themes/dt-center.rasi -fixed-num-lines: false
+}
+
+usage() {
+    printf "\nUsage:\n"
+    echo " --menu show application menu"
+    echo " --run  show exec prompt"
+    echo " --window list all applications"
+}
+
+if [ "$#" -eq 0 ]; then 
+    usage; 
+    exit 1; 
+fi
+
+main() {
+    case $1 in
+        --menu)
+            __main_menu
+            ;;
+        --run)
+            __run_cmd
+            ;;
+        --window)
+            __show_window
+            ;;
+        *) usage ; exit 1;
+    esac
+}
+
+main "$@"
