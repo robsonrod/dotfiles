@@ -12,8 +12,6 @@ font:
 
   size: 8
 
-  use_thin_strokes: true
-
 import:
   - ~/.config/alacritty/themes/dracula.yml
 

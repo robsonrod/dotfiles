@@ -1,6 +1,6 @@
 #### General ####
 
-PATH="$HOME/.local/bin":$PATH
+PATH="$HOME/.local/bin":"$HOME/bin":$PATH
 PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
 
 HISTCONTROL=ignoredups:erasedups
@@ -8,7 +8,6 @@ HISTSIZE=1000000
 HISTFILESIZE=20000
 
 PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
-#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 shopt -s histappend
 shopt -s checkwinsize
@@ -95,7 +94,7 @@ alias h='history'
 alias v='vim'
 alias e='emacs -nw'
 alias cd='z'
-alias cat='bat'
+alias cat='batcat'
 alias open='xdg-open'
 
 alias ..='cd ..' 
@@ -237,5 +236,4 @@ f() {
     IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
     [[ -n "$files" ]] && xdg-open "${files[@]}"
 }
-
 

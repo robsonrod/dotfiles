@@ -1,3 +1,7 @@
 #!/bin/env bash
 
-stow alacritty/ bash/ dunst/ emacs/ gtk-3.0/ most/ nvim/ others/ picom/ qtile/ i3/ i3status-rust/ rofi/ starship/ terminator/ tmux/ utils/ zathura/
+if [ ! -f ~/.bashrc.bkp ]; then
+	mv ~/.bashrc ~/.bashrc.bkp
+fi
+
+stow alacritty/ bash/ dunst/ emacs/ gtk-3.0/ most/ nvim/ others/ picom/ qtile/ i3/ i3status-rust/ rofi/ starship/ terminator/ tmux/ utils/ zathura/ --adopt
