@@ -1,4 +1,4 @@
-# Doffiles
+# Dotfiles
 
 This repository has my dotfiles
 
