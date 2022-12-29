@@ -1,4 +1,6 @@
-;;; init.el --- -*- lexical-binding: t -*-
+;;; package --- init
+;;; Comentary:  my init
+;; -*- coding: utf-8; lexical-binding: t -*-
 
 ;;; gc
 (setq gc-cons-threshold (* 50 1000 1000))
@@ -16,22 +18,22 @@
 (set-keyboard-coding-system 'utf-8)
 
 ;; general variables
-(setq inhibit-startup-message t                       ; no welcome buffer
-      initial-scratch-message nil                     ; no scratch buffer 
-      ring-bell-function 'ignore                      ; never ding
-      history-length 20                               ; max history saves
-      use-dialog-box nil                              ; no ugly dialogs
-      case-fold-search nil                            ; case sensitive search
-      confirm-kill-processes nil                      ; just quit
-      global-auto-revert-non-file-buffers t           ; update buffers thar are non-files too
-      sentence-end-double-space nil                   ; no way double spaces
-      load-prefer-newer t                             ; always load the new file
-      tab-always-indent 'complete                     ; use TAB to complete symbols
+(setq inhibit-startup-message t         ; no welcome buffer
+      initial-scratch-message nil       ; no scratch buffer
+      ring-bell-function 'ignore        ; never ding
+      history-length 20                 ; max history saves
+      use-dialog-box nil                ; no ugly dialogs
+      case-fold-search nil              ; case sensitive search
+      confirm-kill-processes nil        ; just quit
+      global-auto-revert-non-file-buffers t ; update buffers thar are non-files too
+      sentence-end-double-space nil         ; no way double spaces
+      load-prefer-newer t                   ; always load the new file
+      tab-always-indent 'complete       ; use TAB to complete symbols
       native-comp-async-report-warnings-erros 'silent ; there's not very much I can do
       mouse-wheel-scroll-amount '(2 ((shift) . 1))    ; scroll 2 lines
-      mouse-wheel-progressive-speed nil               ; don't accelerate
-      mouse-wheel-follow-mouse 't                     ; scroll window under mouse cursor
-      scroll-step 1)                                  ; scroll 1 line with keyboard
+      mouse-wheel-progressive-speed nil ; don't accelerate
+      mouse-wheel-follow-mouse 't   ; scroll window under mouse cursor
+      scroll-step 1)                ; scroll 1 line with keyboard
 
 ;; window title
 (setq frame-title-format "%b - emacs")
@@ -76,7 +78,7 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; eval buffer
-(global-set-key (kbd "C-x C-e") 'eval-buffer)
+(global-set-key (kbd "C-c l e") 'eval-buffer)
 
 ;; elisp format
 (global-set-key (kbd "C-c e f") 'elisp-format-buffer)
@@ -125,7 +127,6 @@
                          ("org" . "https://orgmode.org/elpa/") 
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
-(unless package-archive-contents (package-refresh-contents))
 
 ;; install package manager
 (unless (package-installed-p 'use-package) 
@@ -138,17 +139,17 @@
 (use-package 
   diminish)
 
-(use-package perspective
-  :demand t
-  :bind (("C-M-k" . persp-switch)
-         ("C-M-n" . persp-next)
-         ("C-x k" . persp-kill-buffer*))
-  :custom
-  (persp-initial-frame-name "Main")
-  (persp-mode-prefix-key (kbd "C-c M-p"))
+(use-package 
+  perspective 
+  :demand t 
+  :bind (("C-M-k" . persp-switch) 
+         ("C-M-n" . persp-next) 
+         ("C-x k" . persp-kill-buffer*)) 
+  :custom (persp-initial-frame-name "Main") 
+  (persp-mode-prefix-key (kbd "C-c M-p")) 
   :config
   ;; Running `persp-mode' multiple times resets the perspective list...
-  (unless (equal persp-mode t)
+  (unless (equal persp-mode t) 
     (persp-mode)))
 
 ;; file explorer
@@ -319,8 +320,8 @@
   :bind (("M-x" . counsel-M-x) 
          ("C-x b" . counsel-ibuffer) 
          ("C-x C-f" . counsel-find-file) 
-         ("C-c R" . counsel-rg) 
-         ("C-c F" . counsel-fzf) 
+         ("C-c r" . counsel-rg) 
+         ("C-c f" . counsel-fzf) 
          ("C-M-j" . counsel-switch-buffer) 
          ("M-y" . counsel-yank-pop) 
          :map minibuffer-local-map ("C-r" . 'counsel-minibuffer-history)) 
@@ -396,6 +397,7 @@
   (evil-global-set-key 'motion (kbd "<down>") 'dont-arrow-me-bro) 
   (evil-global-set-key 'motion (kbd "<up>") 'dont-arrow-me-bro) 
   (evil-set-initial-state 'messages-buffer-mode 'normal) 
+  (evil-set-initial-state 'dired-mode 'normal) 
   (evil-set-initial-state 'dashboard-mode 'normal))
 
 ;; evil bindings for specific parts
@@ -420,6 +422,11 @@
   iedit 
   :bind ("C-c ," . iedit-mode) 
   :diminish)
+
+(use-package 
+  elisp-format 
+  :ensure t 
+  :init)
 
 ;; find file in project
 (use-package 
@@ -456,15 +463,16 @@
   :demand t 
   :custom ((projectile-completion-system 'ivy)) 
   :bind-keymap ("C-c p" . projectile-command-map) 
-  :init (when (file-directory-p "~/projects/work") 
-          (setq projectile-project-search-path '("~/projects/work"))) 
+  :init (when (file-directory-p "~/projects/personal/") 
+          (setq projectile-project-search-path '("~/projects/personal/"))) 
   (setq projectile-switch-project-action #'projectile-dired))
 
 ;; ivy integration project manager
 (use-package 
   counsel-projectile 
   :after projectile 
-  :bind (("C-M-p" . counsel-projectile-find-file)) 
+  :bind (("C-M-p" . counsel-projectile-find-file) 
+         ("C-SPC" . counsel-projectile-switch-project)) 
   :config (counsel-projectile-mode))
 
 ;; company
@@ -473,11 +481,11 @@
   :ensure t 
   :bind ("C-M-/" . company-complete-common-or-cycle) 
   :init (add-hook 'after-init-hook 'global-company-mode) 
-  :config (setq company-show-numbers t company-minimum-prefix-length 1 company-idle-delay 0.5
+  :config (setq company-show-quick-access t company-minimum-prefix-length 1 company-idle-delay 0.5
                 company-backends '((company-files ; files & directory
 				    company-keywords ; keywords
 				    company-capf     ; what is this?
-				    company-yasnippet) 
+				    company-yasnippet company-restclient) 
                                    (company-abbrev company-dabbrev))))
 
 (use-package 
@@ -503,12 +511,28 @@
   (lsp-eldoc-hook nil) 
   :hook ((c-mode . lsp) 
          (c++-mode . lsp) 
+         (java-mode . lsp) 
          (clojure-mode . lsp) 
          (rust-mode . lsp) 
          (lsp-mode . lsp-enable-which-key-integration)) 
   :config (setq lsp-keymap-prefix "C-c l") 
   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map) 
-  (setq lsp-file-watch-threshold 15000))
+  (setq lsp-file-watch-threshold 15000) 
+  (setq lsp-ui-doc-enable nil) 
+  (setq lsp-ui-doc-show-with-cursor nil) 
+  (setq lsp-modeline-code-actions-enable nil) 
+  (setq lsp-signature-render-documentation nil) 
+  (setq lsp-lens-enable nil) 
+  (setq lsp-enable-symbol-highlighting nil) 
+  (setq lsp-eldoc-enable-hover nil) 
+  (setq lsp-eldoc-hook nil) 
+  (setq lsp-enable-links nil) 
+  (setq lsp-log-io nil) 
+  (setq lsp-enable-file-watchers nil) 
+  (setq lsp-enable-on-type-formatting nil) 
+  (setq lsp-completion-show-detail nil) 
+  (setq lsp-completion-show-kind nil) 
+  (setq lsp-headerline-breadcrumb-enable nil))
 
 ;; a hight level UI modules of lsp
 (use-package 
@@ -535,7 +559,8 @@
 ;; debugger
 (use-package 
   dap-mode 
-
+  :after lsp-mode 
+  :config (dap-auto-configure-mode) 
   :diminish 
   :bind (:map dap-mode-map
               (("<f12>" . dap-debug) 
@@ -545,20 +570,23 @@
                ("C-M-<f11>" . dap-step-out) 
                ("<f7>" . dap-breakpoint-toggle))))
 
+(use-package 
+  dap-java 
+  :ensure nil)
+
 ;; flycheck
-(use-package
-  flycheck
+(use-package 
+  flycheck 
   :init (global-flycheck-mode))
 
 ;; clojure support
-(use-package
+(use-package 
   flycheck-clj-kondo)
 
 (use-package 
   clojure-mode 
-  :after flycheck-clj-kondo
-  :config
-  (require 'flycheck-clj-kondo))
+  :after flycheck-clj-kondo 
+  :config (require 'flycheck-clj-kondo))
 
 ;; cider clojure
 (setq org-babel-clojure-backend 'cider)
@@ -575,6 +603,7 @@
 (use-package 
   rust-mode 
   :defer t 
+  :mode "\\.rs\\'" 
   :custom (rust-format-on-save t) 
   (lsp-rust-server 'rust-analyzer))
 
@@ -588,14 +617,35 @@
   dockerfile-mode 
   :defer t)
 
+;; java
+(use-package 
+  lsp-java 
+  :after lsp-mode 
+  :if (executable-find "mvn") 
+  :init (use-package 
+          request 
+          :defer t) 
+  :custom (lsp-java-server-install-dir (expand-file-name "~/.emacs.d/eclpse.jdt.ls/server/")) 
+  (lsp-java-workspace-dir (expand-file-name "~/.emacs.d/eclipse.jdt.ls/workspace/")))
+
+(setq lsp-java-vmargs '("-noverify" "-Xmx2G" "-Xms100m" "-XX:+UseG1GC" "-XX:+UseStringDeduplication"
+                        "-javaagent:/home/robson/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar"
+                        "-Xbootclasspath/a:/home/robson/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar"))
+;; sh script support
+(use-package 
+  sh-script 
+  :ensure nil 
+  :config (with-eval-after-load 'company (add-hook 'sh-mode-hook #'(lambda () 
+                                                                     (company-mode -1)))))
+
 ;;
 (defun efs/org-mode-setup () 
   (org-indent-mode) 
   (variable-pitch-mode 1) 
   (visual-line-mode 1))
 
-(defun efs/org-font-setup ()
-  ;; Replace list hyphen with dot
+(defun efs/org-font-setup () 
+  "Replace list hyphen with dot."
   (font-lock-add-keywords 
    'org-mode
    '(("^ *\\([-]\\) " (0 (prog1 () 
@@ -669,15 +719,80 @@
 (add-to-list 'org-structure-template-alist '("sh"  . "src shell"))
 (add-to-list 'org-structure-template-alist '("elisp" . "src emacs-lisp"))
 
-(use-package exec-path-from-shell
-  :if (memq window-system '(mac ns x))
-  :config
-  (exec-path-from-shell-initialize))
+(use-package 
+  exec-path-from-shell 
+  :if (memq window-system '(mac ns x)) 
+  :config (exec-path-from-shell-initialize))
 
 ;; terminal
 (use-package 
   vterm 
   :config (defun turn-off-chrome () 
             (setq vterm-max-scrollback 10000 term-prompt-regexp "^[^#$%>\n]*[#$%>] *") 
-            (hl-line-mode -1))) 
+            (hl-line-mode -1) 
+            (display-line-numbers-mode -1) 
+            :hook (vterm-mode . turn-off-chrome)))
 
+;; rest client
+(use-package 
+  restclient 
+  :ensure t 
+  :mode (("\\.http\\'" . restclient-mode)))
+
+(use-package 
+  company-restclient 
+  :ensure t)
+
+(use-package 
+  page-break-lines)
+
+(use-package 
+  dashboard 
+  :ensure t 
+  :config (setq dashboard-banner-logo-title "Welcome") 
+  (setq dashboard-set-init-info nil) 
+  (setq show-week-agenda-p t) 
+  (setq dashboard-items '((recents . 15) 
+                          (projects . 5) 
+                          (agenda . 5) 
+                          (bookmarks . 5))) 
+  (setq dashboard-set-heading-icons t) 
+  (setq dashboard-set-file-icons t) 
+  (setq dashboard-startup-banner 'logo) 
+  (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-action-dired) 
+  (setq dashboard-footer-messages '(" Black as night, sweet as sin")) 
+  (setq dashboard-footer-icon (all-the-icons-fileicon "elisp" 
+                                                      :height 1.1 
+                                                      :v-adjust -0.05 
+                                                      :face 'font-lock-keyword-face)) 
+  (dashboard-setup-startup-hook))
+(define-key dashboard-mode-map (kbd "<f5>") #'(lambda () 
+                                                (interactive) 
+                                                (dashboard-refresh-buffer) 
+                                                (message "refreshing... done")))
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages '(dashboard page-break-lines company-restclient restclient vterm
+                                         exec-path-from-shell visual-fill-column org-bullets
+                                         lsp-java dockerfile-mode yaml-mode rust-mode cider
+                                         clojure-mode flycheck-clj-kondo flycheck dap-mode
+                                         lsp-treemacs lsp-ui lsp-mode company-box company
+                                         counsel-projectile projectile git-gutter-fringe git-gutter
+                                         ripgrep find-file-in-project elisp-format iedit
+                                         evil-nerd-commenter evil-collection evil helpful ivy-rich
+                                         counsel ivy paredit rainbow-delimiters which-key
+                                         doom-modeline doom-themes minions dired-hide-dotfiles
+                                         dired-open all-the-icons-dired dired-collapse dired-ranger
+                                         dired-single dired-rainbow perspective diminish
+                                         use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
