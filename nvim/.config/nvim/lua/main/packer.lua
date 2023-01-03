@@ -41,9 +41,19 @@ return packer.startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
 
+    use 'nvim-lua/plenary.nvim'
+
+    use 'windwp/nvim-spectre'
+
+    use 'jlanzarotta/bufexplorer'
+
+    use {"windwp/nvim-autopairs", as = 'autopairs'}
+
     use {'navarasu/onedark.nvim', as = 'onedark' }
     use {'Mofiqul/dracula.nvim', as = 'dracula' }
     use {'catppuccin/nvim', as = 'catppuccin' }
+    use {'p00f/nvim-ts-rainbow'}
+    use {'folke/tokyonight.nvim', as = 'tokyonight'}
 
     use {'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true }}
 

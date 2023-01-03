@@ -1,14 +1,13 @@
-local g = vim.g
 local opt = vim.opt
 
 -- General
 opt.swapfile = false        -- Don't use swapfile
-g.mapleader = " "           -- mapleader space
 
 -- UI
 opt.nu = true
-opt.relativenumber = false
+opt.relativenumber = true
 opt.linebreak = true
+opt.cursorline = true
 
 -- Tabs, indent
 opt.expandtab = true        -- Use spaces instead of tabs
@@ -40,3 +39,6 @@ opt.history = 100           -- Remember N lines in history
 opt.lazyredraw = true       -- Faster scrolling
 opt.synmaxcol = 240         -- Max column for syntax highlight
 opt.updatetime = 250        -- ms to wait for trigger an event
+
+-- Disable nvim intro
+opt.shortmess:append "sI"
