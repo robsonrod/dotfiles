@@ -91,7 +91,7 @@ alias gstp="git stash pop"
 # general aliases
 alias g='git'
 alias h='history'
-alias v='vim'
+alias v='nvim'
 alias e='emacs -nw'
 alias cd='z'
 alias cat='batcat'

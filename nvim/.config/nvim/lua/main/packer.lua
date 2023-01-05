@@ -86,7 +86,14 @@ return packer.startup(function(use)
         }
     }
 
+    use {'Olical/conjure'}
+    use {'tpope/vim-dispatch'}
+    use {'clojure-vim/vim-jack-in'}
+    use {'radenling/vim-dispatch-neovim'}
 
+    use {'nvim-orgmode/orgmode', as='orgmode'}
+    --
+    --
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if packer_bootstrap then
