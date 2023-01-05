@@ -1,5 +1,8 @@
 # bash_profile
-source "$HOME"/.config/user-dirs.dirs
+
+if [ -f "$HOME"/.config/user-dirs.dirs ]; then
+	source "$HOME"/.config/user-dirs.dirs
+fi
 
 export TERM='xterm-256color'
 export EDITOR='nvim'
@@ -24,13 +27,13 @@ export WORK_PROJECTS="${PROJECTS}/work"
 export SUDO_ASKPASS="${HOME}/.local/bin/rofiaskpasswd"
 
 if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
+	. ~/.bashrc
 fi
 
 if [ -f "$HOME/.cargo/env" ]; then
-    . "$HOME/.cargo/env"
+	. "$HOME/.cargo/env"
 fi
 
 if [ -f "$HOME/.local/share/env" ]; then
-    . "$HOME/.local/share/bin/env"
+	. "$HOME/.local/share/bin/env"
 fi
