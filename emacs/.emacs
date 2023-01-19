@@ -1,113 +1,92 @@
+;;; package --- init
+;;; Comentary:  my init
 ;; -*- coding: utf-8; lexical-binding: t -*-
 
-;; Remove cl warnings
+;;; gc
+(setq gc-cons-threshold (* 50 1000 1000))
+
+;; fix obsolete warning
 (setq byte-compile-warnings '(cl-functions))
 
-;; startup fast
-(setq gc-cons-threshold (* 50 1000 1000) read-process-output-max (* 1000 1000)
-      treemacs-space-between-root-nodes nil company-idle-delay 0.0 company-minimum-prefix-length 1
-      lsp-idle-delay 0.1)
+;; set variables
+(setq inhibit-startup-message t tab-always-indent 'complete)
 
-;; Profile emacs startup
-(add-hook 'emacs-startup-hook (lambda () 
-                                (message "*** Emacs loaded in %s with %d garbage collections."
-                                         (format "%.2f seconds" (float-time (time-subtract
-                                                                             after-init-time
-                                                                             before-init-time)))
-                                         gcs-done)))
+;; Encoding
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
 
-(setq
- ;; No need to see GNU agitprop.
- inhibit-startup-message t
- ;; No need to remind me what a scratch buffer is.
- initial-scratch-message nil
- ;; Double-spaces after periods is morally wrong.
- sentence-end-double-space nil
- ;; Never ding at me, ever.
- ring-bell-function 'ignore
- ;; Save existing clipboard text into the kill ring before replacing it.
- save-interprogram-paste-before-kill t
- ;; Prompts should go in the minibuffer, not in a GUI.
- use-dialog-box nil
- ;; Fix undo in commands affecting the mark.
- mark-even-if-inactive nil
- ;; Let C-k delete the whole line.
- kill-whole-line t
- ;; search should be case-sensitive by default
- case-fold-search nil
- ;; no need to prompt for the read command _every_ time
- compilation-read-command nil
- ;; scroll to first error
- compilation-scroll-output 'first-error
- ;; accept 'y' or 'n' instead of yes/no
- use-short-answers t
- ;; eke out a little more scrolling performance
- fast-but-imprecise-scrolling t
- ;; prefer newer elisp files
- load-prefer-newer t
- ;; when I say to quit, I mean quit
- confirm-kill-processes nil
- ;; if native-comp is having trouble, there's not very much I can do
- native-comp-async-report-warnings-erros 'silent
- ;; unicode ellipses are better
- truncate-string-ellipsis "...")
+;; general variables
+(setq inhibit-startup-message t         ; no welcome buffer
+      initial-scratch-message nil       ; no scratch buffer
+      ring-bell-function 'ignore        ; never ding
+      history-length 20                 ; max history saves
+      use-dialog-box nil                ; no ugly dialogs
+      case-fold-search nil              ; case sensitive search
+      confirm-kill-processes nil        ; just quit
+      global-auto-revert-non-file-buffers t ; update buffers thar are non-files too
+      sentence-end-double-space nil         ; no way double spaces
+      load-prefer-newer t                   ; always load the new file
+      tab-always-indent 'complete       ; use TAB to complete symbols
+      native-comp-async-report-warnings-erros 'silent ; there's not very much I can do
+      mouse-wheel-scroll-amount '(2 ((shift) . 1))    ; scroll 2 lines
+      mouse-wheel-progressive-speed nil ; don't accelerate
+      mouse-wheel-follow-mouse 't   ; scroll window under mouse cursor
+      scroll-step 1)                ; scroll 1 line with keyboard
 
-;; never mix tabs and spaces. Never use tabs, period.
-(setq-default indent-tabs-mode nil)
+;; window title
+(setq frame-title-format "%b - emacs")
 
-;; enabling line numbers
+;; window resize
+(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; enable/disable modes
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(tooltip-mode -1)
+(set-fringe-mode 10)
+(auto-revert-mode 1)
 (delete-selection-mode t)
-(column-number-mode)
+(column-number-mode t)
+(save-place-mode 1)
+(global-auto-revert-mode 1)
+(global-hl-line-mode +1)
 (global-display-line-numbers-mode t)
 
 ;; disable line numbers for some modes
-(dolist (mode '(org-mode-hook term-mode-hook shell-mode-hook eshell-mode-hook)) 
+(dolist (mode '(org-mode-hook term-mode-hook vterm-mode-hook shell-mode-hook eshell-mode-hook)) 
   (add-hook mode (lambda () 
                    (display-line-numbers-mode 0))))
 
-;; ignore backup files
-(setq make-backup-files nil auto-save-default nil create-lockfiles nil)
-
-;; gui enhacements
-(when (window-system) 
-  (scroll-bar-mode -1) 
-  (tool-bar-mode -1) 
-  (tooltip-mode -1) 
-  (set-fringe-mode 10) 
-  (global-hl-line-mode +1) 
-  (menu-bar-mode -1) 
-  (auto-revert-mode 1))
-
-(set-frame-parameter (selected-frame) 'alpha '(95 . 70))
-(add-to-list 'default-frame-alist '(alpha . (95 . 70)))
-(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; spaces instead of tabs
+(setq-default indent-tabs-mode nil)
 
 ;; font configuration
 (set-face-attribute 'default nil 
                     :font "Fira Code Retina" 
-                    :height 80)
+                    :height 100)
 
-;; changing cursor type.
-(setq-default cursor-type 'bar)
+;; yes or no question
+(fset 'yes-or-no-p 'y-or-n-p)
 
-(setq custom-file (make-temp-name "/tmp/"))
-
-;; Disable C-z
-(global-unset-key (kbd "C-z"))
+;; Custom functions
 
 ;; ESC cancels all commands
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; eval buffer
-(global-set-key (kbd "C-x C-e") 'eval-buffer)
+(global-set-key (kbd "C-c l e") 'eval-buffer)
 
 ;; elisp format
 (global-set-key (kbd "C-c e f") 'elisp-format-buffer)
 
-;; move cursor
-(global-set-key (kbd "C-c b b") 'beginning-of-buffer)
-(global-set-key (kbd "C-c b e") 'end-of-buffer)
+;; adjust font size like web browsers
+(global-set-key (kbd "C-=") #'text-scale-increase)
+(global-set-key (kbd "C-+") #'text-scale-increase)
+(global-set-key (kbd "C--") #'text-scale-decrease)
 
 ;; custom window management
 (global-set-key (kbd "C-<tab>") 'other-window)
@@ -116,30 +95,13 @@
 (global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-<left>") 'shrink-window-horizontally)
 
+;; split window
 (defun pt/split-window-two () 
   "Split a window into two." 
   (interactive) 
   (split-window-right) 
   (balance-windows))
-
-
 (global-set-key (kbd "C-c 2") #'pt/split-window-two)
-
-(defun open-init-file () 
-  "Open config file file." 
-  (interactive) 
-  (find-file "~/.emacs"))
-
-(global-set-key (kbd "C-c i") #'open-init-file)
-
-;; changing yes or no question
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-;; set encoding
-(prefer-coding-system 'iso-8859-1)
-(set-default-coding-systems 'iso-8859-1)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
 
 ;; buffer killer
 (defun kill-this-buffer () 
@@ -155,463 +117,42 @@
     (save-some-buffers) 
     (let ((kill-buffer-query-functions '())) 
       (mapc 'kill-buffer (buffer-list)))))
-
 (global-set-key (kbd "C-x k") #'kill-this-buffer)
 (global-set-key (kbd "C-x K") #'kill-all-buffers)
 (global-set-key (kbd "s-w") #'kill-this-buffer)
 
-;; ********** Config packges
-
-;; Initialize package sources
+;; configure package manager
 (require 'package)
-
 (setq package-archives '(("melpa" . "https://melpa.org/packages/") 
-                         ("melpa-stable" . "https://stable.melpa.org/packages/") 
                          ("org" . "https://orgmode.org/elpa/") 
                          ("elpa" . "https://elpa.gnu.org/packages/")))
-
 (package-initialize)
 
-;; Initialize use-package on non-Linux platforms
+;; install package manager
 (unless (package-installed-p 'use-package) 
   (package-refresh-contents) 
   (package-install 'use-package))
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-;; Theme
+;; hide minor modes
 (use-package 
-  doom-themes 
-  :ensure t 
-  :config (setq doom-themes-enable-bold t doom0themes-enable-italic t) 
-  (load-theme 'doom-dracula t))
-
-;; Rainbow delimiters
-(use-package 
-  paren 
-  :config (show-paren-mode) 
-  :custom (show-paren-style 'parenthesis))
-(set-face-background 'show-paren-match (face-background 'default))
-(set-face-foreground 'show-paren-match "#def")
-(set-face-attribute 'show-paren-match nil 
-                    :weight 'extra-bold)
+  diminish)
 
 (use-package 
-  rainbow-delimiters 
-  :ensure t 
-  :hook (prog-mode . rainbow-delimiters-mode))
-
-(use-package 
-  smartparens 
-  :diminish smartparens-mode 
-  :init (smartparens-global-mode) 
-  :config (require 'smartparens-config))
-
-(use-package 
-  iedit 
-  :ensure t)
-
-(use-package 
-  sudo-edit)
-
-;; Key helper
-(use-package 
-  which-key 
-  :init (which-key-mode) 
-  :diminish which-key-mode 
-  :config (setq which-key-idle-delay 0.3))
-
-;; Enhanced completition framework
-(use-package 
-  ivy 
-  :ensure t 
-  :diminish 
-  :bind (("C-s" . swiper) :map ivy-minibuffer-map ("TAB" . ivy-alt-done) 
-         ("C-f" . ivy-alt-done) 
-         ("C-l" . ivy-alt-done) 
-         ("C-j" . ivy-next-line) 
-         ("C-k" . ivy-previous-line) 
-         :map ivy-switch-buffer-map ("C-k" . ivy-previous-line) 
-         ("C-l" . ivy-done) 
-         ("C-d" . ivy-switch-buffer-kill) 
-         :map ivy-reverse-i-search-map ("C-k" . ivy-previous-line) 
-         ("C-d" . ivy-reverse-i-search-kill)) 
-  :init (ivy-mode 1) 
-  (setq ivy-use-virtual-buffers t) 
-  (setq ivy-wrap t) 
-  (setq ivy-count-format "(%d/%d) ") 
-  (setq enable-recursive-minibuffers t)
-
-  ;; Use different regex strategies per completion command
-  (push '(completion-at-point . ivy--regex-fuzzy) ivy-re-builders-alist) ;; This doesn't seem to work...
-  (push '(swiper . ivy--regex-ignore-order) ivy-re-builders-alist) 
-  (push '(counsel-M-x . ivy--regex-ignore-order) ivy-re-builders-alist)
-
-  ;; Set minibuffer height for different commands
-  (setf (alist-get 'counsel-projectile-ag ivy-height-alist) 15) 
-  (setf (alist-get 'counsel-projectile-rg ivy-height-alist) 15) 
-  (setf (alist-get 'swiper ivy-height-alist) 15) 
-  (setf (alist-get 'counsel-switch-buffer ivy-height-alist) 7))
-
-(use-package 
-  ivy-hydra 
-  :defer t 
-  :after hydra)
-
-(use-package 
-  counsel 
-  :bind (("M-x" . counsel-M-x) 
-         ("C-x b" . counsel-ibuffer) 
-         ("C-x C-f" . counsel-find-file) 
-         ("C-c R" . counsel-rg) 
-         ("C-c F" . counsel-fzf) 
-         ("C-M-j" . counsel-switch-buffer) 
-         ("M-y" . counsel-yank-pop) 
-         :map minibuffer-local-map ("C-r" . 'counsel-minibuffer-history)) 
-  :config (setq ivy-initial-inputs-alias nil) 
-  (setq counsel-find-file-ignore-regexp ".*cache"))
-
-(use-package 
-  ivy-rich 
-  :after ivy 
-  counsel 
-  :init (ivy-rich-mode 1))
-
-(use-package 
-  helpful 
-  :custom (counsel-describe-function-function #'helpful-callable) 
-  (counsel-describe-variable-function #'helpful-variable) 
-  :bind ([remap describe-function] . counsel-describe-function) 
-  ([remap describe-command] . counsel-help-command) 
-  ([remap describe-variable] . counsel-describe-variable) 
-  ([remap describe-key] . helpful-key))
-
-;; Modeline theme
-(use-package 
-  all-the-icons 
-  :if (display-graphic-p))
-
-(use-package 
-  minions 
-  :hook (doom-modeline-mode . minions-mode))
-
-(use-package 
-  doom-modeline 
-  :ensure t 
-  :init (doom-modeline-mode 1) 
-  :custom ((doom-modeline-height 15)))
-
-;; Hook to modes
-(defun evil-hook () 
-  (dolist (mode '(custom-mode eshell-mode git-rebase-mode term-mode dired-mode help-mode helm-grep-mode grep-mode wdired-mode )) 
-    (add-to-list 'evil-emacs-state-modes mode)))
-
-(global-set-key (kbd "C-M-u") 'universal-argument)
-
-;; Watch out with arrow keys
-(defun dont-arrow-me-bro () 
-  (interactive) 
-  (message "Arrow keys are bad, you know?"))
-
-;; Lets be evil
-(use-package 
-  evil 
-  :init (setq evil-want-integration t) 
-  (setq evil-want-keybinding nil) 
-  (setq evil-want-C-u-scroll t) 
-  (setq evil-want-C-i-jump nil) 
-  (setq evil-respect-visual-line-mode t) 
-  (setq evil-undo-system 'undo-redo) 
-  :config (add-hook 'evil-mode-hook 'evil-hook) 
-  (evil-mode 1) 
-  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state) 
-  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join) 
-  (define-key evil-insert-state-map (kbd "C-s") 'evil-write)
-
-  ;; Use visual line motions even outside of visual-line-mode buffers
-  (evil-global-set-key 'motion "j" 'evil-next-visual-line) 
-  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-  (define-key evil-window-map "d" 'evil-delete-buffer)    ;; C-w d
-  (define-key evil-window-map "\C-d" 'evil-delete-buffer) ;; C-w d
-  (define-key evil-normal-state-map "\C-s" 'save-buffer) 
-  (define-key evil-insert-state-map "\C-s" 'save-buffer)
-  (define-key evil-normal-state-map (kbd "SPC") 'evil-scroll-page-down) 
-  (define-key evil-normal-state-map (kbd "S-SPC") 'evil-scroll-page-up) 
-  (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-forward)
-
-  (define-key evil-normal-state-map (kbd "gr") 'lsp-find-references) 
-  (define-key evil-normal-state-map (kbd "gm") 'lsp-rename) 
-  (define-key evil-normal-state-map (kbd "gl") 'lsp-find-declaration) 
-  (define-key evil-normal-state-map (kbd "gi") 'lsp-find-implementation) 
-  
-  ;; Disable arrow keys in normal and visual modes
-  (define-key evil-normal-state-map (kbd "<left>") 'dont-arrow-me-bro) 
-  (define-key evil-normal-state-map (kbd "<right>") 'dont-arrow-me-bro) 
-  (define-key evil-normal-state-map (kbd "<down>") 'dont-arrow-me-bro) 
-  (define-key evil-normal-state-map (kbd "<up>") 'dont-arrow-me-bro) 
-  (evil-global-set-key 'motion (kbd "<left>") 'dont-arrow-me-bro) 
-  (evil-global-set-key 'motion (kbd "<right>") 'dont-arrow-me-bro) 
-  (evil-global-set-key 'motion (kbd "<down>") 'dont-arrow-me-bro) 
-  (evil-global-set-key 'motion (kbd "<up>") 'dont-arrow-me-bro) 
-  (evil-set-initial-state 'messages-buffer-mode 'normal) 
-  (evil-set-initial-state 'dashboard-mode 'normal))
-
-(use-package 
-  evil-collection 
-  :after evil 
-  :init (setq evil-collection-company-use-tng nil) ;; Is this a bug in evil-collection?
-  :custom (evil-collection-outline-bind-tab-p nil) 
-  :config (setq evil-collection-mode-list (remove 'lispy evil-collection-mode-list)) 
-  (evil-collection-init))
-
-(use-package 
-  elisp-format 
-  :ensure t 
-  :init)
-
-;; c/c++ format
-(use-package 
-  clang-format+ 
-  :init)
-(add-hook 'c-mode-common-hook #'clang-format+-mode)
-
-;; switch to header and source
-(defun dts-switch-between-header-and-source () 
-  (interactive) 
-  (setq bse (file-name-sans-extension buffer-file-name)) 
-  (setq ext (downcase (file-name-extension buffer-file-name))) 
-  (cond ((or 
-          (equal ext "h") 
-          (equal ext "hpp")) 
-         (setq nfn (concat bse ".c")) 
-         (if (file-exists-p nfn) 
-             (find-file nfn) 
-           (progn 
-             (setq nfn (concat bse ".cpp")) 
-             (find-file nfn)))) 
-        ((or 
-          (equal ext "cpp") 
-          (equal ext "c")) 
-         (setq nfn (concat bse ".h")) 
-         (find-file nfn))))
-
-(global-set-key (kbd "C-c s") 'dts-switch-between-header-and-source)
-
-(use-package 
-  hydra 
-  :defer 1)
-
-(defhydra hydra-text-scale 
-  (:timeout 4)
-  "scale text" ("j" text-scale-increase "in") 
-  ("k" text-scale-decrease "out") 
-  ("f" nil "finished" 
-   :exit t))
-
-;; Project manager - Projectile
-(defun switch-project-action () 
-  "Switch to a workspace with the project name and start `magit-status'."
-  ;; TODO: Switch to EXWM workspace 1?
-  (persp-switch (projectile-project-name)) 
-  (magit-status))
-
-(use-package 
-  projectile 
-  :diminish projectile-mode 
-  :config (projectile-mode) 
+  perspective 
   :demand t 
-  :bind-keymap ("C-c p" . projectile-command-map) 
-  :init (when (file-directory-p "~/projects/work") 
-          (setq projectile-project-search-path '("~/projects/work"))) 
-  (setq projectile-switch-project-action #'switch-project-action))
+  :bind (("C-M-k" . persp-switch) 
+         ("C-M-n" . persp-next) 
+         ("C-x k" . persp-kill-buffer*)) 
+  :custom (persp-initial-frame-name "Main") 
+  (persp-mode-prefix-key (kbd "C-c M-p")) 
+  :config
+  ;; Running `persp-mode' multiple times resets the perspective list...
+  (unless (equal persp-mode t) 
+    (persp-mode)))
 
-(use-package 
-  counsel-projectile 
-  :after projectile 
-  :bind (("C-M-p" . counsel-projectile-find-file)) 
-  :config (counsel-projectile-mode))
-
-;; Git support
-(use-package 
-  magit 
-  :bind ("C-M-;" . magit-status) 
-  :commands (magit-status magit-get-current-branch) 
-  :custom (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
-(use-package 
-  git-gutter 
-  :hook (prog-mode . git-gutter-mode) 
-  :config (setq git-gutter:update-interval 0.02))
-
-(use-package 
-  git-gutter-fringe 
-  :config (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated)) 
-  (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated)) 
-  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
-
-(add-hook 'before-save-hook (lambda () 
-                              (when (eq major-mode 'c++-mode) 
-                                (set-buffer-file-coding-system 'iso-8859-1) 
-                                (message "Covertido"))))
-
-;; Language server provider
-(use-package 
-  lsp-mode 
-  :ensure t 
-  :commands (lsp lsp-deferred) 
-  :hook ((c-mode . lsp) 
-         (c++-mode . lsp) 
-         (lsp-mode . lsp-enable-which-key-integration)) 
-  :config (setq lsp-keymap-prefix "C-c l") 
-  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map) 
-  (setq lsp-file-watch-threshold 15000))
-
-(setq lsp-ui-doc-enable nil)
-(setq lsp-lens-enable nil)
-(setq lsp-headerline-breadcrumb-enable nil)
-
-(use-package 
-  lsp-ui 
-  :ensure t 
-  :after lsp 
-  :hook (lsp-mode . lsp-ui-mode) 
-  :config (setq lsp-ui-sideline-enable t) 
-  (setq lsp-ui-sideline-show-hover nil) 
-  (setq lsp-ui-doc-position 'bottom) 
-  (lsp-ui-doc-show))
-
-(setq lsp-diagnostics-provider 
-      :none)
-
-(use-package 
-  lsp-ivy 
-  :ensure t 
-  :commands lsp-ivy-workspace-symbol)
-
-;; company
-(use-package 
-  company 
-  :ensure t 
-  :bind ("C-M-/" . company-complete-common-or-cycle) 
-  :init (add-hook 'after-init-hook 'global-company-mode) 
-  :config (setq company-show-numbers t company-minimum-prefix-length 1 company-idle-delay 0.5
-                company-backends '((company-files ; files & directory
-				    company-keywords ; keywords
-				    company-capf     ; what is this?
-				    company-yasnippet) 
-                                   (company-abbrev company-dabbrev))))
-
-(use-package 
-  company-box 
-  :ensure t 
-  :after company 
-  :hook (company-mode . company-box-mode))
-
-(use-package 
-  lsp-treemacs 
-  :ensure t 
-  :commands lsp-treemacs-erros-list)
-
-(use-package 
-  yasnippet 
-  :hook (prog-mode . yas-minor-mode) 
-  :config (yas-reload-all))
-
-;; Build system
-(defun bearmake-compile-command () 
-  "Bear make compile command." 
-  (interactive) 
-  (set (make-local-variable 'compile-command) 
-       (concat "make distclean -j6 && bear make -C src -j6 && make -C mock -j6 && make -C test -j6"
-               (if buffer-file-name (shell-quote-argument (file-name-sans-extension
-                                                           buffer-file-name))))) 
-  (call-interactively 'compile))
-
-(defhydra hydra-build 
-  (:timeout 4)
-  "compile" ("B" bearmake-compile-command "Bear Make"))
-
-(use-package 
-  modern-cpp-font-lock 
-  :ensure t 
-  :config (modern-c++-font-lock-global-mode t))
-
-;; Go Lang
-(use-package 
-  go-mode 
-  :defer t 
-  :hook (go-mode . lsp-deferred) 
-  :config (add-hook 'before-save-hook #'gofmt-before-save))
-
-(use-package 
-  go-snippets 
-  :defer t)
-
-(defun fix-messed-up-gofmt-path () 
-  (interactive) 
-  (setq gofmt-command (string-trim (shell-command-to-string "which gofmt"))))
-
-(use-package 
-  gotest 
-  :bind (:map go-mode-map
-              ("C-c a t" . #'go-test-current-test)))
-
-;; Rust
-(use-package 
-  rust-mode 
-  :defer t 
-  :custom (rust-format-on-save t) 
-  (lsp-rust-server 'rust-analyzer))
-
-;; clojure
-(use-package 
-  cider 
-  :mode "\\.clj[sc]?\\'" 
-  :config)
-
-(use-package 
-  yaml-mode 
-  :defer t)
-(use-package 
-  dockerfile-mode 
-  :defer t)
-(use-package 
-  toml-mode 
-  :defer t)
-(use-package 
-  asn1-mode 
-  :defer t)
-
-;; RSS reader
-(use-package 
-  elfeed 
-  :ensure t 
-  :commands elfeed 
-  :config (setq elfeed-feeds '("https://www.fluentcpp.com/feed"
-                               "https://www.reddit.com/r/emacs/.rss"
-                               "https://blog.rust-lang.org/feed.xml"
-                               "https://www.reddit.com/r/golang/.rss"
-                               "https://golangnews.com/index.xmle"
-                               "https://www.reddit.com/r/EmuDev/.rss"
-                               "https://www.reddit.com/r/rust/.rss"
-                               "https://clojure-diary.gitlab.io/feed.xml"
-                               "https://www.reddit.com/r/Clojure/.rss") elfeed-db-directory
-                               (expand-file-name "elfeed" user-emacs-directory)) 
-  :bind ("C-x w" . elfeed))
-
-;; Nerd commenter
-(use-package 
-  evil-nerd-commenter 
-  :bind ("M-/" . 'evilnc-comment-or-uncomment-lines) 
-  ("C-c C-l" . 'evilnc-quick-comment-or-uncomment-to-the-line) 
-  ("C-c C-c" . 'evilnc-copy-and-comment-lines) 
-  ("C-c C-p" . 'evilnc-comment-or-uncomment-paragraphs))
-
-(use-package 
-  all-the-icons-dired 
-  :after all-the-icons 
-  :hook (dired-mode . all-the-icons-dired-mode))
-
+;; file explorer
 (use-package 
   dired 
   :ensure nil 
@@ -674,25 +215,580 @@
   :defer t)
 
 (use-package 
-  exec-path-from-shell 
+  all-the-icons-dired 
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package 
+  dired-open 
+  :config (setq dired-open-extensions '(("png" . "feh") 
+                                        ("mkv" . "mpv") 
+                                        ("png" . "sxiv") 
+                                        ("jpg" . "sxiv") 
+                                        ("gif" . "sxiv") 
+                                        ("mkv" . "mpv") 
+                                        ("mp4" . "mpv") 
+                                        ("mp3" . "mpv") 
+                                        ("ogg" . "mpv"))))
+
+;; hide dotfiles
+(use-package 
+  dired-hide-dotfiles 
+  :hook (dired-mode . dired-hide-dotfiles-mode) 
+  :config (evil-collection-define-key 'normal 'dired-mode-map "H" 'dired-hide-dotfiles-mode))
+
+;; icons
+(use-package 
+  all-the-icons 
+  :if (display-graphic-p))
+
+;; modeline icons
+(use-package 
+  minions 
+  :hook (doom-modeline-mode . minions-mode))
+
+(use-package catppuccin-theme
+  :ensure t
+  :config)
+
+;; doom themes
+(use-package 
+  doom-themes 
   :ensure t 
-  :if (and (equal system-type 'darwin) 
-           (window-system)) 
-  :custom (setq exec-path-from-shell-check-startup-files nil) 
-  (setq exec-path-from-shell-variables . '("PATH" "GOPATH")) 
+  :config (setq doom-themes-enable-bold t doom0themes-enable-italic t)
+(load-theme 'catppuccin t)) 
+
+;; doom modeline
+(use-package 
+  doom-modeline 
+  :ensure t 
+  :init (doom-modeline-mode 1) 
+  :custom ((doom-modeline-height 15)))
+
+;; helper
+(use-package 
+  which-key 
+  :init (which-key-mode) 
+  :diminish which-key-mode 
+  :config (setq which-key-idle-delay 0.3))
+
+;; rainbow delimiters
+(use-package 
+  rainbow-delimiters 
+  :defer t 
+  :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+
+;; paredit
+(use-package 
+  paredit 
+  :defer t 
+  :init (progn (add-hook 'emacs-lisp-mode-hook 'paredit-mode) 
+               (add-hook 'clojure-mode-hook 'paredit-mode) 
+               (add-hook 'clojurec-mode-hook 'paredit-mode) 
+               (add-hook 'cider-repl-mode-hook 'paredit-mode)))
+
+;; completion framework
+(use-package 
+  ivy 
+  :ensure t 
+  :diminish 
+  :bind (("C-s" . swiper) :map ivy-minibuffer-map ("TAB" . ivy-alt-done) 
+         ("C-f" . ivy-alt-done) 
+         ("C-l" . ivy-alt-done) 
+         ("C-j" . ivy-next-line) 
+         ("C-k" . ivy-previous-line) 
+         :map ivy-switch-buffer-map ("C-k" . ivy-previous-line) 
+         ("C-l" . ivy-done) 
+         ("C-d" . ivy-switch-buffer-kill) 
+         :map ivy-reverse-i-search-map ("C-k" . ivy-previous-line) 
+         ("C-d" . ivy-reverse-i-search-kill)) 
+  :init (ivy-mode 1) 
+  (setq ivy-use-virtual-buffers t) 
+  (setq ivy-wrap t) 
+  (setq ivy-count-format "(%d/%d) ") 
+  (setq enable-recursive-minibuffers t)
+
+  ;; use different regex strategies per completion command
+  (push '(completion-at-point . ivy--regex-fuzzy) ivy-re-builders-alist) ;; This doesn't seem to work...
+  (push '(swiper . ivy--regex-ignore-order) ivy-re-builders-alist) 
+  (push '(counsel-M-x . ivy--regex-ignore-order) ivy-re-builders-alist)
+
+  ;; set minibuffer height for different commands
+  (setf (alist-get 'counsel-projectile-ag ivy-height-alist) 15) 
+  (setf (alist-get 'counsel-projectile-rg ivy-height-alist) 15) 
+  (setf (alist-get 'swiper ivy-height-alist) 15) 
+  (setf (alist-get 'counsel-switch-buffer ivy-height-alist) 7))
+
+;; enhance completion framework
+(use-package 
+  counsel 
+  :bind (("M-x" . counsel-M-x) 
+         ("C-x b" . counsel-ibuffer) 
+         ("C-x C-f" . counsel-find-file) 
+         ("C-c r" . counsel-rg) 
+         ("C-c f" . counsel-fzf) 
+         ("C-M-j" . counsel-switch-buffer) 
+         ("M-y" . counsel-yank-pop) 
+         :map minibuffer-local-map ("C-r" . 'counsel-minibuffer-history)) 
+  :config (setq ivy-initial-inputs-alias nil))
+
+;; friendly gui for ivy
+(use-package 
+  ivy-rich 
+  :after ivy 
+  counsel 
+  :init (ivy-rich-mode 1))
+
+;; emacs help improvements
+(use-package 
+  helpful 
+  :custom (counsel-describe-function-function #'helpful-callable) 
+  (counsel-describe-variable-function #'helpful-variable) 
+  :bind ([remap describe-function] . counsel-describe-function) 
+  ([remap describe-command] . counsel-help-command) 
+  ([remap describe-variable] . counsel-describe-variable) 
+  ([remap describe-key] . helpful-key))
+
+;; Hook to modes
+(defun evil-hook () 
+  (dolist (mode '(custom-mode eshell-mode git-rebase-mode term-mode dired-mode help-mode
+                              helm-grep-mode grep-mode wdired-mode )) 
+    (add-to-list 'evil-emacs-state-modes mode)))
+
+(global-set-key (kbd "C-M-u") 'universal-argument)
+
+;; Watch out with arrow keys
+(defun dont-arrow-me-bro () 
+  (interactive) 
+  (message "Arrow keys are bad, you know?"))
+
+;; evil keybings
+(use-package 
+  evil 
+  :init (setq evil-want-integration t) 
+  (setq evil-want-keybinding nil) 
+  (setq evil-want-C-u-scroll t) 
+  (setq evil-want-C-i-jump nil) 
+  (setq evil-respect-visual-line-mode t) 
+  (setq evil-undo-system 'undo-redo) 
+  :config (add-hook 'evil-mode-hook 'evil-hook) 
+  (evil-mode 1) 
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state) 
+  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join) 
+  (define-key evil-insert-state-map (kbd "C-s") 'evil-write)
+
+  ;; Use visual line motions even outside of visual-line-mode buffers
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line) 
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line) 
+  (define-key evil-window-map "d" 'evil-delete-buffer)    ;; C-w d
+  (define-key evil-window-map "\C-d" 'evil-delete-buffer) ;; C-w d
+  (define-key evil-normal-state-map "\C-s" 'save-buffer) 
+  (define-key evil-insert-state-map "\C-s" 'save-buffer) 
+  (define-key evil-normal-state-map (kbd "SPC") 'evil-scroll-page-down) 
+  (define-key evil-normal-state-map (kbd "S-SPC") 'evil-scroll-page-up) 
+  (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-forward) 
+  (define-key evil-normal-state-map (kbd "gr") 'lsp-find-references) 
+  (define-key evil-normal-state-map (kbd "gm") 'lsp-rename) 
+  (define-key evil-normal-state-map (kbd "gl") 'lsp-find-declaration) 
+  (define-key evil-normal-state-map (kbd "gi") 'lsp-find-implementation)
+
+  ;; Disable arrow keys in normal and visual modes
+  (define-key evil-normal-state-map (kbd "<left>") 'dont-arrow-me-bro) 
+  (define-key evil-normal-state-map (kbd "<right>") 'dont-arrow-me-bro) 
+  (define-key evil-normal-state-map (kbd "<down>") 'dont-arrow-me-bro) 
+  (define-key evil-normal-state-map (kbd "<up>") 'dont-arrow-me-bro) 
+  (evil-global-set-key 'motion (kbd "<left>") 'dont-arrow-me-bro) 
+  (evil-global-set-key 'motion (kbd "<right>") 'dont-arrow-me-bro) 
+  (evil-global-set-key 'motion (kbd "<down>") 'dont-arrow-me-bro) 
+  (evil-global-set-key 'motion (kbd "<up>") 'dont-arrow-me-bro) 
+  (evil-set-initial-state 'messages-buffer-mode 'normal) 
+  (evil-set-initial-state 'dired-mode 'normal) 
+  (evil-set-initial-state 'dashboard-mode 'normal))
+
+;; evil bindings for specific parts
+(use-package 
+  evil-collection 
+  :after evil 
+  :init (setq evil-collection-company-use-tng nil) ;; Is this a bug in evil-collection?
+  :custom (evil-collection-outline-bind-tab-p nil) 
+  :config (setq evil-collection-mode-list (remove 'lispy evil-collection-mode-list)) 
+  (evil-collection-init))
+
+;; comment code efficiently
+(use-package 
+  evil-nerd-commenter 
+  :bind ("M-/" . 'evilnc-comment-or-uncomment-lines) 
+  ("C-c C-l" . 'evilnc-quick-comment-or-uncomment-to-the-line) 
+  ("C-c C-c" . 'evilnc-copy-and-comment-lines) 
+  ("C-c C-p" . 'evilnc-comment-or-uncomment-paragraphs))
+
+;; edit mutiple regions
+(use-package 
+  iedit 
+  :bind ("C-c ," . iedit-mode) 
+  :diminish)
+
+(use-package 
+  elisp-format 
+  :ensure t 
+  :init)
+
+;; find file in project
+(use-package 
+  find-file-in-project 
+  :if (executable-find "fdfind") 
+  :init (when (executable-find "fd") 
+          (setq ffip-use-rust-fd t)) 
+  :bind (("C-c o" . ffap) 
+         ("C-c p" . ffip)))
+
+;; search engine based on ripgrep
+(use-package 
+  ripgrep 
+  :ensure t)
+
+;; git diff
+(use-package 
+  git-gutter 
+  :hook (prog-mode . git-gutter-mode) 
+  :config (setq git-gutter:update-interval 0.02))
+
+;; git diff enhanced
+(use-package 
+  git-gutter-fringe 
+  :config (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated)) 
+  (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated)) 
+  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
+
+;; project manager
+(use-package 
+  projectile 
+  :diminish projectile-mode 
+  :config (projectile-mode) 
+  :demand t 
+  :custom ((projectile-completion-system 'ivy)) 
+  :bind-keymap ("C-c p" . projectile-command-map) 
+  :init (when (file-directory-p "~/projects/personal/") 
+          (setq projectile-project-search-path '("~/projects/personal/"))) 
+  (setq projectile-switch-project-action #'projectile-dired))
+
+;; ivy integration project manager
+(use-package 
+  counsel-projectile 
+  :after projectile 
+  :bind (("C-M-p" . counsel-projectile-find-file) 
+         ("C-SPC" . counsel-projectile-switch-project)) 
+  :config (counsel-projectile-mode))
+
+;; company
+(use-package 
+  company 
+  :ensure t 
+  :bind ("C-M-/" . company-complete-common-or-cycle) 
+  :init (add-hook 'after-init-hook 'global-company-mode) 
+  :config (setq company-show-quick-access t company-minimum-prefix-length 1 company-idle-delay 0.5
+                company-backends '((company-files ; files & directory
+				    company-keywords ; keywords
+				    company-capf     ; what is this?
+				    company-yasnippet company-restclient) 
+                                   (company-abbrev company-dabbrev))))
+
+(use-package 
+  company-box 
+  :ensure t 
+  :after company 
+  :hook (company-mode . company-box-mode))
+
+;; lsp - language server provider
+(use-package 
+  lsp-mode 
+  :ensure t 
+  :defer t 
+  :commands (lsp lsp-deferred) 
+  :bind (:map lsp-mode-map
+              ("M-<RET>" . lsp-execute-action)) 
+  :custom (lsp-auto-guess-root nil) 
+  (lsp-prefer-flymake nil)           ; Use flycheck instead of flymake
+  (lsp-enable-file-watchers nil) 
+  (lsp-enable-folding nil) 
+  (read-process-output-max (* 1024 1024)) 
+  (lsp-keep-workspace-alive nil) 
+  (lsp-eldoc-hook nil) 
+  :hook ((c-mode . lsp) 
+         (c++-mode . lsp) 
+         (java-mode . lsp) 
+         (clojure-mode . lsp) 
+         (rust-mode . lsp) 
+         (lsp-mode . lsp-enable-which-key-integration)) 
+  :config (setq lsp-keymap-prefix "C-c l") 
+  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map) 
+  (setq lsp-file-watch-threshold 15000) 
+  (setq lsp-ui-doc-enable nil) 
+  (setq lsp-ui-doc-show-with-cursor nil) 
+  (setq lsp-modeline-code-actions-enable nil) 
+  (setq lsp-signature-render-documentation nil) 
+  (setq lsp-lens-enable nil) 
+  (setq lsp-enable-symbol-highlighting nil) 
+  (setq lsp-eldoc-enable-hover nil) 
+  (setq lsp-eldoc-hook nil) 
+  (setq lsp-enable-links nil) 
+  (setq lsp-log-io nil) 
+  (setq lsp-enable-file-watchers nil) 
+  (setq lsp-enable-on-type-formatting nil) 
+  (setq lsp-completion-show-detail nil) 
+  (setq lsp-completion-show-kind nil) 
+  (setq lsp-headerline-breadcrumb-enable nil))
+
+;; a hight level UI modules of lsp
+(use-package 
+  lsp-ui 
+  :ensure t 
+  :diminish 
+  :defer t 
+  :after lsp 
+  :hook (lsp-mode . lsp-ui-mode) 
+  :config (setq lsp-ui-sideline-enable t) 
+  (setq lsp-ui-sideline-show-hover nil) 
+  (setq lsp-ui-doc-position 'bottom) 
+  (lsp-ui-doc-show) 
+  :bind (:map lsp-ui-mode-map
+              ("C-c i" . lsp-ui-menu)))
+
+;;  treemacs integration
+(use-package 
+  lsp-treemacs 
+  :ensure t 
+  :defer t 
+  :after lsp)
+
+;; debugger
+(use-package 
+  dap-mode 
+  :after lsp-mode 
+  :config (dap-auto-configure-mode) 
+  :diminish 
+  :bind (:map dap-mode-map
+              (("<f12>" . dap-debug) 
+               ("<f8>" . dap-continue) 
+               ("<f9>" . dap-next) 
+               ("<M-f11>" . dap-step-in) 
+               ("C-M-<f11>" . dap-step-out) 
+               ("<f7>" . dap-breakpoint-toggle))))
+
+(use-package 
+  dap-java 
+  :ensure nil)
+
+;; flycheck
+(use-package 
+  flycheck 
+  :init (global-flycheck-mode))
+
+;; clojure support
+(use-package 
+  flycheck-clj-kondo)
+
+(use-package 
+  clojure-mode 
+  :after flycheck-clj-kondo 
+  :config (require 'flycheck-clj-kondo))
+
+;; cider clojure
+(setq org-babel-clojure-backend 'cider)
+(use-package 
+  cider 
+  :defer t 
+  :init (progn (add-hook 'clojure-mode-hook 'cider-mode) 
+               (add-hook 'clojurec-mode-hook 'cider-mode) 
+               (add-hook 'cider-repl-mode-hook 'cider-mode)) 
+  :config (setq cider-repl-display-help-banner nil) 
+  (setq cider-auto-mode nil))
+
+;; rust
+(use-package 
+  rust-mode 
+  :defer t 
+  :mode "\\.rs\\'" 
+  :custom (rust-format-on-save t) 
+  (lsp-rust-server 'rust-analyzer))
+
+;; yaml support
+(use-package 
+  yaml-mode 
+  :defer t)
+
+;; dockerfile support
+(use-package 
+  dockerfile-mode 
+  :defer t)
+
+;; java
+(use-package 
+  lsp-java 
+  :after lsp-mode 
+  :if (executable-find "mvn") 
+  :init (use-package 
+          request 
+          :defer t) 
+  :custom (lsp-java-server-install-dir (expand-file-name "~/.emacs.d/eclpse.jdt.ls/server/")) 
+  (lsp-java-workspace-dir (expand-file-name "~/.emacs.d/eclipse.jdt.ls/workspace/")))
+
+(setq lsp-java-vmargs '("-noverify" "-Xmx2G" "-Xms100m" "-XX:+UseG1GC" "-XX:+UseStringDeduplication"
+                        "-javaagent:/home/robson/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar"
+                        "-Xbootclasspath/a:/home/robson/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar"))
+;; sh script support
+(use-package 
+  sh-script 
+  :ensure nil 
+  :config (with-eval-after-load 'company (add-hook 'sh-mode-hook #'(lambda () 
+                                                                     (company-mode -1)))))
+
+;;
+(defun efs/org-mode-setup () 
+  (org-indent-mode) 
+  (variable-pitch-mode 1) 
+  (visual-line-mode 1))
+
+(defun efs/org-font-setup () 
+  "Replace list hyphen with dot."
+  (font-lock-add-keywords 
+   'org-mode
+   '(("^ *\\([-]\\) " (0 (prog1 () 
+                           (compose-region (match-beginning 1) 
+                                           (match-end 1) "•"))))))
+
+  ;; Set faces for heading levels
+  (dolist (face '((org-level-1 . 1.2) 
+                  (org-level-2 . 1.1) 
+                  (org-level-3 . 1.05) 
+                  (org-level-4 . 1.0) 
+                  (org-level-5 . 1.1) 
+                  (org-level-6 . 1.1) 
+                  (org-level-7 . 1.1) 
+                  (org-level-8 . 1.1))) 
+    (set-face-attribute (car face) nil 
+                        :font "Fira Code Retina" 
+                        :weight 'regular 
+                        :height (cdr face)))
+
+  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+  (set-face-attribute 'org-block nil 
+                      :foreground nil 
+                      :inherit 'fixed-pitch) 
+  (set-face-attribute 'org-code nil 
+                      :inherit '(shadow fixed-pitch)) 
+  (set-face-attribute 'org-table nil 
+                      :inherit '(shadow fixed-pitch)) 
+  (set-face-attribute 'org-verbatim nil 
+                      :inherit '(shadow fixed-pitch)) 
+  (set-face-attribute 'org-special-keyword nil 
+                      :inherit '(font-lock-comment-face fixed-pitch)) 
+  (set-face-attribute 'org-meta-line nil 
+                      :inherit '(font-lock-comment-face fixed-pitch)) 
+  (set-face-attribute 'org-checkbox nil 
+                      :inherit 'fixed-pitch))
+
+;; org mode
+(use-package 
+  org 
+  :hook (org-mode . efs/org-mode-setup) 
+  :config (setq org-ellipsis " ▾") 
+  (efs/org-font-setup))
+
+;; custom bullets
+(use-package 
+  org-bullets 
+  :after org 
+  :hook (org-mode . org-bullets-mode) 
+  :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+(defun efs/org-mode-visual-fill () 
+  (setq visual-fill-column-width 200 visual-fill-column-center-text t) 
+  (visual-fill-column-mode 1))
+
+(use-package 
+  visual-fill-column 
+  :hook (org-mode . efs/org-mode-visual-fill))
+
+(setq org-babel-clojure-backend 'cider)
+
+(org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) 
+                                                         (python . t) 
+                                                         (shell . t) 
+                                                         (clojure . t)))
+
+;; org templates
+(require 'org-tempo)
+(add-to-list 'org-structure-template-alist '("clj" . "src clojure"))
+(add-to-list 'org-structure-template-alist '("pyt" . "src python"))
+(add-to-list 'org-structure-template-alist '("sh"  . "src shell"))
+(add-to-list 'org-structure-template-alist '("elisp" . "src emacs-lisp"))
+
+(use-package 
+  exec-path-from-shell 
+  :if (memq window-system '(mac ns x)) 
   :config (exec-path-from-shell-initialize))
 
-
+;; terminal
 (use-package 
   vterm 
   :config (defun turn-off-chrome () 
+            (setq vterm-max-scrollback 10000 term-prompt-regexp "^[^#$%>\n]*[#$%>] *") 
             (hl-line-mode -1) 
-            (display-line-numbers-mode -1)) 
-  :hook (vterm-mode . turn-off-chrome))
+            (display-line-numbers-mode -1) 
+            :hook (vterm-mode . turn-off-chrome)))
+
+;; rest client
+(use-package 
+  restclient 
+  :ensure t 
+  :mode (("\\.http\\'" . restclient-mode)))
 
 (use-package 
-  vterm-toggle 
-  :custom (vterm-toggle-fullscreen-p nil "Open a vterm in another window.") 
-  (vterm-toggle-scope 'project) 
-  :bind (("C-c t" . #'vterm-toggle) :map vterm-mode-map ("s-t" . #'vterm) ; Open up new tabs quickly
-         ("s-v" . #'vterm-yank)))
+  company-restclient 
+  :ensure t)
+
+(use-package 
+  page-break-lines)
+
+(use-package 
+  dashboard 
+  :ensure t 
+  :config (setq dashboard-banner-logo-title "Welcome") 
+  (setq dashboard-set-init-info nil) 
+  (setq show-week-agenda-p t) 
+  (setq dashboard-items '((recents . 15) 
+                          (projects . 5) 
+                          (agenda . 5) 
+                          (bookmarks . 5))) 
+  (setq dashboard-set-heading-icons t) 
+  (setq dashboard-set-file-icons t) 
+  (setq dashboard-startup-banner 'logo) 
+  (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-action-dired) 
+  (setq dashboard-footer-messages '(" Black as night, sweet as sin")) 
+  (setq dashboard-footer-icon (all-the-icons-fileicon "elisp" 
+                                                      :height 1.1 
+                                                      :v-adjust -0.05 
+                                                      :face 'font-lock-keyword-face)) 
+  (dashboard-setup-startup-hook))
+(define-key dashboard-mode-map (kbd "<f5>") #'(lambda () 
+                                                (interactive) 
+                                                (dashboard-refresh-buffer) 
+                                                (message "refreshing... done")))
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("0961a85d8b1ac80852db1161af66d5b33fd4d2e59147e2803bd3762e08d887f3" default))
+ '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode")
+ '(package-selected-packages
+   '(dashboard page-break-lines company-restclient restclient vterm exec-path-from-shell visual-fill-column org-bullets lsp-java dockerfile-mode yaml-mode rust-mode cider clojure-mode flycheck-clj-kondo flycheck dap-mode lsp-treemacs lsp-ui lsp-mode company-box company counsel-projectile projectile git-gutter-fringe git-gutter ripgrep find-file-in-project elisp-format iedit evil-nerd-commenter evil-collection evil helpful ivy-rich counsel ivy paredit rainbow-delimiters which-key doom-modeline catppuccin-theme doom-themes minions dired-hide-dotfiles dired-open all-the-icons-dired dired-collapse dired-ranger dired-single dired-rainbow perspective diminish use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

@@ -1,9 +1,12 @@
 # bash_profile
-source "$HOME"/.config/user-dirs.dirs
+
+if [ -f "$HOME/.config/user-dirs.dirs" ]; then
+	. "$HOME/.config/user-dirs.dirs"
+fi
 
 export TERM='xterm-256color'
 export EDITOR='nvim'
-export MANPAGER='most'
+export MANPAGER='less'
 export PAGER='less'
 export BROWSER='firefox'
 export FILE="thunar"
@@ -23,14 +26,22 @@ export PERSONAL_PROJECTS="${PROJECTS}/personal"
 export WORK_PROJECTS="${PROJECTS}/work"
 export SUDO_ASKPASS="${HOME}/.local/bin/rofiaskpasswd"
 
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
+
+if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
 fi
 
 if [ -f "$HOME/.cargo/env" ]; then
-    . "$HOME/.cargo/env"
+	. "$HOME/.cargo/env"
 fi
 
 if [ -f "$HOME/.local/share/env" ]; then
-    . "$HOME/.local/share/bin/env"
+	. "$HOME/.local/share/bin/env"
 fi
