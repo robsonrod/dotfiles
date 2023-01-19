@@ -246,16 +246,16 @@
   minions 
   :hook (doom-modeline-mode . minions-mode))
 
+(use-package catppuccin-theme
+  :ensure t
+  :config)
+
 ;; doom themes
 (use-package 
   doom-themes 
   :ensure t 
-  :config (setq doom-themes-enable-bold t doom0themes-enable-italic t)) 
-
-(use-package catppuccin-theme
-  :ensure t
-  :config
-  (load-theme 'catppuccin-mocha t))
+  :config (setq doom-themes-enable-bold t doom0themes-enable-italic t)
+(load-theme 'catppuccin t)) 
 
 ;; doom modeline
 (use-package 
@@ -724,16 +724,6 @@
 (add-to-list 'org-structure-template-alist '("elisp" . "src emacs-lisp"))
 
 (use-package 
-  org-roam 
-  :ensure t 
-  :custom (org-roam-directory "~/org/notes") 
-  (org-roam-completion-everywhere t) 
-  :bind (("C-c n l" . org-roam-buffer-toggle) 
-         ("C-c n f" . org-roam-node-find) 
-         ("C-c n i" . org-roam-node-insert)) 
-  :config (org-roam-db-autosync-enable))
-
-(use-package 
   exec-path-from-shell 
   :if (memq window-system '(mac ns x)) 
   :config (exec-path-from-shell-initialize))
@@ -791,9 +781,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("0961a85d8b1ac80852db1161af66d5b33fd4d2e59147e2803bd3762e08d887f3" default))
  '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode")
  '(package-selected-packages
-   '(org-roam dashboard page-break-lines company-restclient restclient vterm exec-path-from-shell visual-fill-column org-bullets lsp-java dockerfile-mode yaml-mode rust-mode cider clojure-mode flycheck-clj-kondo flycheck dap-mode lsp-treemacs lsp-ui lsp-mode company-box company counsel-projectile projectile git-gutter-fringe git-gutter ripgrep find-file-in-project elisp-format iedit evil-nerd-commenter evil-collection evil helpful ivy-rich counsel ivy paredit rainbow-delimiters which-key doom-modeline doom-themes minions dired-hide-dotfiles dired-open all-the-icons-dired dired-collapse dired-ranger dired-single dired-rainbow perspective diminish use-package)))
+   '(dashboard page-break-lines company-restclient restclient vterm exec-path-from-shell visual-fill-column org-bullets lsp-java dockerfile-mode yaml-mode rust-mode cider clojure-mode flycheck-clj-kondo flycheck dap-mode lsp-treemacs lsp-ui lsp-mode company-box company counsel-projectile projectile git-gutter-fringe git-gutter ripgrep find-file-in-project elisp-format iedit evil-nerd-commenter evil-collection evil helpful ivy-rich counsel ivy paredit rainbow-delimiters which-key doom-modeline catppuccin-theme doom-themes minions dired-hide-dotfiles dired-open all-the-icons-dired dired-collapse dired-ranger dired-single dired-rainbow perspective diminish use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

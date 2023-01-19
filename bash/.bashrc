@@ -94,7 +94,7 @@ alias h='history'
 alias v='nvim'
 alias e='emacs -nw'
 alias cd='z'
-alias cat='batcat'
+alias cat='bat'
 alias open='xdg-open'
 
 alias ..='cd ..' 
