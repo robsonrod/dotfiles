@@ -56,6 +56,7 @@ return packer.startup(function(use)
     use {'folke/tokyonight.nvim', as = 'tokyonight'}
 
     use {'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true }}
+    use {'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }}
 
     use({'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'})
     use('nvim-treesitter/playground')
