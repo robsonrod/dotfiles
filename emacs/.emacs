@@ -78,7 +78,7 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; eval buffer
-(global-set-key (kbd "C-c l e") 'eval-buffer)
+(global-set-key (kbd "C-x C-e") 'eval-buffer)
 
 ;; elisp format
 (global-set-key (kbd "C-c e f") 'elisp-format-buffer)

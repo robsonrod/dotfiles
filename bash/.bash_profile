@@ -4,7 +4,7 @@ if [ -f "$HOME/.config/user-dirs.dirs" ]; then
 	. "$HOME/.config/user-dirs.dirs"
 fi
 
-export TERM='xterm-256color'
+export TERM='screen-256color'
 export EDITOR='nvim'
 export MANPAGER='less'
 export PAGER='less'
@@ -45,3 +45,8 @@ fi
 if [ -f "$HOME/.local/share/env" ]; then
 	. "$HOME/.local/share/bin/env"
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+. "$HOME/.cargo/env"

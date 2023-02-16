@@ -1,3 +1,4 @@
+require("plugins.dashboard")
 require("plugins.treesitter")
 require("plugins.undotree")
 require("plugins.telescope")
