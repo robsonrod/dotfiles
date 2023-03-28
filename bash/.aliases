@@ -1,0 +1,55 @@
+# git alias
+alias gcl='git clone'
+alias ga='git add'
+alias gaa='git add ./'
+alias gs='git status'
+alias gb='git checkout -b'
+alias gd='git diff'
+alias gl="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+alias gcmt='git commit -v -m'
+alias grm='git rm'
+alias gfth='git fetch --all --prune --verbose'
+alias grst='git reset HEAD'
+alias gmrg="git merge"
+alias gpll='git pull'
+alias gplp='git pull && git push'
+alias gpsh='git push'
+alias gcll='git clean -xfd'
+alias gbcm='git branch -m'
+alias gbcd='git branch -D'
+alias gchm='git checkout master'
+alias glgs="glgr --stat"
+alias gstb="git stash branch"
+alias gstd="git stash drop"
+alias gstl="git stash list"
+alias gstp="git stash pop"
+
+# general aliases
+alias g='git'
+alias h='history'
+alias v='nvim'
+alias e='emacs -nw'
+alias cd='z'
+alias cat='batcat'
+alias open='xdg-open'
+
+alias ..='cd ..' 
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ls='exa --color=always --group-directories-first'
+alias la='exa -la --color=always --group-directories-first'
+alias ll='exa -l --color=always --group-directories-first'
+alias lt='exa -aT --color=always --group-directories-first'
+alias tree='exa --tree'
+alias cp="cp -i"
+alias mv='mv -i'
+alias rm='rm -i'
+alias gh='history|grep'
+alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort"
+alias cpv='rsync -ah --info=progress2'
+
+## other aliases ##
+alias tkill='tmux kill-server'
+alias rebuildx='xrdb ~/.Xresources'
+alias reload='exec $BASH'
