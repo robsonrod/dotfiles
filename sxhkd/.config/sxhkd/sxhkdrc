@@ -138,26 +138,37 @@ XF86AudioMute
 	amixer set Master toggle
 
 # brightness control
-XF86MonBrightnessDown
-	sudo xbacklight -dec 5
 XF86MonBrightnessUp
-	sudo xbacklight -inc 5
+      brightness_controll +
+
+XF86MonBrightnessDown
+      brightness_controll -
+
+XF86AudioPlay
+      playerctl --player=mpv,spotify,%any play-pause
+
+XF86AudioMicMute
+      mic_controll toggle
 
 # prit screen
 Print
     flameshot gui
 
 # lock screen
-super + l
-	betterlockscreen -l
+ctrl + alt + l
+	screen_lock
 
 # hibernate
-super + h
-	betterlockscreen -l
+ctrl + alt + h
+	screen_lock && systemctl suspend
+
+# network manager
+ctrl + alt + n
+      networkmanager_dmenu
 
 # Firefox
 super + w
-   firefox
+   brave-browser
 
 # Emacs
 super + e

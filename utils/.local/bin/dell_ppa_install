@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+sudo sh -c 'cat > /etc/apt/sources.list.d/jammy-dell.list << EOF
+deb http://dell.archive.canonical.com/updates/ jammy-dell-jellyfish-tentacool public
+# deb-src http://dell.archive.canonical.com/updates/ jammy-dell-jellyfish-tentacool public
+deb http://dell.archive.canonical.com/updates/ jammy-oem public
+# deb-src http://dell.archive.canonical.com/updates/ jammy-oem public
+deb http://dell.archive.canonical.com/updates/ jammy-somerville public
+# deb-src http://dell.archive.canonical.com/updates/ jammy-somerville public
+deb http://dell.archive.canonical.com/updates/ jammy-somerville-tentacool public
+# deb-src http://dell.archive.canonical.com/updates jammy-somerville-tentacool public
+EOF'
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F9FDA6BED73CDC22
+
+sudo apt install oem-somerville-tentacool-meta oem-somerville-meta tlp-rdw tlp

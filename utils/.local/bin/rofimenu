@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 __main_menu() {
-    rofi -modi drun -show drun -line-padding 4 -columns 2 -padding 50 -hide-scrollbar -show-icons -drun-icon-theme "Papirus-Dark"
+    rofi -modi drun -show drun -line-padding 4 -columns 2 -padding 50 -show-icons -drun-icon-theme "Papirus-Dark"
 }
 
 __run_cmd() {
@@ -9,7 +9,7 @@ __run_cmd() {
 }
 
 __show_window() {
-    rofi -modi window -show window -i -p -config ~/.config/rofi/themes/dt-center.rasi -fixed-num-lines: false
+    rofi -modi window -show window -i -fixed-num-lines: false
 }
 
 usage() {

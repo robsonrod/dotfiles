@@ -6,7 +6,7 @@ tmpfile=$tmpdir/screen_lock.png
 mkdir -p $tmpdir
 scrot $tmpfile
 
-convert ~/.config/qtile/wallpaper/wallpaper.jpg $tmpfile 
+convert $tmpfile -blur 0x5 $tmpfile 
 
 i3lock -i $tmpfile
 rm -rf /tmp/lock

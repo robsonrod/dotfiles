@@ -1,16 +1,16 @@
 [bar/main]
 background=#0d130f
-font-0=SourceCodePro:size=10
-font-1=FontAwesome6Free:style=Solid:size=8
-font-2=FontAwesome6Free:style=Regular:size=8
-font-3=FontAwesome6Brands:style=Regular:size=8
-font-4=FiraCodeNerdFont:size=10
+font-0=SourceCodePro:size=20
+font-1=FontAwesome6Free:style=Solid:size=18
+font-2=FontAwesome6Free:style=Regular:size=18
+font-3=FontAwesome6Brands:style=Regular:size=18
+font-4=FiraCodeNerdFont:size=20
 foreground=#ccffffff
-height=23
+height=50
 module-margin-left=1
 modules-left=bspwm
-modules-right=backlight pad memory cpu pad mic sink volume pad battery date updates powermenu
-monitor=Virtual1
+modules-right=mic pad memory pad cpu pad volume pad bluetooth pad date pad battery powermenu
+monitor=eDP-1
 offset-y=1
 padding-right=1
 tray-detached=false
@@ -30,30 +30,12 @@ height=20
 module-margin-left=1
 modules-left=logo bspwm
 modules-right=mic sink volume pad date
-monitor=Virtual-1
+monitor=DP-3
 offset-y=2
 padding-right=2
 spacing=1.5
 width=100%
 wm-restack=bspwm
-
-[module/backlight]
-bar-empty=─
-bar-empty-font=3
-bar-empty-foreground=#44
-bar-fill=─
-bar-fill-font=3
-bar-fill-foreground=ff
-bar-indicator=|
-bar-indicator-font=3
-bar-indicator-foreground=#ff
-bar-width=10
-card=intel_backlight
-format=<ramp> <bar>
-ramp-0=
-ramp-1=
-ramp-2=
-type=internal/backlight
 
 [module/battery]
 animation-charging-0=
@@ -70,9 +52,9 @@ bar-capacity-fill-font=3
 bar-capacity-fill-foreground=#ddffffff
 bar-capacity-format=%{+u}%{+o}%fill%%empty%%{-u}%{-o}
 bar-capacity-width=10
-format-charging="<animation-charging> <label-charging>    "
-format-discharging="<ramp-capacity> <label-discharging>    "
-format-full="<ramp-capacity> <label-full>    "
+format-charging="<animation-charging> <label-charging>"
+format-discharging="<ramp-capacity> <label-discharging>"
+format-full="<ramp-capacity> <label-full>"
 full-at=98
 label-charging=%percentage%%
 label-discharging=%percentage%%
@@ -87,9 +69,12 @@ ramp-capacity-4=
 type=internal/battery
 
 [module/bluetooth]
-click-left=blueman-manager
-content=
-type=custom/text
+type=custom/script
+exec=bluetooth_controll st
+interval=3
+click-left=exec blueman-manager
+click-right=exec bluetooth_controll toggle
+label=%output%
 
 [module/bspwm]
 format=<label-state> <label-mode>
@@ -162,33 +147,17 @@ format-foreground=#999
 label=  %percentage_used%%
 type=internal/memory
 
-[module/mic]
-click-left=~/.config/polybar/script/mic.sh toggle
-exec=~/.config/polybar/script/mic.sh status
-interval=1
-tail=true
-type=custom/script
-
 [module/pad]
-content="    "
+content=" "
 type=custom/text
 
-[module/sink]
-click-left=~/.config/polybar/script/sink.sh toggle
-exec=~/.config/polybar/script/sink.sh status
+[module/mic]
+click-left=mic_controll toggle
+exec=mic_controll status
 interval=1
 tail=true
 type=custom/script
-
-[module/title]
-format=<label>
-format-background=#00000000
-format-foreground=#ccffffff
-label=%title%
-label-empty=
-label-empty-foreground=#ccffffff
-label-maxlen=75
-type=internal/xwindow
+format-foreground=#999
 
 [module/volume]
 click-right=pavucontrol
@@ -201,18 +170,11 @@ ramp-volume-1=
 ramp-volume-2=
 type=internal/pulseaudio
 use-ui-max=false
-
-[module/updates]
-type = custom/script
-interval = 4600 
-;label =  %output%  
-label = %output%  
-label-padding = 2
-label-foreground = #BF616A
+format-foreground=#999
 
 [module/powermenu]
 type = custom/text 
-content ="" 
+content = 
 content-padding = 2
 click-left = powermenu
 content-foreground = #ed8796

@@ -6,8 +6,6 @@ shutdown="  Shutdown"
 reboot="  Reboot"
 sleep="  Sleep"
 
-dir="~/.config/rofi/themes"
-
 # Get answer from user via rofi
 selected_option=$(echo "$lock
 $logout
@@ -16,7 +14,6 @@ $reboot
 $shutdown" | rofi -dmenu\
                   -i\
                   -p "Power"\
-                  -config "$dir/dt-center.rasi"\
                   -font "Symbols Nerd Font 12"\
                   -width "15"\
                   -lines 5\
@@ -30,7 +27,7 @@ then
     screen_lock
 elif [ "$selected_option" == "$logout" ]
 then
-    qtile cmd-obj -o cmd -f shutdown
+    bspc quit
 elif [ "$selected_option" == "$shutdown" ]
 then
     systemctl poweroff

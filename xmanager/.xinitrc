@@ -17,4 +17,4 @@ xset fp rehash &
 xrdb -merge $HOME/.Xresources &
 
 # wm
-exec qtile start
+exec bspwm

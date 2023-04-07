@@ -37,22 +37,16 @@ git_branch() {
 }
 
 # starship
-if [ "$OSTYPE" == "linux-gnu" ]; then
-    term=$(ps -o 'cmd=' -p $(ps -o 'ppid=' -p $$));
-    case $term in
-        "urxvt"*|"emacs"*)
-            PS1="\[$(tput bold)\]\[$(tput setaf 2)\]"'$(git_branch)'${pur}" \[$(tput sgr0)\]"$PS1
-            ;;
-        *)
-            eval "$(starship init bash)"
-            ;;
-    esac
-else
-    eval "$(starship init bash)"
-fi
+#eval "$(starship init bash)"
 
 # zoxide
 eval "$(zoxide init bash)"
+
+if [[ $- != *i* ]]; then
+    return
+elif [[ $TERM == urxvt* && -z "$TMUX" ]]; then
+    exec tmux && exit 0;
+fi
 
 # asdf configuration
 if [ -f ${HOME}/.asdf/asdf.sh ]; then

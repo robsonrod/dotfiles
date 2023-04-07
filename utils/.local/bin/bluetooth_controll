@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+toggle() {
+    bt_enabled="$(bluetoothctl show |grep "Powered: yes" |wc -c)"
+    if [ "$bt_enabled" -eq 0 ]; then
+        bluetoothctl power on &>/dev/null
+    else
+        bluetoothctl power off &>/dev/null
+    fi
+}
+
+status() {
+    bt_enabled="$(bluetoothctl show |grep "Powered: yes" |wc -c)"
+    if [ "$bt_enabled" -eq 0 ]; then
+        echo "%{F#999}"
+        return
+    fi
+
+    connected="$(echo info | bluetoothctl | grep 'Device' | wc -c)"
+    if [ "$connected" -eq 0 ]; then
+        echo "%{F#8aadf4}"
+        return
+    fi
+
+    mac_address="$(echo info | bluetoothctl | grep 'Device' | head -n 1|  awk '{print $2}')"
+    echo "%{F#a6da95}"
+}
+
+usage() {
+    printf "\nUsage:\n"
+    echo " toggle turn bluetooth on/off"
+    echo " st get bluetooth status"
+}
+
+if [ "$#" -eq 0 ]; then
+    usage;
+    exit 1;
+fi
+
+main() {
+    case $1 in
+        toggle)
+            toggle
+            ;;
+        st)
+            status
+            ;;
+        *) usage; exit 1;
+    esac
+}
+
+main "$@"
