@@ -1,15 +1,16 @@
 [bar/main]
 background=#0d130f
-font-0=SourceCodePro:size=20
-font-1=FontAwesome6Free:style=Solid:size=18
-font-2=FontAwesome6Free:style=Regular:size=18
-font-3=FontAwesome6Brands:style=Regular:size=18
-font-4=FiraCodeNerdFont:size=20
+font-0=UbuntuMono Nerd Font:size=23
+font-1=UbuntuMono Nerd Font:size=27
+font-2=FontAwesome6Free:style=Solid:size=20
+font-3=FontAwesome6Free:style=Regular:size=20
+font-4=FontAwesome6Brands:style=Regular:size=20
 foreground=#ccffffff
 height=50
 module-margin-left=1
 modules-left=bspwm
-modules-right=mic pad memory pad cpu pad volume pad bluetooth pad date pad battery powermenu
+modules-right=mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery powermenu
+modules-center=pad date
 monitor=eDP-1
 offset-y=1
 padding-right=1
@@ -28,7 +29,7 @@ font-4=FiraCodeNerdFont:size=10
 foreground=#ccffffff
 height=20
 module-margin-left=1
-modules-left=logo bspwm
+modules-left=bspwm
 modules-right=mic sink volume pad date
 monitor=DP-3
 offset-y=2
@@ -86,7 +87,7 @@ label-empty-padding=2
 label-focused=%icon%
 label-focused-background=#10181b
 label-focused-font=4
-label-focused-foreground=#ed8796
+label-focused-foreground=#a6da95
 label-focused-padding=2
 label-focused-underline=#c9665e
 label-locked=L
@@ -123,7 +124,7 @@ ws-icon-1=2;
 ws-icon-2=3;
 ws-icon-3=4;
 ws-icon-4=5;
-ws-icon-5=6;
+ws-icon-5=6;
 ws-icon-6=7;
 ws-icon-7=8;
 ws-icon-8=9;
@@ -131,7 +132,7 @@ ws-icon-9=10;
 
 [module/cpu]
 format=<label>
-format-foreground=#999
+format-foreground=#f5a97f
 interval=1
 label=  %percentage%%
 type=internal/cpu
@@ -139,13 +140,13 @@ type=internal/cpu
 [module/date]
 date =   %d/%m/%Y - %H:%M
 type=internal/date
-format-foreground=#999
+format-foreground=#eed49f
 
 [module/memory]
 format=<label>
-format-foreground=#999
 label=  %percentage_used%%
 type=internal/memory
+format-foreground=#a6da95
 
 [module/pad]
 content=" "
@@ -159,18 +160,26 @@ tail=true
 type=custom/script
 format-foreground=#999
 
+[module/keyboard]
+type = custom/script
+exec=keyboardlayout get
+click-left=keyboardlayout toggle
+interval=1
+tail=true
+format-foreground=#999
+
 [module/volume]
 click-right=pavucontrol
 format-volume=<ramp-volume>  <label-volume>
 interval=2
 label-muted=  muted
-label-muted-foreground=#66
+label-muted-foreground=#b7bdf8
 ramp-volume-0=
 ramp-volume-1=
 ramp-volume-2=
 type=internal/pulseaudio
 use-ui-max=false
-format-foreground=#999
+label-volume-foreground=#8aadf4
 
 [module/powermenu]
 type = custom/text 

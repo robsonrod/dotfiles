@@ -1,9 +1,21 @@
-;;; package --- init
-;;; Comentary:  my init
-;; -*- coding: utf-8; lexical-binding: t -*-
+;;; init.el --- my emacs file -*- coding: utf-8; lexical-binding: t -*-
+
+;;; Commentary:
+
+;; My Emacs file
+
+;;; Code:
 
 ;;; gc
 (setq gc-cons-threshold (* 50 1000 1000))
+
+;;; profile
+(add-hook 'emacs-startup-hook (lambda () 
+                                (message "*** Emacs loaded in %s with %d garbage collections."
+                                         (format "%.2f seconds" (float-time (time-subtract
+                                                                             after-init-time
+                                                                             before-init-time)))
+                                         gcs-done)))
 
 ;; fix obsolete warning
 (setq byte-compile-warnings '(cl-functions))
@@ -35,10 +47,17 @@
       mouse-wheel-follow-mouse 't   ; scroll window under mouse cursor
       scroll-step 1)                ; scroll 1 line with keyboard
 
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup")) backup-by-copying t ; Don't delink hardlinks
+      version-control t      ; Use version numbers on backups
+      delete-old-versions t  ; Automatically delete excess backups
+      kept-new-versions 20   ; how many of the newest versions to keep
+      kept-old-versions 5)   ; and how many of the old
 ;; window title
 (setq frame-title-format "%b - emacs")
 
 ;; window resize
+(set-frame-parameter (selected-frame) 'alpha '(95 90))
+(add-to-list 'default-frame-alist '(alpha . (95 . 90)))
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -57,9 +76,10 @@
 (global-display-line-numbers-mode t)
 
 ;; disable line numbers for some modes
-(dolist (mode '(org-mode-hook term-mode-hook vterm-mode-hook shell-mode-hook eshell-mode-hook)) 
+(dolist (mode '(org-mode-hook term-mode-hook vterm-mode-hook shell-mode-hook eshell-mode-hook
+                              dashboard-mode-hook)) 
   (add-hook mode (lambda () 
-                   (display-line-numbers-mode 0))))
+                   (display-line-numbers-mode -1))))
 
 ;; spaces instead of tabs
 (setq-default indent-tabs-mode nil)
@@ -68,17 +88,30 @@
 (set-face-attribute 'default nil 
                     :font "Fira Code Retina" 
                     :height 100)
+(set-face-attribute 'fixed-pitch nil 
+                    :font "JetBrainsMono Nerd Font" 
+                    :height 100)
+(set-face-attribute 'variable-pitch nil 
+                    :font "Iosevka" 
+                    :height 100)
 
 ;; yes or no question
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Custom functions
 
+;; Open my config
+(defun open-my-config () 
+  "Open my config file." 
+  (interactive) 
+  (find-file user-init-file))
+(global-set-key (kbd "C-x C-i") 'open-my-config)
+
 ;; ESC cancels all commands
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; eval buffer
-(global-set-key (kbd "C-x C-e") 'eval-buffer)
+;; (global-set-key (kbd "C-x C-e") 'eval-buffer)
 
 ;; elisp format
 (global-set-key (kbd "C-c e f") 'elisp-format-buffer)
@@ -119,7 +152,7 @@
       (mapc 'kill-buffer (buffer-list)))))
 (global-set-key (kbd "C-x k") #'kill-this-buffer)
 (global-set-key (kbd "C-x K") #'kill-all-buffers)
-(global-set-key (kbd "s-w") #'kill-this-buffer)
+(global-set-key (kbd "C-x w") #'kill-this-buffer)
 
 ;; configure package manager
 (require 'package)
@@ -160,9 +193,9 @@
   :commands (dired dired-jump) 
   :bind ("C-x C-j" . dired-jump) 
   :config (autoload 'dired-omit-mode "dired-x") 
-  (add-hook 'dired-load-hook (lambda () 
-                               (interactive) 
-                               (dired-collapse))) 
+  (add-hook 'with-eval-after-load (lambda () 
+                                    (interactive) 
+                                    (dired-collapse))) 
   (add-hook 'dired-mode-hook (lambda () 
                                (interactive) 
                                (dired-omit-mode 1) 
@@ -246,23 +279,35 @@
   minions 
   :hook (doom-modeline-mode . minions-mode))
 
-(use-package catppuccin-theme
-  :ensure t
+(use-package 
+  catppuccin-theme 
+  :ensure t 
   :config)
 
 ;; doom themes
 (use-package 
   doom-themes 
   :ensure t 
-  :config (setq doom-themes-enable-bold t doom0themes-enable-italic t)
-(load-theme 'catppuccin t)) 
+  :config (setq doom-themes-enable-bold t doom-themes-enable-italic t) 
+  (setq catppuccin-flavor 'mocha) 
+  (load-theme 'catppuccin t) 
+  (doom-themes-org-config) 
+  (doom-themes-neotree-config))
 
 ;; doom modeline
 (use-package 
   doom-modeline 
   :ensure t 
   :init (doom-modeline-mode 1) 
-  :custom ((doom-modeline-height 15)))
+  :custom ((doom-modeline-height 15) 
+           (doom-modeline-bar-width 6) 
+           (doom-modeline-lsp t) 
+           (doom-modeline-persp-name nil) 
+           (doom-modeline-irc nil) 
+           (doom-modeline-mu4e nil) 
+           (doom-modeline-minor-modes t) 
+           (doom-modeline-buffer-file-name-style 'truncate-except-project) 
+           (doom-modeline-major-mode-icon t)))
 
 ;; helper
 (use-package 
@@ -355,6 +400,7 @@
     (add-to-list 'evil-emacs-state-modes mode)))
 
 (global-set-key (kbd "C-M-u") 'universal-argument)
+(global-set-key (kbd "C-SPC") nil)
 
 ;; Watch out with arrow keys
 (defun dont-arrow-me-bro () 
@@ -383,8 +429,8 @@
   (define-key evil-window-map "\C-d" 'evil-delete-buffer) ;; C-w d
   (define-key evil-normal-state-map "\C-s" 'save-buffer) 
   (define-key evil-insert-state-map "\C-s" 'save-buffer) 
-  (define-key evil-normal-state-map (kbd "SPC") 'evil-scroll-page-down) 
-  (define-key evil-normal-state-map (kbd "S-SPC") 'evil-scroll-page-up) 
+  (define-key evil-normal-state-map (kbd "C-.") 'evil-scroll-page-down) 
+  (define-key evil-normal-state-map (kbd "C-,") 'evil-scroll-page-up) 
   (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-forward) 
   (define-key evil-normal-state-map (kbd "gr") 'lsp-find-references) 
   (define-key evil-normal-state-map (kbd "gm") 'lsp-rename) 
@@ -412,6 +458,21 @@
   :custom (evil-collection-outline-bind-tab-p nil) 
   :config (setq evil-collection-mode-list (remove 'lispy evil-collection-mode-list)) 
   (evil-collection-init))
+
+(use-package 
+  general 
+  :config (general-evil-setup t) 
+  (general-create-definer rr/leader-key 
+    :keys '(normal inser visual emacs) 
+    :prefix "C-SPC" 
+    :global-prefix "C-SPC") 
+  (general-create-definer rr/ctrl-c-keys 
+    :prefix "C-c"))
+
+(rr/leader-key "t" 
+  '(:ignore t 
+            :which-key "toggle")
+  "tt" '(counsel-load-theme :which-key "choose theme"))
 
 ;; comment code efficiently
 (use-package 
@@ -475,8 +536,7 @@
 (use-package 
   counsel-projectile 
   :after projectile 
-  :bind (("C-M-p" . counsel-projectile-find-file) 
-         ("C-SPC" . counsel-projectile-switch-project)) 
+  :bind (("C-M-p" . counsel-projectile-find-file)) 
   :config (counsel-projectile-mode))
 
 ;; company
@@ -487,9 +547,9 @@
   :init (add-hook 'after-init-hook 'global-company-mode) 
   :config (setq company-show-quick-access t company-minimum-prefix-length 1 company-idle-delay 0.5
                 company-backends '((company-files ; files & directory
-				    company-keywords ; keywords
-				    company-capf     ; what is this?
-				    company-yasnippet company-restclient) 
+                                    company-keywords ; keywords
+                                    company-capf     ; what is this?
+                                    company-yasnippet company-restclient) 
                                    (company-abbrev company-dabbrev))))
 
 (use-package 
@@ -581,7 +641,8 @@
 ;; flycheck
 (use-package 
   flycheck 
-  :init (global-flycheck-mode))
+  :ensure t 
+  :init)
 
 ;; clojure support
 (use-package 
@@ -641,8 +702,67 @@
   :ensure nil 
   :config (with-eval-after-load 'company (add-hook 'sh-mode-hook #'(lambda () 
                                                                      (company-mode -1)))))
+;; rest client
+(use-package 
+  restclient 
+  :ensure t 
+  :mode (("\\.http\\'" . restclient-mode)))
+
+(use-package 
+  company-restclient 
+  :ensure t)
+
+(use-package 
+  page-break-lines)
 
 ;;
+(use-package 
+  exec-path-from-shell 
+  :if (memq window-system '(mac ns x)) 
+  :config (exec-path-from-shell-initialize))
+
+;; terminal
+(use-package 
+  vterm 
+  :config (defun turn-off-gui () 
+            (hl-line-mode -1) 
+            (display-line-numbers-mode -1)) 
+  :hook (vterm-mode . turn-off-gui))
+
+(use-package 
+  vterm-toggle 
+  :custom (vterm-toggle-fullscreen-p nil "Open a vterm in another window") 
+  (vterm-toggle-scope 'project) 
+  :bind (("C-c v" . #'vterm-toggle) 
+         ("C-c t" . #'vterm)))
+
+;; dashboard
+(use-package 
+  dashboard 
+  :ensure t 
+  :config (setq dashboard-banner-logo-title "Welcome") 
+  (setq dashboard-set-init-info nil) 
+  (setq show-week-agenda-p t) 
+  (setq dashboard-items '((recents . 15) 
+                          (projects . 5) 
+                          (agenda . 5) 
+                          (bookmarks . 5))) 
+  (setq dashboard-set-heading-icons t) 
+  (setq dashboard-set-file-icons t) 
+  (setq dashboard-startup-banner 'logo) 
+  (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-action-dired) 
+  (setq dashboard-footer-messages '(" This is not a good place for gods.")) 
+  (setq dashboard-footer-icon (all-the-icons-fileicon "elisp" 
+                                                      :height 1.1 
+                                                      :v-adjust -0.05 
+                                                      :face 'font-lock-keyword-face)) 
+  (dashboard-setup-startup-hook))
+(define-key dashboard-mode-map (kbd "C-c d") #'(lambda () 
+                                                 (interactive) 
+                                                 (dashboard-refresh-buffer) 
+                                                 (message "refreshing... done")))
+
+;; org mode
 (defun efs/org-mode-setup () 
   (org-indent-mode) 
   (variable-pitch-mode 1) 
@@ -691,7 +811,9 @@
 (use-package 
   org 
   :hook (org-mode . efs/org-mode-setup) 
-  :config (setq org-ellipsis " ▾") 
+  :config (setq org-ellipsis " ▾" org-hide-emphasis-markers t org-confirm-babel-evaluate nil
+                org-fontify-quote-and-verse-blocks t org-startup-folded 'content
+                org-agenda-start-with-log-mode t org-log-done 'time org-log-into-drawer t) 
   (efs/org-font-setup))
 
 ;; custom bullets
@@ -721,74 +843,35 @@
 (add-to-list 'org-structure-template-alist '("clj" . "src clojure"))
 (add-to-list 'org-structure-template-alist '("pyt" . "src python"))
 (add-to-list 'org-structure-template-alist '("sh"  . "src shell"))
-(add-to-list 'org-structure-template-alist '("elisp" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("go" . "src go"))
 
+;; org-roam
 (use-package 
-  exec-path-from-shell 
-  :if (memq window-system '(mac ns x)) 
-  :config (exec-path-from-shell-initialize))
-
-;; terminal
-(use-package 
-  vterm 
-  :config (defun turn-off-chrome () 
-            (setq vterm-max-scrollback 10000 term-prompt-regexp "^[^#$%>\n]*[#$%>] *") 
-            (hl-line-mode -1) 
-            (display-line-numbers-mode -1) 
-            :hook (vterm-mode . turn-off-chrome)))
-
-;; rest client
-(use-package 
-  restclient 
+  org-roam 
   :ensure t 
-  :mode (("\\.http\\'" . restclient-mode)))
-
-(use-package 
-  company-restclient 
-  :ensure t)
-
-(use-package 
-  page-break-lines)
-
-(use-package 
-  dashboard 
-  :ensure t 
-  :config (setq dashboard-banner-logo-title "Welcome") 
-  (setq dashboard-set-init-info nil) 
-  (setq show-week-agenda-p t) 
-  (setq dashboard-items '((recents . 15) 
-                          (projects . 5) 
-                          (agenda . 5) 
-                          (bookmarks . 5))) 
-  (setq dashboard-set-heading-icons t) 
-  (setq dashboard-set-file-icons t) 
-  (setq dashboard-startup-banner 'logo) 
-  (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-action-dired) 
-  (setq dashboard-footer-messages '(" Black as night, sweet as sin")) 
-  (setq dashboard-footer-icon (all-the-icons-fileicon "elisp" 
-                                                      :height 1.1 
-                                                      :v-adjust -0.05 
-                                                      :face 'font-lock-keyword-face)) 
-  (dashboard-setup-startup-hook))
-(define-key dashboard-mode-map (kbd "<f5>") #'(lambda () 
-                                                (interactive) 
-                                                (dashboard-refresh-buffer) 
-                                                (message "refreshing... done")))
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("0961a85d8b1ac80852db1161af66d5b33fd4d2e59147e2803bd3762e08d887f3" default))
- '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode")
- '(package-selected-packages
-   '(dashboard page-break-lines company-restclient restclient vterm exec-path-from-shell visual-fill-column org-bullets lsp-java dockerfile-mode yaml-mode rust-mode cider clojure-mode flycheck-clj-kondo flycheck dap-mode lsp-treemacs lsp-ui lsp-mode company-box company counsel-projectile projectile git-gutter-fringe git-gutter ripgrep find-file-in-project elisp-format iedit evil-nerd-commenter evil-collection evil helpful ivy-rich counsel ivy paredit rainbow-delimiters which-key doom-modeline catppuccin-theme doom-themes minions dired-hide-dotfiles dired-open all-the-icons-dired dired-collapse dired-ranger dired-single dired-rainbow perspective diminish use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+  :init (setq org-roam-v2-ack t) 
+  :custom (org-roam-directory "~/Notes/Roam/") 
+  (org-roam-completion-everywhere t) 
+  (org-roam-capture-templates '(("d" "default" plain "%?" 
+                                 :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                                    "#+title: ${title}\n") 
+                                 :unnarrowed t) 
+                                ("l" "programming language" plain (file
+                                                                   "~/Notes/Roam/ProgrammingLanguagesTemplate.org") 
+                                 :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                                    "#+title: ${title}\n") 
+                                 :unnarrowed t) 
+                                ("b" "book notes" plain (file "~/Notes/Roam/BookNotesTemplate.org") 
+                                 :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                                    "#+title: ${title}\n") 
+                                 :unnarrowed t) 
+                                ("p" "project" plain (file "~/Notes/Roam/ProjectsTemplate.org") 
+                                 :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                                    "#+title: ${title}\n#+filetags: Project") 
+                                 :unnarrowed t))) 
+  :bind (("C-c n l" . org-roam-buffer-toggle) 
+         ("C-c n f" . org-roam-node-find) 
+         ("C-c n i" . org-roam-node-insert) 
+         :map org-mode-map ("C-M-i" . completion-at-point)) 
+  :config (org-roam-setup))

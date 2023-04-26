@@ -13,15 +13,21 @@ super + t
 
 # program launcher
 super + r
-	rofi -show run
+	rofimenu --run
 
 # program launcher (Apps)
 super + m
-	rofi -show drun -show-icons
+	rofimenu --menu
 
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
+
+super + ctrl + q
+   powermenu 
+
+super + ctrl + w
+	rofimenu --window
 
 #
 # bspwm hotkeys
@@ -142,29 +148,33 @@ XF86MonBrightnessUp
       brightness_controll +
 
 XF86MonBrightnessDown
-      brightness_controll -
+     brightness_controll -
 
 XF86AudioPlay
-      playerctl --player=mpv,spotify,%any play-pause
+     playerctl --player=mpv,spotify,%any play-pause
 
 XF86AudioMicMute
-      mic_controll toggle
+     mic_controll toggle
 
 # prit screen
 Print
     flameshot gui
 
 # lock screen
-ctrl + alt + l
+ctrl + shift + l
 	screen_lock
 
 # hibernate
-ctrl + alt + h
+ctrl + shift + h
 	screen_lock && systemctl suspend
 
 # network manager
-ctrl + alt + n
-      networkmanager_dmenu
+ctrl + shift + n
+   networkmanager_dmenu
+
+# keyboad layout
+ctrl + shift + k
+    rofikeyboard
 
 # Firefox
 super + w

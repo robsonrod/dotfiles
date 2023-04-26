@@ -26,7 +26,8 @@
     follow = none
     format = "<b>%s</b>\n%b"
     icon_path = /usr/share/icons/Adwaita/32x32/status/:/usr/share/icons/Adwaita/32x32/devices/:/usr/share/icons/Adwaita/32x32/emblems/:/usr/share/icons/Adwaita/32x32/actions/:/usr/share/icons/Adwaita/32x32/emotes/
-
+    icon_theme = Papirus
+    enable_recursive_icon_lookup = true
 
 [shortcuts]
     close = ctrl+space

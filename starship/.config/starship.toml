@@ -4,8 +4,12 @@
 command_timeout = 10000
 
 [character]
-error_symbol = " [λ](bold #ff5555)"
-success_symbol = " [λ](bold #50fa7b)"
+error_symbol = " [](bold #ff5555)"
+success_symbol = " [](bold #50fa7b)"
+
+[directory]
+style = "#89b4fa"
+use_os_path_sep = true
 
 [sudo]
 style = "bold green"
@@ -49,3 +53,8 @@ style = "bold green"
 symbol = "🐹"
 format = "[$symbol$version]($style) "
 style = "bold cyan"
+
+[custom.lisp]
+extensions = ["lisp", "el", "clj"]
+symbol = "λ "
+style = "bold green"

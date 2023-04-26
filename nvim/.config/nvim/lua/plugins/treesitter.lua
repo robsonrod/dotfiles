@@ -4,6 +4,7 @@ if not status_ok then
 end
 
 nvim_treesitter.setup {
+    ignore_install = { "help" },
     -- A list of parser names, or "all"
     ensure_installed = {"help", 'bash', 'c', 'cpp', 'json', 'lua', 'python', 'rust', 'yaml' },
 

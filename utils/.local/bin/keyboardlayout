@@ -1,14 +1,22 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set_layout() {
-    layout=$(setxkbmap -query | grep variant | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
+toggle_layout() {
+    layout=$(setxkbmap -query | grep layout | awk -F"layout:" '{gsub(/^[ \t]+/, "", $2); print $2 }')
+    variant=$(setxkbmap -query | grep variant | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
 
     case "$layout" in
-        "alt-intl"*)
+        "br"*)
             setxkbmap -layout us
             ;;
+        "us"*)
+            if [ "$variant" == "alt-intl" ]; then
+                setxkbmap -layout br
+            else
+                setxkbmap -layout us -variant alt-intl
+            fi
+            ;;
         *)
-            setxkbmap -layout us -variant alt-intl
+            setxkbmap -layout br
             ;;
     esac
 }
@@ -19,13 +27,17 @@ get_layout() {
         layout=$(setxkbmap -query | grep layout | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
     fi
 
-    echo $layout
+    if [ "$layout" == "alt-intl" ]; then
+            layout=${layout:0:2}
+    fi
+    
+    echo "%{F#999}  ${layout^^}"
 }
 
 usage() {
     printf "\nUsage:\n"
-    echo " --set define keyboard layout"
-    echo " --get show keyboard layout"
+    echo " toggle - set keyboard layout from list"
+    echo " get show keyboard layout"
 }
 
 if [ "$#" -eq 0 ]; then 
@@ -35,11 +47,11 @@ fi
 
 main() {
     case $1 in
-        --set)
-           set_layout 
+        toggle)
+            toggle_layout 
             ;;
-        --get)
-           get_layout 
+        get)
+            get_layout 
             ;;
         *) usage ; exit 1;
     esac

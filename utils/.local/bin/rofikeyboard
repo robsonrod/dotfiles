@@ -1,0 +1,27 @@
+#!/bin/env bash
+
+declare -A LAYOUTS=(
+  ["BR - Brazilian ABNT2"]="br"
+  ["US - ANSI"]="us"
+  ["ALT - ANSI ALTERNATIVE"]="us -variant alt-intl"
+)
+
+keyboard_list() {
+    for i in "${!LAYOUTS[@]}"
+    do
+      echo "$i"
+    done
+}
+
+main() {
+  selected=$( (keyboard_list) | rofi -dmenu -location 0 -p "  Layout: ")
+
+  if [[ -n "$selected" ]]; then
+      layout=${LAYOUTS[$selected]}$query
+      setxkbmap $layout
+  fi
+}
+
+main
+
+exit 0

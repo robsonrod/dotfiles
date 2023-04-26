@@ -2,7 +2,6 @@
 
 source ~/.env
 
-PATH="$HOME/.local/bin":"$HOME/bin":$PATH
 
 HISTCONTROL=ignoredups:erasedups
 HISTSIZE=1000000

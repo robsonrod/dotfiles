@@ -4,9 +4,9 @@ case $1 in
 	"status")
   		MUTED=$(amixer sget Capture | awk -F"[][]" '/Left:/ { print $4 }')
 		if [ $MUTED = "on" ]; then
-			echo ''
+            echo "%{F#8aadf4}"
 		else
-  			echo ''
+            echo "%{F#ed8796}"
 		fi
 		;;
 	"toggle")
