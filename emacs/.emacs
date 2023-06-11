@@ -823,7 +823,7 @@
   org-bullets 
   :after org 
   :hook (org-mode . org-bullets-mode) 
-  :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+  :custom (org-bullets-bullet-list '("◉" "○" "✸" "○" "●" "○" "●")))
 
 (defun efs/org-mode-visual-fill () 
   (setq visual-fill-column-width 200 visual-fill-column-center-text t) 
@@ -877,3 +877,16 @@
          ("C-c n i" . org-roam-node-insert) 
          :map org-mode-map ("C-M-i" . completion-at-point)) 
   :config (org-roam-setup))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(org-roam visual-fill-column org-bullets dashboard vterm-toggle vterm exec-path-from-shell page-break-lines company-restclient restclient lsp-java dockerfile-mode yaml-mode rust-mode cider clojure-mode flycheck-clj-kondo flycheck dap-mode lsp-treemacs lsp-ui lsp-mode company-box company counsel-projectile projectile git-gutter-fringe git-gutter ripgrep find-file-in-project elisp-format iedit evil-nerd-commenter general evil-collection evil helpful ivy-rich counsel ivy paredit rainbow-delimiters which-key doom-modeline doom-themes catppuccin-theme minions dired-hide-dotfiles dired-open all-the-icons-dired dired-collapse dired-ranger dired-single dired-rainbow perspective diminish use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
