@@ -36,7 +36,7 @@ git_branch() {
 }
 
 # starship
-#eval "$(starship init bash)"
+eval "$(starship init bash)"
 
 # zoxide
 eval "$(zoxide init bash)"

@@ -45,7 +45,9 @@
       mouse-wheel-scroll-amount '(2 ((shift) . 1))    ; scroll 2 lines
       mouse-wheel-progressive-speed nil ; don't accelerate
       mouse-wheel-follow-mouse 't   ; scroll window under mouse cursor
-      scroll-step 1)                ; scroll 1 line with keyboard
+      scroll-step 1
+      explicit-shell-file-name "/usr/bin/bash"
+      shell-file-name "bash")                ; scroll 1 line with keyboard
 
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup")) backup-by-copying t ; Don't delink hardlinks
       version-control t      ; Use version numbers on backups

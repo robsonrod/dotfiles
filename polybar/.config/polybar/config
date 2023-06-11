@@ -138,9 +138,10 @@ label=  %percentage%%
 type=internal/cpu
 
 [module/date]
-date =   %d/%m/%Y - %H:%M
 type=internal/date
-format-foreground=#eed49f
+date-alt =  %d/%m/%Y -  %H:%M
+date =  %H:%M
+format-foreground=#eba0ac
 
 [module/memory]
 format=<label>

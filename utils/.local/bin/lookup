@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+dict $1 | colorit | more
