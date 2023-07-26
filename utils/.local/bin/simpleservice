@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+PORT=8014
+
+PID=$(pgrep --full "python3 -m http.server $PORT") 
+killall -n "$PID" 2> /dev/null
+
+if [ -f "$1" ]; then
+    python3 -m http.server $PORT 
+    $BROWSER "http://localhost:${PORT}/$1"
+fi
+
+if [ -d "$1" ]; then
+    python3 -m http.server $PORT --directory $1 &
+    $BROWSER "http://localhost:${PORT}"
+fi

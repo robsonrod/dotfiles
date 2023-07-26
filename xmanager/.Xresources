@@ -1,7 +1,7 @@
 !! Xft settings
 XCursor.size:48
 XCursor.theme: Arc-Dark
-Xft*dpi: 192
+Xft.dpi: 192
 rofi.dpi: 1
 
 ! These might also be useful depending on your monitor and personal preference:

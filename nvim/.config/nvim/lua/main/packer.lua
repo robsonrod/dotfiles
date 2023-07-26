@@ -87,11 +87,12 @@ return packer.startup(function(use)
         }
     }
 
-    use {'Olical/conjure'}
+    use {'Olical/conjure', tag='v4.45.0'}
     use {'tpope/vim-dispatch'}
     use {'clojure-vim/vim-jack-in'}
     use {'radenling/vim-dispatch-neovim'}
 
+    use {'p00f/clangd_extensions.nvim'}
     use {'nvim-orgmode/orgmode', as='orgmode'}
     --
     --

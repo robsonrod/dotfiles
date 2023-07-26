@@ -109,7 +109,7 @@ ins_left {
 ins_left {
     -- mode component
     function()
-        return ''.. " " .. vi_mode_text[vim.fn.mode()]
+        return vi_mode_text[vim.fn.mode()]
     end,
     color = function()
         -- auto change color according to neovims mode
