@@ -61,4 +61,4 @@ require("tokyonight").setup({
     },
 })
 
-require('catppuccin').load()
+require('dracula').load()

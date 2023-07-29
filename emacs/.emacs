@@ -292,7 +292,7 @@
   :ensure t 
   :config (setq doom-themes-enable-bold t doom-themes-enable-italic t) 
   (setq catppuccin-flavor 'mocha) 
-  (load-theme 'catppuccin t) 
+  (load-theme 'doom-dracula t) 
   (doom-themes-org-config) 
   (doom-themes-neotree-config))
 
