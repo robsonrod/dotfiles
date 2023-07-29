@@ -56,6 +56,8 @@ fi
 
 [[ -s $HOME/.aliases ]] && source ~/.aliases 
 
+[[ -s $HOME/.functions ]] && source ~/.functions 
+
 
 [[ -s ~/.bash_custom ]] && source ~/.bash_custom
 
