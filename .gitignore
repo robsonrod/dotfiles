@@ -1,6 +1,9 @@
+.stowrc
 nvim/.config/nvim/plugin/
 nvim/.config/nvim/.netrwhist
 nvim/.config/nvim/tmp/*
 nvim/.config/nvim/plugged/*
 nvim/.config/nvim/autoload/*
+utils/.local/share/nvim/*
 qtile/.config/qtile/__pycache__/*
+utils/.local/share/fonts/*
