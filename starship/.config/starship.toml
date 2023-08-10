@@ -1,5 +1,3 @@
-# ~/.config/starship.toml
-
 # Timeout for commands executed by starship (ms)
 command_timeout = 10000
 
@@ -10,6 +8,11 @@ success_symbol = " [](bold #50fa7b)"
 [directory]
 style = "#89b4fa"
 use_os_path_sep = true
+
+[battery]
+full_symbol = "🔋"
+charging_symbol = "⚡️"
+discharging_symbol = "💀"
 
 [sudo]
 style = "bold green"

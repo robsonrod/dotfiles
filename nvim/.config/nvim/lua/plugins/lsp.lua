@@ -5,6 +5,7 @@ lsp.preset("recommended")
 lsp.ensure_installed({
     'lua_ls',
     'rust_analyzer',
+    'clangd'
 })
 
 -- Fix Undefined global 'vim'
@@ -20,12 +21,14 @@ lsp.configure('lua_ls', {
 
 local cmp = require('cmp')
 cmp.setup {
+    sources = {
+        {name = 'nvim_lsp'},
+    },
     sorting = {
         comparators = {
             cmp.config.compare.offset,
             cmp.config.compare.exact,
             cmp.config.compare.recently_used,
-            require("clangd_extensions.cmp_scores"),
             cmp.config.compare.kind,
             cmp.config.compare.sort_text,
             cmp.config.compare.length,
@@ -80,8 +83,14 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 end)
 
-lsp.skip_server_setup({'clangd'})
-
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+require('lspconfig').clangd.setup({
+    cmd = {
+        "/usr/bin/clangd",
+        "--header-insertion=never"
+    },
+    capabilities = capabilities
+})
 lsp.setup()
 
 vim.diagnostic.config({
