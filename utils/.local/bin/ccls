@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+exec /usr/bin/ccls --log-file=/tmp/ccls --init='{"clang":{"extraArgs":[
+ "-std=c++17",
+ "-isystem/usr/include/c++/11",
+ "-isystem/usr/include/x86_64-linux-gnu/c++/11",
+ "-isystem/usr/include/c++/11/backward",
+ "-isystem/usr/lib/gcc/x86_64-linux-gnu/11/include",
+ "-isystem/usr/local/include",
+ "-isystem/usr/include/x86_64-linux-gnu",
+ "-isystem/usr/include"
+]}, "index": { "threads" : 2, "comments" : 0}, "cache": { "directory": "~/.cache/ccls-cache" }}' "$@"
