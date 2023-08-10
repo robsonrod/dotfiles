@@ -12,7 +12,7 @@ toggle() {
 status() {
     bt_enabled="$(bluetoothctl show |grep "Powered: yes" |wc -c)"
     if [ "$bt_enabled" -eq 0 ]; then
-        echo "%{F#999}"
+        echo "%{F#f8f8f2}"
         return
     fi
 

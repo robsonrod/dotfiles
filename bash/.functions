@@ -106,7 +106,28 @@ glog () {
             --no-multi \
             --ansi \
             --preview="$previewLogLine" \
-                --header "enter to view, C-c to copy hash" \
+                --header "enter to view, C-y to copy hash" \
                 --bind "enter:execute:$previewLogLine | less -R" \
-                --bind "ctrl-c:execute:$gitLogLineToHash | xclip -r -selection clipboard" 
+                --bind "ctrl-y:execute:$gitLogLineToHash | xclip -r -selection clipboard" 
+}
+
+copy() {
+    xclip -i -sel clip < $1
+}
+
+hst() {
+
+    #previewLogLine="echo {} | awk 'match($0, /^[0-9]+\s[0-9]{2}\/[0-9]{2}\/[0-9]{0,4}\s[0-9]+:[0-9]+:[0-9]+\s(.*)$/, cap) { print cap[1] }'"
+    previewLogLine="echo {} | awk 'match($0, /^[0-9]+\t[0-9]{2}\/[0-9]{2}\/[0-9]{0,4}\s[0-9]+:[0-9]+:[0-9]+\s(.*)$/, cap) { print cap[1] }'"
+
+    history |
+    fzf -i -e +s \
+            --reverse \
+            --tiebreak=index \
+            --no-multi \
+            --ansi \
+                --header "enter to view, C-y to copy commmand" \
+                --bind "enter:execute:$previewLogLine" \
+                --bind "ctrl-y:execute:$previewLogLine | xclip -r -selection clipboard" 
+
 }

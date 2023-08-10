@@ -1,28 +1,29 @@
 [bar/main]
-background=#0d130f
-font-0=UbuntuMono Nerd Font:size=23
-font-1=UbuntuMono Nerd Font:size=27
+background=#282a36
+font-0="Terminus Nerd Font:pixelsize=18,3"
+font-1="Terminus Nerd Font:pixelsize=18,3"
 font-2=FontAwesome6Free:style=Solid:size=20
 font-3=FontAwesome6Free:style=Regular:size=20
 font-4=FontAwesome6Brands:style=Regular:size=20
-foreground=#ccffffff
+foreground=#f8f8f2
 height=50
 module-margin-left=1
 modules-left=bspwm
-modules-right=mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery powermenu
+modules-right=mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery pad wired-network pad wireless-network pad powermenu
 modules-center=pad date
-monitor=eDP-1
+monitor=${env:MONITOR}
 offset-y=1
 padding-right=1
 tray-detached=false
 tray-position=right
 width=100%
 wm-restack=bspwm
+overline-size=2
 
 [bar/sec]
 background=#00000000
-font-0=FiraCodeNerdFont:size=10
-font-1=FontAwesome6Free:style=Solid:size=8
+font-0="Terminus Nerd Font:pixelsize=18,3"
+font-1="Terminus Nerd Font:pixelsize=18,3"
 font-2=FontAwesome6Free:style=Regular:size=8
 font-3=FontAwesome6Brands:style=Regular:size=8
 font-4=FiraCodeNerdFont:size=10
@@ -57,13 +58,16 @@ format-charging="<animation-charging> <label-charging>"
 format-discharging="<ramp-capacity> <label-discharging>"
 format-full="<ramp-capacity> <label-full>"
 full-at=98
+format-charging-overline=#ff79c6
+format-discharging-overline = #ff79c6
+format-full-overline = #ff79c6
 label-charging=%percentage%%
 label-discharging=%percentage%%
 label-full=%percentage%%
 ramp-capacity-0=
 ramp-capacity-0-foreground=#f53c3c
 ramp-capacity-1=
-ramp-capacity-1-foreground=#ffa900
+ramp-capacity-1-foreground=#f8f8f2
 ramp-capacity-2=
 ramp-capacity-3=
 ramp-capacity-4=
@@ -76,18 +80,19 @@ interval=3
 click-left=exec blueman-manager
 click-right=exec bluetooth_controll toggle
 label=%output%
+format-overline=#8be9fd
 
 [module/bspwm]
 format=<label-state> <label-mode>
 label-dimmed-underline=#ccffffff
 label-empty=%icon%
 label-empty-font=4
-label-empty-foreground=#55
+label-empty-foreground=#44475a
 label-empty-padding=2
 label-focused=%icon%
-label-focused-background=#10181b
+label-focused-background=#282a36
 label-focused-font=4
-label-focused-foreground=#a6da95
+label-focused-foreground=#50fa7b
 label-focused-padding=2
 label-focused-underline=#c9665e
 label-locked=L
@@ -100,7 +105,7 @@ label-monocle-padding=2
 label-monocle-underline=#c9665e
 label-occupied=%icon%
 label-occupied-font=4
-label-occupied-foreground=#ddd
+label-occupied-foreground=#f8f8f2
 label-occupied-padding=2
 label-occupied-underline=#666
 label-private=P
@@ -132,34 +137,36 @@ ws-icon-9=10;
 
 [module/cpu]
 format=<label>
-format-foreground=#f5a97f
+format-overline=#f5a97f
+format-foreground=#f8f8f2
 interval=1
 label=  %percentage%%
 type=internal/cpu
 
 [module/date]
 type=internal/date
-date-alt =  %d/%m/%Y -  %H:%M
-date =  %H:%M
-format-foreground=#eba0ac
+date-alt =  %d/%m/%Y -  %H:%M:%S
+date =  %d/%m/%Y -  %H:%M
+format-foreground=#f8f8f2
 
 [module/memory]
 format=<label>
+format-overline=#50fa7b
 label=  %percentage_used%%
 type=internal/memory
-format-foreground=#a6da95
+format-foreground=#f8f8f2
 
 [module/pad]
 content=" "
 type=custom/text
 
 [module/mic]
-click-left=mic_controll toggle
+type=custom/script
 exec=mic_controll status
+click-left=mic_controll toggle
 interval=1
 tail=true
-type=custom/script
-format-foreground=#999
+format-overline=#f1fa8c
 
 [module/keyboard]
 type = custom/script
@@ -167,7 +174,7 @@ exec=keyboardlayout get
 click-left=keyboardlayout toggle
 interval=1
 tail=true
-format-foreground=#999
+format-overline=#bd93f9
 
 [module/volume]
 click-right=pavucontrol
@@ -180,11 +187,48 @@ ramp-volume-1=
 ramp-volume-2=
 type=internal/pulseaudio
 use-ui-max=false
-label-volume-foreground=#8aadf4
+label-volume-foreground=#f8f8f2
+format-volume-overline=#bd93f9
+
+[module/wired-network]
+type = internal/network
+interface = eth1
+
+[module/wireless-network]
+type = internal/network
+interface=${env:NETWORK_WIRELESS_INTERFACE:wlp0s20f3}
+interval=3.0
+label-connected=%downspeed%
+label-disconnected=
+label-packageloss-foreground=#f8f8f2 
+
+format-connected=%{A1:networkmanager_dmenu &:}<ramp-signal> <label-connected>%{A}
+format-packetloss=%{A1:networkmanager_dmenu &:}<animation-packetloss> <label-connected>%{A}
+format-disconnected=%{A1:networkmanager_dmenu &:}󰤮 <label-disconnected>%{A}
+
+format-connected-overline=#ffb86c
+format-packetloss-overline=#ffb86c
+format-disconnected-overline=#ffb86c
+
+format-packetloss-foreground=#ffb86c
+
+ramp-signal-0=😱
+ramp-signal-1=😠
+ramp-signal-2=😒
+ramp-signal-3=😊
+ramp-signal-4=😃
+ramp-signal-5=😈
+
+animation-packetloss-0=󰤫
+animation-packetloss-1=󰤠
+animation-packetloss-2=󰤣
+animation-packetloss-3=󰤦
+animation-packetloss-4=󰤩
+animation-packetloss-framerate=400
 
 [module/powermenu]
-type = custom/text 
-content = 
-content-padding = 2
-click-left = powermenu
-content-foreground = #ed8796
+type=custom/text 
+content= 
+content-padding=2
+click-left=powermenu
+content-foreground=#ff5555

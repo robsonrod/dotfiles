@@ -45,9 +45,8 @@
       mouse-wheel-scroll-amount '(2 ((shift) . 1))    ; scroll 2 lines
       mouse-wheel-progressive-speed nil ; don't accelerate
       mouse-wheel-follow-mouse 't   ; scroll window under mouse cursor
-      scroll-step 1
-      explicit-shell-file-name "/usr/bin/bash"
-      shell-file-name "bash")                ; scroll 1 line with keyboard
+      scroll-step 1 explicit-shell-file-name "/usr/bin/bash" shell-file-name "bash")
+                                        ; scroll 1 line with keyboard
 
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup")) backup-by-copying t ; Don't delink hardlinks
       version-control t      ; Use version numbers on backups
@@ -577,7 +576,6 @@
   (lsp-eldoc-hook nil) 
   :hook ((c-mode . lsp) 
          (c++-mode . lsp) 
-         (java-mode . lsp) 
          (clojure-mode . lsp) 
          (rust-mode . lsp) 
          (lsp-mode . lsp-enable-which-key-integration)) 
@@ -615,6 +613,12 @@
   :bind (:map lsp-ui-mode-map
               ("C-c i" . lsp-ui-menu)))
 
+;; ivy integration
+(use-package 
+  lsp-ivy 
+  :ensure t 
+  :commands lsp-ivy-workspace-symbol)
+
 ;;  treemacs integration
 (use-package 
   lsp-treemacs 
@@ -636,10 +640,6 @@
                ("C-M-<f11>" . dap-step-out) 
                ("<f7>" . dap-breakpoint-toggle))))
 
-(use-package 
-  dap-java 
-  :ensure nil)
-
 ;; flycheck
 (use-package 
   flycheck 
@@ -655,6 +655,14 @@
   :after flycheck-clj-kondo 
   :config (require 'flycheck-clj-kondo))
 
+;; ccls server
+(use-package 
+  ccls 
+  :ensure t 
+  :config 
+  :hook ((c-mode c++-mode objc-mode cuda-mode) . (lambda () 
+                                                   (require 'ccls) 
+                                                   (lsp))))
 ;; cider clojure
 (setq org-babel-clojure-backend 'cider)
 (use-package 
@@ -684,20 +692,6 @@
   dockerfile-mode 
   :defer t)
 
-;; java
-(use-package 
-  lsp-java 
-  :after lsp-mode 
-  :if (executable-find "mvn") 
-  :init (use-package 
-          request 
-          :defer t) 
-  :custom (lsp-java-server-install-dir (expand-file-name "~/.emacs.d/eclpse.jdt.ls/server/")) 
-  (lsp-java-workspace-dir (expand-file-name "~/.emacs.d/eclipse.jdt.ls/workspace/")))
-
-(setq lsp-java-vmargs '("-noverify" "-Xmx2G" "-Xms100m" "-XX:+UseG1GC" "-XX:+UseStringDeduplication"
-                        "-javaagent:/home/robson/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar"
-                        "-Xbootclasspath/a:/home/robson/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar"))
 ;; sh script support
 (use-package 
   sh-script 
@@ -753,11 +747,7 @@
   (setq dashboard-set-file-icons t) 
   (setq dashboard-startup-banner 'logo) 
   (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-action-dired) 
-  (setq dashboard-footer-messages '(" This is not a good place for gods.")) 
-  (setq dashboard-footer-icon (all-the-icons-fileicon "elisp" 
-                                                      :height 1.1 
-                                                      :v-adjust -0.05 
-                                                      :face 'font-lock-keyword-face)) 
+  (setq dashboard-footer-messages '("Happy codding")) 
   (dashboard-setup-startup-hook))
 (define-key dashboard-mode-map (kbd "C-c d") #'(lambda () 
                                                  (interactive) 
@@ -877,13 +867,24 @@
          ("C-c n i" . org-roam-node-insert) 
          :map org-mode-map ("C-M-i" . completion-at-point)) 
   :config (org-roam-setup))
+
+;;
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(org-roam visual-fill-column org-bullets dashboard vterm-toggle vterm exec-path-from-shell page-break-lines company-restclient restclient lsp-java dockerfile-mode yaml-mode rust-mode cider clojure-mode flycheck-clj-kondo flycheck dap-mode lsp-treemacs lsp-ui lsp-mode company-box company counsel-projectile projectile git-gutter-fringe git-gutter ripgrep find-file-in-project elisp-format iedit evil-nerd-commenter general evil-collection evil helpful ivy-rich counsel ivy paredit rainbow-delimiters which-key doom-modeline doom-themes catppuccin-theme minions dired-hide-dotfiles dired-open all-the-icons-dired dired-collapse dired-ranger dired-single dired-rainbow perspective diminish use-package)))
+ '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode") 
+ '(package-selected-packages '(lsp-ivy yaml-mode which-key vterm-toggle visual-fill-column
+                                       use-package rust-mode ripgrep rainbow-delimiters perspective
+                                       paredit page-break-lines org-roam org-bullets minions lsp-ui
+                                       lsp-java ivy-rich iedit helpful git-gutter-fringe general
+                                       flycheck-clj-kondo find-file-in-project exec-path-from-shell
+                                       evil-nerd-commenter evil-collection elisp-format doom-themes
+                                       doom-modeline dockerfile-mode dired-single dired-ranger
+                                       dired-rainbow dired-open dired-hide-dotfiles dired-collapse
+                                       diminish dashboard counsel-projectile company-restclient
+                                       company-box cider catppuccin-theme all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

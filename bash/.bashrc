@@ -2,10 +2,10 @@
 
 source ~/.env
 
-
 HISTCONTROL=ignoredups:erasedups
 HISTSIZE=1000000
 HISTFILESIZE=20000
+HISTTIMEFORMAT="%d/%m/%y %T "
 
 PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
 
@@ -71,6 +71,10 @@ case "$OSTYPE" in
         if [ -f /etc/profile.d/bash_completion.sh ]; then
             . /etc/profile.d/bash_completion.sh
         fi
+
+        if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+            . /usr/share/doc/fzf/examples/key-bindings.bash
+        fi
         ;;
     *)
         ;;
@@ -79,4 +83,3 @@ esac
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-. "/home/ripley/.local/share/bin/env"

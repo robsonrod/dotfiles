@@ -37,7 +37,7 @@ bspc rule -a Alacritty desktop='^1' state=tiled follow=on
 bspc rule -a Brave-browser  desktop='^2' state=tiled follow=on
 bspc rule -a Emacs desktop='^3' state=tiled follow=on
 bspc rule -a Ferdium desktop='^4' state=tiled follow=on
-bspc rule -a Org.gnome.Nautilus desktop='^5' state=tiled follow=on
+bspc rule -a Thunar desktop='^5' state=tiled follow=on
 bspc rule -a zoom desktop='^5' state=tiled follow=on
 bspc rule -a obsidian desktop='^6' state=tiled follow=on
 bspc rule -a Loading.. desktop='^2' state=floating follow=on
@@ -65,7 +65,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 bspc rule -a sun-awt-X11-XDialogPeer state=floating
 
 # Set wallpaper
-feh --bg-scale $HOME/.config/wallpaper/wallpaper.jpg
+feh --bg-scale $HOME/.config/wallpaper/kraken.jpg
 
 
 killall -q polybar &                  # Reboot polybar to correctly show workspaces
@@ -85,7 +85,7 @@ picom &
 
 bluetoothctl power off &>/dev/null &
 
-xrandr --output eDP-1 --brightness 0.60
+xrandr --output $MONITOR --brightness 0.60
 
 xautolock -time 3 -locker screen_lock -detectsleep -killtime 60 -killer "systemctl suspend" &
 

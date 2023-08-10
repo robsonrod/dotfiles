@@ -6,6 +6,7 @@ dunst
 picom
 feh
 xclip
+hexyl
 tldr
 exa
 ripgrep
@@ -16,6 +17,7 @@ bat
 zathura
 peek
 flameshot
+thunar
 fontconfig
 stow
 wget

@@ -1,6 +1,8 @@
-[user]
-    name = Robson Rodrigues
-    email = robsonrod@gmail.com
+[include]
+    path = .gituser-default
+
+[includeIf "gitdir:~/dev/work/"]
+    path = .gituser-work
 
 [color]
     branch = auto

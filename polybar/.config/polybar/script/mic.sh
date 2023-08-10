@@ -11,8 +11,6 @@ case $1 in
 		fi
 		;;
 	"toggle")
-		#ID=$(pacmd list-sources | grep "*\ index:" | cut -d' ' -f5)
-		#pactl set-source-mute $ID toggle
 		amixer set Capture toggle
 		;;
 esac
