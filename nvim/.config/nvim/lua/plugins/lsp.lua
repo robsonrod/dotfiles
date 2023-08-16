@@ -4,8 +4,7 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
     'lua_ls',
-    'rust_analyzer',
-    'clangd'
+    'rust_analyzer'
 })
 
 -- Fix Undefined global 'vim'
@@ -63,7 +62,7 @@ lsp.set_preferences({
     }
 })
 
-lsp.on_attach(function(client, bufnr)
+local on_attach = function(client, bufnr)
     local opts = {buffer = bufnr, remap = false}
 
     if client.name == "eslint" then
@@ -81,16 +80,15 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
     vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
-end)
+end
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-require('lspconfig').clangd.setup({
-    cmd = {
-        "/usr/bin/clangd",
-        "--header-insertion=never"
-    },
-    capabilities = capabilities
+lsp.on_attach(on_attach)
+
+local lspconfig = require('lspconfig')
+lspconfig.ccls.setup({
+
 })
+
 lsp.setup()
 
 vim.diagnostic.config({

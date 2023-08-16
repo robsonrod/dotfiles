@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+mkdir -p "$HOME/.cache/ccls-cache" 
+
 exec /usr/bin/ccls --log-file=/tmp/ccls --init='{"clang":{"extraArgs":[
  "-std=c++17",
  "-isystem/usr/include/c++/11",

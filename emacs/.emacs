@@ -663,6 +663,18 @@
   :hook ((c-mode c++-mode objc-mode cuda-mode) . (lambda () 
                                                    (require 'ccls) 
                                                    (lsp))))
+
+;; formatter
+(use-package 
+  clang-format 
+  :ensure t 
+  :init (add-hook 'c-mode-common-hook (function (lambda () 
+                                                  (add-hook 'before-save-hook
+                                                            'clang-format-buffer)))))
+
+
+(global-set-key (kbd "M-o") 'ff-find-related-file)
+
 ;; cider clojure
 (setq org-babel-clojure-backend 'cider)
 (use-package 
@@ -874,17 +886,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode") 
- '(package-selected-packages '(lsp-ivy yaml-mode which-key vterm-toggle visual-fill-column
-                                       use-package rust-mode ripgrep rainbow-delimiters perspective
-                                       paredit page-break-lines org-roam org-bullets minions lsp-ui
-                                       lsp-java ivy-rich iedit helpful git-gutter-fringe general
-                                       flycheck-clj-kondo find-file-in-project exec-path-from-shell
-                                       evil-nerd-commenter evil-collection elisp-format doom-themes
-                                       doom-modeline dockerfile-mode dired-single dired-ranger
-                                       dired-rainbow dired-open dired-hide-dotfiles dired-collapse
-                                       diminish dashboard counsel-projectile company-restclient
-                                       company-box cider catppuccin-theme all-the-icons-dired)))
+ '(package-selected-packages '(clang-format lsp-ivy yaml-mode which-key vterm-toggle
+                                            visual-fill-column use-package rust-mode ripgrep
+                                            rainbow-delimiters perspective paredit page-break-lines
+                                            org-roam org-bullets minions lsp-ui lsp-java ivy-rich
+                                            iedit helpful git-gutter-fringe general
+                                            flycheck-clj-kondo find-file-in-project
+                                            exec-path-from-shell evil-nerd-commenter evil-collection
+                                            elisp-format doom-themes doom-modeline dockerfile-mode
+                                            dired-single dired-ranger dired-rainbow dired-open
+                                            dired-hide-dotfiles dired-collapse diminish dashboard
+                                            counsel-projectile company-restclient company-box cider
+                                            catppuccin-theme all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
