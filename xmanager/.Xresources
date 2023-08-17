@@ -1,3 +1,24 @@
+!! Colorscheme
+! Dracula Xresources palette
+*.foreground: #F8F8F2
+*.background: #282A36
+*.color0:     #000000
+*.color8:     #4D4D4D
+*.color1:     #FF5555
+*.color9:     #FF6E67
+*.color2:     #50FA7B
+*.color10:    #5AF78E
+*.color3:     #F1FA8C
+*.color11:    #F4F99D
+*.color4:     #BD93F9
+*.color12:    #CAA9FA
+*.color5:     #FF79C6
+*.color13:    #FF92D0
+*.color6:     #8BE9FD
+*.color14:    #9AEDFE
+*.color7:     #BFBFBF
+*.color15:    #E6E6E6
+
 !! Xft settings
 XCursor.size:48
 XCursor.theme: Arc-Dark
@@ -11,45 +32,6 @@ rofi.dpi: 1
 Xft.hintstyle:	hintslight
 Xft.rgba:	rgb
 Xft.lcdfilter:	lcddefault
-
-!! Colorscheme
-
-! special
-URxvt.background: #24273A
-URxvt.foreground: #CAD3F5
-URxvt.cursorColor: #F4DBD6
-
-! black
-URxvt.color0: #494D64
-URxvt.color8: #5B6078
-
-! red
-URxvt.color1: #ED8796
-URxvt.color9: #ED8796
-
-! green
-URxvt.color2: #A6DA95
-URxvt.color10: #A6DA95
-
-! yellow
-URxvt.color3: #EED49F
-URxvt.color11: #EED49F
-
-! blue
-URxvt.color4: #8AADF4
-URxvt.color12: #8AADF4
-
-! magenta
-URxvt.color5: #F5BDE6
-URxvt.color13: #F5BDE6
-
-! cyan
-URxvt.color6: #8BD5CA
-URxvt.color14: #8BD5CA
-
-! white
-URxvt.color7: #B8C0E0
-URxvt.color15: #A5ADCB
 
 !! URxvt Appearance
 URxvt.letterSpace: -1

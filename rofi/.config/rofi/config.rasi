@@ -15,6 +15,4 @@ configuration{
     sidebar-mode: true;
 }
 
-@theme "~/.config/rofi/themes/catppuccin-macchiato.rasi"
-
-
+@theme "~/.config/rofi/themes/dracula.rasi"

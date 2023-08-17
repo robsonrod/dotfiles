@@ -169,7 +169,7 @@ ctrl + shift + h
 	screen_lock && systemctl suspend
 
 # network manager
-ctrl + shift + n
+ctrl + super + n
    networkmanager_dmenu
 
 # keyboad layout
@@ -184,7 +184,7 @@ super + w
 super + e
     emacs
 
-# Nautilus
+# Thunar
 super + q
     thunar
 

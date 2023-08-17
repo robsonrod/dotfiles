@@ -280,17 +280,11 @@
   minions 
   :hook (doom-modeline-mode . minions-mode))
 
-(use-package 
-  catppuccin-theme 
-  :ensure t 
-  :config)
-
 ;; doom themes
 (use-package 
   doom-themes 
   :ensure t 
   :config (setq doom-themes-enable-bold t doom-themes-enable-italic t) 
-  (setq catppuccin-flavor 'mocha) 
   (load-theme 'doom-dracula t) 
   (doom-themes-org-config) 
   (doom-themes-neotree-config))
@@ -758,7 +752,7 @@
   (setq dashboard-set-heading-icons t) 
   (setq dashboard-set-file-icons t) 
   (setq dashboard-startup-banner 'logo) 
-  (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-action-dired) 
+  (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name)
   (setq dashboard-footer-messages '("Happy codding")) 
   (dashboard-setup-startup-hook))
 (define-key dashboard-mode-map (kbd "C-c d") #'(lambda () 
@@ -880,24 +874,15 @@
          :map org-mode-map ("C-M-i" . completion-at-point)) 
   :config (org-roam-setup))
 
-;;
+;; end
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(clang-format lsp-ivy yaml-mode which-key vterm-toggle
-                                            visual-fill-column use-package rust-mode ripgrep
-                                            rainbow-delimiters perspective paredit page-break-lines
-                                            org-roam org-bullets minions lsp-ui lsp-java ivy-rich
-                                            iedit helpful git-gutter-fringe general
-                                            flycheck-clj-kondo find-file-in-project
-                                            exec-path-from-shell evil-nerd-commenter evil-collection
-                                            elisp-format doom-themes doom-modeline dockerfile-mode
-                                            dired-single dired-ranger dired-rainbow dired-open
-                                            dired-hide-dotfiles dired-collapse diminish dashboard
-                                            counsel-projectile company-restclient company-box cider
-                                            catppuccin-theme all-the-icons-dired)))
+ '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode")
+ '(package-selected-packages
+   '(org-roam visual-fill-column org-bullets dashboard yaml-mode which-key vterm-toggle use-package rust-mode ripgrep rainbow-delimiters perspective paredit page-break-lines minions lsp-ui lsp-ivy ivy-rich iedit helpful git-gutter-fringe general flycheck-clj-kondo find-file-in-project exec-path-from-shell evil-nerd-commenter evil-collection elisp-format doom-themes doom-modeline dockerfile-mode dired-single dired-ranger dired-rainbow dired-open dired-hide-dotfiles dired-collapse diminish dap-mode counsel-projectile company-restclient company-box clang-format cider ccls all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

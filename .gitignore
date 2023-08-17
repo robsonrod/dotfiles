@@ -7,3 +7,6 @@ nvim/.config/nvim/autoload/*
 utils/.local/share/nvim/*
 qtile/.config/qtile/__pycache__/*
 utils/.local/share/fonts/*
+**/__init__.py
+**/__pycache__/
+
