@@ -16,12 +16,12 @@ shopt -s expand_aliases
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
-    *) return;;
+    *) return ;;
 esac
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case ${TERM} in
-    xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|alacritty|st-256color|konsole*)
+    xterm* | rxvt* | Eterm* | aterm | kterm | gnome* | alacritty | st-256color | konsole*)
         PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
         ;;
     screen*)
@@ -30,8 +30,8 @@ case ${TERM} in
 esac
 
 git_branch() {
-    if [ -d .git ] ; then
-        printf "%s" "($(git branch 2> /dev/null | awk '/\*/{print $2}'))";
+    if [ -d .git ]; then
+        printf "%s" "($(git branch 2> /dev/null | awk '/\*/{print $2}'))"
     fi
 }
 
@@ -44,7 +44,7 @@ eval "$(zoxide init bash)"
 if [[ $- != *i* ]]; then
     return
 elif [[ $TERM == urxvt* && -z "$TMUX" ]]; then
-    exec tmux && exit 0;
+    exec tmux && exit 0
 fi
 
 # asdf configuration
@@ -53,11 +53,9 @@ if [ -f ${HOME}/.asdf/asdf.sh ]; then
     . ${HOME}/.asdf/completions/asdf.bash
 fi
 
+[[ -s $HOME/.aliases ]] && source ~/.aliases
 
-[[ -s $HOME/.aliases ]] && source ~/.aliases 
-
-[[ -s $HOME/.functions ]] && source ~/.functions 
-
+[[ -s $HOME/.functions ]] && source ~/.functions
 
 [[ -s ~/.bash_custom ]] && source ~/.bash_custom
 
@@ -76,8 +74,8 @@ case "$OSTYPE" in
             . /usr/share/doc/fzf/examples/key-bindings.bash
         fi
         ;;
-    *)
-        ;;
+    *) ;;
+
 esac
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!

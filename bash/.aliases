@@ -41,7 +41,7 @@ alias update='sudo apt-get update'
 alias upgrade='sudo apt-get upgrade'
 alias remove='sudo apt-get remove'
 
-alias ..='cd ..' 
+alias ..='cd ..'
 alias 2.='cd ../..'
 alias 3.='cd ../../..'
 alias 4.='cd ../../../..'

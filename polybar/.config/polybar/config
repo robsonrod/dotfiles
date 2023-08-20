@@ -18,7 +18,7 @@ tray-detached=false
 tray-position=right
 width=100%
 wm-restack=bspwm
-overline-size=2
+overline-size=1
 
 [bar/sec]
 background=#00000000
@@ -152,7 +152,7 @@ format-foreground=#f8f8f2
 [module/memory]
 format=<label>
 format-overline=#50fa7b
-label=  %percentage_used%%
+label=  %gb_used%
 type=internal/memory
 format-foreground=#f8f8f2
 
@@ -182,6 +182,7 @@ format-volume=<ramp-volume>  <label-volume>
 interval=2
 label-muted=  muted
 label-muted-foreground=#b7bdf8
+format-muted-overline=#bd93f9
 ramp-volume-0=
 ramp-volume-1=
 ramp-volume-2=

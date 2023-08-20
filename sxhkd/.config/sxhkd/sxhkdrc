@@ -1,33 +1,45 @@
 #
 # wm independent hotkeys
-#
-super + shift + p
-      pkill -f polybar
-
-super + p
-      polybar main &
-
-# terminal emulator
-super + t
-	alacritty
-
-# program launcher
-super + r
-	rofimenu --run
-
-# program launcher (Apps)
-super + m
-	rofimenu --menu
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd
+    pkill -usr1 -x sxhkd; notify-send 'sxhkd' 'Reloaded config'
 
-super + ctrl + q
-   powermenu 
+# alacritty
+super + Return
+	alacritty
 
-super + ctrl + w
-	rofimenu --window
+# urxvt
+super + alt + Return
+    rxvt
+
+# program launcher
+super + alt + d
+    rofimenu --run
+
+# program launcher (Apps)
+super + alt + m
+	rofimenu --menu
+
+# hide polybar
+super + alt + b
+    pkill -f polybar
+
+# show polybar
+super + b
+    polybar main &
+
+# open power menu
+super + shift + q
+    powermenu 
+
+# show all active windows
+super + alt + w
+    rofimenu --window
+
+# help
+super + alt + h
+    sxhkd-help
 
 #
 # bspwm hotkeys
@@ -38,7 +50,7 @@ super + alt + {q,r}
 	bspc {quit,wm -r}
 
 # close and kill
-super + {_,shift + }x
+super + {_,shift + }q
 	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
@@ -143,10 +155,11 @@ XF86AudioRaiseVolume
 XF86AudioMute
 	amixer set Master toggle
 
-# brightness control
+# brightness up
 XF86MonBrightnessUp
       brightness_controll +
 
+# brightness down
 XF86MonBrightnessDown
      brightness_controll -
 
@@ -160,31 +173,30 @@ XF86AudioMicMute
 Print
     flameshot gui
 
-# lock screen
+# screen lock
 ctrl + shift + l
-	screen_lock
+    screen_lock
 
-# hibernate
+# hiberate
 ctrl + shift + h
-	screen_lock && systemctl suspend
+    screen_lock && systemctl suspend
 
 # network manager
-ctrl + super + n
-   networkmanager_dmenu
+super + alt + n
+    networkmanager_dmenu
 
 # keyboad layout
 ctrl + shift + k
     rofikeyboard
 
-# Firefox
+# brave browser
 super + w
-   brave-browser
+    brave-browser
 
-# Emacs
-super + e
-    emacs
-
-# Thunar
-super + q
+# thunar
+super + alt + f
     thunar
 
+# emacs
+super + e; e
+    emacsclient -c -a 'emacs'
