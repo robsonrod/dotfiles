@@ -85,9 +85,7 @@ end
 lsp.on_attach(on_attach)
 
 local lspconfig = require('lspconfig')
-lspconfig.ccls.setup({
-
-})
+lspconfig.ccls.setup({})
 
 lsp.setup()
 
