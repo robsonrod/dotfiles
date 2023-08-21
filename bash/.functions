@@ -114,5 +114,5 @@ copy() {
 }
 
 fzfo() {
-    fzf --height 50% --reverse --border --print0 | xargs -0 -o $EDITOR
+    fzf --layout reverse --info inline --border --preview 'batcat --color=always {}' --preview-window '~3' --print0 | xargs -0 -o $EDITOR
 }
