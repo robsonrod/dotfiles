@@ -71,5 +71,5 @@ CYAN="\e[36m"
 BLUE="\e[34m"
 PURPLE="\e[35m"
 ENDCOLOR="\e[0m"
-alias ec='echo -e "${RED}" && echo $?'
-alias PATH='echo -e "${GREEN}" && echo $PATH'
+alias ec='echo -e "${RED} $?"'
+alias path='echo -e "${GREEN} $PATH"'
