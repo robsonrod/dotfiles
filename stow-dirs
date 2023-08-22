@@ -18,13 +18,13 @@ install() {
     echo "stow configuration: " $stow_config
     echo $stow_config > $dir/.stowrc
 
-    stow alacritty/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ nvim/ others/ picom/ rofi/ starship/ tmux/ utils/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ xmanager/ networkmanager-dmenu/ clang/ ranger/
+    stow git alacritty/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ nvim/ others/ picom/ rofi/ starship/ tmux/ utils/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ xmanager/ networkmanager-dmenu/ clang/ ranger/ bat/
     echo "done"
 }
 
 uninstall() {
     echo "uninstall configurations"
-    stow -D alacritty/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ nvim/ others/ picom/ rofi/ starship/ tmux/ utils/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ xmanager/ networkmanager-dmenu/ clang/ ranger/
+    stow -D git alacritty/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ nvim/ others/ picom/ rofi/ starship/ tmux/ utils/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ xmanager/ networkmanager-dmenu/ clang/ ranger/ bat/
     echo "done"
 }
 
