@@ -34,6 +34,7 @@ alias em='emacs -nw'
 alias cd='z'
 alias cat='batcat'
 alias open='xdg-open'
+alias fd='fdfind'
 
 # system admin
 alias install='sudo apt-get install'
