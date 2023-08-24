@@ -239,11 +239,14 @@
                                                "bak")) 
     (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules")) 
     (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*")))
+
 (use-package 
   dired-single)
+
 (use-package 
   dired-ranger 
   :defer t)
+
 (use-package 
   dired-collapse 
   :defer t)
@@ -251,6 +254,7 @@
 (use-package 
   all-the-icons-dired 
   :hook (dired-mode . all-the-icons-dired-mode))
+
 
 (use-package 
   dired-open 
@@ -483,6 +487,22 @@
   :bind ("C-c ," . iedit-mode) 
   :diminish)
 
+;; treemac
+(use-package 
+  treemacs 
+  :ensure t 
+  :bind (:map global-map
+              ("M-0" . treemacs-select-window) 
+              ("C-x t 1" . treemacs-no-delete-other-windows) 
+              ("C-x t t" . treemacs) 
+              ("C-x t d" . treemacs-select-directory)) 
+  :config (progn 
+            (setq treemacs-no-png-images t treemacs-is-never-other-window nil)))
+
+(use-package 
+  treemacs-all-the-icons 
+  :config (treemacs-load-theme "all-the-icons"))
+
 (use-package 
   elisp-format 
   :ensure t 
@@ -552,6 +572,13 @@
   :ensure t 
   :after company 
   :hook (company-mode . company-box-mode))
+
+;; git
+(use-package 
+  magit 
+  :bind ("C-M-;" . magit-status) 
+  :commands (magit-status magit-get-current-branch) 
+  :custom (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 ;; lsp - language server provider
 (use-package 
@@ -752,7 +779,7 @@
   (setq dashboard-set-heading-icons t) 
   (setq dashboard-set-file-icons t) 
   (setq dashboard-startup-banner 'logo) 
-  (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name)
+  (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name) 
   (setq dashboard-footer-messages '("Happy codding")) 
   (dashboard-setup-startup-hook))
 (define-key dashboard-mode-map (kbd "C-c d") #'(lambda () 
@@ -880,9 +907,23 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode")
- '(package-selected-packages
-   '(org-roam visual-fill-column org-bullets dashboard yaml-mode which-key vterm-toggle use-package rust-mode ripgrep rainbow-delimiters perspective paredit page-break-lines minions lsp-ui lsp-ivy ivy-rich iedit helpful git-gutter-fringe general flycheck-clj-kondo find-file-in-project exec-path-from-shell evil-nerd-commenter evil-collection elisp-format doom-themes doom-modeline dockerfile-mode dired-single dired-ranger dired-rainbow dired-open dired-hide-dotfiles dired-collapse diminish dap-mode counsel-projectile company-restclient company-box clang-format cider ccls all-the-icons-dired)))
+ '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode") 
+ '(package-selected-packages '(treemacs-all-the-icons magit org-roam visual-fill-column org-bullets
+                                                      dashboard yaml-mode which-key vterm-toggle
+                                                      use-package rust-mode ripgrep
+                                                      rainbow-delimiters perspective paredit
+                                                      page-break-lines minions lsp-ui lsp-ivy
+                                                      ivy-rich iedit helpful git-gutter-fringe
+                                                      general flycheck-clj-kondo
+                                                      find-file-in-project exec-path-from-shell
+                                                      evil-nerd-commenter evil-collection
+                                                      elisp-format doom-themes doom-modeline
+                                                      dockerfile-mode dired-single dired-ranger
+                                                      dired-rainbow dired-open dired-hide-dotfiles
+                                                      dired-collapse diminish dap-mode
+                                                      counsel-projectile company-restclient
+                                                      company-box clang-format cider ccls
+                                                      all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
