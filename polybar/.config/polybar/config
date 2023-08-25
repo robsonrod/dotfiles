@@ -18,7 +18,7 @@ tray-detached=false
 tray-position=right
 width=100%
 wm-restack=bspwm
-overline-size=1
+overline-size=0
 
 [bar/sec]
 background=#00000000
