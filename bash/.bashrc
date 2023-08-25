@@ -73,11 +73,14 @@ case "$OSTYPE" in
         if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
             . /usr/share/doc/fzf/examples/key-bindings.bash
         fi
-        ;;
+        if [ -f /usr/share/fzf/key-bindings.bash ]; then
+            . /usr/share/fzf/key-bindings.bash
+        fi
+         ;;
     *) ;;
 
 esac
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+if [ -f "$HOME/.local/share/bin/env" ]; then
+	. "$HOME/.local/share/bin/env"
+fi

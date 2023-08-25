@@ -9,4 +9,10 @@ qtile/.config/qtile/__pycache__/*
 utils/.local/share/fonts/*
 **/__init__.py
 **/__pycache__/
-
+utils/.local/share/bin/
+utils/.local/share/lesshst
+utils/.local/share/ranger/
+utils/.local/share/recently-used.xbel
+utils/.local/share/xorg/
+utils/.local/share/zathura/
+utils/.local/share/zoxide/
