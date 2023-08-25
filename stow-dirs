@@ -18,37 +18,31 @@ install() {
     echo "stow configuration: " $stow_config
     echo $stow_config > $dir/.stowrc
 
-		file=$(echo "xmanager/.Xresources-$1")
-	  cp -v $file xmanager/.Xresources
-
     stow -vvv git/ alacritty/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ nvim/ others/ picom/ rofi/ starship/ tmux/ utils/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ xmanager/ networkmanager-dmenu/ clang/ ranger/ bat/
     echo "done"
 }
 
 uninstall() {
     echo "uninstall configurations"
-    stow -D git alacritty/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ nvim/ others/ picom/ rofi/ starship/ tmux/ utils/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ xmanager/ networkmanager-dmenu/ clang/ ranger/ bat/
+    stow -vvv -D git alacritty/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ nvim/ others/ picom/ rofi/ starship/ tmux/ utils/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ xmanager/ networkmanager-dmenu/ clang/ ranger/ bat/
     echo "done"
 }
 
 usage() {
     echo -e "\nUsage:\n"
-    echo -e "h - to install and configure (HDPI)"
-    echo -e "f - to install and configure (FHD)"
+    echo -e "i - to install and configure"
     echo -e "u - to remove all configurations"
 }
 
 main() {
     case "$1" in
-        h)  backup
-            install "hdpi"
+        i)  backup
+            install
             ;;
-        f)  backup
-            install "fhd"
-            ;;
-         u) uninstall
+        u) uninstall 
             ;;
         *) usage; exit 1;
-    esac }
+    esac
+}
 
 main "$1"

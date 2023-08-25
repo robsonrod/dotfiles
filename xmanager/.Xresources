@@ -23,6 +23,11 @@
 XCursor.size:32
 XCursor.theme: Arc-Dark
 
+#ifdef HOST_luigi
+Xft.dpi: 192
+rofi.dpi: 1
+endif
+
 ! These might also be useful depending on your monitor and personal preference:
 *.antialias: true
 *.hinting: true
@@ -77,4 +82,3 @@ URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.urlLauncher: firefox
 URxvt.underlineURLs: true
 URxvt.urlButton: 1
-
