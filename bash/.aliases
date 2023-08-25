@@ -32,15 +32,23 @@ alias h='history'
 alias nv='nvim'
 alias em='emacs -nw'
 alias cd='z'
-alias cat='batcat'
 alias open='xdg-open'
-alias fd='fdfind'
 
 # system admin
+if [ "$OS_ID" == "arch" ]; then
+alias install='sudo pacman -Sy'
+alias update='sudo pacman -Syy'
+alias upgrade='sudo pacman -Suy '
+alias remove='sudo pacman -Rs'
+alias cat='bat'
+else
 alias install='sudo apt-get install'
 alias update='sudo apt-get update'
 alias upgrade='sudo apt-get upgrade'
 alias remove='sudo apt-get remove'
+alias cat='batcat'
+alias fd='fdfind'
+fi
 
 alias ..='cd ..'
 alias 2.='cd ../..'

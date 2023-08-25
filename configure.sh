@@ -195,8 +195,7 @@ main() {
             install_compose
             ;;
         m) 
-            install_repositories
-            install_packages "min_packages.txt"
+            install_fonts
             install_startship
             install_tmux_plugins
             install_asdf

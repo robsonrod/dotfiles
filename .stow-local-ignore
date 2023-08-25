@@ -1,0 +1,7 @@
+./utils/.local/share/bin/*
+**/lesshst*
+./utils/.local/share/ranger/*
+./utils/.local/share/recently*
+./utils/.local/share/xorg/*
+./utils/.local/share/zathura/*
+./utils/.local/share/zoxide/*
