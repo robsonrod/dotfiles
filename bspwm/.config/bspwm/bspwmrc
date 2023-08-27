@@ -81,7 +81,7 @@ picom &
 
 bluetoothctl power off &>/dev/null &
 
-if [[ $HOSTNAME == "luigi" ]]; then
+if [[ "$COMPUTER_NAME" == "iracema" ]]; then
     xrandr --output $MONITOR --brightness 0.60
 fi
 
