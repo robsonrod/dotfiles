@@ -23,7 +23,7 @@
 XCursor.size:32
 XCursor.theme: Arc-Dark
 
-#ifdef HOST_luigi
+#ifdef HOST_iracema
 Xft.dpi: 192
 rofi.dpi: 1
 endif

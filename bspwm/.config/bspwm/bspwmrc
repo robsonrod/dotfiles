@@ -67,11 +67,7 @@ bspc rule -a sun-awt-X11-XDialogPeer state=floating
 # Set wallpaper
 feh --bg-scale $HOME/.config/wallpaper/kraken.jpg
 
-
-killall -q polybar &                  # Reboot polybar to correctly show workspaces
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1;done 
-
-polybar main &
+exec_polybar &
 
 if [[ $(xrandr -q | grep 'DP-3 connected') ]]; then   # If second monitor, also enable second polybar
     bspc monitor DP-3 -d 6 7 8 9 10
@@ -85,7 +81,7 @@ picom &
 
 bluetoothctl power off &>/dev/null &
 
-if [[ $HOSTNAME == "luigi" ]]; then
+if [[ "$COMPUTER_NAME" == "iracema" ]]; then
     xrandr --output $MONITOR --brightness 0.60
 fi
 

@@ -1,12 +1,12 @@
 [bar/main]
 background=#282a36
-font-0="Terminus Nerd Font:pixelsize=18,3"
-font-1="Terminus Nerd Font:pixelsize=18,3"
-font-2=FontAwesome6Free:style=Solid:size=20
-font-3=FontAwesome6Free:style=Regular:size=20
-font-4=FontAwesome6Brands:style=Regular:size=20
+font-0=${env:FONT0}
+font-1=${env:FONT1}
+font-2=${env:FONT2}
+font-3=${env:FONT3}
+font-4=${env:FONT4}
 foreground=#f8f8f2
-height=50
+height=${env:PBHEIGHT}
 module-margin-left=1
 modules-left=bspwm
 modules-right=mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery pad wired-network pad wireless-network pad powermenu
@@ -192,12 +192,12 @@ format-volume-overline=#bd93f9
 
 [module/wired-network]
 type = internal/network
-interface = eth1
+interface=${env:NETWORK_WIRED_INTERFACE}
 
 [module/wireless-network]
 type = internal/network
-interface=${env:NETWORK_WIRELESS_INTERFACE:wlp0s20f3}
-interval=3.0
+interface=${env:NETWORK_WIRELESS_INTERFACE}
+interval=3
 label-connected=%downspeed%
 label-disconnected=
 label-packageloss-foreground=#f8f8f2 
