@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+update_keyring() {
+    echo "Update keyring"
+    sudo pacman -S archlinux-keyring --noconfirm
+    echo "done"
+}
+
+update_mirrors() {
+    echo "Add fast mirror"
+    sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bkp
+    sudo reflector -c BR --latest 5 --age 2 --fastest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+    echo "done"
+}
+
+update_packages() {
+    echo "Update mirrors"
+    sudo pacman -Syy
+    echo "done"
+
+    echo "Update all packages"
+    sudo pacman -Syu --noconfirm --needed --overwrite '*'
+    echo "done"
+}
+
+update_keyring
+update_mirrors
+update_packages
