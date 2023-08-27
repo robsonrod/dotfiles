@@ -12,7 +12,7 @@ export FONT4="FontAwesome6Brands:style=Regular:size=20"
 export FONT4="FontAwesome6Brands:style=Regular:size=20"
 export PBHEIGHT="50"
 
-if [ "$RESOLUTION" != "3840x2400" ]; then
+if [ "$COMPUTER_NAME" != "iracema" ]; then
     FONT0="Terminus Nerd Font:pixelsize=10,3"
     FONT1="Terminus Nerd Font:pixelsize=10,3"
     FONT2="FontAwesome6Free:style=Solid:size=10"

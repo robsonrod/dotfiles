@@ -2,7 +2,7 @@
 
 update_keyring() {
     echo "Update keyring"
-    sudo pacman -S archlinux-keyring --noconfirm
+    sudo pacman -Sy archlinux-keyring --noconfirm
     echo "done"
 }
 

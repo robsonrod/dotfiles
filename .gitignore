@@ -16,3 +16,5 @@ utils/.local/share/recently-used.xbel
 utils/.local/share/xorg/
 utils/.local/share/zathura/
 utils/.local/share/zoxide/
+utils/.local/share/gvfs-metadata/
+utils/.local/share/meld/
