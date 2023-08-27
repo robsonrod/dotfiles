@@ -5,7 +5,7 @@ __main_menu() {
 }
 
 __run_cmd() {
-    rofi -modi run -show run -p "run:"    
+    rofi -modi run -show run -p "run:"
 }
 
 __show_window() {
@@ -19,9 +19,9 @@ usage() {
     echo " --window list all applications"
 }
 
-if [ "$#" -eq 0 ]; then 
-    usage; 
-    exit 1; 
+if [ "$#" -eq 0 ]; then
+    usage
+    exit 1
 fi
 
 main() {
@@ -35,7 +35,10 @@ main() {
         --window)
             __show_window
             ;;
-        *) usage ; exit 1;
+        *)
+           usage
+                   exit 1
+        ;;
     esac
 }
 

@@ -32,25 +32,25 @@ alias h='history'
 alias nv='nvim'
 alias em='emacs -nw'
 if [ -x "$(command -v zoxide)" ]; then
-alias cd='z'
-alias cdi='zi'
+    alias cd='z'
+    alias cdi='zi'
 fi
 alias open='xdg-open'
 
 # system admin
 if [ "$OS_ID" == "arch" ]; then
-alias install='sudo pacman -Sy'
-alias update='sudo pacman -Syy'
-alias upgrade='sudo pacman -Suy '
-alias remove='sudo pacman -Rs'
-alias cat='bat'
+    alias install='sudo pacman -Sy'
+    alias update='sudo pacman -Syy'
+    alias upgrade='sudo pacman -Suy '
+    alias remove='sudo pacman -Rs'
+    alias cat='bat'
 else
-alias install='sudo apt-get install'
-alias update='sudo apt-get update'
-alias upgrade='sudo apt-get upgrade'
-alias remove='sudo apt-get remove'
-alias cat='batcat'
-alias fd='fdfind'
+    alias install='sudo apt-get install'
+    alias update='sudo apt-get update'
+    alias upgrade='sudo apt-get upgrade'
+    alias remove='sudo apt-get remove'
+    alias cat='batcat'
+    alias fd='fdfind'
 fi
 
 alias ..='cd ..'
@@ -60,16 +60,16 @@ alias 4.='cd ../../../..'
 alias 5.='cd ../../../../..'
 
 if [ -x "$(command -v exa)" ]; then
-	alias l='exa -l --color=always --group-directories-first'
-	alias ls='exa --color=always --group-directories-first'
-	alias la='exa -la --color=always --octal-permissions --group-directories-first -g --icons'
-	alias ll='exa -l --color=always --octal-permissions --group-directories-first'
-	alias tree='exa --tree'
+    alias l='exa -l --color=always --group-directories-first'
+    alias ls='exa --color=always --group-directories-first'
+    alias la='exa -la --color=always --octal-permissions --group-directories-first -g --icons'
+    alias ll='exa -l --color=always --octal-permissions --group-directories-first'
+    alias tree='exa --tree'
 else
-	alias l='ls'
-	alias ls='ls -l'
-	alias la='ls -la'
-	alias ll='ls -la'
+    alias l='ls'
+    alias ls='ls -l'
+    alias la='ls -la'
+    alias ll='ls -la'
 fi
 
 alias cp="cp -i"

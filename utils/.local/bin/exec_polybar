@@ -13,16 +13,16 @@ export FONT4="FontAwesome6Brands:style=Regular:size=20"
 export PBHEIGHT="50"
 
 if [ "$RESOLUTION" != "3840x2400" ]; then
-	FONT0="Terminus Nerd Font:pixelsize=10,3"
-	FONT1="Terminus Nerd Font:pixelsize=10,3"
-	FONT2="FontAwesome6Free:style=Solid:size=10"
-	FONT3="FontAwesome6Free:style=Regular:size=10"
-	FONT4="FontAwesome6Brands:style=Regular:size=10"
-	PBHEIGHT="20"
+    FONT0="Terminus Nerd Font:pixelsize=10,3"
+    FONT1="Terminus Nerd Font:pixelsize=10,3"
+    FONT2="FontAwesome6Free:style=Solid:size=10"
+    FONT3="FontAwesome6Free:style=Regular:size=10"
+    FONT4="FontAwesome6Brands:style=Regular:size=10"
+    PBHEIGHT="20"
 fi
 
 # Reboot polybar to correctly show workspaces
 killall -q polybar &
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1;done
+while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 
 polybar main &

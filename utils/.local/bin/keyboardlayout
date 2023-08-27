@@ -11,9 +11,9 @@ toggle_layout() {
         "us"*)
             if [ "$variant" == "alt-intl" ]; then
                 setxkbmap -layout br
-            else
+        else
                 setxkbmap -layout us -variant alt-intl
-            fi
+        fi
             ;;
         *)
             setxkbmap -layout br
@@ -30,7 +30,7 @@ get_layout() {
     if [ "$layout" == "alt-intl" ]; then
             layout=${layout:0:2}
     fi
-    
+
     echo "%{F#f8f8f2}  ${layout^^}"
 }
 
@@ -40,20 +40,23 @@ usage() {
     echo " get show keyboard layout"
 }
 
-if [ "$#" -eq 0 ]; then 
-    usage; 
-    exit 1; 
+if [ "$#" -eq 0 ]; then
+    usage
+    exit 1
 fi
 
 main() {
     case $1 in
         toggle)
-            toggle_layout 
+            toggle_layout
             ;;
         get)
-            get_layout 
+            get_layout
             ;;
-        *) usage ; exit 1;
+        *)
+           usage
+                   exit 1
+        ;;
     esac
 }
 

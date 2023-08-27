@@ -20,4 +20,3 @@ case $selected in
         scrot -u -e 'mv $f '"$SCREENSHOTS_DIR"'/Screenshot-%Y:%m:%d-%H:%M:%S.png'
         ;;
 esac
-

@@ -27,9 +27,9 @@ if [ -d "$HOME/.local/bin" ]; then
 fi
 
 if [ -f "$HOME/.cargo/env" ]; then
-. "$HOME/.cargo/env"
+    . "$HOME/.cargo/env"
 fi
 
 if [ -f "$HOME/.local/share/bin/env" ]; then
-	. "$HOME/.local/share/bin/env"
+    . "$HOME/.local/share/bin/env"
 fi

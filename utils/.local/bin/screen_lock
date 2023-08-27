@@ -6,10 +6,11 @@ tmpfile=$tmpdir/screen_lock.png
 mkdir -p $tmpdir
 scrot $tmpfile
 
-convert $tmpfile -blur 0x5 $tmpfile 
+convert $tmpfile -blur 0x5 $tmpfile
 
 i3lock -i $tmpfile
 rm -rf /tmp/lock
 
 # Turn the screen off after a delay.
-sleep 60; pgrep i3lock && xset dpms force off
+sleep 60
+          pgrep i3lock && xset dpms force off

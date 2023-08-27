@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
 toggle() {
-    bt_enabled="$(bluetoothctl show |grep "Powered: yes" |wc -c)"
+    bt_enabled="$(bluetoothctl show | grep "Powered: yes" | wc -c)"
     if [ "$bt_enabled" -eq 0 ]; then
-        bluetoothctl power on &>/dev/null
+        bluetoothctl power on &> /dev/null
     else
-        bluetoothctl power off &>/dev/null
+        bluetoothctl power off &> /dev/null
     fi
 }
 
 status() {
-    bt_enabled="$(bluetoothctl show |grep "Powered: yes" |wc -c)"
+    bt_enabled="$(bluetoothctl show | grep "Powered: yes" | wc -c)"
     if [ "$bt_enabled" -eq 0 ]; then
         echo "%{F#f8f8f2}"
         return
@@ -22,7 +22,7 @@ status() {
         return
     fi
 
-    mac_address="$(echo info | bluetoothctl | grep 'Device' | head -n 1|  awk '{print $2}')"
+    mac_address="$(echo info | bluetoothctl | grep 'Device' | head -n 1 | awk '{print $2}')"
     echo "%{F#a6da95}"
 }
 
@@ -33,8 +33,8 @@ usage() {
 }
 
 if [ "$#" -eq 0 ]; then
-    usage;
-    exit 1;
+    usage
+    exit 1
 fi
 
 main() {
@@ -45,7 +45,10 @@ main() {
         st)
             status
             ;;
-        *) usage; exit 1;
+        *)
+           usage
+                  exit 1
+        ;;
     esac
 }
 

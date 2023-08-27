@@ -63,24 +63,24 @@ case "$OSTYPE" in
     "darwin"*)
         if [ -f $(brew --prefix)/etc/bash_completion ]; then
             . $(brew --prefix)/etc/bash_completion
-        fi
+    fi
         ;;
     "linux-gnu"*)
         if [ -f /etc/profile.d/bash_completion.sh ]; then
             . /etc/profile.d/bash_completion.sh
-        fi
+    fi
 
         if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
             . /usr/share/doc/fzf/examples/key-bindings.bash
-        fi
+    fi
         if [ -f /usr/share/fzf/key-bindings.bash ]; then
             . /usr/share/fzf/key-bindings.bash
-        fi
+    fi
          ;;
     *) ;;
 
 esac
 
 if [ -f "$HOME/.local/share/bin/env" ]; then
-	. "$HOME/.local/share/bin/env"
+    . "$HOME/.local/share/bin/env"
 fi

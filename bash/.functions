@@ -116,3 +116,7 @@ copy() {
 fzfo() {
     fzf --layout reverse --info inline --border --preview 'batcat --color=always {}' --preview-window '~3' --print0 | xargs -0 -o $EDITOR
 }
+
+formatsh() {
+    shfmt -i 4 -sr -kp $1 > tmp && mv tmp $1
+}

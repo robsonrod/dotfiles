@@ -1,16 +1,15 @@
 #!/bin/env sh
 
 case $1 in
-	"status")
-  		MUTED=$(amixer sget Capture | awk -F"[][]" '/Left:/ { print $4 }')
-		if [ "$MUTED" = "on" ]; then
+ "status")
+    MUTED=$(amixer sget Capture | awk -F"[][]" '/Left:/ { print $4 }')
+    if [ "$MUTED" = "on" ]; then
             echo ""
-		else
+    else
             echo ""
-		fi
-		;;
-	"toggle")
-		amixer set Capture toggle
-		;;
+    fi
+    ;;
+ "toggle")
+    amixer set Capture toggle
+    ;;
 esac
-
