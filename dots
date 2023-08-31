@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+OS_ID=$(awk -F= ' /^ID=/ { gsub("\"", ""); print $2 } ' /etc/os-release)
+ROOT=$(git rev-parse --show-toplevel)
+if [ "$OS_ID" == "arch" ]; then
+	source $ROOT/arch/configure
+else
+	source $ROOT/ubuntu/configure
+fi
+
+backup() {
+	echo "backup files"
+
+	for file in aliases bash_profile bashrc env functions profile; do
+		if [ -f "$HOME/.$file" ] && [ ! -L "$HOME/.$file" ]; then
+			mv "$HOME/.$file" "$HOME/.$file.bkp"
+		fi
+	done
+}
+
+install() {
+	echo "install configurations"
+	dir=$(dirname $0)
+	stow_config="--dir=$dir --target=$HOME --dotfiles"
+
+	echo "stow configuration: " $stow_config
+	echo $stow_config >$dir/.stowrc
+
+	stow -vvv git/ alacritty/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ others/ picom/ rofi/ starship/ tmux/ utils/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ xmanager/ networkmanager-dmenu/ clang/ ranger/ bat/
+	echo "done"
+}
+
+uninstall() {
+	echo "uninstall configurations"
+	stow -vvv -D git alacritty/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ others/ picom/ rofi/ starship/ tmux/ utils/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ xmanager/ networkmanager-dmenu/ clang/ ranger/ bat/
+	echo "done"
+}
+
+usage() {
+	echo -e "\nUsage:\n"
+	echo -e "-i - to install applications"
+	echo -e "-c - to apply all configurations"
+	echo -e "-u - to uninstall all configurations"
+}
+
+main() {
+	case "$1" in
+	-c)
+		configure
+		;;
+	-i)
+		backup
+		install
+		;;
+	-u)
+		uninstall
+		;;
+	-f)
+		FORCE='1'
+		shift
+		;;
+	*)
+		usage
+		exit 1
+		;;
+	esac
+}
+
+main "$1"
