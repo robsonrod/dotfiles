@@ -18,3 +18,10 @@ utils/.local/share/zathura/
 utils/.local/share/zoxide/
 utils/.local/share/gvfs-metadata/
 utils/.local/share/meld/
+emacs/.emacs.d/elpa/
+emacs/.emacs.d/org-roam.db
+emacs/.emacs.d/places
+emacs/.emacs.d/projectile-bookmarks.eld
+emacs/.emacs.d/recentf
+emacs/.emacs.d/transient/
+tmux/.config/tmux/plugins/
