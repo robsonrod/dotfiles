@@ -1,8 +1,8 @@
 [include]
-    path = .gituser-default
+    path = gituser-default
 
 [includeIf "gitdir:~/dev/work/"]
-    path = .gituser-work
+    path = gituser-work
 
 [color]
     branch = auto
