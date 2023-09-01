@@ -59,12 +59,12 @@
     hunk-header-line-number-style = "#067a00"
     hunk-header-style = file line-number syntax
 
-[commit]
-    gpgsign = true
+#[commit]
+#    gpgsign = true
 
 # https://gist.github.com/Kovrinic/ea5e7123ab5c97d451804ea222ecd78a
-#[url "git@github.com:"]
-#  insteadOf = https://github.com/
+[url "git@github.com:"]
+  insteadOf = https://github.com/
 
 [credential]
     helper = cache --timeout=36000

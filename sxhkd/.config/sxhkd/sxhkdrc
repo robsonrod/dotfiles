@@ -6,11 +6,11 @@ super + Escape
     pkill -usr1 -x sxhkd; notify-send 'sxhkd' 'Reloaded config'
 
 # alacritty
-super + Return
+super + t
 	alacritty
 
 # urxvt
-super + alt + Return
+super + alt + t
     rxvt
 
 # program launcher
@@ -189,9 +189,9 @@ super + alt + n
 ctrl + shift + k
     rofikeyboard
 
-# brave browser
+# browser
 super + w
-    brave-browser
+    firefox
 
 # thunar
 super + alt + f
