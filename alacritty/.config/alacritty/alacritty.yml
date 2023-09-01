@@ -28,10 +28,6 @@ live_config_reload: true
 
 shell:
   program: /usr/bin/bash
-  args:
-    - -l
-    - -c
-    - "tmux"
 
 key_bindings:
   - { key: V,              mods: Control|Shift, mode: ~Vi,        action: Paste            }
