@@ -60,8 +60,3 @@ python3-pip
 uuid-dev
 make
 neovim
-docker-ce
-docker-ce-cli
-containerd.io
-docker-buildx-plugin
-docker-compose-plugin
