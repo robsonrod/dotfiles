@@ -151,7 +151,7 @@ format-foreground=#f8f8f2
 [module/memory]
 format=<label>
 format-overline=#50fa7b
-label=  %gb_used%
+label=  %percentage_used%%
 type=internal/memory
 format-foreground=#f8f8f2
 
