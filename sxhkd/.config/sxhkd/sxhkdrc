@@ -185,11 +185,6 @@ ctrl + shift + h
 super + alt + n
     networkmanager_dmenu
 
-# thunar
-super + k
-    keyboardlayout toggle
-
-
 # keyboad layout
 ctrl + shift + k
     rofikeyboard

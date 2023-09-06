@@ -7,7 +7,7 @@ pkill -f polybar &
 source ~/.env
 
 if [[ "$COMPUTER_NAME" == "iracema" ]]; then
-/usr/bin/gnome-keyring-daemon --start --components=ssh &
+    /usr/bin/gnome-keyring-daemon --start --components=ssh &
 fi
 
 bspc monitor -d 1 2 3 4 5 6 7 8 9 10
@@ -37,7 +37,7 @@ bspc config presel_feedback_color "#6272a4"
 
 # Rules
 bspc rule -a URxvt desktop='^1' state=tiled follow=on
-bspc rule -a Kitty desktop='^1' state=tiled follow=on
+bspc rule -a kitty desktop='^1' state=tiled follow=on
 bspc rule -a Alacritty desktop='^1' state=tiled follow=on
 bspc rule -a firefox desktop='^2' state=tiled follow=on
 bspc rule -a Emacs desktop='^3' state=tiled follow=on
