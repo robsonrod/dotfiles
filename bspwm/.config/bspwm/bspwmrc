@@ -95,3 +95,5 @@ xautolock -time 3 -locker screen_lock -detectsleep -killtime 60 -killer "systemc
 
 /usr/bin/com.system76.FirmwareManager.Notify &
 /usr/bin/pop-transition -d &
+
+wmname xfwm4
