@@ -5,13 +5,13 @@
 super + Escape
     pkill -usr1 -x sxhkd; notify-send 'sxhkd' 'Reloaded config'
 
-# alacritty
+# kitty
 super + t
-	alacritty
+    kitty
 
-# urxvt
+# alacritty
 super + alt + t
-    rxvt
+	alacritty
 
 # program launcher
 super + alt + d
@@ -184,6 +184,11 @@ ctrl + shift + h
 # network manager
 super + alt + n
     networkmanager_dmenu
+
+# thunar
+super + k
+    keyboardlayout toggle
+
 
 # keyboad layout
 ctrl + shift + k

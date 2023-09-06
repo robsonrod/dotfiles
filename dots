@@ -3,75 +3,79 @@
 OS_ID=$(awk -F= ' /^ID=/ { gsub("\"", ""); print $2 } ' /etc/os-release)
 ROOT=$(git rev-parse --show-toplevel)
 if [ "$OS_ID" == "arch" ]; then
-	source $ROOT/arch/configure
+    source $ROOT/arch/configure
 else
-	source $ROOT/ubuntu/configure
+    source $ROOT/ubuntu/configure
 fi
 
 backup() {
-	echo "backup files"
+    echo "backup files"
 
-	for file in aliases bash_profile bashrc env functions profile; do
-		if [ -f "$HOME/.$file" ] && [ ! -L "$HOME/.$file" ]; then
-			mv "$HOME/.$file" "$HOME/.$file.bkp"
-		fi
-	done
+    for file in aliases bash_profile bashrc env functions profile; do
+        if [ -f "$HOME/.$file" ] && [ ! -L "$HOME/.$file" ]; then
+            mv "$HOME/.$file" "$HOME/.$file.bkp"
+        fi
+    done
 }
 
 install() {
-	echo "install configurations"
-	dir=$(dirname $0)
-	stow_config="--dir=$dir --target=$HOME --dotfiles"
+    echo "install configurations"
+    dir=$(dirname $0)
+    stow_config="--dir=$dir --target=$HOME --dotfiles"
 
-	echo "stow configuration: " $stow_config
-	echo $stow_config >$dir/.stowrc
+    echo "stow configuration: " $stow_config
+    echo $stow_config >$dir/.stowrc
 
-	xmanager="xmanager-$1"
+    xmanager="xmanager-$1"
 
-	stow -v git/ alacritty/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ others/ picom/ rofi/ starship/ tmux/  ${xmanager}/ utils/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ networkmanager-dmenu/ clang/ ranger/ bat/
-	echo "done"
+    stow -v git/ alacritty/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ others/ picom/ rofi/ starship/ tmux/  ${xmanager}/ utils/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ networkmanager-dmenu/ clang/ ranger/ bat/ kitty/ fish/
+    echo "done"
 }
 
 uninstall() {
-	echo "uninstall configurations"
+    echo "uninstall configurations"
 
-	stow -v -D git alacritty/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ others/ picom/ rofi/ starship/ tmux/ utils/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ xmanager-hdpi/ xmanager-fhd/ networkmanager-dmenu/ clang/ ranger/ bat/
-	echo "done"
+    xmanager="xmanager-$1"
+    stow -v -D git alacritty/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ others/ picom/ rofi/ starship/ tmux/ utils/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ ${xmanager}/ networkmanager-dmenu/ clang/ ranger/ bat/ kitty/ fish/
+    echo "done"
 }
 
 usage() {
-	echo -e "\nUsage:\n"
-	echo -e "-ih - to install applications"
-	echo -e "-if - to install applications"
-	echo -e "-c - to apply all configurations"
-	echo -e "-u - to uninstall all configurations"
-	echo -e "-d - to uninstall all configurations"
+    echo -e "\nUsage:\n"
+    echo -e "-ih - to install applications"
+    echo -e "-if - to install applications"
+    echo -e "-c - to apply all configurations"
+    echo -e "-uh - to uninstall all configurations"
+    echo -e "-uf - to uninstall all configurations"
 }
 
 for argv in "$@"; do
-	echo " $argv"
-	case "$argv" in
-		-c)
-			configure
-			;;
-		-ih)
-			backup
-			install "hdpi"
-			;;
-		-if)
-			backup
-			install "fhd"
-			;;
-		-u)
-			uninstall
-			;;
-		-f)
-			FORCE='1'
-			shift
-			;;
-		*)
-			usage
-			exit 1
-			;;
-	esac
+    echo " $argv"
+    case "$argv" in
+        -c)
+            configure
+            ;;
+        -ih)
+            backup
+            install "hdpi"
+            ;;
+        -if)
+            backup
+            install "fhd"
+            ;;
+        -uh)
+            uninstall "hdpi"
+            ;;
+        -uf)
+            uninstall "fhd"
+            ;;
+        -f)
+            FORCE='1'
+            shift
+            ;;
+        *)
+            usage
+            exit 1
+            ;;
+    esac
 done

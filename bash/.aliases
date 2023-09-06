@@ -40,7 +40,7 @@ fi
 alias open='xdg-open'
 
 # system admin
-if [ "$OS_ID" == "arch" ]; then
+if [[ "$OS_ID" == "arch" ]]; then
 	alias i='sudo pacman -Sy'
 	alias u='sudo pacman -Syy'
 	alias up='sudo pacman -Suy '
