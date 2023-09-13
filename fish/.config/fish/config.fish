@@ -2,23 +2,24 @@ function fish_title
     true
 end
 
-function fish_greeting; end
+function fish_greeting
+end
 
 # system admin
 set OS_ID (awk -F= ' /^ID=/ { gsub("\"", ""); print $2 } ' /etc/os-release)
-if test $OS_ID = "arch" 
-	abbr -a i 'sudo pacman -Sy'
-	abbr -a u 'sudo pacman -Syy'
-	abbr -a up 'sudo pacman -Suy '
-	abbr -a r 'sudo pacman -Rs'
-	abbr -a cat 'bat'
+if test $OS_ID = arch
+    abbr -a i 'sudo pacman -Sy'
+    abbr -a u 'sudo pacman -Syy'
+    abbr -a up 'sudo pacman -Suy '
+    abbr -a r 'sudo pacman -Rs'
+    abbr -a cat bat
 else
-	abbr -a i 'sudo apt-get install'
-	abbr -a u 'sudo apt-get update'
-	abbr -a up 'sudo apt-get upgrade'
-	abbr -a r 'sudo apt-get remove'
-	abbr -a cat 'batcat'
-	abbr -a fd 'fdfind'
+    abbr -a i 'sudo apt-get install'
+    abbr -a u 'sudo apt-get update'
+    abbr -a up 'sudo apt-get upgrade'
+    abbr -a r 'sudo apt-get remove'
+    abbr -a cat batcat
+    abbr -a fd fdfind
 end
 
 # general aliases
@@ -33,7 +34,7 @@ abbr -a m make
 abbr -a gc 'git checkout'
 abbr -a gb 'git checkout -b'
 abbr -a meminfo 'free -m -l -t'
-abbr -a top 'btm'
+abbr -a top btm
 
 abbr -a .. 'cd ..'
 abbr -a 2. 'cd ../..'
@@ -74,15 +75,15 @@ abbr -a gstd 'git stash drop'
 abbr -a gstl 'git stash list'
 abbr -a gstp 'git stash pop'
 
-if command -v zoxide > /dev/null
-	abbr -a cd 'z'
-	abbr -a cdi 'zi'
+if command -v zoxide >/dev/null
+    abbr -a cd z
+    abbr -a cdi zi
 end
 
 abbr -a compress 'tar -czf'
 abbr -a untar 'tar -xvzf'
 
-abbr -a s 'systemctl'
+abbr -a s systemctl
 abbr -a suser 'systemctl --user'
 
 starship init fish | source
@@ -90,26 +91,30 @@ zoxide init fish | source
 
 fish_config theme choose 'Dracula Official'
 
-abbr wget 'wget --hsts-file="$XDG_DATA_HOME/wget-hsts" -c'
+source $HOME/.asdf/asdf.fish
 
-if command -v exa > /dev/null
-	abbr -a l 'exa -l --color=always --group-directories-first'
-	abbr -a ls 'exa --color=always --group-directories-first'
-	abbr -a la 'exa -la --color=always --octal-permissions --group-directories-first -g --icons'
-	abbr -a ll 'exa -l --color=always --octal-permissions --group-directories-first'
-	abbr -a tree 'exa --tree'
-else
-	abbr -a l 'ls'
-	abbr -a ls 'ls -l'
-	abbr -a la 'ls -la'
-	abbr -a ll 'ls -la'
+function get --description "Retrieve files from HTTP, HTTPS and FTP"
+    wget --hsts-file="$XDG_DATA_HOME/wget-hsts" -c
 end
 
-	export GDK_SCALE=2
-	export GDK_DPI_SCALE=0.5
-	export QT_AUTO_SCREEN_SET_FACTOR=0
-	export QT_SCALE_FACTOR=2
-	export QT_FONT_DPI=96
+if command -v exa >/dev/null
+    abbr -a l 'exa -l --color=always --group-directories-first'
+    abbr -a ls 'exa --color=always --group-directories-first'
+    abbr -a la 'exa -la --color=always --octal-permissions --group-directories-first -g --icons'
+    abbr -a ll 'exa -l --color=always --octal-permissions --group-directories-first'
+    abbr -a tree 'exa --tree'
+else
+    abbr -a l ls
+    abbr -a ls 'ls -l'
+    abbr -a la 'ls -la'
+    abbr -a ll 'ls -la'
+end
+
+export GDK_SCALE=2
+export GDK_DPI_SCALE=0.5
+export QT_AUTO_SCREEN_SET_FACTOR=0
+export QT_SCALE_FACTOR=2
+export QT_FONT_DPI=96
 
 
 setenv LESS_TERMCAP_mb \e'[1;31m'
@@ -126,13 +131,13 @@ setenv FZF_DEFAULT_OPTS '--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f
 setenv FZF_DEFAULT_COMMAND 'rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/,.git/,.venv/}"'
 
 set -g fish_prompt_pwd_dir_length 3
-set __fish_git_prompt_showupstream 'none'
-set __fish_git_prompt_showuntrackedfiles 'yes'
-set __fish_git_prompt_showdirtystate 'yes'
+set __fish_git_prompt_showupstream none
+set __fish_git_prompt_showuntrackedfiles yes
+set __fish_git_prompt_showdirtystate yes
 set __fish_git_prompt_showdirtystate ''
 
-function d
-    while test $PWD != "/"
+function d --description "Goto root project"
+    while test $PWD != /
         if test -d .git
             break
         end
@@ -153,7 +158,14 @@ function reload --description "Reload fish without restart terminal"
     source $HOME/.config/fish/config.fish
 end
 
+function vs --description "Start VPN service"
+    vpn.sh start
+end
+
+function vf --description "Finish VPN service"
+    vpn.sh stop
+end
+
 function fish_command_not_found
     __fish_default_command_not_found_handler $argv
 end
-

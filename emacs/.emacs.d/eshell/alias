@@ -1,0 +1,3 @@
+alias la exa -la $1
+alias ll exa -la --color=always --octal-permissions --group-directories-first -g --icons $1
+alias d dired $1
