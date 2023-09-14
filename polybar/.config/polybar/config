@@ -193,6 +193,10 @@ format-volume-overline=#bd93f9
 [module/wired-network]
 type = internal/network
 interface=${env:NETWORK_WIRED_INTERFACE}
+label-connected=%linkspeed%:%local_ip%
+interval=3
+label-disconnected=
+label-packageloss-foreground=#f8f8f2 
 
 [module/wireless-network]
 type = internal/network

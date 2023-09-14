@@ -2,7 +2,7 @@
 
 case $1 in
  "status")
-    MUTED=$(amixer sget Capture | awk -F"[][]" '/Left:/ { print $4 }')
+    MUTED=$(amixer sget Capture | awk -F"[][]" '/[Left|Mono]:/ { print $4 }' | head -1)
     if [ "$MUTED" = "on" ]; then
             echo ""
     else
