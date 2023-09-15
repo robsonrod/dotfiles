@@ -10,14 +10,14 @@ height=${env:PBHEIGHT}
 module-margin-left=1
 modules-left=bspwm
 modules-right=mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery pad wired-network pad wireless-network pad powermenu
-modules-center=pad date
+modules-center=pad date pad vpn
 monitor=${env:MONITOR}
 offset-y=1
 padding-right=1
 tray-detached=false
 tray-position=right
 width=100%
-wm-restack=bspwm
+ m-restack=bspwm
 overline-size=0
 
 [bar/sec]
@@ -135,6 +135,11 @@ ws-icon-7=8;
 ws-icon-8=9;
 ws-icon-9=10;
 
+[module/pad]
+content=" "
+type=custom/text
+
+
 [module/cpu]
 format=<label>
 format-overline=#f5a97f
@@ -148,16 +153,17 @@ type=internal/date
 date =  %H:%M |  %d/%m/%Y 
 format-foreground=#f8f8f2
 
+[module/vpn]
+type=custom/script
+exec=vpn_status
+interval=5
+
 [module/memory]
 format=<label>
 format-overline=#50fa7b
 label=  %percentage_used%%
 type=internal/memory
 format-foreground=#f8f8f2
-
-[module/pad]
-content=" "
-type=custom/text
 
 [module/mic]
 type=custom/script
@@ -182,7 +188,7 @@ interval=2
 label-muted=  muted
 label-muted-foreground=#b7bdf8
 format-muted-overline=#bd93f9
-ramp-volume-0=
+ramp-volum-0=
 ramp-volume-1=
 ramp-volume-2=
 type=internal/pulseaudio
@@ -193,7 +199,7 @@ format-volume-overline=#bd93f9
 [module/wired-network]
 type = internal/network
 interface=${env:NETWORK_WIRED_INTERFACE}
-label-connected=%linkspeed%:%local_ip%
+label-connected= 
 interval=3
 label-disconnected=
 label-packageloss-foreground=#f8f8f2 

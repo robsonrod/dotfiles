@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+status=$(ps aux | grep cshell | head -1 | awk '{ print $NF }' | cut -d '/' -f 3)
+
+if [[ "$status" == "cshell.fifo" ]]; then
+    echo "%{F#50fa7b}"
+else
+    echo "%{F#f8f8f2}"
+fi

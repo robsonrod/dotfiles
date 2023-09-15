@@ -22,6 +22,11 @@ else
     abbr -a fd fdfind
 end
 
+if command -v zoxide >/dev/null
+    abbr -a cd z
+    abbr -a cdi zi
+end
+
 # general aliases
 abbr -a c clear
 abbr -a e exit
@@ -74,11 +79,6 @@ abbr -a gstb 'git stash branch'
 abbr -a gstd 'git stash drop'
 abbr -a gstl 'git stash list'
 abbr -a gstp 'git stash pop'
-
-if command -v zoxide >/dev/null
-    abbr -a cd z
-    abbr -a cdi zi
-end
 
 abbr -a compress 'tar -czf'
 abbr -a untar 'tar -xvzf'
@@ -157,7 +157,7 @@ end
 function ssh-fzf
     set selected (rg "Host " ~/.ssh/config | awk '{print $2}' | fzf --query "$LBUFFER" --height 30%)
     if test ! -z "$selected"
-        ssh "$selected"
+        ssh -X "$selected"
     end
 end
 
