@@ -9,13 +9,13 @@ lsalgit() {
 sshkr() {
     if [ -z $1 ]; then
         echo 'Invalid parameter'
-    elif [ ! -f $1 ]; then
-        echo 'File not found'
+            elif [ ! -f $1 ]; then
+            echo 'File not found'
     else
         eval $(ssh-agent)
-        ssh-add -q $1
-        echo "Added"
-    fi
+            ssh-add -q $1
+            echo "Added"
+            fi
 }
 
 mntloop() {
@@ -25,98 +25,112 @@ mntloop() {
             echo "mountloop begin-partition file.img mount-point"
         else
             count=$(($1 * 512))
-            sudo mount -o loop,offset=$count $2 $3
-        fi
+                sudo mount -o loop,offset=$count $2 $3
+                fi
     else
         if [ ! -f $2 ]; then
             echo "File not found"
         else
             sudo fdisk -lu $2
-        fi
-    fi
+                fi
+                fi
 }
 
 skey() {
     ssh_key=$(ssh-get-key)
-    eval $(ssh-agent) &> /dev/null
-    SSH_ASKPASS="ssh-askpassword" ssh-add -q ~/.ssh/"${ssh_key}" < /dev/null
+        eval $(ssh-agent) &> /dev/null
+        SSH_ASKPASS="ssh-askpassword" ssh-add -q ~/.ssh/"${ssh_key}" < /dev/null
 }
 
 f() {
     local files
-    IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
-    [[ -n "$files" ]] && xdg-open "${files[@]}"
+        IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
+        [[ -n "$files" ]] && xdg-open "${files[@]}"
 }
 
 ex() {
     if [ -f $1 ]; then
         case $1 in
             *.tar.bz2) tar xjf $1 ;;
-            *.tar.gz) tar xzf $1 ;;
-            *.tar.xz) tar xvf $1 ;;
-            *.bz2) bunzip2 $1 ;;
-            *.rar) unrar x $1 ;;
-            *.gz) gunzip $1 ;;
-            *.tar) tar xf $1 ;;
-            *.tbz2) tar xjf $1 ;;
-            *.tgz) tar xzf $1 ;;
-            *.zip) unzip $1 ;;
-            *.Z) uncompress $1 ;;
-            *.7z) 7z x $1 ;;
-            *) echo "'$1' cannot be extracted via ex()" ;;
-        esac
+    *.tar.gz) tar xzf $1 ;;
+    *.tar.xz) tar xvf $1 ;;
+    *.bz2) bunzip2 $1 ;;
+    *.rar) unrar x $1 ;;
+    *.gz) gunzip $1 ;;
+    *.tar) tar xf $1 ;;
+    *.tbz2) tar xjf $1 ;;
+    *.tgz) tar xzf $1 ;;
+    *.zip) unzip $1 ;;
+    *.Z) uncompress $1 ;;
+    *.7z) 7z x $1 ;;
+    *) echo "'$1' cannot be extracted via ex()" ;;
+    esac
     else
         echo "'$1' is not a valid file"
-    fi
+            fi
 }
 
 cm() {
     if [ -f $2 ]; then
         case $1 in
             *.tar.bz2) tar -cjvf $1 $2 ;;
-            *.tar.gz) tar -czvf $1 $2 ;;
-            *.tar.xz) tar Jfcv $1 $2 ;;
-            *.bz2) bzip2 -c $2 > $1 ;;
-            *.gz) gzip -c $2 > $1 ;;
-            *.tar) tar cf $1 $2 ;;
-            *.tbz2) tar cjf $1 $2 ;;
-            *.tgz) tar czf $1 $2 ;;
-            *.zip) zip -r $1 $2 ;;
-            *.Z) compress -c $2 > $1 ;;
-            *.7z) 7z a $1 $2 ;;
-            *) echo "'$1' cannot be extracted via ex()" ;;
-        esac
+    *.tar.gz) tar -czvf $1 $2 ;;
+    *.tar.xz) tar Jfcv $1 $2 ;;
+    *.bz2) bzip2 -c $2 > $1 ;;
+    *.gz) gzip -c $2 > $1 ;;
+    *.tar) tar cf $1 $2 ;;
+    *.tbz2) tar cjf $1 $2 ;;
+    *.tgz) tar czf $1 $2 ;;
+    *.zip) zip -r $1 $2 ;;
+    *.Z) compress -c $2 > $1 ;;
+    *.7z) 7z a $1 $2 ;;
+    *) echo "'$1' cannot be extracted via ex()" ;;
+    esac
     else
         echo "'$1' is not a valid file"
-    fi
+            fi
 }
 
-glog() {
+fzf-glog() {
     previewLogLine="echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | delta'"
-    gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
+        gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
 
-    git log \
+        git log \
         --color=always \
         --format="%C(cyan)%h %s %C(blue)%ar%C(auto)%d %C(yellow)%s%+b %C(black)%ae" "$@" |
         fzf -i -e +s \
-            --reverse \
-            --tiebreak=index \
-            --no-multi \
-            --ansi \
-            --preview="$previewLogLine" \
-            --header "enter to view, C-y to copy hash" \
-            --bind "enter:execute:$previewLogLine | less -R" \
-            --bind "ctrl-y:execute:$gitLogLineToHash | xclip -r -selection clipboard"
+        --reverse \
+        --tiebreak=index \
+        --no-multi \
+        --ansi \
+        --preview="$previewLogLine" \
+        --header "enter to view, C-y to copy hash" \
+        --bind "enter:execute:$previewLogLine | less -R" \
+        --bind "ctrl-y:execute:$gitLogLineToHash | xclip -r -selection clipboard"
 }
 
 copy() {
     xclip -i -sel clip < $1
 }
 
-fzfo() {
+fzf-open() {
     fzf --layout reverse --info inline --border --preview 'batcat --color=always {}' --preview-window '~3' --print0 | xargs -0 -o $EDITOR
 }
 
 formatsh() {
     shfmt -i 4 -sr -kp $1 > tmp && mv tmp $1
+}
+
+fzf-ps() {
+    (date; ps -ef) |
+        fzf --bind='ctrl-r:reload(date; ps -ef)' \
+        --header=$'Press CTRL-R to reload\n\n' --header-lines=2 \
+        --preview='echo {}' --preview-window=down,3,wrap \
+        --layout=reverse --height=80% | awk '{print $2}' | xargs kill -${1:-9}
+}
+
+fzf-evars() {
+  local out
+  out=$(env | fzf)
+  echo $(echo $out | cut -d= -f2)
 }

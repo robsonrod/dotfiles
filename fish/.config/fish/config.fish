@@ -127,7 +127,7 @@ setenv LESS_TERMCAP_ue \e'[0m'
 
 setenv EXA_COLORS "uu=36:gu=37:sn=32:sb=32:da=34:ur=34:uw=35:ux=36:ue=36:gr=34:gw=35:gx=36:tr=34:tw=35:tx=36:"
 
-setenv FZF_DEFAULT_OPTS '--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+set -Ux FZF_DEFAULT_OPTS '--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
 setenv FZF_DEFAULT_COMMAND 'rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/,.git/,.venv/}"'
 
 set -g fish_prompt_pwd_dir_length 3
@@ -154,8 +154,11 @@ function sudo --description "Exec sudo !! like bash"
     end
 end
 
-function reload --description "Reload fish without restart terminal"
-    source $HOME/.config/fish/config.fish
+function ssh-fzf
+    set selected (rg "Host " ~/.ssh/config | awk '{print $2}' | fzf --query "$LBUFFER" --height 30%)
+    if test ! -z "$selected"
+        ssh "$selected"
+    end
 end
 
 function vs --description "Start VPN service"
@@ -165,6 +168,11 @@ end
 function vf --description "Finish VPN service"
     vpn.sh stop
 end
+
+function reload --description "Reload fish without restart terminal"
+    source $HOME/.config/fish/config.fish
+end
+
 
 function fish_command_not_found
     __fish_default_command_not_found_handler $argv
