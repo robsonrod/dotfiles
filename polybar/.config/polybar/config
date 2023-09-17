@@ -17,7 +17,7 @@ padding-right=1
 tray-detached=false
 tray-position=right
 width=100%
- m-restack=bspwm
+m-restack=bspwm
 overline-size=0
 
 [bar/sec]
@@ -125,14 +125,14 @@ label-urgent-underline=#9b0a20
 pin-workspace=true
 type=internal/bspwm
 ws-icon-0=1;
-ws-icon-1=2;
+ws-icon-1=2;
 ws-icon-2=3;
 ws-icon-3=4;
 ws-icon-4=5;
 ws-icon-5=6;
 ws-icon-6=7;
 ws-icon-7=8;
-ws-icon-8=9;
+ws-icon-8=9;
 ws-icon-9=10;
 
 [module/pad]
@@ -182,16 +182,16 @@ tail=true
 format-overline=#bd93f9
 
 [module/volume]
+type=internal/pulseaudio
 click-right=pavucontrol
 format-volume=<ramp-volume>  <label-volume>
 interval=2
-label-muted=  muted
+label-muted=🔇 muted
 label-muted-foreground=#b7bdf8
 format-muted-overline=#bd93f9
-ramp-volum-0=
-ramp-volume-1=
-ramp-volume-2=
-type=internal/pulseaudio
+ramp-volum-0=🔈
+ramp-volume-1=🔉
+ramp-volume-2=🔊
 use-ui-max=false
 label-volume-foreground=#f8f8f2
 format-volume-overline=#bd93f9
