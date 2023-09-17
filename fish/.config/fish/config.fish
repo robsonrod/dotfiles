@@ -22,11 +22,6 @@ else
     abbr -a fd fdfind
 end
 
-if command -v zoxide >/dev/null
-    abbr -a cd z
-    abbr -a cdi zi
-end
-
 # general aliases
 abbr -a c clear
 abbr -a e exit
