@@ -51,7 +51,8 @@
       mouse-wheel-progressive-speed nil ; don't accelerate
       mouse-wheel-follow-mouse 't   ; scroll window under mouse cursor
       scroll-step 1 explicit-shell-file-name "/usr/bin/bash" shell-file-name "bash"
-      dictionary-server "dict.org")
+      dictionary-server "dict.org"
+      browse-url-browser-function 'browse-url-firefox)
                                         ; scroll 1 line with keyboard
 
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup")) backup-by-copying t ; Don't delink hardlinks
@@ -116,11 +117,11 @@ Position the cursor at it's beginning, according to the current mode."
   (forward-line -1) 
   (indent-according-to-mode))
 
-(defun smart-open-line ()
+(defun smart-open-line () 
   "Insert an empty line after the current line.
-Position the cursor at its beginning, according to the current mode."
-  (interactive)
-  (move-end-of-line nil)
+Position the cursor at its beginning, according to the current mode." 
+  (interactive) 
+  (move-end-of-line nil) 
   (newline-and-indent))
 
 (global-set-key [(control shift return)] 'smart-open-line-above)
@@ -938,10 +939,23 @@ Position the cursor at its beginning, according to the current mode."
          :map org-mode-map ("C-M-i" . completion-at-point)) 
   :config (org-roam-setup))
 
+(use-package
+  elfeed-org
+  :config (elfeed-org)
+  :ensure t
+  :custom (rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org")) )
+
 (use-package 
   dictionary 
   :bind (("C-c l" . dictionary-lookup-definition)) 
   :config (setq dictionary-server "dict.org"))
+
+;; Configure Elfeed
+(use-package 
+  elfeed 
+  :custom (elfeed-db-directory (expand-file-name "elfeed" user-emacs-directory)) 
+  (elfeed-show-entry-switch 'display-buffer) 
+  :bind ("C-c w" . elfeed ))
 
 (require 'init-eshell)
 
@@ -952,7 +966,7 @@ Position the cursor at its beginning, according to the current mode."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(shfmt treemacs-all-the-icons magit org-roam visual-fill-column org-bullets dashboard yaml-mode which-key vterm-toggle use-package rust-mode ripgrep rainbow-delimiters perspective paredit page-break-lines minions lsp-ui lsp-ivy ivy-rich iedit helpful git-gutter-fringe general flycheck-clj-kondo find-file-in-project exec-path-from-shell evil-nerd-commenter evil-collection elisp-format doom-themes doom-modeline dockerfile-mode dired-single dired-ranger dired-rainbow dired-open dired-hide-dotfiles dired-collapse diminish dap-mode counsel-projectile company-restclient company-box clang-format cider ccls all-the-icons-dired)))
+   '(elfeed-org elfeed eshell-git-prompt xterm-color shfmt treemacs-all-the-icons magit org-roam visual-fill-column org-bullets dashboard yaml-mode which-key vterm-toggle use-package rust-mode ripgrep rainbow-delimiters perspective paredit page-break-lines minions lsp-ui lsp-ivy ivy-rich iedit helpful git-gutter-fringe general flycheck-clj-kondo find-file-in-project exec-path-from-shell evil-nerd-commenter evil-collection elisp-format doom-themes doom-modeline dockerfile-mode dired-single dired-ranger dired-rainbow dired-open dired-hide-dotfiles dired-collapse diminish dap-mode counsel-projectile company-restclient company-box clang-format cider ccls all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

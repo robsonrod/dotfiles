@@ -7,11 +7,11 @@ super + Escape
 
 # kitty
 super + t
-    kitty
+    alacritty
 
 # alacritty
 super + alt + t
-	alacritty
+	kitty
 
 # program launcher
 super + alt + d

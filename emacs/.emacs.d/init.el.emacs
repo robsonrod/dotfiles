@@ -51,7 +51,8 @@
       mouse-wheel-progressive-speed nil ; don't accelerate
       mouse-wheel-follow-mouse 't   ; scroll window under mouse cursor
       scroll-step 1 explicit-shell-file-name "/usr/bin/bash" shell-file-name "bash"
-      dictionary-server "dict.org")
+      dictionary-server "dict.org"
+      browse-url-browser-function 'browse-url-firefox)
                                         ; scroll 1 line with keyboard
 
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup")) backup-by-copying t ; Don't delink hardlinks
@@ -875,10 +876,23 @@ Position the cursor at its beginning, according to the current mode."
          :map org-mode-map ("C-M-i" . completion-at-point)) 
   :config (org-roam-setup))
 
+(use-package
+  elfeed-org
+  :config (elfeed-org)
+  :ensure t
+  :custom (rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org")) )
+
 (use-package 
   dictionary 
   :bind (("C-c l" . dictionary-lookup-definition)) 
   :config (setq dictionary-server "dict.org"))
+
+;; Configure Elfeed
+(use-package 
+  elfeed 
+  :custom (elfeed-db-directory (expand-file-name "elfeed" user-emacs-directory)) 
+  (elfeed-show-entry-switch 'display-buffer) 
+  :bind ("C-c w" . elfeed ))
 
 (require 'init-eshell)
 
