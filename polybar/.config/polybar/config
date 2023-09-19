@@ -139,7 +139,6 @@ ws-icon-9=10;
 content=" "
 type=custom/text
 
-
 [module/cpu]
 format=<label>
 format-overline=#f5a97f
@@ -186,12 +185,12 @@ type=internal/pulseaudio
 click-right=pavucontrol
 format-volume=<ramp-volume>  <label-volume>
 interval=2
-label-muted=🔇 muted
+label-muted=  muted
 label-muted-foreground=#b7bdf8
 format-muted-overline=#bd93f9
-ramp-volum-0=🔈
-ramp-volume-1=🔉
-ramp-volume-2=🔊
+ramp-volume-0=
+ramp-volume-1=
+ramp-volume-2=
 use-ui-max=false
 label-volume-foreground=#f8f8f2
 format-volume-overline=#bd93f9
@@ -201,14 +200,14 @@ type = internal/network
 interface=${env:NETWORK_WIRED_INTERFACE}
 label-connected= 
 interval=3
-label-disconnected=
+label-disconnected=󰌙
 label-packageloss-foreground=#f8f8f2 
 
 [module/wireless-network]
 type = internal/network
 interface=${env:NETWORK_WIRELESS_INTERFACE}
 interval=3
-label-connected=%downspeed%
+label-connected=%signal%%
 label-disconnected=
 label-packageloss-foreground=#f8f8f2 
 
@@ -222,12 +221,12 @@ format-disconnected-overline=#ffb86c
 
 format-packetloss-foreground=#ffb86c
 
-ramp-signal-0=😱
-ramp-signal-1=😠
-ramp-signal-2=😒
-ramp-signal-3=😊
-ramp-signal-4=😃
-ramp-signal-5=😈
+ramp-signal-0=
+ramp-signal-1=
+ramp-signal-2=
+ramp-signal-3=
+ramp-signal-4=
+ramp-signal-5=
 
 animation-packetloss-0=󰤫
 animation-packetloss-1=󰤠
