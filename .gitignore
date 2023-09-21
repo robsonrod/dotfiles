@@ -34,5 +34,6 @@ tmux/.config/tmux/plugins/
 **/fish/.config/fish/completions/
 **/fish/.config/fish/conf.d/
 **/fish/.config/fish/functions/
+**/fish/.config/fish/themes/
 **/fish/.config/fish/fish_plugins
 **/fish/.config/fish/fish_variables

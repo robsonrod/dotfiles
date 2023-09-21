@@ -3,3 +3,4 @@ jorgebucaran/replay.fish
 patrickf1/fzf.fish
 danhper/fish-ssh-agent
 orefalo/grc
+dracula/fish

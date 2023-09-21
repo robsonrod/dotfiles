@@ -10,7 +10,7 @@ font:
     family: "JetBrainsMono Nerd Font"
     style: Regular
 
-  size: 10
+  size: 9.5
 
 import:
   - ~/.config/alacritty/themes/dracula.yml

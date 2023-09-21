@@ -38,6 +38,7 @@ abbr -a m make
 abbr -a gc 'git checkout'
 abbr -a gb 'git checkout -b'
 abbr -a gcl 'git clone'
+abbr -a gs 'git status'
 abbr -a meminfo 'free -m -l -t'
 abbr -a top btm
 
