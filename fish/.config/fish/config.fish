@@ -5,6 +5,10 @@ end
 function fish_greeting
 end
 
+if test -n "$EMACS"
+    set -x TERM eterm-color
+end
+
 # system admin
 set OS_ID (awk -F= ' /^ID=/ { gsub("\"", ""); print $2 } ' /etc/os-release)
 if test $OS_ID = arch
@@ -33,6 +37,7 @@ abbr -a o xdg-open
 abbr -a m make
 abbr -a gc 'git checkout'
 abbr -a gb 'git checkout -b'
+abbr -a gcl 'git clone'
 abbr -a meminfo 'free -m -l -t'
 abbr -a top btm
 
@@ -48,32 +53,8 @@ abbr -a rm 'rm -i'
 abbr -a gh 'history|grep'
 abbr -a mnt 'mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort'
 abbr -a cpv 'rsync -ah --info=progress2'
-
-# git alias
-abbr -a gcl 'git clone'
-abbr -a ga 'git add'
-abbr -a gaa 'git add --all'
-abbr -a gs 'git status'
-abbr -a gb 'git checkout -b'
-abbr -a gd 'git diff'
-abbr -a gl 'git log --graph --pretty=format:\'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset\' --abbrev-commit --date=relative'
-abbr -a gcmt 'git commit -v -m'
-abbr -a grm 'git rm'
-abbr -a gfth 'git fetch --all --prune --verbose'
-abbr -a grst 'git reset HEAD'
-abbr -a gmrg 'git merge'
-abbr -a gpll 'git pull'
-abbr -a gplp 'git pull && git push'
-abbr -a gpsh 'git push'
-abbr -a gcll 'git clean -xfd'
-abbr -a gbcm 'git branch -m'
-abbr -a gbcd 'git branch -D'
-abbr -a gchm 'git checkout master'
-abbr -a glgs 'glgr --stat'
-abbr -a gstb 'git stash branch'
-abbr -a gstd 'git stash drop'
-abbr -a gstl 'git stash list'
-abbr -a gstp 'git stash pop'
+abbr -a ln 'ln -i'
+abbr -a lns 'ln -si'
 
 abbr -a compress 'tar -czf'
 abbr -a untar 'tar -xvzf'
@@ -81,16 +62,13 @@ abbr -a untar 'tar -xvzf'
 abbr -a s systemctl
 abbr -a suser 'systemctl --user'
 
-starship init fish | source
-zoxide init fish | source
-
 fish_config theme choose 'Dracula Official'
 
+starship init fish | source
+zoxide init fish | source
 source $HOME/.asdf/asdf.fish
 
-function get --description "Retrieve files from HTTP, HTTPS and FTP"
-    wget --hsts-file="$XDG_DATA_HOME/wget-hsts" -c
-end
+abbr -a wget 'wget --hsts-file="$XDG_DATA_HOME/wget-hsts" -c'
 
 if command -v exa >/dev/null
     abbr -a l 'exa -l --color=always --group-directories-first'
@@ -105,25 +83,24 @@ else
     abbr -a ll 'ls -la'
 end
 
-export GDK_SCALE=2
-export GDK_DPI_SCALE=0.5
-export QT_AUTO_SCREEN_SET_FACTOR=0
-export QT_SCALE_FACTOR=2
-export QT_FONT_DPI=96
+set -Ux GDK_SCALE 2
+set -Ux GDK_DPI_SCALE 0.5
+set -Ux QT_AUTO_SCREEN_SET_FACTOR 0
+set -Ux QT_SCALE_FACTOR 2
+set -Ux QT_FONT_DPI 96
 
+set -Ux LESS_TERMCAP_mb \e'[1;31m'
+set -Ux LESS_TERMCAP_md \e'[1;34m'
+set -Ux LESS_TERMCAP_so \e'[01;45;37m'
+set -Ux LESS_TERMCAP_us \e'[1;36m'
+set -Ux LESS_TERMCAP_me \e'[0m'
+set -Ux LESS_TERMCAP_se \e'[0m'
+set -Ux LESS_TERMCAP_ue \e'[0m'
 
-setenv LESS_TERMCAP_mb \e'[1;31m'
-setenv LESS_TERMCAP_md \e'[1;34m'
-setenv LESS_TERMCAP_so \e'[01;45;37m'
-setenv LESS_TERMCAP_us \e'[1;36m'
-setenv LESS_TERMCAP_me \e'[0m'
-setenv LESS_TERMCAP_se \e'[0m'
-setenv LESS_TERMCAP_ue \e'[0m'
-
-setenv EXA_COLORS "uu=36:gu=37:sn=32:sb=32:da=34:ur=34:uw=35:ux=36:ue=36:gr=34:gw=35:gx=36:tr=34:tw=35:tx=36:"
+set -Ux EXA_COLORS "uu=36:gu=37:sn=32:sb=32:da=34:ur=34:uw=35:ux=36:ue=36:gr=34:gw=35:gx=36:tr=34:tw=35:tx=36:"
 
 set -Ux FZF_DEFAULT_OPTS '--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
-setenv FZF_DEFAULT_COMMAND 'rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/,.git/,.venv/}"'
+set -Ux FZF_DEFAULT_COMMAND 'rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/,.git/,.venv/}"'
 
 set -g fish_prompt_pwd_dir_length 3
 set __fish_git_prompt_showupstream none
@@ -149,7 +126,7 @@ function sudo --description "Exec sudo !! like bash"
     end
 end
 
-function ssh-fzf
+function ssh-fzf --description "List hosts to connect"
     set selected (rg "Host " ~/.ssh/config | awk '{print $2}' | fzf --query "$LBUFFER" --height 30%)
     if test ! -z "$selected"
         ssh -X "$selected"
@@ -167,7 +144,6 @@ end
 function reload --description "Reload fish without restart terminal"
     source $HOME/.config/fish/config.fish
 end
-
 
 function fish_command_not_found
     __fish_default_command_not_found_handler $argv

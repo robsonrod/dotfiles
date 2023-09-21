@@ -35,6 +35,19 @@
 [merge]
     tool = vimdiff
 
+[alias]
+    ci = commit
+    st = status
+    co = checkout
+    cob = checkout -b
+    df = diff -b
+    ls = log --oneline
+    lg = log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative
+    last = log -1 HEAD
+    sl = stash list
+    pus = push origin HEAD
+    pul   = pull origin HEAD
+
 [core]
     pager = delta
     editor = nvim
