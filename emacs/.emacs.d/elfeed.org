@@ -1,0 +1,15 @@
+* Blogs                                    :elfeed:
+** Emacs                                        :Emacs:
+Anything related to Emacs
+
+*** [[http://www.reddit.com/r/emacs/.rss][Emacs on Reddit]]
+*** [[https://emacsredux.com/atom.xml][Emacs Redux]]
+*** [[https://lucidmanager.org/tags/emacs/index.xml][Lucid Manager]]
+
+** News
+World news
+*** http://rss.cnn.com/rss/edition_world.rss   :news:
+
+** Hacker news
+Anything related to technology
+*** [[https://news.ycombinator.com/rss][ycombinator]]                                :hnews:

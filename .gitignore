@@ -25,4 +25,14 @@ emacs/.emacs.d/projectile-bookmarks.eld
 emacs/.emacs.d/recentf
 emacs/.emacs.d/transient/
 emacs/.emacs.d/backup
+emacs/.emacs.d/auto-save-list/
+emacs/.emacs.d/elfeed/
+emacs/.emacs.d/eshell/history
+emacs/.emacs.d/eshell/lastdir
+emacs/.emacs.d/url/
 tmux/.config/tmux/plugins/
+**/fish/.config/fish/completions/
+**/fish/.config/fish/conf.d/
+**/fish/.config/fish/functions/
+**/fish/.config/fish/fish_plugins
+**/fish/.config/fish/fish_variables
