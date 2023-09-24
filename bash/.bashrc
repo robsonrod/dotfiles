@@ -35,6 +35,13 @@ git_branch() {
 	fi
 }
 
+bind 'set colored-stats on'
+bind 'set colored-completion-prefix on'
+bind 'set echo-control-characters off'
+
+bind 'set show-all-if-ambiguous on'
+bind 'TAB:menu-complete'
+
 # starship
 eval "$(starship init bash)"
 

@@ -1,28 +1,22 @@
 # git alias
-alias gcl='git clone'
-alias ga='git add'
-alias gaa='git add --all'
-alias gs='git status'
-alias gb='git checkout -b'
-alias gd='git diff'
-alias gl="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
-alias gcmt='git commit -v -m'
+alias clone='git clone'
+alias add='git add .'
+alias status='git status'
+alias commit='git commit -v -m'
+alias checkoutb='git checkout -b'
+alias checkout='git checkout'
+alias gdiff='git diff'
+alias log="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
 alias grm='git rm'
-alias gfth='git fetch --all --prune --verbose'
-alias grst='git reset HEAD'
-alias gmrg="git merge"
-alias gpll='git pull'
-alias gplp='git pull && git push'
-alias gpsh='git push'
-alias gcll='git clean -xfd'
-alias gbcm='git branch -m'
-alias gbcd='git branch -D'
-alias gchm='git checkout master'
-alias glgs="glgr --stat"
-alias gstb="git stash branch"
-alias gstd="git stash drop"
-alias gstl="git stash list"
-alias gstp="git stash pop"
+alias gfetch='git fetch --all --prune --verbose'
+alias greset='git reset HEAD'
+alias pull='git pull && git push'
+alias push='git push origin'
+alias gclear='git clean -xfd'
+alias branchd='git branch -D'
+alias master='git checkout master'
+alias stashl="git stash list"
+alias stashp="git stash pop"
 
 # general aliases
 alias c='clear'
