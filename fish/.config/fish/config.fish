@@ -35,12 +35,27 @@ abbr -a nv nvim
 abbr -a em emacs -nw
 abbr -a o xdg-open
 abbr -a m make
-abbr -a gc 'git checkout'
-abbr -a gb 'git checkout -b'
-abbr -a gcl 'git clone'
-abbr -a gs 'git status'
-abbr -a meminfo 'free -m -l -t'
+abbr -a meminfo 'grc free -m -l -t'
 abbr -a top btm
+
+abbr -a clone 'git clone'
+abbr -a add 'git add'
+abbr -a status 'git status'
+abbr -a commit 'git commit -v -m'
+abbr -a checkoutb 'git checkout -b'
+abbr -a checkout 'git checkout'
+abbr -a gdiff 'git diff'
+abbr -a log 'git log --graph --pretty=format:\'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset\' --abbrev-commit --date=relative'
+abbr -a grm 'git rm'
+abbr -a gfetch 'git fetch --all --prune --verbose'
+abbr -a greset 'git reset HEAD'
+abbr -a pull 'git pull && git push'
+abbr -a push 'git push origin'
+abbr -a gclear 'git clean -xfd'
+abbr -a branchd 'git branch -D'
+abbr -a master 'git checkout master'
+abbr -a stashl 'git stash lis'
+abbr -a stashp 'git stash pop'
 
 abbr -a .. 'cd ..'
 abbr -a 2. 'cd ../..'
@@ -72,16 +87,16 @@ source $HOME/.asdf/asdf.fish
 abbr -a wget 'wget --hsts-file="$XDG_DATA_HOME/wget-hsts" -c'
 
 if command -v exa >/dev/null
-    abbr -a l 'exa -l --color=always --group-directories-first'
-    abbr -a ls 'exa --color=always --group-directories-first'
-    abbr -a la 'exa -la --color=always --octal-permissions --group-directories-first -g --icons'
-    abbr -a ll 'exa -l --color=always --octal-permissions --group-directories-first'
-    abbr -a tree 'exa --tree'
+    alias l 'exa -l --color=always --group-directories-first'
+    alias ls 'exa --color=always --group-directories-first'
+    alias la 'exa -la --color=always --octal-permissions --group-directories-first -g --icons'
+    alias ll 'exa -l --color=always --octal-permissions --group-directories-first'
+    alias tree 'exa --tree'
 else
-    abbr -a l ls
-    abbr -a ls 'ls -l'
-    abbr -a la 'ls -la'
-    abbr -a ll 'ls -la'
+    alias l ls
+    alias ls 'ls -l'
+    alias la 'ls -la'
+    alias ll 'ls -la'
 end
 
 set -Ux GDK_SCALE 2
@@ -109,6 +124,10 @@ set __fish_git_prompt_showuntrackedfiles yes
 set __fish_git_prompt_showdirtystate yes
 set __fish_git_prompt_showdirtystate ''
 
+function dfiles --description "Goto my config files"
+    z "$HOME/dotfiles"
+end
+
 function d --description "Goto root project"
     while test $PWD != /
         if test -d .git
@@ -127,7 +146,7 @@ function sudo --description "Exec sudo !! like bash"
     end
 end
 
-function ssh-fzf --description "List hosts to connect"
+function fzf-ssh --description "List hosts to connect"
     set selected (rg "Host " ~/.ssh/config | awk '{print $2}' | fzf --query "$LBUFFER" --height 30%)
     if test ! -z "$selected"
         ssh -X "$selected"
