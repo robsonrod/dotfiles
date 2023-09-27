@@ -1,4 +1,5 @@
 .stowrc
+**/tmux_history
 nvim/.config/nvim/plugin/
 nvim/.config/nvim/.netrwhist
 nvim/.config/nvim/tmp/*

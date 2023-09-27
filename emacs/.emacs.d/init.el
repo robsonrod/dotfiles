@@ -893,6 +893,7 @@ Position the cursor at its beginning, according to the current mode."
   (elfeed-show-entry-switch 'display-buffer) 
   :bind ("C-c w" . elfeed ))
 
+(require 'init-functions)
 (require 'init-eshell)
 
 ;; end

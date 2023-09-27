@@ -5,6 +5,13 @@ end
 function fish_greeting
 end
 
+if status --is-interactive
+
+    if ! set -q TMUX
+        exec tmux
+    end
+end
+
 if test -n "$EMACS"
     set -x TERM eterm-color
 end
@@ -38,8 +45,10 @@ abbr -a m make
 abbr -a meminfo 'grc free -m -l -t'
 abbr -a top btm
 
-abbr -a clone 'git clone'
 abbr -a add 'git add'
+abbr -a addu 'git add -u'
+abbr -a adda 'git add .'
+abbr -a clone 'git clone'
 abbr -a status 'git status'
 abbr -a commit 'git commit -v -m'
 abbr -a checkoutb 'git checkout -b'
@@ -124,7 +133,12 @@ set __fish_git_prompt_showuntrackedfiles yes
 set __fish_git_prompt_showdirtystate yes
 set __fish_git_prompt_showdirtystate ''
 
-function dfiles --description "Goto my config files"
+
+function rsync-scp --description "Copy remote file showing progress"
+    rsync -r --progress $argv[1]:$argv[2] $argv[3]
+end
+
+function dotfiles --description "Goto my config files"
     z "$HOME/dotfiles"
 end
 

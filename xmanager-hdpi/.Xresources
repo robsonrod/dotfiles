@@ -50,10 +50,10 @@ URxvt.iso14755: false
 URxvt.iso14755_52: false
 
 !! URxvt Appearance
-URxvt.font: xft:JetBrainsMono\ Nerd\ Font:style=Regular:size=11:antialias=true,xft:Iosevka:size=11:hinting=true,xft:Dejavu Sans:size=11:hinting=true,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
-URxvt.boldFont: xft:JetBrainsMono\ Nerd\ Font:style=Bold:size=11:antialias=true,xft:Iosevka:size=11:hinting=true,xft:Dejavu Sans:size=11:hinting=true,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
-URxvt.italicFont: xft:JetBrainsMono\ Nerd\ Font:style=Italic:size=11:antialias=true,xft:Iosevka:size=11:hinting=true,xft:Dejavu Sans:size=11:hinting=true,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
-URxvt.boldItalicFont: xft:JetBrainsMono\ Nerd\ Font:style=Bold Italic:size=11:antialias=true,xft:Iosevka:size=11:hinting=true,xft:Dejavu Sans:size=11:hinting=true,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+URxvt.font: xft:JetBrainsMono\ Nerd\ Font:style=Regular:size=10:antialias=true,xft:Iosevka:size=10:hinting=true,xft:Dejavu Sans:size=10:hinting=true,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+URxvt.boldFont: xft:JetBrainsMono\ Nerd\ Font:style=Bold:size=10:antialias=true,xft:Iosevka:size=10:hinting=true,xft:Dejavu Sans:size=10:hinting=true,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+URxvt.italicFont: xft:JetBrainsMono\ Nerd\ Font:style=Italic:size=10:antialias=true,xft:Iosevka:size=10:hinting=true,xft:Dejavu Sans:size=10:hinting=true,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+URxvt.boldItalicFont: xft:JetBrainsMono\ Nerd\ Font:style=Bold Italic:size=10:antialias=true,xft:Iosevka:size=10:hinting=true,xft:Dejavu Sans:size=10:hinting=true,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 URxvt.transparent: false
 URxvt.shading: 30
 
@@ -68,7 +68,7 @@ URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
 
 !! Copy Paste & Other Extensions
-URxvt.perl-ext-common: default,tabbed
+URxvt.perl-ext-common: default
 URxvt.copyCommand: xclip -i -selection clipboard
 URxvt.pasteCommand: xclip -o -selection clipboard
 URxvt.keysym.M-c: perl:clipboard:copy
