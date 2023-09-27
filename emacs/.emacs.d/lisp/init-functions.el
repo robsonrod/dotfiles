@@ -22,4 +22,4 @@
             (cons (concat dir "/" x) (robson/sha512 (concat dir "/" x)))) 
           (directory-files dir nil directory-files-no-dot-files-regexp)))
 
-(provide init-functions)
+(provide 'init-functions)

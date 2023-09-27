@@ -790,40 +790,19 @@ Position the cursor at its beginning, according to the current mode."
 
 ;; terminal
 (use-package 
-  vterm 
-  :config (defun turn-off-gui () 
-            (hl-line-mode -1) 
-            (display-line-numbers-mode -1)) 
-  :hook (vterm-mode . turn-off-gui))
+  vterm
+  :config (setq vterm-shell "/usr/bin/fish") 
+  :hook (vterm-mode . (lambda () (hl-line-mode -1) (display-line-numbers-mode -1))))
 
-(use-package 
-  vterm-toggle 
-  :custom (vterm-toggle-fullscreen-p nil "Open a vterm in another window") 
-  (vterm-toggle-scope 'project) 
-  :bind (("C-c v" . #'vterm-toggle) 
-         ("C-c t" . #'vterm)))
+(use-package
+  multi-vterm
+  :after vterm
+  :ensure t
+  :defer t
+  :bind (("C-c t t" . #'multi-vterm)
+         ("C-c t n" . #'multi-vterm-next)
+         ("C-c t p" . #'multi-vterm-prev)))
 
-;; dashboard
-(use-package 
-  dashboard 
-  :ensure t 
-  :config (setq dashboard-banner-logo-title "Welcome") 
-  (setq dashboard-set-init-info nil) 
-  (setq show-week-agenda-p t) 
-  (setq dashboard-items '((recents . 15) 
-                          (projects . 5) 
-                          (agenda . 5) 
-                          (bookmarks . 5))) 
-  (setq dashboard-set-heading-icons t) 
-  (setq dashboard-set-file-icons t) 
-  (setq dashboard-startup-banner 'logo) 
-  (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name) 
-  (setq dashboard-footer-messages '("Happy codding")) 
-  (dashboard-setup-startup-hook))
-(define-key dashboard-mode-map (kbd "C-c d") #'(lambda () 
-                                                 (interactive) 
-                                                 (dashboard-refresh-buffer) 
-                                                 (message "refreshing... done")))
 
 ;; org mode
 (defun efs/org-mode-setup () 
