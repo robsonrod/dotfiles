@@ -5,15 +5,17 @@ end
 function fish_greeting
 end
 
-if status --is-interactive
-
-    if ! set -q TMUX
-        exec tmux
-    end
-end
-
 if test -n "$EMACS"
     set -x TERM eterm-color
+end
+
+if test "$TERM" = "dumb"
+    function fish_prompt
+        echo "\$ "
+    end
+    function fish_right_prompt; end
+    function fish_greeting; end
+    function fish_title; end
 end
 
 # system admin
