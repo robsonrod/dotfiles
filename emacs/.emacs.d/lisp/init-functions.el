@@ -40,6 +40,7 @@ Position the cursor at its beginning, according to the current mode."
       (mapc 'kill-buffer (buffer-list)))))
 
 (defun robsonrod/text-scale-restore ()
+  "Restore text scale"
   (interactive)
   (text-scale-set 0)
   (message "restored"))
@@ -91,6 +92,11 @@ Position the cursor at its beginning, according to the current mode."
     )
   (funcall major-mode))
 
-
+(defun robsonrod/eshell-clear-buffer ()
+  "Clear the current Eshell buffer."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (eshell-send-input)))
 
 (provide 'init-functions)
