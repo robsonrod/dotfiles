@@ -51,8 +51,7 @@
       mouse-wheel-progressive-speed nil ; don't accelerate
       mouse-wheel-follow-mouse 't   ; scroll window under mouse cursor
       scroll-step 1 explicit-shell-file-name "/usr/bin/bash" shell-file-name "bash"
-      dictionary-server "dict.org"
-      browse-url-browser-function 'browse-url-firefox)
+      dictionary-server "dict.org")
                                         ; scroll 1 line with keyboard
 
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup")) backup-by-copying t ; Don't delink hardlinks
@@ -64,8 +63,8 @@
 (setq frame-title-format "%b - emacs")
 
 ;; window resize
-(set-frame-parameter (selected-frame) 'alpha '(95 90))
-(add-to-list 'default-frame-alist '(alpha . (95 . 90)))
+(set-frame-parameter (selected-frame) 'alpha '(98 98))
+(add-to-list 'default-frame-alist '(alpha . (98 . 98)))
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -85,7 +84,7 @@
 
 ;; disable line numbers for some modes
 (dolist (mode '(org-mode-hook term-mode-hook vterm-mode-hook shell-mode-hook eshell-mode-hook
-                              dashboard-mode-hook)) 
+                              dired-mode-hook pdf-view-mode-hook)) 
   (add-hook mode (lambda () 
                    (display-line-numbers-mode -1))))
 
@@ -108,45 +107,8 @@
 
 ;; Custom functions
 
-(defun smart-open-line-above () 
-  "Insert an empty line above the current line.
-Position the cursor at it's beginning, according to the current mode." 
-  (interactive) 
-  (move-beginning-of-line nil) 
-  (newline-and-indent) 
-  (forward-line -1) 
-  (indent-according-to-mode))
-
-(defun smart-open-line () 
-  "Insert an empty line after the current line.
-Position the cursor at its beginning, according to the current mode." 
-  (interactive) 
-  (move-end-of-line nil) 
-  (newline-and-indent))
-
-(global-set-key [(control shift return)] 'smart-open-line-above)
-(global-set-key [(shift return)] 'smart-open-line)
-
-;; Open my config
-(defun open-my-config () 
-  "Open my config file." 
-  (interactive) 
-  (find-file user-init-file))
-(global-set-key (kbd "C-x C-i") 'open-my-config)
-
-;; ESC cancels all commands
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
-;; eval buffer
-(global-set-key (kbd "C-c C-e") 'eval-buffer)
-
-;; elisp format
-(global-set-key (kbd "C-c e f") 'elisp-format-buffer)
-
-;; adjust font size like web browsers
-(global-set-key (kbd "C-=") #'text-scale-increase)
-(global-set-key (kbd "C-+") #'text-scale-increase)
-(global-set-key (kbd "C--") #'text-scale-decrease)
+(global-set-key [(control shift return)] 'robsonrod/smart-open-line-above)
+(global-set-key [(shift return)] 'robsonrod/smart-open-line)
 
 ;; custom window management
 (global-set-key (kbd "C-<tab>") 'other-window)
@@ -155,31 +117,21 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-<left>") 'shrink-window-horizontally)
 
-;; split window
-(defun pt/split-window-two () 
-  "Split a window into two." 
-  (interactive) 
-  (split-window-right) 
-  (balance-windows))
-(global-set-key (kbd "C-c 2") #'pt/split-window-two)
+(defun robsonrod/modeline-contitional-buffer-encoding () 
+  "Hide \"LF UTF-8\" in modeline.
+   It is expected of files to be encoded with LF UTF-8, so only show
+   the encoding in the modeline if the encoding is worth notifying
+   the user."
+  (setq-local doom-modeline-buffer-encoding (unless (and (memq (plist-get (coding-system-plist
+                                                                           buffer-file-coding-system) 
+                                                                          :category) 
+                                                               '(coding-category-undecided
+                                                                 coding-category-utf-8)) 
+                                                         (not (memq (coding-system-eol-type
+                                                                     buffer-file-coding-system) 
+                                                                    '(1 2)))) t)))
 
-;; buffer killer
-(defun kill-this-buffer () 
-  "Kill the current buffer." 
-  (interactive) 
-  (kill-buffer nil))
-
-(defun kill-all-buffers () 
-  "Close all buffers." 
-  (interactive) 
-  (let ((lsp-restart 'ignore)) 
-    (delete-other-windows) 
-    (save-some-buffers) 
-    (let ((kill-buffer-query-functions '())) 
-      (mapc 'kill-buffer (buffer-list)))))
-(global-set-key (kbd "C-x k") #'kill-this-buffer)
-(global-set-key (kbd "C-x K") #'kill-all-buffers)
-(global-set-key (kbd "C-x w") #'kill-this-buffer)
+(add-hook 'after-change-major-mode-hook #'robsonrod/modeline-contitional-buffer-encoding)
 
 ;; configure package manager
 (require 'package)
@@ -194,6 +146,13 @@ Position the cursor at its beginning, according to the current mode."
   (package-install 'use-package))
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+(use-package general
+  :config
+  (general-create-definer robsonrod/major-mode-leader
+    :prefix "C-,")
+  (general-create-definer robsonrod/ctrl-c-definer
+    :prefix "C-c"))
 
 ;; hide minor modes
 (use-package 
@@ -212,14 +171,32 @@ Position the cursor at its beginning, according to the current mode."
   (unless (equal persp-mode t) 
     (persp-mode)))
 
-;; file explorer
+(robsonrod/ctrl-c-definer
+  "2" '(robsonrod/split-window-two :which-key "split into two windows")
+  "k" '(robsonrod/kill-current-buffer :which-key "kill current buffer")
+  "K" '(robsonrod/kill-all-buffers :which-key "Kill all buffers")
+  "i" '(robsonrod/open-my-config :which-key "open emacs init file")
+  "e" '(eval-buffer :which-key "eval current buffer")
+  "=" '(robsonrod/text-scale-restore :which-key "restore font size")
+  "+" '(text-scale-increase :which-key "increase font size")
+  "-" '(text-scale-decrease :which-key "decrease font size")
+)
+
+(robsonrod/major-mode-leader
+  :keymaps 'dired-mode-map
+  "b" 'dired-up-directory
+  "n" 'dired-find-file
+  "h" 'dired-hide-dotfiles)
+
+  ;; file explorer
+
 (use-package 
   dired 
   :ensure nil 
   :defer 1 
   :commands (dired dired-jump) 
   :bind ("C-x C-j" . dired-jump) 
-  :config (autoload 'dired-omit-mode "dired-x") 
+  :config (autoload 'dired-omit-mode "dired-x")
   (add-hook 'with-eval-after-load (lambda () 
                                     (interactive) 
                                     (dired-collapse))) 
@@ -533,6 +510,10 @@ Position the cursor at its beginning, according to the current mode."
   :ensure t 
   :init)
 
+(robsonrod/major-mode-leader
+  :keymaps 'emacs-lisp-mode-map
+  "f" '(elisp-format-buffer :which-key "format the whole buffer"))
+
 ;; find file in project
 (use-package 
   find-file-in-project 
@@ -762,11 +743,13 @@ Position the cursor at its beginning, according to the current mode."
 
 (use-package 
   shfmt 
+  :defer t 
   :config (add-hook 'sh-mode-hook 'shfmt-on-save-mode))
 
 (use-package 
   fish-mode 
   :defer t 
+  :config (setq fish-enable-auto-indent t) 
   :mode "\\.fish\\'")
 
 ;; rest client
@@ -790,19 +773,24 @@ Position the cursor at its beginning, according to the current mode."
 
 ;; terminal
 (use-package 
-  vterm
+  vterm 
   :config (setq vterm-shell "/usr/bin/fish") 
-  :hook (vterm-mode . (lambda () (hl-line-mode -1) (display-line-numbers-mode -1))))
+  :hook (vterm-mode . (lambda () 
+                        (hl-line-mode -1) 
+                        (display-line-numbers-mode -1))))
 
-(use-package
-  multi-vterm
-  :after vterm
-  :ensure t
-  :defer t
-  :bind (("C-c t t" . #'multi-vterm)
-         ("C-c t n" . #'multi-vterm-next)
-         ("C-c t p" . #'multi-vterm-prev)))
+(use-package 
+  multi-vterm 
+  :after vterm 
+  :ensure t 
+  :defer t)
 
+(robsonrod/ctrl-c-definer
+  "t" 'multi-vterm
+  "j" 'multi-vterm-project
+  :keymaps 'vterm-mode-map
+  "n" 'multi-vterm-next
+  "p" 'multi-vterm-prev)
 
 ;; org mode
 (defun efs/org-mode-setup () 
@@ -833,8 +821,8 @@ Position the cursor at its beginning, according to the current mode."
                         :height (cdr face)))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
-  (set-face-attribute 'org-block nil 
-                      :foreground nil 
+  (set-face-attribute 'org-block nil
+                      :foreground "unspeficied"
                       :inherit 'fixed-pitch) 
   (set-face-attribute 'org-code nil 
                       :inherit '(shadow fixed-pitch)) 
@@ -856,6 +844,11 @@ Position the cursor at its beginning, according to the current mode."
   :config (setq org-ellipsis " ▾" org-hide-emphasis-markers t org-confirm-babel-evaluate nil
                 org-fontify-quote-and-verse-blocks t org-startup-folded 'content
                 org-agenda-start-with-log-mode t org-log-done 'time org-log-into-drawer t) 
+  (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) 
+                                                           (python . t) 
+                                                           (shell . t) 
+                                                           (clojure . t) 
+                                                           (scheme . t))) 
   (efs/org-font-setup))
 
 ;; custom bullets
@@ -875,18 +868,20 @@ Position the cursor at its beginning, according to the current mode."
 
 (setq org-babel-clojure-backend 'cider)
 
-(org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) 
-                                                         (python . t) 
-                                                         (shell . t) 
-                                                         (clojure . t)))
-
 ;; org templates
 (require 'org-tempo)
+
+(add-to-list 'org-modules 'org-tempo t)
 (add-to-list 'org-structure-template-alist '("clj" . "src clojure"))
 (add-to-list 'org-structure-template-alist '("pyt" . "src python"))
 (add-to-list 'org-structure-template-alist '("sh"  . "src shell"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-(add-to-list 'org-structure-template-alist '("go" . "src go"))
+(add-to-list 'org-structure-template-alist '("scm" . "src scheme"))
+
+(use-package 
+  org-auto-tangle 
+  :defer t 
+  :hook (org-mode . org-auto-tangle-mode))
 
 ;; org-roam
 (use-package 
@@ -918,11 +913,11 @@ Position the cursor at its beginning, according to the current mode."
          :map org-mode-map ("C-M-i" . completion-at-point)) 
   :config (org-roam-setup))
 
-(use-package
-  elfeed-org
-  :config (elfeed-org)
-  :ensure t
-  :custom (rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org")) )
+(use-package 
+  elfeed-org 
+  :config (elfeed-org) 
+  :ensure t 
+  :custom (rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org")))
 
 (use-package 
   dictionary 
@@ -935,6 +930,48 @@ Position the cursor at its beginning, according to the current mode."
   :custom (elfeed-db-directory (expand-file-name "elfeed" user-emacs-directory)) 
   (elfeed-show-entry-switch 'display-buffer) 
   :bind ("C-c w" . elfeed ))
+
+(use-package 
+  pdf-tools 
+  :defer t 
+  :magic ("%PDF" . pdf-view-mode) 
+  :hook (pdf-tools-enabled . pdf-view-midnight-minor-mode) 
+  :general 
+  :config (pdf-tools-install) 
+  (setq-default pdf-view-display-size 'fit-page) 
+  (with-eval-after-load 'pdf-view 
+    (setq pdf-view-midnight-colors '("#d8dee9" . "#2e3440"))))
+
+;; Configure Tempel
+(use-package tempel
+  :custom
+  (tempel-trigger-prefix "<")
+  :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
+         ("M-*" . tempel-insert))
+  :init
+  (defun tempel-setup-capf ()
+    (setq-local completion-at-point-functions
+                (cons #'tempel-expand
+                      completion-at-point-functions)))
+
+  (add-hook 'conf-mode-hook 'tempel-setup-capf)
+  (add-hook 'prog-mode-hook 'tempel-setup-capf)
+  (add-hook 'text-mode-hook 'tempel-setup-capf)
+
+  ;; Optionally make the Tempel templates available to Abbrev,
+  ;; either locally or globally. `expand-abbrev' is bound to C-x '.
+  (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
+  ;; (global-tempel-abbrev-mode)
+)
+
+(use-package tempel-collection
+  :ensure t
+  :after tempel)
+
+;; Optional: Use the Corfu completion UI
+(use-package corfu
+  :init
+  (global-corfu-mode))
 
 (require 'init-functions)
 (require 'init-eshell)
