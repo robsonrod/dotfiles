@@ -26,7 +26,8 @@
 (setq byte-compile-warnings '(cl-functions))
 
 ;; set variables
-(setq inhibit-startup-message t tab-always-indent 'complete)
+(setq inhibit-startup-message t ;;
+      tab-always-indent 'complete)
 
 ;; Encoding
 (prefer-coding-system 'utf-8)
@@ -50,7 +51,7 @@
       mouse-wheel-scroll-amount '(2 ((shift) . 1))    ; scroll 2 lines
       mouse-wheel-progressive-speed nil ; don't accelerate
       mouse-wheel-follow-mouse 't   ; scroll window under mouse cursor
-      scroll-step 1 explicit-shell-file-name "/usr/bin/bash" shell-file-name "bash"
+      scroll-step 1                 ;
       dictionary-server "dict.org")
                                         ; scroll 1 line with keyboard
 
@@ -147,9 +148,10 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; 
 (use-package general
   :config
-  (general-create-definer robsonrod/major-mode-leader
+  (general-create-definer robsonrod/major-mode-leader-map
     :prefix "C-,")
   (general-create-definer robsonrod/ctrl-c-definer
     :prefix "C-c"))
@@ -182,7 +184,7 @@
   "-" '(text-scale-decrease :which-key "decrease font size")
 )
 
-(robsonrod/major-mode-leader
+(robsonrod/major-mode-leader-map
   :keymaps 'dired-mode-map
   "b" 'dired-up-directory
   "n" 'dired-find-file
@@ -295,8 +297,14 @@
   (doom-themes-org-config) 
   (doom-themes-neotree-config))
 
+;; spacemacs themes
 (use-package spacemacs-theme
   :ensure t)
+
+(robsonrod/ctrl-c-definer
+  "d" '(robsonrod/load-dracula :which-key "dracula theme")
+  "a" '(robsonrod/load-darkmode :which-key "spacemacs dark theme")
+  "l" '(robsonrod/load-lightmode :which-key "spacemacs light theme"))
 
 ;; doom modeline
 (use-package 
@@ -429,7 +437,7 @@
   :ensure t 
   :init)
 
-(robsonrod/major-mode-leader
+(robsonrod/major-mode-leader-map
   :keymaps 'emacs-lisp-mode-map
   "f" '(elisp-format-buffer :which-key "format the whole buffer"))
 
@@ -704,12 +712,15 @@
   :ensure t 
   :defer t)
 
+
 (robsonrod/ctrl-c-definer
-  "t" 'multi-vterm
-  "j" 'multi-vterm-project
+  "t" '(multi-vterm :which-key "open an arbitrary terminal")
+  "j" '(multi-vterm-project :which-key "open terminal into project"))
+
+(robsonrod/ctrl-c-definer
   :keymaps 'vterm-mode-map
-  "n" 'multi-vterm-next
-  "p" 'multi-vterm-prev)
+  "n" '(multi-vterm-next :which-key "next terminal")
+  "p" '(multi-vterm-prev :which-key "previous terminal"))
 
 ;; org mode
 (defun efs/org-mode-setup () 

@@ -15,12 +15,12 @@ Position the cursor at its beginning, according to the current mode."
   (newline-and-indent))
 
 (defun robsonrod/open-my-config () 
-  "Open my config file." 
+  "Open emacs config file." 
   (interactive) 
   (find-file user-init-file))
 
 (defun robsonrod/split-window-two () 
-  "Split a window into two." 
+  "Split current window into two." 
   (interactive) 
   (split-window-right) 
   (balance-windows))
@@ -48,7 +48,7 @@ Position the cursor at its beginning, according to the current mode."
 (defun robsonrod/sha512 
     (&optional 
      filename)
-  "Compute a sha512 message digest" 
+  "Compute sha512 message digest" 
   (interactive) 
   (let ((filename (or filename 
                       (read-file-name "Filename:")))) 
@@ -62,21 +62,25 @@ Position the cursor at its beginning, according to the current mode."
   (-> filename (robson/sha512) 
       (base64-encode-string)))
 
-(defun robsonrod/sha512-dir (dir) 
+(defun robsonrod/sha512-dir (dir)
+  "Compute sha512 message digest to all files "
   (interactive) 
   (mapcar (lambda (x)
             (cons (concat dir "/" x) (robson/sha512 (concat dir "/" x)))) 
           (directory-files dir nil directory-files-no-dot-files-regexp)))
 
 (defun robsonrod/load-darkmode ()
+  "Load spacemacs darkmode"
   (interactive)
   (load-theme 'spacemacs-dark t))
 
 (defun robsonrod/load-lightmode ()
+  "Load spacemacs lightmode"
   (interactive)
   (load-theme 'spacemacs-light t))
 
 (defun robsonrod/load-dracula ()
+  "Load doom dracula"
   (interactive)
   (load-theme 'doom-dracula t))
 
