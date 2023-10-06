@@ -94,10 +94,10 @@
 
 ;; font configuration
 (set-face-attribute 'default nil 
-                    :font "Fira Code Retina" 
+                    :font "JetBrainsMono Nerd Font" 
                     :height 100)
 (set-face-attribute 'fixed-pitch nil 
-                    :font "JetBrainsMono Nerd Font" 
+                    :font "RobotoMono Nerd Font" 
                     :height 100)
 (set-face-attribute 'variable-pitch nil 
                     :font "Iosevka Nerd Font" 

@@ -5,6 +5,12 @@ end
 function fish_greeting
 end
 
+if status --is-interactive
+    gpgconf --launch gpg-agent
+    set -e SSH_AUTH_SOCK
+    set -U -x SSH_AUTH_SOCK ~/.gnupg/S.gpg-agent.ssh
+end
+
 if test -n "$EMACS"
     set -x TERM eterm-color
 end
@@ -151,34 +157,6 @@ function d --description "Goto root project"
         end
         cd ..
     end
-end
-
-function sudo --description "Exec sudo !! like bash"
-    if test "$argv" = !!
-        echo sudo $history[1]
-        eval command sudo $history[1]
-    else
-        command sudo $argv
-    end
-end
-
-function fzf-ssh --description "List hosts to connect"
-    set selected (rg "Host " ~/.ssh/config | awk '{print $2}' | fzf --query "$LBUFFER" --height 30%)
-    if test ! -z "$selected"
-        ssh -X "$selected"
-    end
-end
-
-function vs --description "Start VPN service"
-    vpn.sh start
-end
-
-function vf --description "Finish VPN service"
-    vpn.sh stop
-end
-
-function reload --description "Reload fish without restart terminal"
-    source $HOME/.config/fish/config.fish
 end
 
 function fish_command_not_found
