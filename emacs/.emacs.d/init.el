@@ -94,7 +94,7 @@
 
 ;; font configuration
 (set-face-attribute 'default nil 
-                    :font "JetBrainsMono Nerd Font" 
+                    :font "JuliaMono" 
                     :height 100)
 (set-face-attribute 'fixed-pitch nil 
                     :font "RobotoMono Nerd Font" 
@@ -107,7 +107,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Custom functions
-
 (global-set-key [(control shift return)] 'robsonrod/smart-open-line-above)
 (global-set-key [(shift return)] 'robsonrod/smart-open-line)
 
@@ -185,13 +184,17 @@
 )
 
 (robsonrod/major-mode-leader-map
+  "d" '(robsonrod/duplicate-line :which-key "duplicate lines")
+  "u" '(robsonrod/move-line-up :which-key "move line up")
+  "w" '(robsonrod/move-line-down :which-key "move line down"))
+
+(robsonrod/major-mode-leader-map
   :keymaps 'dired-mode-map
   "b" 'dired-up-directory
   "n" 'dired-find-file
   "h" 'dired-hide-dotfiles)
 
-  ;; file explorer
-
+;; file explorer
 (use-package 
   dired 
   :ensure nil 

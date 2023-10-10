@@ -1,13 +1,18 @@
-# Timeout for commands executed by starship (ms)
-command_timeout = 10000
-
 [character]
-error_symbol = " [](bold #ff5555)"
-success_symbol = " [](bold #50fa7b)"
+error_symbol = "[λ](bold #ff5555)"
+success_symbol = "[λ](bold #f8f8f2)"
 
 [directory]
-style = "#89b4fa"
-use_os_path_sep = true
+style = "#50fa7b"
+
+[cmd_duration]
+style = "bold #f1fa8c"
+
+[git_branch]
+style = "bold #ff79c6"
+
+[git_status]
+style = "bold #ff5555"
 
 [battery]
 full_symbol = "🔋"
@@ -21,11 +26,14 @@ disabled = false
 
 [hostname]
 ssh_symbol = "🌏 "
-ssh_only = true
 format = "<[$ssh_symbol](bold blue) on [$hostname](bold red)>"
 style = "bold dimmed white"
 trim_at = "-"
 disabled = false
+
+[username]
+format = "[$user]($style) on "
+style_user = "bold #bd93f9"
 
 [package]
 disabled = true
