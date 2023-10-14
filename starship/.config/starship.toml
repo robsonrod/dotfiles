@@ -3,6 +3,7 @@ error_symbol = "[λ](bold #ff5555)"
 success_symbol = "[λ](bold #f8f8f2)"
 
 [directory]
+truncation_length = 8
 style = "#50fa7b"
 
 [cmd_duration]
@@ -26,7 +27,8 @@ disabled = false
 
 [hostname]
 ssh_symbol = "🌏 "
-format = "<[$ssh_symbol](bold blue) on [$hostname](bold red)>"
+ssh_only = true
+format = "[$ssh_symbol](bold blue) on [$hostname](bold red)"
 style = "bold dimmed white"
 trim_at = "-"
 disabled = false
@@ -34,6 +36,7 @@ disabled = false
 [username]
 format = "[$user]($style) on "
 style_user = "bold #bd93f9"
+disabled = false
 
 [package]
 disabled = true

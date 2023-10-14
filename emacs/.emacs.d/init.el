@@ -25,10 +25,6 @@
 ;; fix obsolete warning
 (setq byte-compile-warnings '(cl-functions))
 
-;; set variables
-(setq inhibit-startup-message t ;;
-      tab-always-indent 'complete)
-
 ;; Encoding
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -52,9 +48,9 @@
       mouse-wheel-progressive-speed nil ; don't accelerate
       mouse-wheel-follow-mouse 't   ; scroll window under mouse cursor
       scroll-step 1                 ;
-      dictionary-server "dict.org")
+      dictionary-server "dict.org"
+      vc-follow-symlinks t)
                                         ; scroll 1 line with keyboard
-
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup")) backup-by-copying t ; Don't delink hardlinks
       version-control t      ; Use version numbers on backups
       delete-old-versions t  ; Automatically delete excess backups
@@ -104,7 +100,7 @@
                     :height 100)
 
 ;; yes or no question
-(fset 'yes-or-no-p 'y-or-n-p)
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Custom functions
 (global-set-key [(control shift return)] 'robsonrod/smart-open-line-above)
@@ -132,7 +128,7 @@
                                                                     '(1 2)))) t)))
 
 (add-hook 'after-change-major-mode-hook #'robsonrod/modeline-contitional-buffer-encoding)
-
+(add-hook 'makefile-mode-hook #'robsonrod/custom-tab-indent)
 ;; configure package manager
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/") 
@@ -155,774 +151,67 @@
   (general-create-definer robsonrod/ctrl-c-definer
     :prefix "C-c"))
 
-;; hide minor modes
-(use-package 
-  diminish)
-
-(use-package 
-  perspective 
-  :demand t 
-  :bind (("C-M-k" . persp-switch) 
-         ("C-M-n" . persp-next) 
-         ("C-x k" . persp-kill-buffer*)) 
-  :custom (persp-initial-frame-name "Main") 
-  (persp-mode-prefix-key (kbd "C-c M-p")) 
-  :config
-  ;; Running `persp-mode' multiple times resets the perspective list...
-  (unless (equal persp-mode t) 
-    (persp-mode)))
-
-(robsonrod/ctrl-c-definer
-  "2" '(robsonrod/split-window-two :which-key "split into two windows")
-  "k" '(robsonrod/kill-current-buffer :which-key "kill current buffer")
-  "K" '(robsonrod/kill-all-buffers :which-key "Kill all buffers")
-  "i" '(robsonrod/open-my-config :which-key "open emacs init file")
-  "e" '(eval-buffer :which-key "eval current buffer")
-  "=" '(robsonrod/text-scale-restore :which-key "restore font size")
-  "+" '(text-scale-increase :which-key "increase font size")
-  "-" '(text-scale-decrease :which-key "decrease font size")
-)
-
-(robsonrod/major-mode-leader-map
-  "d" '(robsonrod/duplicate-line :which-key "duplicate lines")
-  "u" '(robsonrod/move-line-up :which-key "move line up")
-  "w" '(robsonrod/move-line-down :which-key "move line down"))
-
-(robsonrod/major-mode-leader-map
-  :keymaps 'dired-mode-map
-  "b" 'dired-up-directory
-  "n" 'dired-find-file
-  "h" 'dired-hide-dotfiles)
-
-;; file explorer
-(use-package 
-  dired 
-  :ensure nil 
-  :defer 1 
-  :commands (dired dired-jump) 
-  :bind ("C-x C-j" . dired-jump) 
-  :config (autoload 'dired-omit-mode "dired-x")
-  (add-hook 'with-eval-after-load (lambda () 
-                                    (interactive) 
-                                    (dired-collapse))) 
-  (add-hook 'dired-mode-hook (lambda () 
-                               (interactive) 
-                               (dired-omit-mode 1) 
-                               (dired-hide-details-mode 1) 
-                               (all-the-icons-dired-mode 1) 
-                               (hl-line-mode 1))) 
-  (use-package 
-    dired-rainbow 
-    :defer 2 
-    :config (dired-rainbow-define-chmod directory "#6cb2eb" "d.*") 
-    (dired-rainbow-define html "#eb5286" ("css" "less" "sass" "scss" "htm" "html" "jhtm" "mht" "eml"
-                                          "mustache" "xhtml")) 
-    (dired-rainbow-define xml "#f2d024" ("xml" "xsd" "xsl" "xslt" "wsdl" "bib" "json" "msg" "pgn"
-                                         "rss" "yaml" "yml" "rdata")) 
-    (dired-rainbow-define document "#9561e2" ("docm" "doc" "docx" "odb" "odt" "pdb" "pdf" "ps" "rtf"
-                                              "djvu" "epub" "odp" "ppt" "pptx")) 
-    (dired-rainbow-define markdown "#ffed4a" ("org" "etx" "info" "markdown" "md" "mkd" "nfo" "pod"
-                                              "rst" "tex" "textfile" "txt")) 
-    (dired-rainbow-define database "#6574cd" ("xlsx" "xls" "csv" "accdb" "db" "mdb" "sqlite" "nc")) 
-    (dired-rainbow-define media "#de751f" ("mp3" "mp4" "mkv" "MP3" "MP4" "avi" "mpeg" "mpg" "flv"
-                                           "ogg" "mov" "mid" "midi" "wav" "aiff" "flac")) 
-    (dired-rainbow-define image "#f66d9b" ("tiff" "tif" "cdr" "gif" "ico" "jpeg" "jpg" "png" "psd"
-                                           "eps" "svg")) 
-    (dired-rainbow-define log "#c17d11" ("log")) 
-    (dired-rainbow-define shell "#f6993f" ("awk" "bash" "bat" "sed" "sh" "zsh" "vim")) 
-    (dired-rainbow-define interpreted "#38c172" ("py" "ipynb" "rb" "pl" "t" "msql" "mysql" "pgsql"
-                                                 "sql" "r" "clj" "cljs" "scala" "js")) 
-    (dired-rainbow-define compiled "#4dc0b5" ("asm" "cl" "lisp" "el" "c" "h" "c++" "h++" "hpp" "hxx"
-                                              "m" "cc" "cs" "cp" "cpp" "go" "f" "for" "ftn" "f90"
-                                              "f95" "f03" "f08" "s" "rs" "hi" "hs" "pyc" ".java")) 
-    (dired-rainbow-define executable "#8cc4ff" ("exe" "msi")) 
-    (dired-rainbow-define compressed "#51d88a" ("7z" "zip" "bz2" "tgz" "txz" "gz" "xz" "z" "Z" "jar"
-                                                "war" "ear" "rar" "sar" "xpi" "apk" "xz" "tar")) 
-    (dired-rainbow-define packaged "#faad63" ("deb" "rpm" "apk" "jad" "jar" "cab" "pak" "pk3" "vdf"
-                                              "vpk" "bsp")) 
-    (dired-rainbow-define encrypted "#ffed4a" ("gpg" "pgp" "asc" "bfe" "enc" "signature" "sig" "p12"
-                                               "pem")) 
-    (dired-rainbow-define fonts "#6cb2eb" ("afm" "fon" "fnt" "pfb" "pfm" "ttf" "otf")) 
-    (dired-rainbow-define partition "#e3342f" ("dmg" "iso" "bin" "nrg" "qcow" "toast" "vcd" "vmdk"
-                                               "bak")) 
-    (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules")) 
-    (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*")))
-
-(use-package 
-  dired-single)
-
-(use-package 
-  dired-ranger 
-  :defer t)
-
-(use-package 
-  dired-collapse 
-  :defer t)
-
-(use-package 
-  all-the-icons-dired 
-  :hook (dired-mode . all-the-icons-dired-mode))
-
-(use-package 
-  dired-open 
-  :config (setq dired-open-extensions '(("png" . "feh") 
-                                        ("mkv" . "mpv") 
-                                        ("png" . "sxiv") 
-                                        ("jpg" . "sxiv") 
-                                        ("gif" . "sxiv") 
-                                        ("mkv" . "mpv") 
-                                        ("mp4" . "mpv") 
-                                        ("mp3" . "mpv") 
-                                        ("ogg" . "mpv"))))
-
-;; hide dotfiles
-(use-package 
-  dired-hide-dotfiles 
-  :hook (dired-mode . dired-hide-dotfiles-mode) 
-  :config (define-key dired-mode-map "H" 'dired-hide-dotfiles-mode))
-
-;; icons
-(use-package 
-  all-the-icons 
-  :if (display-graphic-p))
-
-;; modeline icons
-(use-package 
-  minions 
-  :hook (doom-modeline-mode . minions-mode))
-
-;; doom themes
-(use-package 
-  doom-themes 
-  :ensure t 
-  :config (setq doom-themes-enable-bold t doom-themes-enable-italic t) 
-  (load-theme 'doom-dracula t) 
-  (doom-themes-org-config) 
-  (doom-themes-neotree-config))
-
-;; spacemacs themes
-(use-package spacemacs-theme
-  :ensure t)
-
-(robsonrod/ctrl-c-definer
-  "d" '(robsonrod/load-dracula :which-key "dracula theme")
-  "a" '(robsonrod/load-darkmode :which-key "spacemacs dark theme")
-  "l" '(robsonrod/load-lightmode :which-key "spacemacs light theme"))
-
-;; doom modeline
-(use-package 
-  doom-modeline 
-  :ensure t 
-  :init (doom-modeline-mode 1) 
-  :custom ((doom-modeline-height 15) 
-           (doom-modeline-bar-width 6) 
-           (doom-modeline-lsp t) 
-           (doom-modeline-persp-name nil) 
-           (doom-modeline-irc nil) 
-           (doom-modeline-mu4e nil) 
-           (doom-modeline-minor-modes t) 
-           (doom-modeline-buffer-file-name-style 'truncate-except-project) 
-           (doom-modeline-major-mode-icon t)))
-
-;; helper
-(use-package 
-  which-key 
-  :init (which-key-mode) 
-  :diminish which-key-mode 
-  :config (setq which-key-idle-delay 0.3))
-
-;; rainbow delimiters
-(use-package 
-  rainbow-delimiters 
-  :defer t 
-  :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
-
-;; paredit
-(use-package 
-  paredit 
-  :defer t 
-  :init (progn (add-hook 'emacs-lisp-mode-hook 'paredit-mode) 
-               (add-hook 'clojure-mode-hook 'paredit-mode) 
-               (add-hook 'clojurec-mode-hook 'paredit-mode) 
-               (add-hook 'cider-repl-mode-hook 'paredit-mode)))
-
-;; completion framework
-(use-package 
-  ivy 
-  :ensure t 
-  :diminish 
-  :bind (("C-s" . swiper) :map ivy-minibuffer-map ("TAB" . ivy-alt-done) 
-         ("C-f" . ivy-alt-done) 
-         ("C-l" . ivy-alt-done) 
-         ("C-j" . ivy-next-line) 
-         ("C-k" . ivy-previous-line) 
-         :map ivy-switch-buffer-map ("C-k" . ivy-previous-line) 
-         ("C-l" . ivy-done) 
-         ("C-d" . ivy-switch-buffer-kill) 
-         :map ivy-reverse-i-search-map ("C-k" . ivy-previous-line) 
-         ("C-d" . ivy-reverse-i-search-kill)) 
-  :init (ivy-mode 1) 
-  (setq ivy-use-virtual-buffers t) 
-  (setq ivy-wrap t) 
-  (setq ivy-count-format "(%d/%d) ") 
-  (setq enable-recursive-minibuffers t)
-
-  ;; use different regex strategies per completion command
-  (push '(completion-at-point . ivy--regex-fuzzy) ivy-re-builders-alist) ;; This doesn't seem to work...
-  (push '(swiper . ivy--regex-ignore-order) ivy-re-builders-alist) 
-  (push '(counsel-M-x . ivy--regex-ignore-order) ivy-re-builders-alist)
-
-  ;; set minibuffer height for different commands
-  (setf (alist-get 'counsel-projectile-ag ivy-height-alist) 15) 
-  (setf (alist-get 'counsel-projectile-rg ivy-height-alist) 15) 
-  (setf (alist-get 'swiper ivy-height-alist) 15) 
-  (setf (alist-get 'counsel-switch-buffer ivy-height-alist) 7))
-
-;; enhance completion framework
-(use-package 
-  counsel 
-  :bind (("M-x" . counsel-M-x) 
-         ("C-x b" . counsel-ibuffer) 
-         ("C-x C-f" . counsel-find-file) 
-         ("C-c r" . counsel-rg) 
-         ("C-c f" . counsel-fzf) 
-         ("C-M-j" . counsel-switch-buffer) 
-         ("M-y" . counsel-yank-pop) 
-         :map minibuffer-local-map ("C-r" . 'counsel-minibuffer-history)) 
-  :config (setq ivy-initial-inputs-alias nil))
-
-;; friendly gui for ivy
-(use-package 
-  ivy-rich 
-  :after ivy 
-  counsel 
-  :init (ivy-rich-mode 1))
-
-;; emacs help improvements
-(use-package 
-  helpful 
-  :custom (counsel-describe-function-function #'helpful-callable) 
-  (counsel-describe-variable-function #'helpful-variable) 
-  :bind ([remap describe-function] . counsel-describe-function) 
-  ([remap describe-command] . counsel-help-command) 
-  ([remap describe-variable] . counsel-describe-variable) 
-  ([remap describe-key] . helpful-key))
-
-;; comment code efficiently
-(use-package 
-  evil-nerd-commenter 
-  :bind ("M-/" . 'evilnc-comment-or-uncomment-lines))
-
-;; edit mutiple regions
-(use-package 
-  iedit 
-  :bind ("C-c ," . iedit-mode) 
-  :diminish)
-
-;; treemac
-(use-package 
-  treemacs 
-  :ensure t 
-  :bind (:map global-map
-              ("M-0" . treemacs-select-window) 
-              ("C-x t 1" . treemacs-no-delete-other-windows) 
-              ("C-x t t" . treemacs) 
-              ("C-x t d" . treemacs-select-directory)) 
-  :config (progn 
-            (setq treemacs-no-png-images t treemacs-is-never-other-window nil)))
-
-(use-package 
-  treemacs-all-the-icons 
-  :config (treemacs-load-theme "all-the-icons"))
-
-(use-package 
-  elisp-format 
-  :ensure t 
-  :init)
-
-(robsonrod/major-mode-leader-map
-  :keymaps 'emacs-lisp-mode-map
-  "f" '(elisp-format-buffer :which-key "format the whole buffer"))
-
-;; find file in project
-(use-package 
-  find-file-in-project 
-  :if (executable-find "fdfind") 
-  :init (when (executable-find "fd") 
-          (setq ffip-use-rust-fd t)) 
-  :bind (("C-c o" . ffap) 
-         ("C-c p" . ffip)))
-
-;; search engine based on ripgrep
-(use-package 
-  ripgrep 
-  :ensure t)
-
-;; git diff
-(use-package 
-  git-gutter 
-  :hook (prog-mode . git-gutter-mode) 
-  :config (setq git-gutter:update-interval 0.02))
-
-;; git diff enhanced
-(use-package 
-  git-gutter-fringe 
-  :config (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated)) 
-  (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated)) 
-  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
-
-;; project manager
-(use-package 
-  projectile 
-  :diminish projectile-mode 
-  :config (projectile-mode) 
-  :demand t 
-  :custom ((projectile-completion-system 'ivy)) 
-  :bind-keymap ("C-c p" . projectile-command-map) 
-  :init (when (file-directory-p "~/projects/personal/") 
-          (setq projectile-project-search-path '("~/projects/personal/"))) 
-  (setq projectile-switch-project-action #'projectile-dired))
-
-;; ivy integration project manager
-(use-package 
-  counsel-projectile 
-  :after projectile 
-  :bind (("C-M-p" . counsel-projectile-find-file)) 
-  :config (counsel-projectile-mode))
-
-;; company
-(use-package 
-  company 
-  :ensure t 
-  :bind ("C-M-/" . company-complete-common-or-cycle) 
-  :init (add-hook 'after-init-hook 'global-company-mode) 
-  :config (setq company-show-quick-access t company-minimum-prefix-length 1 company-idle-delay 0.5
-                company-backends '((company-files ; files & directory
-                                    company-keywords ; keywords
-                                    company-capf     ; what is this?
-                                    company-yasnippet company-restclient) 
-                                   (company-abbrev company-dabbrev))))
-
-(use-package 
-  company-box 
-  :ensure t 
-  :after company 
-  :hook (company-mode . company-box-mode))
-
-;; git
-(use-package 
-  magit 
-  :bind ("C-M-;" . magit-status) 
-  :commands (magit-status magit-get-current-branch) 
-  :custom (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
-;; lsp - language server provider
-(use-package 
-  lsp-mode 
-  :ensure t 
-  :defer t 
-  :commands (lsp lsp-deferred) 
-  :bind (:map lsp-mode-map
-              ("M-<RET>" . lsp-execute-action)) 
-  :custom (lsp-auto-guess-root nil) 
-  (lsp-prefer-flymake nil)           ; Use flycheck instead of flymake
-  (lsp-enable-file-watchers nil) 
-  (lsp-enable-folding nil) 
-  (read-process-output-max (* 1024 1024)) 
-  (lsp-keep-workspace-alive nil) 
-  (lsp-eldoc-hook nil) 
-  :hook ((c-mode . lsp) 
-         (c++-mode . lsp) 
-         (clojure-mode . lsp) 
-         (rust-mode . lsp) 
-         (lsp-mode . lsp-enable-which-key-integration)) 
-  :config (setq lsp-keymap-prefix "C-c l") 
-  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map) 
-  (setq lsp-file-watch-threshold 15000) 
-  (setq lsp-ui-doc-enable nil) 
-  (setq lsp-ui-doc-show-with-cursor nil) 
-  (setq lsp-modeline-code-actions-enable nil) 
-  (setq lsp-signature-render-documentation nil) 
-  (setq lsp-lens-enable nil) 
-  (setq lsp-enable-symbol-highlighting nil) 
-  (setq lsp-eldoc-enable-hover nil) 
-  (setq lsp-eldoc-hook nil) 
-  (setq lsp-enable-links nil) 
-  (setq lsp-log-io nil) 
-  (setq lsp-enable-file-watchers nil) 
-  (setq lsp-enable-on-type-formatting nil) 
-  (setq lsp-completion-show-detail nil) 
-  (setq lsp-completion-show-kind nil) 
-  (setq lsp-headerline-breadcrumb-enable nil))
-
-;; a hight level UI modules of lsp
-(use-package 
-  lsp-ui 
-  :ensure t 
-  :diminish 
-  :defer t 
-  :after lsp 
-  :hook (lsp-mode . lsp-ui-mode) 
-  :config (setq lsp-ui-sideline-enable t) 
-  (setq lsp-ui-sideline-show-hover nil) 
-  (setq lsp-ui-doc-position 'bottom) 
-  (lsp-ui-doc-show) 
-  :bind (:map lsp-ui-mode-map
-              ("C-c i" . lsp-ui-menu)))
-
-;; ivy integration
-(use-package 
-  lsp-ivy 
-  :ensure t 
-  :commands lsp-ivy-workspace-symbol)
-
-;;  treemacs integration
-(use-package 
-  lsp-treemacs 
-  :ensure t 
-  :defer t 
-  :after lsp)
-
-;; debugger
-(use-package 
-  dap-mode 
-  :after lsp-mode 
-  :config (dap-auto-configure-mode) 
-  :diminish 
-  :bind (:map dap-mode-map
-              (("<f12>" . dap-debug) 
-               ("<f8>" . dap-continue) 
-               ("<f9>" . dap-next) 
-               ("<M-f11>" . dap-step-in) 
-               ("C-M-<f11>" . dap-step-out) 
-               ("<f7>" . dap-breakpoint-toggle))))
-
-;; flycheck
-(use-package 
-  flycheck 
-  :ensure t 
-  :init)
-
-;; clojure support
-(use-package 
-  flycheck-clj-kondo)
-
-(use-package 
-  clojure-mode 
-  :after flycheck-clj-kondo 
-  :config (require 'flycheck-clj-kondo))
-
-;; ccls server
-(use-package 
-  ccls 
-  :ensure t 
-  :config 
-  :hook ((c-mode c++-mode objc-mode cuda-mode) . (lambda () 
-                                                   (require 'ccls) 
-                                                   (lsp))))
-
-;; formatter
-(use-package 
-  clang-format 
-  :ensure t 
-  :init (add-hook 'c-mode-common-hook (function (lambda () 
-                                                  (add-hook 'before-save-hook
-                                                            'clang-format-buffer)))))
-(use-package 
-  geiser-mit 
-  :ensure t 
-  :config (setq geiser-mit-binary "/usr/bin/scheme" gbeiser-active-implementations '(mit)))
-
 (global-set-key (kbd "M-o") 'ff-find-related-file)
 
-;; cider clojure
-(setq org-babel-clojure-backend 'cider)
-(use-package 
-  cider 
-  :defer t 
-  :init (progn (add-hook 'clojure-mode-hook 'cider-mode) 
-               (add-hook 'clojurec-mode-hook 'cider-mode) 
-               (add-hook 'cider-repl-mode-hook 'cider-mode)) 
-  :config (setq cider-repl-display-help-banner nil) 
-  (setq cider-auto-mode nil))
-
-;; rust
-(use-package 
-  rust-mode 
-  :defer t 
-  :mode "\\.rs\\'" 
-  :custom (rust-format-on-save t) 
-  (lsp-rust-server 'rust-analyzer))
-
-;; yaml support
-(use-package 
-  yaml-mode 
-  :defer t)
-
-;; dockerfile support
-(use-package 
-  dockerfile-mode 
-  :defer t)
-
-;; sh script support
-(use-package 
-  sh-script 
-  :ensure nil 
-  :config (with-eval-after-load 'company (add-hook 'sh-mode-hook #'(lambda () 
-                                                                     (company-mode -1)))))
-
-(use-package 
-  shfmt 
-  :defer t 
-  :config (add-hook 'sh-mode-hook 'shfmt-on-save-mode))
-
-(use-package 
-  fish-mode 
-  :defer t 
-  :config (setq fish-enable-auto-indent t) 
-  :mode "\\.fish\\'")
-
-;; rest client
-(use-package 
-  restclient 
-  :ensure t 
-  :mode (("\\.http\\'" . restclient-mode)))
-
-(use-package 
-  company-restclient 
-  :ensure t)
-
-(use-package 
-  page-break-lines)
-
-;;
-(use-package 
-  exec-path-from-shell 
-  :if (memq window-system '(mac ns x)) 
-  :config (exec-path-from-shell-initialize))
-
-;; terminal
-(use-package 
-  vterm 
-  :config (setq vterm-shell "/usr/bin/fish") 
-  :hook (vterm-mode . (lambda () 
-                        (hl-line-mode -1) 
-                        (display-line-numbers-mode -1))))
-
-(use-package 
-  multi-vterm 
-  :after vterm 
-  :ensure t 
-  :defer t)
-
-
-(robsonrod/ctrl-c-definer
-  "t" '(multi-vterm :which-key "open an arbitrary terminal")
-  "j" '(multi-vterm-project :which-key "open terminal into project"))
-
-(robsonrod/ctrl-c-definer
-  :keymaps 'vterm-mode-map
-  "n" '(multi-vterm-next :which-key "next terminal")
-  "p" '(multi-vterm-prev :which-key "previous terminal"))
-
-;; org mode
-(defun efs/org-mode-setup () 
-  (org-indent-mode) 
-  (variable-pitch-mode 1) 
-  (visual-line-mode 1))
-
-(defun efs/org-font-setup () 
-  "Replace list hyphen with dot."
-  (font-lock-add-keywords 
-   'org-mode
-   '(("^ *\\([-]\\) " (0 (prog1 () 
-                           (compose-region (match-beginning 1) 
-                                           (match-end 1) "•"))))))
-
-  ;; Set faces for heading levels
-  (dolist (face '((org-level-1 . 1.2) 
-                  (org-level-2 . 1.1) 
-                  (org-level-3 . 1.05) 
-                  (org-level-4 . 1.0) 
-                  (org-level-5 . 1.1) 
-                  (org-level-6 . 1.1) 
-                  (org-level-7 . 1.1) 
-                  (org-level-8 . 1.1))) 
-    (set-face-attribute (car face) nil 
-                        :font "Fira Code Retina" 
-                        :weight 'regular 
-                        :height (cdr face)))
-
-  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
-  (set-face-attribute 'org-block nil
-                      :foreground "unspeficied"
-                      :inherit 'fixed-pitch) 
-  (set-face-attribute 'org-code nil 
-                      :inherit '(shadow fixed-pitch)) 
-  (set-face-attribute 'org-table nil 
-                      :inherit '(shadow fixed-pitch)) 
-  (set-face-attribute 'org-verbatim nil 
-                      :inherit '(shadow fixed-pitch)) 
-  (set-face-attribute 'org-special-keyword nil 
-                      :inherit '(font-lock-comment-face fixed-pitch)) 
-  (set-face-attribute 'org-meta-line nil 
-                      :inherit '(font-lock-comment-face fixed-pitch)) 
-  (set-face-attribute 'org-checkbox nil 
-                      :inherit 'fixed-pitch))
-
-;; org mode
-(use-package 
-  org 
-  :hook (org-mode . efs/org-mode-setup) 
-  :config (setq org-ellipsis " ▾" org-hide-emphasis-markers t org-confirm-babel-evaluate nil
-                org-fontify-quote-and-verse-blocks t org-startup-folded 'content
-                org-agenda-start-with-log-mode t org-log-done 'time org-log-into-drawer t) 
-  (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) 
-                                                           (python . t) 
-                                                           (shell . t) 
-                                                           (clojure . t) 
-                                                           (scheme . t))) 
-  (efs/org-font-setup))
-
-;; custom bullets
-(use-package 
-  org-bullets 
-  :after org 
-  :hook (org-mode . org-bullets-mode) 
-  :custom (org-bullets-bullet-list '("◉" "○" "✸" "○" "●" "○" "●")))
-
-(defun efs/org-mode-visual-fill () 
-  (setq visual-fill-column-width 200 visual-fill-column-center-text t) 
-  (visual-fill-column-mode 1))
-
-(use-package 
-  visual-fill-column 
-  :hook (org-mode . efs/org-mode-visual-fill))
-
-(setq org-babel-clojure-backend 'cider)
-
-;; org templates
-(require 'org-tempo)
-
-(add-to-list 'org-modules 'org-tempo t)
-(add-to-list 'org-structure-template-alist '("clj" . "src clojure"))
-(add-to-list 'org-structure-template-alist '("pyt" . "src python"))
-(add-to-list 'org-structure-template-alist '("sh"  . "src shell"))
-(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-(add-to-list 'org-structure-template-alist '("scm" . "src scheme"))
-
-(use-package 
-  org-auto-tangle 
-  :defer t 
-  :hook (org-mode . org-auto-tangle-mode))
-
-;; org-roam
-(use-package 
-  org-roam 
-  :ensure t 
-  :init (setq org-roam-v2-ack t) 
-  :custom (org-roam-directory "~/Notes/Roam/") 
-  (org-roam-completion-everywhere t) 
-  (org-roam-capture-templates '(("d" "default" plain "%?" 
-                                 :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                                                    "#+title: ${title}\n") 
-                                 :unnarrowed t) 
-                                ("l" "programming language" plain (file
-                                                                   "~/Notes/Roam/ProgrammingLanguagesTemplate.org") 
-                                 :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                                                    "#+title: ${title}\n") 
-                                 :unnarrowed t) 
-                                ("b" "book notes" plain (file "~/Notes/Roam/BookNotesTemplate.org") 
-                                 :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                                                    "#+title: ${title}\n") 
-                                 :unnarrowed t) 
-                                ("p" "project" plain (file "~/Notes/Roam/ProjectsTemplate.org") 
-                                 :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                                                    "#+title: ${title}\n#+filetags: Project") 
-                                 :unnarrowed t))) 
-  :bind (("C-c n l" . org-roam-buffer-toggle) 
-         ("C-c n f" . org-roam-node-find) 
-         ("C-c n i" . org-roam-node-insert) 
-         :map org-mode-map ("C-M-i" . completion-at-point)) 
-  :config (org-roam-setup))
-
-(use-package 
-  elfeed-org 
-  :config (elfeed-org) 
-  :ensure t 
-  :custom (rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org")))
-
-(use-package 
-  dictionary 
-  :bind (("C-c l" . dictionary-lookup-definition)) 
-  :config (setq dictionary-server "dict.org"))
-
-;; Configure Elfeed
-(use-package 
-  elfeed 
-  :custom (elfeed-db-directory (expand-file-name "elfeed" user-emacs-directory)) 
-  (elfeed-show-entry-switch 'display-buffer) 
-  :bind ("C-c w" . elfeed ))
-
-(use-package 
-  pdf-tools 
-  :defer t 
-  :magic ("%PDF" . pdf-view-mode) 
-  :hook (pdf-tools-enabled . pdf-view-midnight-minor-mode) 
-  :general 
-  :config (pdf-tools-install) 
-  (setq-default pdf-view-display-size 'fit-page) 
-  (with-eval-after-load 'pdf-view 
-    (setq pdf-view-midnight-colors '("#d8dee9" . "#2e3440"))))
-
-;; Configure Tempel
-(use-package tempel
-  :custom
-  (tempel-trigger-prefix "<")
-  :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
-         ("M-*" . tempel-insert))
-  :init
-  (defun tempel-setup-capf ()
-    (setq-local completion-at-point-functions
-                (cons #'tempel-expand
-                      completion-at-point-functions)))
-
-  (add-hook 'conf-mode-hook 'tempel-setup-capf)
-  (add-hook 'prog-mode-hook 'tempel-setup-capf)
-  (add-hook 'text-mode-hook 'tempel-setup-capf)
-
-  ;; Optionally make the Tempel templates available to Abbrev,
-  ;; either locally or globally. `expand-abbrev' is bound to C-x '.
-  (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
-  ;; (global-tempel-abbrev-mode)
-)
-
-(use-package tempel-collection
-  :ensure t
-  :after tempel)
-
-;; Optional: Use the Corfu completion UI
-(use-package corfu
-  :init
-  (global-corfu-mode))
-
+(require 'init-gui)
 (require 'init-functions)
 (require 'init-eshell)
+(require 'init-lsp)
+(require 'init-dired)
+(require 'init-company)
+(require 'init-org)
+(require 'init-magit)
+(require 'init-vterm)
+(require 'init-templates)
+(require 'init-cpp)
+(require 'init-rust)
+(require 'init-elisp)
+(require 'init-pdf)
+(require 'init-completion)
+(require 'init-project)
+(require 'init-clojure)
+(require 'init-scheme)
+(require 'init-dap)
+(require 'init-prog-common)
+(require 'init-treemacs)
+(require 'init-sh)
+(require 'init-emacs-misc)
+(require 'init-commenter)
+(require 'init-rss)
+(require 'init-dictionary)
+(require 'init-rust)
+(require 'init-undo)
 
-;; end
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("7fd8b914e340283c189980cd1883dbdef67080ad1a3a9cc3df864ca53bdc89cf"
-     "1930427eae3d4d830a43fd79fbda76021138b929c243a4e8606cf4f0531ea17c"
-     "eab123a5ed21463c780e17fc44f9ffc3e501655b966729a2d5a2072832abd3ac"
-     "b1acc21dcb556407306eccd73f90eb7d69664380483b18496d9c5ccc5968ab43"
-     default))
  '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode")
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(auto-package-update auto-compile undo-fu-session undo-fu
+                         undu-fu-session undu-fu yaml-mode which-key
+                         visual-fill-column treemacs-all-the-icons
+                         tempel-collection spacemacs-theme shfmt
+                         rust-mode ripgrep rainbow-delimiters
+                         perspective pdf-tools paredit
+                         page-break-lines org-roam org-bullets
+                         org-auto-tangle multi-vterm
+                         modern-cpp-font-lock minions magit lsp-ui
+                         lsp-ivy ivy-rich iedit helpful
+                         git-gutter-fringe general geiser-mit
+                         flycheck-clj-kondo fish-mode fish-completion
+                         find-file-in-project exec-path-from-shell
+                         evil-nerd-commenter
+                         eshell-syntax-highlighting
+                         eshell-prompt-extras esh-autosuggest
+                         elisp-format elfeed-org doom-themes
+                         doom-modeline dockerfile-mode dired-single
+                         dired-ranger dired-rainbow dired-open
+                         dired-hide-dotfiles dired-collapse diminish
+                         dap-mode counsel-projectile corfu
+                         company-restclient company-box clang-format
+                         cider ccls all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

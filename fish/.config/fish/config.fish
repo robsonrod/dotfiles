@@ -101,7 +101,7 @@ starship init fish | source
 zoxide init fish | source
 source $HOME/.asdf/asdf.fish
 
-abbr -a wget 'wget --hsts-file="$XDG_DATA_HOME/wget-hsts" -c'
+alias wget 'wget --hsts-file="$XDG_DATA_HOME/wget-hsts" -c'
 
 if command -v exa >/dev/null
     alias l 'exa -l --color=always --group-directories-first'

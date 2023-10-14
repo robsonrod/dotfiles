@@ -11,4 +11,4 @@ exec /usr/bin/ccls --log-file=/tmp/ccls --init='{"clang":{"extraArgs":[
  "-isystem/usr/local/include",
  "-isystem/usr/include/x86_64-linux-gnu",
  "-isystem/usr/include"
-]}, "index": { "threads" : 2, "comments" : 0}, "cache": { "directory": "~/.cache/ccls-cache" }}' "$@"
+]}, "index": { "threads" : 2, "comments" : 0}, "cache": { "directory": "/tmp/ccls-cache" }}' "$@"

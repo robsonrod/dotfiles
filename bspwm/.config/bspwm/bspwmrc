@@ -10,7 +10,7 @@ if [[ "$COMPUTER_NAME" == "iracema" ]]; then
     /usr/bin/gnome-keyring-daemon --start --components=ssh &
 fi
 
-bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+bspc monitor -d 1 2 3 4 5 
 
 bspc config border_width 1
 bspc config window_gaps 12
@@ -97,5 +97,7 @@ if [[ "$COMPUTER_NAME" == "iracema" ]]; then
     /usr/bin/com.system76.FirmwareManager.Notify &
     /usr/bin/pop-transition -d &
 fi
+
+low_bat_notifier
 
 wmname xfwm4

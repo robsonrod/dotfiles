@@ -130,5 +130,17 @@ Position the cursor at its beginning, according to the current mode."
   (forward-line -1)
   (indent-according-to-mode))
 
+(defun robsonrod/switch-to-scratch-buffer ()
+  "Switch to scratch buffer"
+  (interactive)
+  (switch-to-buffer "*scratch*"))
+
+(defun robsonrod/switch-to-message-buffer ()
+  (interactive)
+  (switch-to-buffer "*Messages*"))
+
+(defun robsonrod/custom-tab-indent ()
+  "Use tabs instead of spaces"
+  (setq-local indent-tabs-mode 1))
 
 (provide 'init-functions)
