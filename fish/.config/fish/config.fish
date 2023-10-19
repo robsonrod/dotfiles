@@ -6,9 +6,7 @@ function fish_greeting
 end
 
 if status --is-interactive
-    gpgconf --launch gpg-agent
-    set -e SSH_AUTH_SOCK
-    set -U -x SSH_AUTH_SOCK ~/.gnupg/S.gpg-agent.ssh
+    eval (gpgconf --launch gpg-agent)
 end
 
 if test -n "$EMACS"
@@ -116,6 +114,8 @@ else
     alias ll 'ls -la'
 end
 
+set -gx GPG_TTY (tty)
+
 set -Ux GDK_SCALE 2
 set -Ux GDK_DPI_SCALE 0.5
 set -Ux QT_AUTO_SCREEN_SET_FACTOR 0
@@ -140,7 +140,6 @@ set __fish_git_prompt_showupstream none
 set __fish_git_prompt_showuntrackedfiles yes
 set __fish_git_prompt_showdirtystate yes
 set __fish_git_prompt_showdirtystate ''
-
 
 function rsync-scp --description "Copy remote file showing progress"
     rsync -r --progress $argv[1]:$argv[2] $argv[3]

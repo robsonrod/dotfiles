@@ -9,9 +9,9 @@ super + Escape
 super + t
 	kitty
 
-# alacritty
+# urxvt
 super + alt + t
-    alacritty
+    urxvt -e fish
 
 # program launcher
 super + alt + d
