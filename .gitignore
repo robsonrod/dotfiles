@@ -32,6 +32,8 @@ emacs/.emacs.d/eshell/history
 emacs/.emacs.d/eshell/lastdir
 emacs/.emacs.d/url/
 emacs/.emacs.d/eln-cache
+emacs/.emacs.d/.last-package-update-day
+emacs/.emacs.d/undo-fu-session/
 tmux/.config/tmux/plugins/
 **/fish/.config/fish/completions/
 **/fish/.config/fish/conf.d/
