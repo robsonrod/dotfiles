@@ -1,3 +1,3 @@
-function reload --description "Reload fish config"
+function reload --wraps="source /root/.config/fish/config.fish" --description "Reload fish config"
     source "$HOME/.config/fish/config.fish"
 end

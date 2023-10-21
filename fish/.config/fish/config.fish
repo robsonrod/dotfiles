@@ -95,12 +95,6 @@ abbr -a suser 'systemctl --user'
 
 fish_config theme choose 'Dracula Official'
 
-starship init fish | source
-zoxide init fish | source
-source $HOME/.asdf/asdf.fish
-
-alias wget 'wget --hsts-file="$XDG_DATA_HOME/wget-hsts" -c'
-
 if command -v exa >/dev/null
     alias l 'exa -l --color=always --group-directories-first'
     alias ls 'exa --color=always --group-directories-first'
@@ -115,7 +109,6 @@ else
 end
 
 set -gx GPG_TTY (tty)
-
 set -Ux GDK_SCALE 2
 set -Ux GDK_DPI_SCALE 0.5
 set -Ux QT_AUTO_SCREEN_SET_FACTOR 0
@@ -140,23 +133,6 @@ set __fish_git_prompt_showupstream none
 set __fish_git_prompt_showuntrackedfiles yes
 set __fish_git_prompt_showdirtystate yes
 set __fish_git_prompt_showdirtystate ''
-
-function rsync-scp --description "Copy remote file showing progress"
-    rsync -r --progress $argv[1]:$argv[2] $argv[3]
-end
-
-function dotfiles --description "Goto my config files"
-    z "$HOME/dotfiles"
-end
-
-function d --description "Goto root project"
-    while test $PWD != /
-        if test -d .git
-            break
-        end
-        cd ..
-    end
-end
 
 function fish_command_not_found
     __fish_default_command_not_found_handler $argv
