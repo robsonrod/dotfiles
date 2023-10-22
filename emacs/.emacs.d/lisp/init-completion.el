@@ -36,8 +36,6 @@
   :bind (("M-x" . counsel-M-x) 
          ("C-x b" . counsel-ibuffer) 
          ("C-x C-f" . counsel-find-file) 
-         ("C-c r" . counsel-rg) 
-         ("C-c f" . counsel-fzf) 
          ("C-M-j" . counsel-switch-buffer) 
          ("M-y" . counsel-yank-pop) 
          :map minibuffer-local-map ("C-r" . 'counsel-minibuffer-history)) 
@@ -49,5 +47,9 @@
   :after ivy 
   counsel 
   :init (ivy-rich-mode 1))
+
+(robsonrod/major-mode-leader-map
+  "r" 'counsel-rg
+  "f" 'counsel-fzf)
 
 (provide 'init-completion)

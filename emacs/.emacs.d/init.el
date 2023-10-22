@@ -179,7 +179,6 @@
 (require 'init-commenter)
 (require 'init-rss)
 (require 'init-dictionary)
-(require 'init-rust)
 (require 'init-undo)
 
 (custom-set-variables

@@ -4,8 +4,6 @@ pgrep -x sxhkd >/dev/null || sxhkd &
 pkill -f dunst &
 pkill -f polybar &
 
-source ~/.env
-
 if [[ "$COMPUTER_NAME" == "iracema" ]]; then
     /usr/bin/gnome-keyring-daemon --start --components=ssh &
 fi

@@ -8,8 +8,8 @@
   :demand t 
   :custom ((projectile-completion-system 'ivy)) 
   :bind-keymap ("C-c p" . projectile-command-map) 
-  :init (when (file-directory-p "~/projects/personal/") 
-          (setq projectile-project-search-path '("~/projects/personal/"))) 
+  :init (when (file-directory-p "~/dev/personal") 
+          (setq projectile-project-search-path '("~/dev/personal"))) 
   (setq projectile-switch-project-action #'projectile-dired))
 
 ;; ivy integration project manager
@@ -25,7 +25,7 @@
   :if (executable-find "fdfind") 
   :init (when (executable-find "fd") 
           (setq ffip-use-rust-fd t)) 
-  :bind (("C-c o" . ffap) 
-         ("C-c p" . ffip)))
+  :bind (("C-c f a" . ffap) 
+         ("C-c f i" . ffip)))
 
 (provide 'init-project)
