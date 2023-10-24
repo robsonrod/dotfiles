@@ -1,7 +1,7 @@
 set -gx CARGO_HOME "$XDG_DATA_HOME/cargo"
 
 switch ":$PATH:"
-    case "*:/cargo/bin:*"
+    case "*$CARGO_HOME*"
         # do nothing
         ;;
     case "*"
