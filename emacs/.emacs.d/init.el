@@ -155,8 +155,13 @@
 
 (global-set-key (kbd "M-o") 'ff-find-related-file)
 
-(when (and (memq window-system '(x))
-           (seq-contains-p command-line-args "--use-exwm"))
+(defvar robsonrod/exwm-running
+  (cond ((and (memq window-system '(x))
+              (seq-contains-p command-line-args "--use-exwm")
+              :true))
+        (t :false)))
+
+(when (eq robsonrod/exwm-running :true)
   (message "Starting EXWM")
   (require 'init-exwm))
 

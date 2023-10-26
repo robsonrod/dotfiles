@@ -81,18 +81,19 @@
 
 (use-package wgrep)
 
-(use-package ivy-posframe
-  :custom
-  (ivy-posframe-width      115)
-  (ivy-posframe-min-width  115)
-  (ivy-posframe-height     20)
-  (ivy-posframe-min-height 20)
-  :config
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
-  (setq ivy-posframe-parameters '((parent-frame . nil)
-                                  (left-fringe . 8)
-                                  (right-fringe . 8)))
-  (ivy-posframe-mode 1))
+(when (eq robsonrod/exwm-running :true)
+  (use-package ivy-posframe
+    :custom
+    (ivy-posframe-width      115)
+    (ivy-posframe-min-width  115)
+    (ivy-posframe-height     20)
+    (ivy-posframe-min-height 20)
+    :config
+    (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+    (setq ivy-posframe-parameters '((parent-frame . nil)
+                                    (left-fringe . 8)
+                                    (right-fringe . 8)))
+    (ivy-posframe-mode 1)))
 
 (use-package prescient
   :after counsel
@@ -112,13 +113,6 @@
   :init (all-the-icons-ivy-rich-mode 1)
   :custom
   (setq all-the-icons-ivy-rich-color-icon t))
-
-;; friendly gui for ivy
-;; (use-package 
-;; ivy-rich 
-;; :after ivy 
-;; counsel 
-;; :init (ivy-rich-mode 1))
 
 (robsonrod/major-mode-leader-map
   "r" 'counsel-rg
