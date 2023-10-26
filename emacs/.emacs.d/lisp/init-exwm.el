@@ -89,7 +89,7 @@
           ([?\s-t] . multi-vterm)
           ([?\s-c] . calc)
           ([?\s-f] . (lambda () (interactive)(start-process "" nil "firefox")))
-          ([?\s-x] . (lambda () (interactive)(start-process-shell-command "screen_lock" nil "screen_lock")))
+          ([?\s-l] . (lambda () (interactive)(start-process-shell-command "screen_lock" nil "screen_lock")))
 
           ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
           ,@(mapcar (lambda (i)

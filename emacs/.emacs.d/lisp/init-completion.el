@@ -84,13 +84,14 @@
 (when (eq robsonrod/exwm-running :true)
   (use-package ivy-posframe
     :custom
-    (ivy-posframe-width      115)
-    (ivy-posframe-min-width  115)
+    (ivy-posframe-width      160)
+    (ivy-posframe-min-width  160)
     (ivy-posframe-height     20)
     (ivy-posframe-min-height 20)
     :config
     (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
-    (setq ivy-posframe-parameters '((parent-frame . nil)
+    (setq ivy-posframe-parameters '((alpha . 90)
+                                    (parent-frame . nil)
                                     (left-fringe . 8)
                                     (right-fringe . 8)))
     (ivy-posframe-mode 1)))

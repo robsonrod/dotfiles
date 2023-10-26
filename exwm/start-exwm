@@ -13,6 +13,8 @@ setxkbmap -layout "$(setxkbmap -print | awk -F + '/xkb_symbols/ {print $2}')" -o
 # silent
 xset -b
 
+unclutter &
+
 # turn off bluetooth
 bluetoothctl power off &>/dev/null &
 

@@ -90,7 +90,7 @@
 
 ;; font configuration
 (set-face-attribute 'default nil 
-                    :font "JuliaMono" 
+                    :font "JetBrainsMono Nerd Font" 
                     :height 100)
 (set-face-attribute 'fixed-pitch nil 
                     :font "RobotoMono Nerd Font" 
