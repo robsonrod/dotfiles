@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=EXWM
+Comment=Emacs Window Manager
+Exec=sh /home/robson/dotfiles/exwm/start-exwm
+TryExec=sh
+Type=Application
+X-LightDM-DesktopName=exwm
+
+[X-Window Manager]
+SessionManaged=true

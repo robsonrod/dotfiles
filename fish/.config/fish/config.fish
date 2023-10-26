@@ -115,13 +115,13 @@ set -Ux QT_AUTO_SCREEN_SET_FACTOR 0
 set -Ux QT_SCALE_FACTOR 2
 set -Ux QT_FONT_DPI 96
 
-set -Ux LESS_TERMCAP_mb \e'[1;31m'
-set -Ux LESS_TERMCAP_md \e'[1;34m'
-set -Ux LESS_TERMCAP_so \e'[01;45;37m'
-set -Ux LESS_TERMCAP_us \e'[1;36m'
-set -Ux LESS_TERMCAP_me \e'[0m'
-set -Ux LESS_TERMCAP_se \e'[0m'
-set -Ux LESS_TERMCAP_ue \e'[0m'
+# # set -Ux LESS_TERMCAP_mb \e'[1;31m'
+# set -Ux LESS_TERMCAP_md \e'[1;34m'
+# set -Ux LESS_TERMCAP_so \e'[01;45;37m'
+# set -Ux LESS_TERMCAP_us \e'[1;36m'
+# set -Ux LESS_TERMCAP_me \e'[0m'
+# set -Ux LESS_TERMCAP_se \e'[0m'
+# set -Ux LESS_TERMCAP_ue \e'[0m'
 
 set -Ux EXA_COLORS "uu=36:gu=37:sn=32:sb=32:da=34:ur=34:uw=35:ux=36:ue=36:gr=34:gw=35:gx=36:tr=34:tw=35:tx=36:"
 

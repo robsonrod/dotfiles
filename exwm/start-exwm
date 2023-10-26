@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+xset dpms 240 300 360 &
+
+# Fix cursor shape
+xsetroot -cursor_name left_ptr &
+
+# no caps at all
+setxkbmap -layout "$(setxkbmap -print | awk -F + '/xkb_symbols/ {print $2}')" -option ctrl:nocaps
+
+# silent
+xset -b
+
+# turn off bluetooth
+bluetoothctl power off &>/dev/null &
+
+xautolock -time 3 -locker screen_lock -detectsleep -killtime 60 -killer "systemctl suspend" &
+
+emacs -mm --debug-init --use-exwm
