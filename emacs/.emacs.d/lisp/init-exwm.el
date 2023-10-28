@@ -80,7 +80,7 @@
           ([s-down] . windmove-down)
 
           ;; Launch applications via shell command
-          ([?\s-r] . (lambda (command)
+          ([?\s-d] . (lambda (command)
                        (interactive (list (read-shell-command "$ ")))
                        (start-process-shell-command command nil command)))
 
@@ -89,8 +89,7 @@
           ([?\s-t] . multi-vterm)
           ([?\s-c] . calc)
           ([?\s-f] . (lambda () (interactive)(start-process "" nil "firefox")))
-          ([?\s-l] . (lambda () (interactive)(start-process-shell-command "screen_lock" nil "screen_lock")))
-
+   
           ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
           ,@(mapcar (lambda (i)
                       `(,(kbd (format "s-%d" i)) .
@@ -109,6 +108,8 @@
   (desktop-environment-brightness-small-increment "2%+")
   (desktop-environment-brightness-small-decrement "2%-")
   (desktop-environment-brightness-normal-increment "5%+")
-  (desktop-environment-brightness-normal-decrement "5%-"))
+  (desktop-environment-brightness-normal-decrement "5%-")
+  (desktop-environment-screenlock-command "screen_lock")
+  (desktop-environment-screenshot-command "flameshot gui"))
 
 (provide 'init-exwm)

@@ -106,6 +106,9 @@
 (global-set-key [(control shift return)] 'robsonrod/smart-open-line-above)
 (global-set-key [(shift return)] 'robsonrod/smart-open-line)
 
+;; replace list-buffer
+(global-set-key (kbd "C-x C-b") 'counsel-ibuffer)
+
 ;; custom window management
 (global-set-key (kbd "C-<tab>") 'other-window)
 (global-set-key (kbd "M-<down>") 'enlarge-window)
