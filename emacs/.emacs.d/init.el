@@ -60,8 +60,8 @@
 (setq frame-title-format "%b - emacs")
 
 ;; window resize
-(set-frame-parameter (selected-frame) 'alpha '(98 98))
-(add-to-list 'default-frame-alist '(alpha . (98 . 98)))
+(set-frame-parameter (selected-frame) 'alpha '(90 90))
+(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -203,32 +203,26 @@
  ;; If there is more than one, they won't work right.
  '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode")
  '(package-selected-packages
-   '(all-the-icons-ivy-rich all-the-icons-ivy ivy-posframe ivy-prescient
-                            wgrep flx yaml-mode which-key
-                            visual-fill-column undo-fu-session undo-fu
-                            treemacs-all-the-icons tempel-collection
-                            spacemacs-theme shfmt rust-mode ripgrep
-                            rainbow-delimiters perspective pdf-tools
-                            paredit org-roam org-bullets
-                            org-auto-tangle multi-vterm
-                            modern-cpp-font-lock minions magit lsp-ui
-                            lsp-ivy ivy-rich ivy-hydra iedit helpful
-                            git-gutter-fringe general geiser-mit
-                            flycheck-clj-kondo fish-mode
-                            fish-completion find-file-in-project exwm
-                            exec-path-from-shell evil-nerd-commenter
-                            eshell-syntax-highlighting
-                            eshell-prompt-extras elisp-format
-                            elfeed-org doom-themes doom-modeline
-                            dockerfile-mode dired-single dired-ranger
-                            dired-rainbow dired-open
-                            dired-hide-dotfiles dired-collapse
-                            diminish desktop-environment dap-mode
-                            counsel-projectile corfu
-                            company-restclient company-box
-                            clang-format cider ccls
-                            auto-package-update auto-compile
-                            all-the-icons-dired)))
+   '(smartparens all-the-icons-ivy-rich all-the-icons-ivy ivy-posframe
+                 ivy-prescient wgrep flx yaml-mode which-key
+                 visual-fill-column undo-fu-session undo-fu
+                 treemacs-all-the-icons tempel-collection
+                 spacemacs-theme shfmt rust-mode ripgrep
+                 rainbow-delimiters perspective pdf-tools paredit
+                 org-roam org-bullets org-auto-tangle multi-vterm
+                 modern-cpp-font-lock minions magit lsp-ui lsp-ivy
+                 ivy-rich ivy-hydra iedit helpful git-gutter-fringe
+                 general geiser-mit flycheck-clj-kondo fish-mode
+                 fish-completion find-file-in-project exwm
+                 exec-path-from-shell evil-nerd-commenter
+                 eshell-syntax-highlighting eshell-prompt-extras
+                 elisp-format elfeed-org doom-themes doom-modeline
+                 dockerfile-mode dired-single dired-ranger
+                 dired-rainbow dired-open dired-hide-dotfiles
+                 dired-collapse diminish desktop-environment dap-mode
+                 counsel-projectile corfu company-restclient
+                 company-box clang-format cider ccls
+                 auto-package-update auto-compile all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

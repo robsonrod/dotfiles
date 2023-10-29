@@ -26,6 +26,11 @@
                (add-hook 'cider-repl-mode-hook 'paredit-mode)
                (add-hook 'geiser-repl-mode-hook 'paredit-mode)))
 
+(use-package
+  smartparens
+  :defer t
+  :hook (prog-mode . smartparens-mode))
+
 ;; rest client
 (use-package 
   restclient 
@@ -41,6 +46,7 @@
 (use-package 
   dockerfile-mode 
   :defer t)
+
 
 
 (provide 'init-prog-common)

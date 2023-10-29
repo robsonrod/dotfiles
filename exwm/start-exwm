@@ -20,4 +20,4 @@ bluetoothctl power off &>/dev/null &
 
 xautolock -time 3 -locker screen_lock -detectsleep -killtime 60 -killer "systemctl suspend" &
 
-emacs -mm --debug-init --use-exwm
+exec dbus-launch --exit-with-session emacs -mm --debug-init --use-exwm

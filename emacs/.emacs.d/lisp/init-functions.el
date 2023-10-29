@@ -143,4 +143,9 @@ Position the cursor at its beginning, according to the current mode."
   "Use tabs instead of spaces"
   (setq-local indent-tabs-mode 1))
 
+(defun robsonrod/su-find-file (filename)
+  (interactive "FFind file(sudo): ")
+  (let ((file-to-open (concat "/sudo::" (expand-file-name filename))))
+    (find-file file-to-open)))
+
 (provide 'init-functions)
