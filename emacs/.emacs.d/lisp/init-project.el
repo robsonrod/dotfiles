@@ -1,3 +1,8 @@
+(defun robsonrod/switch-project-action ()
+  "Switch to a workspace with the project name and start `magit-status'."
+  (persp-switch (projectile-project-name))
+  (magit-status))
+
 ;; project manager
 (use-package 
   projectile 
@@ -10,7 +15,8 @@
   :bind-keymap ("C-c p" . projectile-command-map) 
   :init (when (file-directory-p "~/dev/personal") 
           (setq projectile-project-search-path '("~/dev/personal"))) 
-  (setq projectile-switch-project-action #'projectile-dired))
+  (setq projectile-switch-project-action #'robsonrod/switch-project-action)
+  (projectile-mode))
 
 ;; ivy integration project manager
 (use-package 

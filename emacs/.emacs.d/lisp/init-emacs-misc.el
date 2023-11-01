@@ -104,4 +104,9 @@
      (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
      (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 
+;; Don't let ediff break EXWM, keep it in one frame
+(setq ediff-diff-options "-w"
+      ediff-split-window-function 'split-window-horizontally
+      ediff-window-setup-function 'ediff-setup-windows-plain)
+
 (provide 'init-emacs-misc)
