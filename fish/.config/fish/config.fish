@@ -64,7 +64,8 @@ abbr -a log 'git log --graph --pretty=format:\'%C(bold)%h%Creset%C(magenta)%d%Cr
 abbr -a grm 'git rm'
 abbr -a gfetch 'git fetch --all --prune --verbose'
 abbr -a greset 'git reset HEAD'
-abbr -a pull 'git pull && git push'
+abbr -a pull 'git pull'
+abbr -a ppush 'git pull && git push'
 abbr -a push 'git push origin'
 abbr -a gclear 'git clean -xfd'
 abbr -a branchd 'git branch -D'
@@ -129,3 +130,5 @@ set __fish_git_prompt_showdirtystate ''
 function fish_command_not_found
     __fish_default_command_not_found_handler $argv
 end
+
+set fish_function_path $fish_function_path "$HOME/.config/fish/functions/work"
