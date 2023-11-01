@@ -79,6 +79,8 @@
 (global-hl-line-mode +1)
 (global-display-line-numbers-mode t)
 
+(server-start)
+
 ;; disable line numbers for some modes
 (dolist (mode '(org-mode-hook term-mode-hook vterm-mode-hook shell-mode-hook eshell-mode-hook
                               dired-mode-hook pdf-view-mode-hook)) 
@@ -87,6 +89,9 @@
 
 ;; spaces instead of tabs
 (setq-default indent-tabs-mode nil)
+
+;; gpg prompt
+(setq epa-pinentry-mode 'loopback)
 
 ;; font configuration
 (set-face-attribute 'default nil 
@@ -200,7 +205,28 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode")
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(magit-todos git-link openwith yaml-mode which-key wgrep
+                 visual-fill-column undo-fu-session undo-fu
+                 treemacs-all-the-icons tempel-collection
+                 spacemacs-theme smartparens shfmt rust-mode ripgrep
+                 rainbow-delimiters perspective pdf-tools paredit
+                 org-roam org-bullets org-auto-tangle multi-vterm
+                 modern-cpp-font-lock minions magit lsp-ui lsp-ivy
+                 ivy-prescient ivy-posframe ivy-hydra iedit helpful
+                 git-gutter-fringe general geiser-guile
+                 flycheck-clj-kondo flx fish-mode fish-completion
+                 find-file-in-project exwm exec-path-from-shell
+                 evil-nerd-commenter eshell-syntax-highlighting
+                 eshell-prompt-extras elisp-format elfeed-org
+                 doom-themes doom-modeline dockerfile-mode
+                 dired-single dired-ranger dired-rainbow dired-open
+                 dired-hide-dotfiles dired-collapse diminish
+                 desktop-environment dap-mode counsel-projectile corfu
+                 company-restclient company-box clang-format cider
+                 ccls auto-package-update auto-compile
+                 all-the-icons-ivy-rich all-the-icons-ivy
+                 all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

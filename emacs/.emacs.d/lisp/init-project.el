@@ -15,8 +15,7 @@
   :bind-keymap ("C-c p" . projectile-command-map) 
   :init (when (file-directory-p "~/dev/personal") 
           (setq projectile-project-search-path '("~/dev/personal"))) 
-  (setq projectile-switch-project-action #'robsonrod/switch-project-action)
-  (projectile-mode))
+  (setq projectile-switch-project-action #'robsonrod/switch-project-action))
 
 ;; ivy integration project manager
 (use-package 

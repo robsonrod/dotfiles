@@ -18,4 +18,15 @@
   (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated)) 
   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
 
+(use-package
+  magit-todos
+  :defer t)
+
+(use-package git-link
+  :commands git-link
+  :config
+  (setq git-link-open-in-browser t)
+  (robsonrod/major-mode-leader-map
+    "l"  'git-link))
+
 (provide 'init-magit)

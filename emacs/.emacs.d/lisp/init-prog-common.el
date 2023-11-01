@@ -7,7 +7,7 @@
 ;; edit mutiple regions
 (use-package 
   iedit 
-  :bind ("C-c ," . iedit-mode) 
+  :bind ("C-;" . iedit-mode) 
   :diminish)
 
 ;; rainbow delimiters
