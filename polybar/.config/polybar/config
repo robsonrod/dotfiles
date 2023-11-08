@@ -39,6 +39,36 @@ spacing=1.5
 width=100%
 wm-restack=bspwm
 
+[bar/emacs]
+background=#282a36
+font-0=${env:FONT0}
+font-1=${env:FONT1}
+font-2=${env:FONT2}
+font-3=${env:FONT3}
+font-4=${env:FONT4}
+foreground=#f8f8f2
+height=${env:PBHEIGHT}
+module-margin-left=1
+modules-left=exwm
+modules-right=vpn pad mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery pad wired-network pad wireless-network pad powermenu
+modules-center=pad date
+monitor=${env:MONITOR}
+offset-y=1
+padding-right=1
+tray-detached=false
+tray-position=right
+width=100%
+m-restack=bspwm
+overline-size=0
+enable-ipc = true
+
+[module/exwm]
+type = custom/ipc
+hook-0 = emacsclient -e "(robsonrod/polybar-exwm-workspace)" | sed -e 's/^"//' -e 's/"$//'
+initial = 1
+format-foreground=#50fa7b
+format-padding = 1
+
 [module/battery]
 animation-charging-0=
 animation-charging-1=

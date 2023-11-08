@@ -42,13 +42,13 @@ disabled = false
 disabled = true
 
 [c]
-symbol = ""
+symbol = " "
 format = "via [$name $version]($style) "
 detect_extensions = ["c", "h", "cpp", "hpp"]
 style = "bold red"
 
 [cmake]
-symbol = ""
+symbol = " "
 format = "via [$name $version]($style) "
 detect_files = ["Makefile"]
 style = "bold red"
@@ -59,9 +59,9 @@ format = "[$symbol$version]($style) "
 style = "bold green"
 
 [rust]
-symbol = ""
-format = "[$symbol$version]($style) "
-style = "bold green"
+symbol = "🦀 "
+format = "via [$symbol($version)]($style) "
+style = "bold red"
 
 [golang]
 symbol = "🐹"

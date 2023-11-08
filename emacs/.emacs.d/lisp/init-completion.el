@@ -84,6 +84,7 @@
 (when (eq robsonrod/exwm-running :true)
   (use-package ivy-posframe
     :custom
+    :disabled
     (ivy-posframe-width      160)
     (ivy-posframe-min-width  160)
     (ivy-posframe-height     20)

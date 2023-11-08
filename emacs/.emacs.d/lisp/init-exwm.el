@@ -13,33 +13,59 @@
       (kill-process robsonrod/polybar-process)))
   (setq robsonrod/polybar-process nil))
 
+
 (defun robsonrod/start-polybar ()
   (interactive)
   (robsonrod/kill-panel)
-  (setq robsonrod/polybar-process (start-process-shell-command "polybar" nil "polybar main")))
+  (setq robsonrod/polybar-process (start-process-shell-command "polybar" nil "polybar emacs")))
 
 (defun robsonrod/set-wallpaper ()
   (interactive)
   (start-process-shell-command "feh" nil "feh --bg-scale $HOME/.config/wallpaper/kraken.jpg"))
 
 (defun robsonrod/exwm-init-hook ()
-  (exwm-workspace-switch-create 0)
+  (exwm-workspace-switch-create 1)
   (robsonrod/set-wallpaper)
   (robsonrod/start-polybar)
   (robsonrod/run-in-background "dunst")
   (robsonrod/run-in-background "picom")
   (robsonrod/run-in-background "low_bat_notifier"))
 
+(defun robsonrod/send-polybar-hook (name number)
+  (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" name number)))
+
+(defun robsonrod/update-polybar-exwm (&optional path)
+  (robsonrod/send-polybar-hook "exwm" 1))
+
+(defun robsonrod/polybar-exwm-workspace ()
+  (pcase exwm-workspace-current-index
+    (0 "")
+    (1 "")
+    (3 " ")
+    (2 " ")
+    (4 " ")
+    (5 " ")))
+
+(add-hook 'exwm-workspace-switch-hook #'robsonrod/update-polybar-exwm)
+
+(defun robsonrod/setup-window-by-class ()
+  (interactive)
+  (pcase exwm-class-name
+    ("Emacs" (call-interactively #'exwm-input-toggle-keyboard))
+    ("qutebrowser" (exwm-workspace-move-window 2))))
+
 (use-package exwm
   :config
-  (setq exwm-workspace-number 5)
+  (setq exwm-workspace-number 6)
   (add-hook 'exwm-update-title-hook
             (lambda ()
               (pcase exwm-class-name
                 ("Firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title))))))
   (add-hook 'exwm-update-class-hook #'robsonrod/exwm-update-class)
   (add-hook 'exwm-init-hook #'robsonrod/exwm-init-hook)
-    ;; Hide the modeline on all X windows
+  (add-hook 'exwm-manage-finish-hook #'robsonrod/setup-window-by-class)
+
+  ;; Hide the modeline on all X windows
   (add-hook 'exwm-floating-setup-hook
             (lambda ()
               (exwm-layout-hide-mode-line)))
@@ -50,8 +76,6 @@
   (start-process-shell-command "xrandr" nil "xrandr --output $MONITOR --primary --mode 3840x2400 --pos 0x0 --rotate normal --output DP-1-2 --off --output HDMI-2 --off --output HDMI-1 --off --output DP-1 --off --output DP-1-3 --off --output DP-2 --off --output DP-1-1 --off")
   (start-process-shell-command "xrandr" nil "xrandr --output $MONITOR --brightness 0.60")
 
-  ;; (require 'exwm-systemtray)
-  ;; (exwm-systemtray-enable)
   (setq exwm-workspace-warp-cursor t
         mouse-autoselect-window t
         focus-follows-mouse t)
@@ -88,7 +112,7 @@
           ([?\s-w] . exwm-workspace-switch)
           ([?\s-t] . multi-vterm)
           ([?\s-c] . calc)
-          ([?\s-f] . (lambda () (interactive)(start-process "" nil "firefox")))
+          ([?\s-b] . (lambda () (interactive)(start-process "" nil "firefox")))
    
           ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
           ,@(mapcar (lambda (i)
