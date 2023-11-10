@@ -148,4 +148,12 @@ Position the cursor at its beginning, according to the current mode."
   (let ((file-to-open (concat "/sudo::" (expand-file-name filename))))
     (find-file file-to-open)))
 
+(defun robsonrod/supress-warnings ()
+  (interactive)
+  (setq warning-minimum-level :emergency))
+
+(defun robsonrod/default-warnings ()
+  (interactive)
+  (setq warning-minimum-level :warning))
+
 (provide 'init-functions)
