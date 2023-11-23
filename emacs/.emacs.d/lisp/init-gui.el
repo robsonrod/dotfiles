@@ -13,13 +13,18 @@
   doom-themes 
   :ensure t 
   :config (setq doom-themes-enable-bold t doom-themes-enable-italic t) 
-  (load-theme 'doom-dracula t) 
+  ;; (load-theme 'doom-dracula t) 
   (doom-themes-org-config) 
   (doom-themes-neotree-config))
 
 ;; spacemacs themes
 (use-package spacemacs-theme
   :ensure t)
+
+(use-package catppuccin-theme
+ :ensure t
+ :config
+ (setq catppuccin-flavor 'latte))
 
 ;; doom modeline
 (use-package 
@@ -35,5 +40,7 @@
            (doom-modeline-minor-modes t) 
            (doom-modeline-buffer-file-name-style 'truncate-except-project) 
            (doom-modeline-major-mode-icon t)))
+
+(load-theme 'doom-dracula t) 
 
 (provide 'init-gui)
