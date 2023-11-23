@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 __main_menu() {
     rofi -modi drun -show drun -line-padding 4 -columns 2 -padding 50 -show-icons -drun-icon-theme "Papirus-Dark"

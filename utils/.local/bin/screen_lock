@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 tmpdir=/tmp/lock
 tmpfile=$tmpdir/screen_lock.png
