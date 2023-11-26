@@ -91,3 +91,5 @@ esac
 if [ -f "$HOME/.local/share/bin/env" ]; then
     . "$HOME/.local/share/bin/env"
 fi
+
+export PATH="$PATH:$CARGO_HOME/bin"
