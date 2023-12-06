@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source $HOME/.config/bash/env
+
 pgrep -x sxhkd >/dev/null || sxhkd &
 pkill -f dunst &
 pkill -f polybar &
@@ -89,9 +91,8 @@ if [[ "$COMPUTER_NAME" == "iracema" ]]; then
     xrandr --output $MONITOR --brightness 0.60
 fi
 
-xautolock -time 3 -locker screen_lock -detectsleep -killtime 60 -killer "systemctl suspend" &
-
 if [[ "$COMPUTER_NAME" == "iracema" ]]; then
+    xautolock -time 3 -locker screen_lock -detectsleep -killtime 60 -killer "systemctl suspend" &
     /usr/bin/com.system76.FirmwareManager.Notify &
     /usr/bin/pop-transition -d &
 fi

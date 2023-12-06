@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -20,8 +16,8 @@
         useOSProber = true;
         devices = [ "nodev" ];
         configurationLimit = 5;
+        gfxmodeEfi = "1920x1080x32";
       };
-      efi = { canTouchEfiVariables = true; };
     };
   };
 
@@ -29,8 +25,19 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 4d";
+      options = "--delete-older-than 7d";
     };
+
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      allowed-users = [ "robson" ];
+      trusted-users = [ "root" "@wheel" ];
+      keep-outputs = true;
+      auto-optimise-store = true;
+      keep-derivations = true;
+    };
+    optimise.automatic = true;
+
   };
 
   environment = {
@@ -75,7 +82,7 @@
       layout = "us";
       xkbVariant = "";
       enable = true;
-      autorun = false;
+      autorun = true;
 
       libinput = {
         enable = true;
@@ -85,11 +92,10 @@
       };
 
       displayManager = {
-        #startx.enable = true;
+
         lightdm = {
           enable = true;
         };
-
       };
       desktopManager = {
         xfce = { enable = true; };
@@ -100,6 +106,15 @@
           enable = true;
         };
 
+      };
+
+      xautolock = {
+        enable = true;
+        time = 5;
+        locker = "${pkgs.betterlockscreen}/bin/betterlockscreen -l blur";
+        killtime = 10;
+        killer = "/run/current-system/systemd/bin/systemctl suspend";
+        extraOptions = [ "-detectsleep" ];
       };
 
     };
@@ -123,6 +138,7 @@
 
     gvfs = { enable = true; };
     tumbler = { enable = true; };
+
 
   };
 
@@ -152,15 +168,18 @@
 
     packages = with pkgs; [
       starship
-      kitty
       grc
       stow
-      exa
+      fzf
+      eza
       bat
+      peek
       zoxide
       delta
       ripgrep
-      nixpkgs-fmt
+      neofetch
+      (leiningen.override { jdk = jdk17; })
+      guile
     ];
   };
 
@@ -185,6 +204,9 @@
       xorg.xinput
       xorg.xset
       python3
+      kitty
+      betterlockscreen
+      nixpkgs-fmt
       networkmanager_dmenu
       arandr
       cacert
@@ -208,9 +230,9 @@
       font-manager
       libinput-gestures
       feh
-      peek
+      picom
       pavucontrol
-      flameshot
+      scrot
     ];
   };
   # Some programs need SUID wrappers, can be configured further or are
@@ -242,7 +264,7 @@
 
   fonts = {
     fontDir.enable = true;
-    fonts = with pkgs; [
+    packages = with pkgs; [
       font-awesome
       source-code-pro
       fira-code
@@ -256,12 +278,6 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "23.05";
 
 }

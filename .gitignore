@@ -41,3 +41,5 @@ tmux/.config/tmux/plugins/
 **/fish/.config/fish/themes/
 **/fish/.config/fish/fish_plugins
 **/fish/.config/fish/fish_variables
+bash/.config/bash/bash_history
+emacs/.emacs.d/var/
