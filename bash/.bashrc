@@ -1,6 +1,6 @@
 #### General ####
 
-source ~/.env
+source $HOME/.config/bash/env
 
 HISTCONTROL=ignoredups:erasedups
 HISTSIZE=1000000
@@ -60,11 +60,11 @@ if [ -f ${HOME}/.asdf/asdf.sh ]; then
     . ${HOME}/.asdf/completions/asdf.bash
 fi
 
-[[ -s $HOME/.aliases ]] && source ~/.aliases
+[[ -s $HOME/.config/bash/aliases ]] && source $HOME/.config/bash/aliases
 
-[[ -s $HOME/.functions ]] && source ~/.functions
+[[ -s $HOME/.config/bash/functions ]] && source $HOME/.config/bash/functions
 
-[[ -s $HOME/.bash_custom ]] && source ~/.bash_custom
+[[ -s $HOME/.config/bash/bash_custom ]] && source $HOME/.config/bash/bash_custom
 
 case "$OSTYPE" in
     "darwin"*)
@@ -91,3 +91,5 @@ esac
 if [ -f "$HOME/.local/share/bin/env" ]; then
     . "$HOME/.local/share/bin/env"
 fi
+
+export PATH="$PATH:$CARGO_HOME/bin"

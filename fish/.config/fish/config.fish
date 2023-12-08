@@ -29,14 +29,13 @@ if test $OS_ID = arch
     abbr -a u 'sudo pacman -Syy'
     abbr -a up 'sudo pacman -Suy '
     abbr -a r 'sudo pacman -Rs'
-    abbr -a cat bat
 else
     abbr -a i 'sudo apt-get install'
     abbr -a u 'sudo apt-get update'
     abbr -a up 'sudo apt-get upgrade'
     abbr -a r 'sudo apt-get remove'
-    abbr -a cat batcat
-    abbr -a fd fdfind
+    alias bat 'batcat'
+    alias fd 'fdfind'
 end
 
 # general aliases

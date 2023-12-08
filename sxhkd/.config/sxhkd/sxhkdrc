@@ -39,7 +39,7 @@ super + alt + w
 
 # help
 super + alt + h
-    sxhkd-help
+    sxhkd_help
 
 # keyboad layout
 super + alt + k
@@ -175,15 +175,15 @@ XF86AudioMicMute
 
 # prit screen
 Print
-    flameshot gui
+    screenshot
 
 # screen lock
 ctrl + shift + l
-    screen_lock
+     betterlockscreen -l blur 
 
 # hiberate
 ctrl + shift + h
-    screen_lock && systemctl suspend
+    betterlockscreen -l blur && systemctl suspend
 
 # network manager
 super + alt + n
