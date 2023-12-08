@@ -1,10 +1,9 @@
 { config, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    rust-analyzer
-    cargo
-    gcc
-    rustc
-    rustfmt
+      cargo
+      rust-analyzer
+      rustc
+      rustfmt
   ];
 }

@@ -1,33 +1,34 @@
 { config, lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    zip
-    unzip
-    p7zip
-    openssl
-    pinentry
-    curl
-    wget
-    hexyl
-    killall
-    man-pages
-    ranger
-    file
-    lshw
-    ripgrep
-    fd
-    bottom
-    libnotify
-    xdg-utils
-    starship
-    grc
-    stow
-    fzf
-    eza
     bat
-    peek
-    zoxide
-    ripgrep
+    bottom
+    curl
+    eza
+    fd
+    file
+    fzf
+    grc
+    hexyl
+    hwinfo
+    killall
+    libnotify
+    lshw
+    man-pages
     neofetch
+    openssl
+    p7zip
+    peek
+    pinentry
+    ranger
+    ripgrep
+    ripgrep
+    starship
+    stow
+    unzip
+    wget
+    xdg-utils
+    zip
+    zoxide
   ];
 }

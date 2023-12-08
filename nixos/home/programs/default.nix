@@ -11,6 +11,7 @@
     ./network-manager.nix
     ./rust.nix
     ./terms.nix
+    ./python.nix
   ];
 }
 

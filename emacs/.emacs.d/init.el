@@ -183,6 +183,7 @@
 (require 'init-templates)
 (require 'init-cpp)
 (require 'init-rust)
+(require 'init-nix)
 (require 'init-lispy)
 (require 'init-elisp)
 (require 'init-pdf)
@@ -206,28 +207,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("0527c20293f587f79fc1544a2472c8171abcc0fa767074a0d3ebac74793ab117"
-     default))
+   '("0527c20293f587f79fc1544a2472c8171abcc0fa767074a0d3ebac74793ab117" default))
  '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode")
  '(package-selected-packages
-   '(neotree yaml-mode which-key wgrep visual-fill-column undo-fu-session
-             undo-fu treemacs-all-the-icons tempel-collection
-             spacemacs-theme smartparens shfmt rust-mode ripgrep
-             rainbow-delimiters perspective pdf-tools paredit org-roam
-             org-bullets org-auto-tangle openwith multi-vterm
-             modern-cpp-font-lock minions magit-todos lsp-ui lsp-ivy
-             lispy ivy-prescient ivy-hydra helpful git-link
-             git-gutter-fringe general geiser-guile flycheck-clj-kondo
-             flx fish-mode fish-completion find-file-in-project
-             exec-path-from-shell evil-nerd-commenter
-             eshell-syntax-highlighting eshell-prompt-extras
-             elisp-format elfeed-org doom-themes doom-modeline
-             dockerfile-mode dired-single dired-ranger dired-rainbow
-             dired-open dired-hide-dotfiles dired-collapse diminish
-             dap-mode counsel-projectile corfu company-restclient
-             company-box clang-format cider ccls catppuccin-theme
-             auto-package-update auto-compile all-the-icons-ivy-rich
-             all-the-icons-ivy all-the-icons-dired)))
+   '(neotree yaml-mode which-key wgrep visual-fill-column undo-fu-session undo-fu treemacs-all-the-icons tempel-collection spacemacs-theme smartparens shfmt rust-mode ripgrep rainbow-delimiters perspective pdf-tools paredit org-roam org-bullets org-auto-tangle openwith multi-vterm modern-cpp-font-lock minions magit-todos lsp-ui lsp-ivy lispy ivy-prescient ivy-hydra helpful git-link git-gutter-fringe general geiser-guile flycheck-clj-kondo flx fish-mode fish-completion find-file-in-project exec-path-from-shell evil-nerd-commenter eshell-syntax-highlighting eshell-prompt-extras elisp-format elfeed-org doom-themes doom-modeline dockerfile-mode dired-single dired-ranger dired-rainbow dired-open dired-hide-dotfiles dired-collapse diminish dap-mode counsel-projectile corfu company-restclient company-box clang-format cider ccls catppuccin-theme auto-package-update auto-compile all-the-icons-ivy-rich all-the-icons-ivy all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
