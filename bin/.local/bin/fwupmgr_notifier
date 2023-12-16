@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+fwupmgr refresh > /dev/null 2>&1
+
+updates=$(fwupmgr get-updates 2> /dev/null | grep -c "Updatable")
+
+if [ "$updates" -gt 0 ]; then
+   msg="There are $updates available"
+   notify-send --urgency=normal $msg
+fi

@@ -34,8 +34,6 @@ else
     abbr -a u 'sudo apt-get update'
     abbr -a up 'sudo apt-get upgrade'
     abbr -a r 'sudo apt-get remove'
-    alias bat 'batcat'
-    alias fd 'fdfind'
 end
 
 # general aliases

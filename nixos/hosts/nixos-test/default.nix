@@ -10,6 +10,10 @@
   # Bootloader.
   boot = {
     loader = {
+      efi = {
+       canTouchEfiVariables = true;
+       efiSysMountPoint = "/boot";
+      };
       grub = {
         enable = true;
         efiSupport = true;
@@ -22,10 +26,11 @@
   };
 
   networking = {
-    hostName = "nixos"; # Define your hostname.
+    hostName = "iracema";
     networkmanager = {
       enable = true;
       dns = "dnsmasq";
+      dhcp = "internal";
     };
   };
 
@@ -60,6 +65,8 @@
 
     hardware = {
       bluetooth.enable = true;
+      sensors.enable = true;
+      intel.enable = true;
     };
     
   };

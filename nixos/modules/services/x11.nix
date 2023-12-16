@@ -97,6 +97,7 @@ in {
       xkbVariant = "";
       enable = true;
       autorun = true;
+      dpi = 200;
 
       libinput = {
         enable = true;
@@ -108,7 +109,33 @@ in {
       displayManager = {
         #startx.enable = true;
         lightdm = {
+        enable = true;
+        greeters.mini = {
           enable = true;
+          user = "robson";
+          extraConfig = ''
+                [greeter]
+                show-password-label = true
+                show-input-cursor = true
+                invalid-password-text = "Sorry, try again!"
+                password-alignment = left
+                password-input-width = 20
+		show-sys-info = true
+                [greeter-theme]
+		background-image = ""
+		text-color = "#F8F8F2"
+    		error-color = "#FF5555"
+                background-color = "#282A36"
+                window-color = "#FFB86C"
+                border-color = "#FFB86C"
+                layout-space = 20
+                font-size = 16px
+                password-background-color = "#44475A"
+                password-border-width = 2px
+                password-border-color = "#44475A"
+                password-border-radius = 4px
+            '';
+        };
         };
       };
 

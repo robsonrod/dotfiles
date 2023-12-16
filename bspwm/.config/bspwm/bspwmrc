@@ -10,7 +10,7 @@ if [[ "$COMPUTER_NAME" == "iracema" ]]; then
     /usr/bin/gnome-keyring-daemon --start --components=ssh &
 fi
 
-bspc monitor -d 1 2 3 4 5 
+bspc monitor -d 1 2 3 4 5
 
 bspc config border_width 1
 bspc config window_gaps 12
@@ -49,7 +49,7 @@ bspc rule -a Loading.. desktop='^2' state=floating follow=on
 bspc rule -a Peek state=floating follow=on
 bspc rule -a Transmission-gtk desktop='^5' state=floating follow=on
 bspc rule -a Vmplayer desktop='^7' state=tiled follow=on
-bspc rule -a polybar boder=off manage=off 
+bspc rule -a polybar boder=off manage=off
 
 # Reload .Xresources
 xrdb -merge ~/.Xresources
@@ -91,12 +91,14 @@ if [[ "$COMPUTER_NAME" == "iracema" ]]; then
     xrandr --output $MONITOR --brightness 0.60
 fi
 
-if [[ "$COMPUTER_NAME" == "iracema" ]]; then
-    xautolock -time 3 -locker screen_lock -detectsleep -killtime 60 -killer "systemctl suspend" &
-    /usr/bin/com.system76.FirmwareManager.Notify &
-    /usr/bin/pop-transition -d &
-fi
+#if [[ "$COMPUTER_NAME" == "iracema" ]]; then
+    #xautolock -time 3 -locker screen_lock -detectsleep -killtime 60 -killer "systemctl suspend" &
+    #/usr/bin/com.system76.FirmwareManager.Notify &
+    #/usr/bin/pop-transition -d &
+#fi
 
 low_bat_notifier
+
+fwupmgr_notifier
 
 wmname xfwm4

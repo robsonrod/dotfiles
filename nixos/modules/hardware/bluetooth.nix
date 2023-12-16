@@ -30,6 +30,8 @@ in {
     };
 
     services.blueman.enable = true;
+    services.fwupd.enable = true;
+    services.acpid.enable = true;
 
   };
 

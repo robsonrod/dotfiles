@@ -12,7 +12,7 @@ in {
 
     cursor.size = mkOption {
       type = int;
-      default = 32;
+      default = 48;
     };
 
     cursor.theme = mkOption {
