@@ -31,5 +31,6 @@
     xdg-utils
     zip
     zoxide
+    remmina
   ];
 }

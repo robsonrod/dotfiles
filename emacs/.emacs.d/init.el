@@ -172,6 +172,7 @@
   (require 'init-exwm))
 
 (require 'init-gui)
+(require 'init-dashboard)
 (require 'init-functions)
 (require 'init-eshell)
 (require 'init-lsp)

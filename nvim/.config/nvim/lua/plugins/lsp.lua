@@ -84,8 +84,11 @@ end
 
 lsp.on_attach(on_attach)
 
+local lspformat = require("lsp-format")
+lspformat.setup({})
+
 local lspconfig = require('lspconfig')
-lspconfig.ccls.setup({})
+lspconfig.ccls.setup({ on_attach = require('lsp-format').on_attach})
 
 lsp.setup()
 

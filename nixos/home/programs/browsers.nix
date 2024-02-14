@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+      nyxt
+  ];
+
   programs = {
 
     google-chrome = {

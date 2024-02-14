@@ -12,6 +12,8 @@
     ./rust.nix
     ./terms.nix
     ./python.nix
+    ./pdfeditor.nix
+    ./neovim.nix
   ];
 }
 

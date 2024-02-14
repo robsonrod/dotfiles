@@ -37,8 +37,9 @@ in
     nixpkgs = {
       config = { allowUnfree = true; };
       overlays = [
-         inputs.emacs-overlay.overlay
-         inputs.rust-overlay.overlays.default
+        inputs.emacs-overlay.overlay
+        inputs.neovim-nightly-overlay.overlay
+        inputs.rust-overlay.overlays.default
       ];
     };
 

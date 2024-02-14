@@ -129,4 +129,15 @@
                 "zathura"
                 '(file)))))
 
+(use-package avy
+  :ensure t)
+
+(use-package ivy-avy
+  :ensure t)
+
+(robsonrod/ctrl-c-definer
+  "f" '(avy-goto-line :which-key "jump to line")
+  "c" '(avy-goto-char :which-key "jump to char"))
+
+
 (provide 'init-emacs-misc)
