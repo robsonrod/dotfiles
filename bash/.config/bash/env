@@ -33,6 +33,7 @@ export SUDO_ASKPASS="$HOME/.local/bin/rofiaskpasswd"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export GOPATH="${XDG_DATA_HOME:-$HOME/.asdf/shims}/go"
+export USER_BIN="$HOME/.local/bin"
 
 export PERSONAL_PROJECTS="${PROJECTS}/personal"
 export SUDO_ASKPASS="${HOME}/.local/bin/rofiaskpasswd"
@@ -84,3 +85,5 @@ if [ "$COMPUTER_NAME" != "iracema" ]; then
     FONT4="FontAwesome6Brands:style=Regular:size=10"
     PBHEIGHT="20"
 fi
+
+export PATH=$USER_BIN:$PATH

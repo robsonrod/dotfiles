@@ -2,10 +2,10 @@
 
 OS_ID=$(awk -F= ' /^ID=/ { gsub("\"", ""); print $2 } ' /etc/os-release)
 ROOT=$(git rev-parse --show-toplevel)
-if [ "$OS_ID" == "arch" ]; then
-    source $ROOT/arch/configure
-else
+if [ "$OS_ID" == "ubuntu" ]; then
     source $ROOT/ubuntu/configure
+else
+    source $ROOT/arch/configure
 fi
 
 remove_home_files() {
@@ -54,7 +54,7 @@ install() {
 
     local xmanager=$(__get_xmanager_id)
 
-    $cmd stow -v git/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ xdg-dirs/ picom/ rofi/ starship/ tmux/ ${xmanager}/ bin/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ networkmanager-dmenu/ clang/ ranger/ bat/ kitty/ fish/
+    $cmd stow -v git/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ xdg-dirs/ picom/ rofi/ starship/ tmux/ ${xmanager}/ bin/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ networkmanager-dmenu/ clang/ ranger/ bat/ kitty/ fish/ neofetch/
     echo "done"
 }
 
@@ -62,7 +62,7 @@ uninstall() {
     echo "uninstall configurations"
 
     local xmanager=$(__get_xmanager_id)
-    $cmd stow -v -D git/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ xdg-dirs/ picom/ rofi/ starship/ tmux/ bin/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ ${xmanager}/ networkmanager-dmenu/ clang/ ranger/ bat/ kitty/ fish/
+    $cmd stow -v -D git/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ xdg-dirs/ picom/ rofi/ starship/ tmux/ bin/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ ${xmanager}/ networkmanager-dmenu/ clang/ ranger/ bat/ kitty/ fish/ neofetch/
     echo "done"
 }
 

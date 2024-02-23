@@ -100,6 +100,22 @@ create_user_directories() {
 	echo "done"
 }
 
+install_rust() {
+	echo "install rust"
+
+	if [ -d "$HOME/.local/share/cargo" ]; then
+		echo "rust: already done"
+		return
+	fi
+
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
+	echo "rust: installed"
+}
+
+set_default_shell() {
+    chsh -s $(which fish)
+}
+
 configure() {
 	setup
 	update_keyring
@@ -112,5 +128,7 @@ configure() {
 	enable_services
 	enable_darkmode_gtk4
 	create_user_directories
+    install_rust
+    set_default_shell
 	cleanup
 }
