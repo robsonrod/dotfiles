@@ -128,6 +128,4 @@ function fish_command_not_found
     __fish_default_command_not_found_handler $argv
 end
 
-alias cd 'z'
-
 set fish_function_path $fish_function_path "$HOME/.config/fish/functions/work"
