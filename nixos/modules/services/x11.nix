@@ -67,8 +67,7 @@ in {
 
       gnupg.agent = {
         enable = true;
-        pinentryFlavor = "tty";
-
+        pinentryPackage = pkgs.pinentry-tty;
       };
 
       thunar = {
@@ -81,7 +80,7 @@ in {
 
       dconf = { enable = true; };
 
-      bash = { enableCompletion = true; };
+      bash = { completion.enable = true; };
 
       fish = {
         enable = true;
@@ -92,14 +91,6 @@ in {
       printing = { enable = true; };
       gvfs = { enable = true; };
       tumbler = { enable = true; };
-    };
-
-    services.xserver = {
-      layout = "us";
-      xkbVariant = "";
-      enable = true;
-      autorun = true;
-      dpi = 200;
 
       libinput = {
         enable = true;
@@ -107,6 +98,17 @@ in {
           naturalScrolling = true;
         };
       };
+
+    };
+
+    services.xserver = {
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
+      enable = true;
+      autorun = true;
+      dpi = 200;
 
       displayManager = {
         #startx.enable = true;

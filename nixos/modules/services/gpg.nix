@@ -15,7 +15,7 @@ in {
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentryFlavor = "tty";
+      pinentryPackage = pkgs.pinentry-tty;
       defaultCacheTtl = 1800;
     };
   };
