@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=Bittorrent client
-Exec=/usr/local/bin/alacritty -e transmission-cli %U
+Exec=/usr/bin/kitty -e transmission-cli %U

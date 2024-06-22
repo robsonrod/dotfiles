@@ -5,6 +5,8 @@ end
 function fish_greeting
 end
 
+set -gx EDITOR nvim
+
 if status --is-interactive
     eval (gpgconf --launch gpg-agent)
 end
@@ -93,12 +95,12 @@ abbr -a suser 'systemctl --user'
 
 fish_config theme choose 'Dracula Official'
 
-if command -v exa >/dev/null
-    alias l 'exa -l --color=always --group-directories-first'
-    alias ls 'exa --color=always --group-directories-first'
-    alias la 'exa -la --color=always --octal-permissions --group-directories-first -g --icons'
-    alias ll 'exa -l --color=always --octal-permissions --group-directories-first'
-    alias tree 'exa --tree'
+if command -v eza >/dev/null
+    alias l 'eza -l --color=always --group-directories-first --git'
+    alias ls 'eza --color=always --group-directories-first --git'
+    alias la 'eza -la --color=always --octal-permissions --group-directories-first -g --icons --git'
+    alias ll 'eza -l --color=always --octal-permissions --group-directories-first --git'
+    alias lt 'eza --tree --level=3 --long --icons --git'
 else
     alias l ls
     alias ls 'ls -l'
@@ -107,11 +109,14 @@ else
 end
 
 set -gx GPG_TTY (tty)
-set -Ux GDK_SCALE 2
-set -Ux GDK_DPI_SCALE 0.5
-set -Ux QT_AUTO_SCREEN_SET_FACTOR 0
-set -Ux QT_SCALE_FACTOR 2
-set -Ux QT_FONT_DPI 96
+
+if test "$(uname -a | cut -d ' ' -f2)" = "iracema"
+    set -Ux GDK_SCALE 2
+    set -Ux GDK_DPI_SCALE 0.5
+    set -Ux QT_AUTO_SCREEN_SET_FACTOR 0
+    set -Ux QT_SCALE_FACTOR 2
+    set -Ux QT_FONT_DPI 96
+end
 
 set -Ux EXA_COLORS "uu=36:gu=37:sn=32:sb=32:da=34:ur=34:uw=35:ux=36:ue=36:gr=34:gw=35:gx=36:tr=34:tw=35:tx=36:"
 

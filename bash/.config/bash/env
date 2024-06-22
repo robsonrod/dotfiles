@@ -5,7 +5,7 @@ fi
 if ! [[ -z "$DISPLAY" ]]; then
     export RESOLUTION=$(xdpyinfo | awk '/dimensions/{print $2}')
     export SCREEN_RESOLUTION=$(xdpyinfo | awk '/dimensions/{print $2}')
-    export MONITOR=$(xrandr -q | grep " connected" | cut -d ' ' -f1)
+    export MONITOR=$(xrandr -q | grep " connected primary" | cut -d ' ' -f1)
 fi
 
 export HISTFILE="$HOME/.config/bash/bash_history"
@@ -54,7 +54,7 @@ export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f
 #fzf options
 export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/,.git/,.venv/}"'
 
-# exa color
+# eza color
 export EXA_COLORS="uu=36:gu=37:sn=32:sb=32:da=34:ur=34:uw=35:ux=36:ue=36:gr=34:gw=35:gx=36:tr=34:tw=35:tx=36:"
 
 alias wget='wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'

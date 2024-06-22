@@ -37,7 +37,7 @@ unzip
 p7zip-full
 xz-utils
 tldr
-exa
+eza
 most
 ripgrep
 zoxide

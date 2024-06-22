@@ -8,7 +8,7 @@ feh
 xclip
 hexyl
 tldr
-exa
+eza
 ripgrep
 zoxide
 fzf

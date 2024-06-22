@@ -10,17 +10,15 @@ if [[ "$COMPUTER_NAME" == "iracema" ]]; then
     /usr/bin/gnome-keyring-daemon --start --components=ssh &
 fi
 
-bspc monitor -d 1 2 3 4 5
+bspc monitor -d 1 2 3 4 5 6 7 8 9
 
-bspc config border_width 1
-bspc config window_gaps 12
 bspc config split_ratio 0.5
-
-bspc config click_to_focus true
 bspc config focus_follows_pointer true
 bspc config borderless_monocle true
 bspc config gapless_monocle true
 bspc config focus_by_distance true
+bspc config merge_overlapping_monitors true
+bspc config remove_unplugged_monitors true
 
 bspc config top_padding 17
 bspc config bottom_padding 0
@@ -29,47 +27,62 @@ bspc config left_padding 0
 bspc config border_width 1
 bspc config window_gap 3
 
-# colors
-bspc config normal_border_color "#44475a"
-bspc config active_border_color "#bd93f9"
-bspc config focused_border_color "#9580ff"
-bspc config presel_feedback_color "#6272a4"
+# use meta key
+bspc config pointer_modifier mod1
+bspc config pointer_action1 move
+bspc config pointer_action2 resize_size
+bspc config pointer_action3 resize_corner
 
-# Rules
+# dracula colors
+bspc config normal_border_color  "#44475a"
+bspc config active_border_color  "#bd93f9"
+bspc config focused_border_color  "#ff79c6"
+bspc config presel_feedback_color  "#6272a4"
+
+# rules
 bspc rule -a URxvt desktop='^1' state=tiled follow=on
 bspc rule -a kitty desktop='^1' state=tiled follow=on
-bspc rule -a Alacritty desktop='^1' state=tiled follow=on
-bspc rule -a firefox desktop='^2' state=tiled follow=on
+
+# fix firefox popups
+bspc rule -a firefox desktop='^2' state=pseudo_tiled rectangle=1920x1080+0+0 center=on follow=on
+bspc rule -a firefox:firefox state=floating rectangle=1260x760+0+0 center=on
+bspc rule -a firefox:Firefox state=floating rectangle=748x478+0+0 center=on
+
 bspc rule -a Emacs desktop='^3' state=tiled follow=on
-bspc rule -a Ferdium desktop='^4' state=tiled follow=on
+bspc rule -a Google-chrome-unstable desktop='^6' state=tiled follow=on
 bspc rule -a Thunar desktop='^5' state=tiled follow=on
 bspc rule -a zoom desktop='^5' state=tiled follow=on
-bspc rule -a obsidian desktop='^6' state=tiled follow=on
-bspc rule -a Loading.. desktop='^2' state=floating follow=on
+bspc rule -a *:SPLASH='^2' state=floating follow=on
 bspc rule -a Peek state=floating follow=on
 bspc rule -a Transmission-gtk desktop='^5' state=floating follow=on
 bspc rule -a Vmplayer desktop='^7' state=tiled follow=on
 bspc rule -a polybar boder=off manage=off
 
-# Reload .Xresources
+bspc rule -a mpv state=tiled
+bspc rule -a zathura state=tiled
+bspc rule -a feh state=floating
+bspc rule -a sxiv state=floating
+
+# reload .Xresources
 xrdb -merge ~/.Xresources
 
+# enables power saving
 xset dpms 240 300 360 &
 
-# Fix cursor shape
+# fix cursor shape
 xsetroot -cursor_name left_ptr &
 
 # no caps at all
 setxkbmap -layout "$(setxkbmap -print | awk -F + '/xkb_symbols/ {print $2}')" -option ctrl:nocaps
 
 # polkit
-/usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1 &
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 # java gui fixes
 export _JAVA_AWT_WM_NONREPARENTING=1
 bspc rule -a sun-awt-X11-XDialogPeer state=floating
 
-# Set wallpaper
+# set wallpaper
 feh --bg-scale $HOME/.config/wallpaper/kraken.jpg
 
 polybar main &
@@ -91,23 +104,8 @@ if [[ "$COMPUTER_NAME" == "iracema" ]]; then
     xrandr --output $MONITOR --brightness 0.60
 fi
 
-<<<<<<< Updated upstream
-#if [[ "$COMPUTER_NAME" == "iracema" ]]; then
-    #xautolock -time 3 -locker screen_lock -detectsleep -killtime 60 -killer "systemctl suspend" &
-    #/usr/bin/com.system76.FirmwareManager.Notify &
-    #/usr/bin/pop-transition -d &
-#fi
-=======
-if [[ "$COMPUTER_NAME" == "iracema" ]]; then
-    /usr/bin/com.system76.FirmwareManager.Notify &
-    /usr/bin/pop-transition -d &
-fi
->>>>>>> Stashed changes
-
 screensaver
 
 low_bat_notifier
 
 fwupmgr_notifier
-
-wmname xfwm4
