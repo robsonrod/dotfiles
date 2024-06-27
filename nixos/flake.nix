@@ -36,7 +36,7 @@
           system = cfg.system;
           specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/nixos-test
+            ./hosts/xps
             ./modules/flakes.nix
             ./modules/services/ssh.nix
             ./modules/services/x11.nix
