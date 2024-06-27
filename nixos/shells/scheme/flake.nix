@@ -20,9 +20,9 @@
             name = "scheme";
             packages = inputs;
 
-            shellHook = ''
-              exec fish
-            '';
+            #shellHook = ''
+            #  exec fish
+            #'';
           };
       });
 }
