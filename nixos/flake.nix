@@ -47,8 +47,8 @@
             ./modules/hardware/nvidia.nix
             ./modules/hardware/sensors.nix
             ./modules/docker.nix
-	    nixos-hardware.nixosModules.common-pc-laptop
-	    nixos-hardware.nixosModules.common-pc-laptop-ssd
+            nixos-hardware.nixosModules.common-pc-laptop
+            nixos-hardware.nixosModules.common-pc-laptop-ssd
             home-manager.nixosModules.home-manager
             {
               home-manager = {
@@ -65,7 +65,7 @@
                     ./modules/gtk.nix
                     ./modules/services/gpg.nix
                     ./home
-                  ]; 
+                  ];
                 };
               };
             }

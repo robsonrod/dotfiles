@@ -4,7 +4,7 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 let
-    ivsc-firmware = with pkgs;
+  ivsc-firmware = with pkgs;
     stdenv.mkDerivation rec {
       pname = "ivsc-firmware";
       version = "main";
@@ -25,11 +25,12 @@ let
         cp firmware/ivsc_fw.bin $out/lib/firmware/vsc/soc_a1_prod/ivsc_fw_a1_prod.bin
       '';
     };
-in 
+in
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "nvme" "usb_storage" "usbhid" "sd_mod" "i915" ];
@@ -41,23 +42,25 @@ in
   ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/0ec87f4f-5398-42e9-9e4c-fe6650b669af";
+    {
+      device = "/dev/disk/by-uuid/0ec87f4f-5398-42e9-9e4c-fe6650b669af";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/C087-9D32";
+    {
+      device = "/dev/disk/by-uuid/C087-9D32";
       fsType = "vfat";
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/6fddf291-fc6b-4686-90eb-4ad116ee9f9c";
+    {
+      device = "/dev/disk/by-uuid/6fddf291-fc6b-4686-90eb-4ad116ee9f9c";
       fsType = "ext4";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/ab975a32-bae8-4755-85e5-77c004dd33da"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/ab975a32-bae8-4755-85e5-77c004dd33da"; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -71,8 +74,8 @@ in
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   hardware.ipu6 = {
-      enable = true;
-      platform = "ipu6ep";
+    enable = true;
+    platform = "ipu6ep";
   };
 
   hardware.enableRedistributableFirmware = true;

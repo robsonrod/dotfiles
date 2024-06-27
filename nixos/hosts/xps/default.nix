@@ -11,8 +11,8 @@
   boot = {
     loader = {
       efi = {
-       canTouchEfiVariables = true;
-       efiSysMountPoint = "/boot";
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot";
       };
       grub = {
         enable = true;
@@ -52,10 +52,10 @@
     };
   };
 
- 
+
   modules = {
     flakes.enable = true;
-    
+
     services = {
       ssh.enable = true;
       x11.enable = true;
@@ -68,11 +68,11 @@
       sensors.enable = true;
       intel.enable = true;
     };
-    
+
   };
 
   users.users.robson = {
-    shell = pkgs.fish; 
+    shell = pkgs.fish;
     isNormalUser = true;
     description = "robson";
     extraGroups = [

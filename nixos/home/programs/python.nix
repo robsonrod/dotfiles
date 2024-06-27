@@ -1,11 +1,12 @@
 { config, pkgs, ... }:
-  let
-    my-python-packages = ps: with ps; [
-      pip
-    ];
+let
+  my-python-packages = ps: with ps; [
+    pip
+  ];
 
-  in {
+in
+{
   home.packages = with pkgs; [
-     (python3.withPackages my-python-packages)
+    (python3.withPackages my-python-packages)
   ];
 }
