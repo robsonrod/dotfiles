@@ -19,18 +19,14 @@ in {
       systemPackages = with pkgs; [
         arandr
         betterlockscreen
-        binutils
         bspwm
         cacert
-        cmake
         curl
-        debootstrap
         dunst
         feh
         firefox
         font-manager
         git
-        gnumake
         libinput-gestures
         libnotify
         networkmanager_dmenu
@@ -43,9 +39,13 @@ in {
         pulsemixer
         rofi
         scrot
-        sqlite
         sxhkd
         wget
+        killall
+        openssl
+        p7zip
+        unzip
+        zip
         xorg.xauth
         xorg.xdpyinfo
         xorg.xhost
@@ -54,12 +54,6 @@ in {
         xorg.xkill
         xorg.xrandr
         xorg.xset
-        fishPlugins.fzf-fish
-        fishPlugins.grc
-        fishPlugins.sponge
-        fishPlugins.z
-        fishPlugins.autopair
-        fishPlugins.foreign-env
       ];
     };
 
