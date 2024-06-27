@@ -32,7 +32,7 @@
     {
       formatter.${cfg.system} = nixpkgs.nixpkgs-fmt;
       nixosConfigurations = {
-        capitu = nixpkgs.lib.nixosSystem {
+        iracema = nixpkgs.lib.nixosSystem {
           system = cfg.system;
           specialArgs = { inherit inputs; };
           modules = [
