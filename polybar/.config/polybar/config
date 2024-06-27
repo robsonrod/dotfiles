@@ -233,7 +233,7 @@ format-volume-overline = #bd93f9
 [module/wired-network]
 type  =  internal/network
 interface = ${env:NETWORK_WIRED_INTERFACE}
-label-connected = 
+label-connected = 
 interval = 3
 label-disconnected = 
 label-packageloss-foreground = #f8f8f2
@@ -243,7 +243,7 @@ type  =  internal/network
 interface = ${env:NETWORK_WIRELESS_INTERFACE}
 interval = 3
 label-connected = %signal%%
-label-disconnected = 
+label-disconnected = 
 label-packageloss-foreground = #f8f8f2
 
 format-connected = %{A1:networkmanager_dmenu &:}<ramp-signal> <label-connected>%{A}
