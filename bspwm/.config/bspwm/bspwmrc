@@ -44,7 +44,7 @@ bspc rule -a URxvt desktop='^1' state=tiled follow=on
 bspc rule -a kitty desktop='^1' state=tiled follow=on
 
 # fix firefox popups
-bspc rule -a firefox desktop='^2' state=pseudo_tiled rectangle=1920x1080+0+0 center=on follow=on
+bspc rule -a firefox desktop='^2' state=pseudo_tiled rectangle=$RESOLUTION+0+0 center=on follow=on
 bspc rule -a firefox:firefox state=floating rectangle=1260x760+0+0 center=on
 bspc rule -a firefox:Firefox state=floating rectangle=748x478+0+0 center=on
 
