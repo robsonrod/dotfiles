@@ -84,7 +84,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 bspc rule -a sun-awt-X11-XDialogPeer state=floating
 
 # set wallpaper
-feh --bg-scale $HOME/.config/wallpaper/kraken.jpg
+feh --bg-scale $HOME/.config/wallpaper/wallpaper.jpg
 
 polybar main &
 

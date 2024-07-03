@@ -21,7 +21,7 @@
 
 (defun robsonrod/set-wallpaper ()
   (interactive)
-  (start-process-shell-command "feh" nil "feh --bg-scale $HOME/.config/wallpaper/kraken.jpg"))
+  (start-process-shell-command "feh" nil "feh --bg-scale $HOME/.config/wallpaper/wallpaper.jpg"))
 
 (defun robsonrod/exwm-init-hook ()
   (exwm-workspace-switch-create 1)
