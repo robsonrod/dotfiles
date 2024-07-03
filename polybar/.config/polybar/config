@@ -9,7 +9,7 @@ foreground = #f8f8f2
 height = ${env:PBHEIGHT}
 module-margin-left = 1
 modules-left = bspwm
-modules-right = vpn pad mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery pad wired-network pad wireless-network pad updates pad powermenu
+modules-right = vpn pad mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery pad wired-network pad wireless-network pad updates pad firmware pad powermenu
 modules-center = pad date
 monitor = ${env:MONITOR}
 offset-y = 1
@@ -190,6 +190,11 @@ interval = 5
 [module/updates]
 type = custom/script
 exec = check_updates
+interval = 3600
+
+[module/firmware]
+type = custom/script
+exec = fwupmgr_notifier
 interval = 3600
 
 [module/memory]

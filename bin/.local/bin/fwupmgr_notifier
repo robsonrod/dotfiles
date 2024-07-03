@@ -5,6 +5,7 @@ fwupmgr refresh > /dev/null 2>&1
 updates=$(fwupmgr get-updates 2> /dev/null | grep -c "Updatable")
 
 if [ "$updates" -gt 0 ]; then
-   msg="There are $updates available"
-   notify-send --urgency=normal $msg
+    echo "%{F#50fa7b}"
+else
+    echo "%{F#f8f8f2}"
 fi
