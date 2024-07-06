@@ -14,7 +14,7 @@
     libnotify
     lshw
     man-pages
-    neofetch
+    nerdfetch
     peek
     pinentry
     ranger
