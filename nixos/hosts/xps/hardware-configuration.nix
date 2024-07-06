@@ -37,6 +37,7 @@ in
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.tmp.cleanOnBoot = false;
   boot.kernelParams = [
     "i915.enable_psr=0"
   ];

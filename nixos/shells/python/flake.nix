@@ -12,15 +12,15 @@
       let
         pkgs = import nixpkgs { inherit system; };
         my-python-packages = with pkgs; (ps: with ps; [
-        pip
-        ]); 
+          pip
+        ]);
       in
       with pkgs;
       {
         devShells.default = mkShell
           {
             name = "python";
-            packages = [(python3.withPackages my-python-packages)];
+            packages = [ (python3.withPackages my-python-packages) ];
 
             #shellHook = ''
             #  exec fish
