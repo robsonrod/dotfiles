@@ -34,7 +34,7 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       arc-theme
-      (papirus-icon-theme.override { color = "black"; })
+      (papirus-icon-theme.override { color = "grey"; })
       dracula-theme
       dracula-icon-theme
       lxappearance
