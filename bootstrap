@@ -2,150 +2,146 @@
 
 OS_ID=$(awk -F= ' /^ID=/ { gsub("\"", ""); print $2 } ' /etc/os-release)
 ROOT=$(git rev-parse --show-toplevel)
-if [ "$OS_ID" == "ubuntu" ]; then
-    source $ROOT/ubuntu/configure
-else
-    source $ROOT/arch/configure
-fi
+source $ROOT/arch/configure
 
 remove_home_files() {
-    echo "remove home files"
+	echo "remove home files"
 
-    for file in aliases bash_profile bashrc env functions profile; do
-        if [[ $backup_files ]]; then
-            if [ -f "$HOME/.$file" ] && [ ! -L "$HOME/.$file" ]; then
-                $cmd mv "$HOME/.$file" "$HOME/.$file.bkp"
-            else
-                $cmd rm -f "$HOME/.$file" 
-            fi
-        fi
-    done
+	for file in aliases bash_profile bashrc env functions profile; do
+		if [[ $backup_files ]]; then
+			if [ -f "$HOME/.$file" ] && [ ! -L "$HOME/.$file" ]; then
+				$cmd mv "$HOME/.$file" "$HOME/.$file.bkp"
+			else
+				$cmd rm -f "$HOME/.$file"
+			fi
+		fi
+	done
 }
 
 remove_config_files() {
-    echo "remove config files"
+	echo "remove config files"
 
-    for file in mimeapps.list user-dirs.dirs user-dirs.locale; do
-        if [[ $backup_files ]]; then
-            if [ -f "$HOME/.$file" ] && [ ! -L "$HOME/.$file" ]; then
-                $cmd mv "$HOME/.config/$file" "$HOME/.config/$file.bkp"
-            else
-                $cmd rm -f "$HOME/.config/$file" 
-            fi
-        fi
-    done
+	for file in mimeapps.list user-dirs.dirs user-dirs.locale; do
+		if [[ $backup_files ]]; then
+			if [ -f "$HOME/.$file" ] && [ ! -L "$HOME/.$file" ]; then
+				$cmd mv "$HOME/.config/$file" "$HOME/.config/$file.bkp"
+			else
+				$cmd rm -f "$HOME/.config/$file"
+			fi
+		fi
+	done
 }
 
 __get_xmanager_id() {
-    if [[ $hdpi_config == false ]]; then
-        echo "xmanager-fhd"
-    else
-        echo "xmanager-hdpi"
-    fi
+	if [[ $hdpi_config == false ]]; then
+		echo "xmanager-fhd"
+	else
+		echo "xmanager-hdpi"
+	fi
 }
 
 install() {
-    echo "install configurations"
-    local dir=$ROOT
-    local stow_config="--dir=$dir --target=$HOME --dotfiles"
+	echo "install configurations"
+	local dir=$ROOT
+	local stow_config="--dir=$dir --target=$HOME --dotfiles"
 
-    echo "stow configuration: " $stow_config
-    echo $stow_config >$dir/.stowrc
+	echo "stow configuration: " $stow_config
+	echo $stow_config >$dir/.stowrc
 
-    local xmanager=$(__get_xmanager_id)
+	local xmanager=$(__get_xmanager_id)
 
-    $cmd stow -v git/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ xdg-dirs/ picom/ rofi/ starship/ tmux/ ${xmanager}/ bin/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ networkmanager-dmenu/ clang/ ranger/ bat/ kitty/ fish/ neofetch/
-    echo "done"
+	$cmd stow -v git/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ xdg-dirs/ picom/ rofi/ starship/ tmux/ ${xmanager}/ bin/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ networkmanager-dmenu/ clang/ ranger/ bat/ kitty/ fish/ neofetch/
+	echo "done"
 }
 
 uninstall() {
-    echo "uninstall configurations"
+	echo "uninstall configurations"
 
-    local xmanager=$(__get_xmanager_id)
-    $cmd stow -v -D git/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ xdg-dirs/ picom/ rofi/ starship/ tmux/ bin/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ ${xmanager}/ networkmanager-dmenu/ clang/ ranger/ bat/ kitty/ fish/ neofetch/
-    echo "done"
+	local xmanager=$(__get_xmanager_id)
+	$cmd stow -v -D git/ terminator/ bash/ dunst/ emacs/ gtk-3.0/ gtk-4.0/ nvim/ xdg-dirs/ picom/ rofi/ starship/ tmux/ bin/ zathura/ bspwm/ polybar/ sxhkd/ wallpaper/ ${xmanager}/ networkmanager-dmenu/ clang/ ranger/ bat/ kitty/ fish/ neofetch/
+	echo "done"
 }
 
 usage() {
-    echo -e "\nUsage:\n"
-    echo -e "-c - to install all deps"
-    echo -e "-i - to install applications (default)"
-    echo -e "-u - to uninstall all configurations"
-    echo -e "-b - move files to backup instead remove"
-    echo -e "-h - to install hidpi config (default)"
-    echo -e "-f - to install full hd config"
+	echo -e "\nUsage:\n"
+	echo -e "-c - to install all deps"
+	echo -e "-i - to install applications (default)"
+	echo -e "-u - to uninstall all configurations"
+	echo -e "-b - move files to backup instead remove"
+	echo -e "-h - to install hidpi config (default)"
+	echo -e "-f - to install full hd config"
 }
 
 dry_run_exec() {
-    if [[ $dry_run ]]; then
-        cmd=echo
-    else
-        cmd=''
-    fi
+	if [[ $dry_run ]]; then
+		cmd=echo
+	else
+		cmd=''
+	fi
 }
 
 handle() {
-    install_deps=false
-    install_config=true
-    hdpi_config=true
-    backup_files=false
-    dry_run=false
+	install_deps=false
+	install_config=true
+	hdpi_config=true
+	backup_files=false
+	dry_run=false
 
-    if [[ $# -eq 0 ]]; then
-        usage
-        exit
-    fi
+	if [[ $# -eq 0 ]]; then
+		usage
+		exit
+	fi
 
-    while [ $# -ge 1 ]; do
-        case "$1" in
-            -b | --backup)
-                backup_files=true
-                ;;
-            -c | --configure)
-                install_deps=true
-                ;;
-            -f | --fhd)
-                hdpi_config=false
-                ;;
-            -h | --hdpi)
-                hdpi_config=true
-                ;;
-            -i | --install)
-                install_config=true
-                ;;
-            -u | --uninstall)
-                install_config=false
-                ;;
-            -n| --dry-run)
-                dry_run_exec
-                ;;
-            -h|--help)
-                usage 
-                exit 0
-                ;;
-            *) 
-                usage 
-                exit 1 
-                ;;
-        esac
-        shift
-    done
+	while [ $# -ge 1 ]; do
+		case "$1" in
+			-b | --backup)
+				backup_files=true
+				;;
+			-c | --configure)
+				install_deps=true
+				;;
+			-f | --fhd)
+				hdpi_config=false
+				;;
+			-h | --hdpi)
+				hdpi_config=true
+				;;
+			-i | --install)
+				install_config=true
+				;;
+			-u | --uninstall)
+				install_config=false
+				;;
+			-n| --dry-run)
+				dry_run_exec
+				;;
+			-h|--help)
+				usage
+				exit 0
+				;;
+			*)
+				usage
+				exit 1
+				;;
+		esac
+		shift
+	done
 }
 
 main() {
-    handle "$@"
+	handle "$@"
 
-    if [[ $install_deps == true ]]; then
-        configure
-    fi
+	if [[ $install_deps == true ]]; then
+		configure
+	fi
 
-    if [[ $install_config == true ]]; then
-        remove_home_files
-        remove_config_files
-        install
-    else
-        uninstall
-    fi
+	if [[ $install_config == true ]]; then
+		remove_home_files
+		remove_config_files
+		install
+	else
+		uninstall
+	fi
 }
 
 main "$@"

@@ -82,10 +82,11 @@ install_asdf() {
 }
 
 enable_services() {
-	sudo systemctl enable sshd
-	sudo systemctl enable cronie
-	sudo systemctl enable NetworkManager
-	sudo systemctl enable systemd-timesyncd
+	sudo systemctl enable --now sshd
+	sudo systemctl enable --now cronie
+	sudo systemctl enable --now polkit
+	sudo systemctl enable --now NetworkManager
+	sudo systemctl enable --now systemd-timesyncd
 }
 
 enable_darkmode_gtk4() {
@@ -108,12 +109,12 @@ install_rust() {
 		return
 	fi
 
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
 	echo "rust: installed"
 }
 
 set_default_shell() {
-    chsh -s $(which fish)
+	chsh -s $(which fish)
 }
 
 configure() {
@@ -128,7 +129,7 @@ configure() {
 	enable_services
 	enable_darkmode_gtk4
 	create_user_directories
-    install_rust
-    set_default_shell
+	install_rust
+	set_default_shell
 	cleanup
 }

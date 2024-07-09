@@ -17,7 +17,7 @@
     nerdfetch
     peek
     pinentry
-    ranger
+    yazi
     ripgrep
     starship
     stow
