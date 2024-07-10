@@ -1,4 +1,4 @@
-{ config, options, lib, pkgs, ... }:
+{ config, options, lib, pkgs, pkgs-stable, ... }:
 
 with lib;
 with lib.types;
@@ -37,6 +37,7 @@ in {
 
     services.fprintd = {
       enable = true;
+      package = pkgs-stable.fprintd;
     };
   };
 }

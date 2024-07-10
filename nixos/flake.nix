@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "nixpkgs/nixos-23.05";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -12,10 +12,9 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     rust-overlay.url = "github:oxalica/rust-overlay";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    darkmatter.url = "gitlab:VandalByte/darkmatter-grub-theme";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, darkmatter, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, nixos-hardware, ... }:
     let
       cfg = {
         system = "x86_64-linux";
@@ -33,11 +32,16 @@
     {
       formatter.${cfg.system} = nixpkgs.nixpkgs-fmt;
       nixosConfigurations = {
-        iracema = nixpkgs.lib.nixosSystem {
+        iracema = nixpkgs.lib.nixosSystem rec {
           system = cfg.system;
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs; 
+
+            pkgs-stable = import nixpkgs-stable {
+                inherit system;
+                config.allowUnfree = true;
+            };
+          };
           modules = [
-            darkmatter.nixosModule
             ./hosts/xps
             ./modules/flakes.nix
             ./modules/services/ssh.nix
