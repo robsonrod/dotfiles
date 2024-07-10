@@ -34,11 +34,12 @@
       nixosConfigurations = {
         iracema = nixpkgs.lib.nixosSystem rec {
           system = cfg.system;
-          specialArgs = { inherit inputs; 
+          specialArgs = {
+            inherit inputs;
 
             pkgs-stable = import nixpkgs-stable {
-                inherit system;
-                config.allowUnfree = true;
+              inherit system;
+              config.allowUnfree = true;
             };
           };
           modules = [
