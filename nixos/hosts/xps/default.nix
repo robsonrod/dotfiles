@@ -21,6 +21,10 @@
         devices = [ "nodev" ];
         configurationLimit = 5;
         gfxmodeEfi = "1920x1080x32";
+        darkmatter-theme = {
+        enable = true;
+        style = "nixos";
+      };
       };
     };
   };
@@ -60,7 +64,7 @@
       ssh.enable = true;
       x11.enable = true;
       pipewire.enable = true;
-      fingerprint.enable = true;
+      fingerprint.enable = false;
     };
 
     hardware = {
