@@ -17,6 +17,7 @@ in {
       localBinInPath = true;
 
       systemPackages = with pkgs; [
+        alsa-utils
         arandr
         betterlockscreen
         bspwm
