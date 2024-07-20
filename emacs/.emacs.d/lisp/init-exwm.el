@@ -117,6 +117,7 @@
           ;; Open file manager
           ([?\s-f] . dired-jump)
           ([?\s-q] . (lambda () (interactive) (start-process-shell-command "powermenu" nil "powermenu")))
+          ([?\s-k] . (lambda () (interactive) (start-process-shell-command "rofikeyboard" nil "rofikeyboard")))
 
           ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
           ,@(mapcar (lambda (i)
