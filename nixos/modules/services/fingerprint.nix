@@ -37,7 +37,6 @@ in {
 
     services.fprintd = {
       enable = true;
-      package = pkgs-stable.fprintd;
     };
   };
 }
