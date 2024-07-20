@@ -1,15 +1,14 @@
-;; (use-package 
-;;   vterm 
-;;   :config (setq vterm-shell "/usr/bin/fish") 
-;;   :hook (vterm-mode . (lambda () 
-;;                         (hl-line-mode -1) 
-;;                         (display-line-numbers-mode -1))))
+(use-package
+  vterm
+  :hook (vterm-mode . (lambda ()
+                        (hl-line-mode -1)
+                        (display-line-numbers-mode -1))))
 
-;; (use-package 
-;;   multi-vterm 
-;;   :after vterm 
-;;   :ensure t 
-;;   :defer t)
+(use-package
+  multi-vterm
+  :after vterm
+  :ensure t
+  :defer t)
 
 (robsonrod/ctrl-c-definer
   "t" '(multi-vterm :which-key "open an arbitrary terminal")

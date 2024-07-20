@@ -29,6 +29,7 @@
   (robsonrod/start-polybar)
   (robsonrod/run-in-background "dunst")
   (robsonrod/run-in-background "picom")
+  (robsonrod/run-in-background "screensaver")
   (robsonrod/run-in-background "low_bat_notifier"))
 
 (defun robsonrod/send-polybar-hook (name number)
@@ -74,7 +75,7 @@
   (require 'exwm-randr)
   (exwm-randr-enable)
   (start-process-shell-command "xrandr" nil "xrandr --output $MONITOR --primary --mode 3840x2400 --pos 0x0 --rotate normal --output DP-1-2 --off --output HDMI-2 --off --output HDMI-1 --off --output DP-1 --off --output DP-1-3 --off --output DP-2 --off --output DP-1-1 --off")
-  (start-process-shell-command "xrandr" nil "xrandr --output $MONITOR --brightness 0.60")
+  (start-process-shell-command "xrandr" nil "xrandr --output $MONITOR --brightness 1.0")
 
   (setq exwm-workspace-warp-cursor t
         mouse-autoselect-window t
@@ -105,15 +106,18 @@
 
           ;; Launch applications via shell command
           ([?\s-d] . (lambda (command)
-                       (interactive (list (read-shell-command "$ ")))
+                       (interactive (list (read-shell-command "RUN: ")))
                        (start-process-shell-command command nil command)))
 
           ;; Switch workspace
           ([?\s-w] . exwm-workspace-switch)
-          ([?\s-t] . multi-vterm)
-          ([?\s-c] . calc)
+          ([?\s-t] . (lambda () (interactive)(start-process-shell-command "kitty" nil "kitty")))
           ([?\s-b] . (lambda () (interactive)(start-process "" nil "firefox")))
-   
+          ([?\s-B] . (lambda () (interactive)(start-process "" nil "google-chrome")))
+          ;; Open file manager
+          ([?\s-f] . dired-jump)
+          ([?\s-q] . (lambda () (interactive) (start-process-shell-command "powermenu" nil "powermenu")))
+
           ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
           ,@(mapcar (lambda (i)
                       `(,(kbd (format "s-%d" i)) .
@@ -133,7 +137,7 @@
   (desktop-environment-brightness-small-decrement "2%-")
   (desktop-environment-brightness-normal-increment "5%+")
   (desktop-environment-brightness-normal-decrement "5%-")
-  (desktop-environment-screenlock-command "screen_lock")
+  (desktop-environment-screenlock-command "screensaver")
   (desktop-environment-screenshot-command "flameshot gui"))
 
 (provide 'init-exwm)
