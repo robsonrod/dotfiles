@@ -4,6 +4,7 @@
   imports = [
     ./browsers.nix
     ./cli.nix
+    ./clojure.nix
     ./fish.nix
     ./git.nix
     ./network-manager.nix

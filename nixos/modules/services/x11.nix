@@ -17,6 +17,7 @@ in {
       localBinInPath = true;
 
       systemPackages = with pkgs; [
+        v4l-utils
         alsa-utils
         arandr
         betterlockscreen
@@ -39,6 +40,7 @@ in {
         polybarFull
         pulsemixer
         rofi
+        rofi-calc
         scrot
         sxhkd
         wget

@@ -30,7 +30,10 @@
   (robsonrod/run-in-background "dunst")
   (robsonrod/run-in-background "picom")
   (robsonrod/run-in-background "screensaver")
-  (robsonrod/run-in-background "low_bat_notifier"))
+  (robsonrod/run-in-background "low_bat_notifier")
+  (exwm-modeline-mode)
+  (dashboard-open))
+
 
 (defun robsonrod/send-polybar-hook (name number)
   (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" name number)))
@@ -53,7 +56,7 @@
   (interactive)
   (pcase exwm-class-name
     ("Emacs" (call-interactively #'exwm-input-toggle-keyboard))
-    ("qutebrowser" (exwm-workspace-move-window 2))))
+    ("Firefox" (exwm-workspace-move-window 2))))
 
 (use-package exwm
   :config
@@ -65,6 +68,7 @@
   (add-hook 'exwm-update-class-hook #'robsonrod/exwm-update-class)
   (add-hook 'exwm-init-hook #'robsonrod/exwm-init-hook)
   (add-hook 'exwm-manage-finish-hook #'robsonrod/setup-window-by-class)
+  
 
   ;; Hide the modeline on all X windows
   (add-hook 'exwm-floating-setup-hook
@@ -113,7 +117,7 @@
           ([?\s-w] . exwm-workspace-switch)
           ([?\s-t] . (lambda () (interactive)(start-process-shell-command "kitty" nil "kitty")))
           ([?\s-b] . (lambda () (interactive)(start-process "" nil "firefox")))
-          ([?\s-B] . (lambda () (interactive)(start-process "" nil "google-chrome")))
+          ([?\s-B] . (lambda () (interactive)(start-process "" nil "google-chrome-stable")))
           ;; Open file manager
           ([?\s-f] . dired-jump)
           ([?\s-q] . (lambda () (interactive) (start-process-shell-command "powermenu" nil "powermenu")))
@@ -139,6 +143,10 @@
   (desktop-environment-brightness-normal-increment "5%+")
   (desktop-environment-brightness-normal-decrement "5%-")
   (desktop-environment-screenlock-command "screensaver")
-  (desktop-environment-screenshot-command "flameshot gui"))
+  (desktop-environment-screenshot-command "screenshot"))
+
+(use-package exwm-modeline
+  :ensure t
+  :after (exwm))
 
 (provide 'init-exwm)

@@ -38,6 +38,11 @@ in
       recursive = true;
     };
 
+    home.file.".config/atuin" = {
+      source = ../../atuin/.config/atuin;
+      recursive = true;
+    };
+
     home.file.".config/dunst" = {
       source = ../../dunst/.config/dunst;
       recursive = true;

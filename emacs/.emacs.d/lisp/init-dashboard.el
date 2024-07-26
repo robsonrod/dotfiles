@@ -6,13 +6,9 @@
   (setq dashboard-banner-logo-title "Welcome" 
         dashboard-set-init-info nil 
         show-week-agenda-p t) 
-  (setq dashboard-items '((recents . 15) 
-                          (projects . 5) 
-                          (agenda . 5) 
-                          (bookmarks . 5))) 
-  (setq dashboard-set-heading-icons t 
+    (setq dashboard-set-heading-icons t 
         dashboard-set-file-icons t 
-        dashboard-startup-banner 'logo 
+        dashboard-startup-banner "/home/robson/Downloads/emacs.png" 
         dashboard-footer-messages '("Happy codding")) 
   (dashboard-setup-startup-hook))
 

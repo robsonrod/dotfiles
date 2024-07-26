@@ -20,9 +20,9 @@
             name = "clojure";
             packages = inputs;
 
-            #shellHook = ''
-            #  exec fish
-            #'';
+            shellHook = ''
+              exec fish
+            '';
           };
       });
 }

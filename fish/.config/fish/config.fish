@@ -129,6 +129,10 @@ set __fish_git_prompt_showuntrackedfiles yes
 set __fish_git_prompt_showdirtystate yes
 set __fish_git_prompt_showdirtystate ''
 
+# bind to ctrl-r in normal and insert mode, add any other bindings you want here too
+bind \cr _atuin_search
+bind -M insert \cr _atuin_search
+
 function fish_command_not_found
     __fish_default_command_not_found_handler $argv
 end

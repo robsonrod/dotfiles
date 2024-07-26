@@ -76,7 +76,7 @@
 (column-number-mode t)
 (save-place-mode 1)
 (global-auto-revert-mode 1)
-(global-hl-line-mode +1)
+(global-hl-line-mode 1)
 (global-display-line-numbers-mode t)
 
 (server-start)
