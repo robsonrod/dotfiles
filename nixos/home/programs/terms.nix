@@ -8,4 +8,12 @@
     source = ../../../kitty/.config/kitty;
     recursive = true;
   };
+
+  programs.urxvt = {
+  enable = true;
+  extraConfig = {
+    "perl-ext" = "default,tabbedex";
+  };
+};
+  
 }

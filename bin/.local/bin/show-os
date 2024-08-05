@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [[ "$OS_ID" == "nixos" ]]; then
+    echo " "
+elif [[ "$OS_ID" == "arch" ]]; then
+    echo " "
+else
+    echo " "
+fi 
