@@ -24,22 +24,27 @@
 (use-package catppuccin-theme
  :ensure t
  :config
- (setq catppuccin-flavor 'latte))
+ (setq catppuccin-flavor 'macchiato))
 
 ;; doom modeline
 (use-package 
   doom-modeline 
   :ensure t 
   :init (doom-modeline-mode 1) 
-  :custom ((doom-modeline-height 15) 
-           (doom-modeline-bar-width 6) 
-           (doom-modeline-lsp t) 
-           (doom-modeline-persp-name nil) 
-           (doom-modeline-irc nil) 
-           (doom-modeline-mu4e nil) 
-           (doom-modeline-minor-modes t) 
-           (doom-modeline-buffer-file-name-style 'truncate-except-project) 
-           (doom-modeline-major-mode-icon t)))
+  :custom ((setq doom-modeline-height 15) 
+           (setq doom-modeline-bar-width 6) 
+           (setq doom-modeline-lsp t) 
+           (setq doom-modeline-persp-name nil)
+           (setq doom-modeline-battery t)
+           (setq doom-modeline-irc nil)
+           (setq doom-modeline-icon t)
+           (setq doom-modeline-modal t)
+           (setq doom-modeline-modal-modern-icon t)
+           (setq doom-modeline-modal-icon t)
+           (setq doom-modeline-mu4e nil) 
+           (setq doom-modeline-minor-modes t) 
+           (setq doom-modeline-buffer-file-name-style 'truncate-except-project) 
+           (setq doom-modeline-major-mode-icon t)))
 
 (load-theme 'doom-dracula t) 
 

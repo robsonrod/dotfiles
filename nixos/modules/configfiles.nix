@@ -28,9 +28,18 @@ in
     home.file.".xinitrc" = {
       source = ../../xmanager-fhd/.xinitrc;
     };
+    
+    home.file.".xinitrc.exwm" = {
+      source = ../../xmanager-hdpi/.xinitrc.exwm;
+    };
 
     home.file.".config/bat" = {
       source = ../../bat/.config/bat;
+      recursive = true;
+    };
+
+    home.file.".config/atuin" = {
+      source = ../../atuin/.config/atuin;
       recursive = true;
     };
 

@@ -16,7 +16,7 @@ in
 
   config = mkIf cfg.enable {
     nix = {
-      package = pkgs.nixUnstable;
+      package = pkgs.nixVersions.latest;
       gc = {
         automatic = true;
         dates = "weekly";
@@ -37,8 +37,9 @@ in
     nixpkgs = {
       config = { allowUnfree = true; };
       overlays = [
-         inputs.emacs-overlay.overlay
-         inputs.rust-overlay.overlays.default
+        inputs.emacs-overlay.overlay
+        inputs.neovim-nightly-overlay.overlays.default
+        inputs.rust-overlay.overlays.default
       ];
     };
 

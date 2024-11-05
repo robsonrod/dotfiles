@@ -2,8 +2,8 @@
 {
   home.packages = with pkgs; [
     bat
+    bc
     bottom
-    curl
     eza
     fd
     file
@@ -11,24 +11,17 @@
     grc
     hexyl
     hwinfo
-    killall
     libnotify
     lshw
     man-pages
-    neofetch
-    openssl
-    p7zip
+    nerdfetch
     peek
     pinentry
-    ranger
-    ripgrep
+    yazi
     ripgrep
     starship
     stow
-    unzip
-    wget
     xdg-utils
-    zip
     zoxide
   ];
 }

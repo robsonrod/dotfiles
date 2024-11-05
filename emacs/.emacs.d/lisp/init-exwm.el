@@ -21,7 +21,7 @@
 
 (defun robsonrod/set-wallpaper ()
   (interactive)
-  (start-process-shell-command "feh" nil "feh --bg-scale $HOME/.config/wallpaper/kraken.jpg"))
+  (start-process-shell-command "feh" nil "feh --bg-scale $HOME/.config/wallpaper/wallpaper.jpg"))
 
 (defun robsonrod/exwm-init-hook ()
   (exwm-workspace-switch-create 1)
@@ -29,7 +29,11 @@
   (robsonrod/start-polybar)
   (robsonrod/run-in-background "dunst")
   (robsonrod/run-in-background "picom")
-  (robsonrod/run-in-background "low_bat_notifier"))
+  (robsonrod/run-in-background "screensaver")
+  (robsonrod/run-in-background "low_bat_notifier")
+  (exwm-modeline-mode)
+  (dashboard-open))
+
 
 (defun robsonrod/send-polybar-hook (name number)
   (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" name number)))
@@ -52,7 +56,7 @@
   (interactive)
   (pcase exwm-class-name
     ("Emacs" (call-interactively #'exwm-input-toggle-keyboard))
-    ("qutebrowser" (exwm-workspace-move-window 2))))
+    ("Firefox" (exwm-workspace-move-window 2))))
 
 (use-package exwm
   :config
@@ -64,6 +68,7 @@
   (add-hook 'exwm-update-class-hook #'robsonrod/exwm-update-class)
   (add-hook 'exwm-init-hook #'robsonrod/exwm-init-hook)
   (add-hook 'exwm-manage-finish-hook #'robsonrod/setup-window-by-class)
+  
 
   ;; Hide the modeline on all X windows
   (add-hook 'exwm-floating-setup-hook
@@ -74,7 +79,7 @@
   (require 'exwm-randr)
   (exwm-randr-enable)
   (start-process-shell-command "xrandr" nil "xrandr --output $MONITOR --primary --mode 3840x2400 --pos 0x0 --rotate normal --output DP-1-2 --off --output HDMI-2 --off --output HDMI-1 --off --output DP-1 --off --output DP-1-3 --off --output DP-2 --off --output DP-1-1 --off")
-  (start-process-shell-command "xrandr" nil "xrandr --output $MONITOR --brightness 0.60")
+  (start-process-shell-command "xrandr" nil "xrandr --output $MONITOR --brightness 1.0")
 
   (setq exwm-workspace-warp-cursor t
         mouse-autoselect-window t
@@ -105,15 +110,19 @@
 
           ;; Launch applications via shell command
           ([?\s-d] . (lambda (command)
-                       (interactive (list (read-shell-command "$ ")))
+                       (interactive (list (read-shell-command "RUN: ")))
                        (start-process-shell-command command nil command)))
 
           ;; Switch workspace
           ([?\s-w] . exwm-workspace-switch)
-          ([?\s-t] . multi-vterm)
-          ([?\s-c] . calc)
+          ([?\s-t] . (lambda () (interactive)(start-process-shell-command "kitty" nil "kitty")))
           ([?\s-b] . (lambda () (interactive)(start-process "" nil "firefox")))
-   
+          ([?\s-B] . (lambda () (interactive)(start-process "" nil "google-chrome-stable")))
+          ;; Open file manager
+          ([?\s-f] . dired-jump)
+          ([?\s-q] . (lambda () (interactive) (start-process-shell-command "powermenu" nil "powermenu")))
+          ([?\s-k] . (lambda () (interactive) (start-process-shell-command "rofikeyboard" nil "rofikeyboard")))
+
           ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
           ,@(mapcar (lambda (i)
                       `(,(kbd (format "s-%d" i)) .
@@ -133,7 +142,11 @@
   (desktop-environment-brightness-small-decrement "2%-")
   (desktop-environment-brightness-normal-increment "5%+")
   (desktop-environment-brightness-normal-decrement "5%-")
-  (desktop-environment-screenlock-command "screen_lock")
-  (desktop-environment-screenshot-command "flameshot gui"))
+  (desktop-environment-screenlock-command "screensaver")
+  (desktop-environment-screenshot-command "screenshot"))
+
+(use-package exwm-modeline
+  :ensure t
+  :after (exwm))
 
 (provide 'init-exwm)

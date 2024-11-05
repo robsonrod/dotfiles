@@ -31,7 +31,7 @@ get_layout() {
             layout=${layout:0:2}
     fi
 
-    echo "%{F#f8f8f2}  ${layout^^}"
+    echo "%{F#cdd6f4}  ${layout^^}"
 }
 
 usage() {

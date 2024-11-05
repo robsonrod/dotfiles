@@ -1,3 +1,3 @@
 function vpns --description "Start VPN service"
-    vpn.sh start
+    $HOME/chrootvpn/vpn.sh start
 end

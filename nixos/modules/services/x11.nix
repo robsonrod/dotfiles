@@ -17,20 +17,18 @@ in {
       localBinInPath = true;
 
       systemPackages = with pkgs; [
+        v4l-utils
+        alsa-utils
         arandr
         betterlockscreen
-        binutils
         bspwm
         cacert
-        cmake
         curl
-        debootstrap
         dunst
         feh
         firefox
         font-manager
         git
-        gnumake
         libinput-gestures
         libnotify
         networkmanager_dmenu
@@ -42,10 +40,15 @@ in {
         polybarFull
         pulsemixer
         rofi
+        rofi-calc
         scrot
-        sqlite
         sxhkd
         wget
+        killall
+        openssl
+        p7zip
+        unzip
+        zip
         xorg.xauth
         xorg.xdpyinfo
         xorg.xhost
@@ -54,12 +57,6 @@ in {
         xorg.xkill
         xorg.xrandr
         xorg.xset
-        fishPlugins.fzf-fish
-        fishPlugins.grc
-        fishPlugins.sponge
-        fishPlugins.z
-        fishPlugins.autopair
-        fishPlugins.foreign-env
       ];
     };
 
@@ -67,6 +64,7 @@ in {
 
       gnupg.agent = {
         enable = true;
+        pinentryPackage = pkgs.pinentry-tty;
       };
 
       thunar = {
@@ -79,7 +77,7 @@ in {
 
       dconf = { enable = true; };
 
-      bash = { enableCompletion = true; };
+      bash = { completion.enable = true; };
 
       fish = {
         enable = true;
@@ -90,13 +88,6 @@ in {
       printing = { enable = true; };
       gvfs = { enable = true; };
       tumbler = { enable = true; };
-    };
-
-    services.xserver = {
-      layout = "us";
-      xkbVariant = "";
-      enable = true;
-      autorun = true;
 
       libinput = {
         enable = true;
@@ -105,11 +96,19 @@ in {
         };
       };
 
+    };
+
+    services.xserver = {
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
+      enable = true;
+      autorun = false;
+      dpi = 200;
+
       displayManager = {
-        #startx.enable = true;
-        lightdm = {
-          enable = true;
-        };
+        startx.enable = true;
       };
 
       desktopManager = {

@@ -12,7 +12,7 @@ in {
 
     cursor.size = mkOption {
       type = int;
-      default = 32;
+      default = 48;
     };
 
     cursor.theme = mkOption {
@@ -34,7 +34,7 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       arc-theme
-      papirus-icon-theme
+      (papirus-icon-theme.override { color = "grey"; })
       dracula-theme
       dracula-icon-theme
       lxappearance

@@ -76,14 +76,14 @@
 (column-number-mode t)
 (save-place-mode 1)
 (global-auto-revert-mode 1)
-(global-hl-line-mode +1)
+(global-hl-line-mode 1)
 (global-display-line-numbers-mode t)
 
 (server-start)
 
 ;; disable line numbers for some modes
 (dolist (mode '(org-mode-hook term-mode-hook vterm-mode-hook shell-mode-hook eshell-mode-hook
-                              dired-mode-hook pdf-view-mode-hook neotree-mode-hook treemacs-mode-hook)) 
+                              dired-mode-hook pdf-view-mode-hook neotree-mode-hook treemacs-mode-hook ielm-mode-hook)) 
   (add-hook mode (lambda () 
                    (display-line-numbers-mode -1))))
 
@@ -172,6 +172,8 @@
   (require 'init-exwm))
 
 (require 'init-gui)
+(require 'init-evil)
+(require 'init-dashboard)
 (require 'init-functions)
 (require 'init-eshell)
 (require 'init-lsp)
@@ -200,6 +202,7 @@
 (require 'init-rss)
 (require 'init-dictionary)
 (require 'init-undo)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

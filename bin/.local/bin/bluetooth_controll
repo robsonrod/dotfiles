@@ -12,18 +12,18 @@ toggle() {
 status() {
     bt_enabled="$(bluetoothctl show | grep "Powered: yes" | wc -c)"
     if [ "$bt_enabled" -eq 0 ]; then
-        echo "%{F#f8f8f2}"
+        echo "%{F#cdd6f4}"
         return
     fi
 
     connected="$(echo info | bluetoothctl | grep 'Device' | wc -c)"
     if [ "$connected" -eq 0 ]; then
-        echo "%{F#8aadf4}"
+        echo "%{F#89b4fa}"
         return
     fi
 
     mac_address="$(echo info | bluetoothctl | grep 'Device' | head -n 1 | awk '{print $2}')"
-    echo "%{F#a6da95}"
+    echo "%{F#fab387}"
 }
 
 usage() {

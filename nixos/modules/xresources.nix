@@ -15,7 +15,7 @@ in
 
     dpi = mkOption {
       type = int;
-      default = 96;
+      default = 200;
     };
 
   };
@@ -42,8 +42,8 @@ in
         "*.color7" = "#BFBFBF";
         "*.color15" = "#E6E6E6";
 
-        "XCursor.size" = 32;
-        "XCursor.theme" = "Arc-Dark";
+        "Xcursor.size" = 48;
+        "Xcursor.theme" = "Arc-Dark";
         "Xft.dpi" = cfg.dpi;
 
         "*.antialias" = "true";

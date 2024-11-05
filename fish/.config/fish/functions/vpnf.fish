@@ -1,3 +1,3 @@
 function vpnf --description "Finish VPN service"
-    vpn.sh stop
+    $HOME/chrootvpn/vpn.sh stop
 end
