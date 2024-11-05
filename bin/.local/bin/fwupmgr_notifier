@@ -5,7 +5,7 @@ fwupmgr refresh > /dev/null 2>&1
 updates=$(fwupmgr get-updates 2> /dev/null | grep -c "Updatable")
 
 if [ "$updates" -gt 0 ]; then
-    echo "%{F#50fa7b}"
+    echo "%{F#a6e3a1}"
 else
-    echo "%{F#f8f8f2}"
+    echo "%{F#cdd6f4}"
 fi

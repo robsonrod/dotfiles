@@ -172,6 +172,7 @@
   (require 'init-exwm))
 
 (require 'init-gui)
+(require 'init-evil)
 (require 'init-dashboard)
 (require 'init-functions)
 (require 'init-eshell)
@@ -201,6 +202,7 @@
 (require 'init-rss)
 (require 'init-dictionary)
 (require 'init-undo)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

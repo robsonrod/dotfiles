@@ -2,4 +2,4 @@ jorgebucaran/fisher
 jorgebucaran/replay.fish
 patrickf1/fzf.fish
 orefalo/grc
-dracula/fish
+catppuccin/fish

@@ -24,7 +24,7 @@
 (use-package catppuccin-theme
  :ensure t
  :config
- (setq catppuccin-flavor 'latte))
+ (setq catppuccin-flavor 'macchiato))
 
 ;; doom modeline
 (use-package 

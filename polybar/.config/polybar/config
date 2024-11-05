@@ -1,33 +1,38 @@
 [bar/main]
-background = #282a36
+background = #1e1e2e
+foreground = #cdd6f4
 font-0 = ${env:FONT0}
 font-1 = ${env:FONT1}
 font-2 = ${env:FONT2}
 font-3 = ${env:FONT3}
 font-4 = ${env:FONT4}
-foreground = #f8f8f2
 height = ${env:PBHEIGHT}
+monitor = ${env:MONITOR}
+radius = 10.0
+offset-x = 10
+offset-y = 2
+padding-right = 1
+tray-detached = false
+tray-position = right
+width = 99%
+m-restack = bspwm
+overline-size = 0
+border-size = 2pt
+border-color = #45475a
+
 module-margin-left = 1
 modules-left = pad date
 modules-right = vpn pad mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery pad wired-network pad wireless-network pad updates pad firmware pad powermenu
 modules-center = bspwm
-monitor = ${env:MONITOR}
-offset-y = 1
-padding-right = 1
-tray-detached = false
-tray-position = right
-width = 100%
-m-restack = bspwm
-overline-size = 0
 
 [bar/sec]
-background = #282a36
+background = #1e1e2e
+foreground = #cdd6f4
 font-0 = ${env:FONT0}
 font-1 = ${env:FONT1}
 font-2 = ${env:FONT2}
 font-3 = ${env:FONT3}
 font-4 = ${env:FONT4}
-foreground = #f8f8f2
 height = ${env:PBHEIGHT}
 module-margin-left = 1
 modules-left = bspwm
@@ -40,13 +45,13 @@ width = 100%
 wm-restack = bspwm
 
 [bar/emacs]
-background = #282a36
+background = #1e1e2e
+foreground = #cdd6f4
 font-0 = ${env:FONT0}
 font-1 = ${env:FONT1}
 font-2 = ${env:FONT2}
 font-3 = ${env:FONT3}
 font-4 = ${env:FONT4}
-foreground = #f8f8f2
 height = ${env:PBHEIGHT}
 module-margin-left = 1
 modules-left = exwm
@@ -97,7 +102,7 @@ label-full = %percentage%%
 ramp-capacity-0 = 
 ramp-capacity-0-foreground = #f53c3c
 ramp-capacity-1 = 
-ramp-capacity-1-foreground = #f8f8f2
+ramp-capacity-1-foreground = #cdd6f4
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
@@ -117,12 +122,12 @@ format = <label-state> <label-mode>
 label-dimmed-underline = #ccffffff
 label-empty = %icon%
 label-empty-font = 4
-label-empty-foreground = #44475a
+label-empty-foreground = #45475a
 label-empty-padding = 2
 label-focused = %icon%
-label-focused-background = #282a36
+label-focused-background = #1e1e2e
 label-focused-font = 4
-label-focused-foreground = #50fa7b
+label-focused-foreground = #a6e3a1
 label-focused-padding = 2
 label-focused-underline = #c9665e
 label-locked = L
@@ -130,14 +135,14 @@ label-locked-foreground = #bd2c40
 label-locked-padding = 2
 label-locked-underline = #c9665e
 label-monocle = M
-label-monocle-background = #33ffffff
+label-monocle-background = #33ffff
 label-monocle-padding = 2
 label-monocle-underline = #c9665e
 label-occupied = %icon%
 label-occupied-font = 4
-label-occupied-foreground = #f8f8f2
+label-occupied-foreground = #f9e2af
 label-occupied-padding = 2
-label-occupied-underline = #666
+label-occupied-underline = #f9e2af
 label-private = P
 label-private-foreground = #bd2c40
 label-private-padding = 2
@@ -147,9 +152,9 @@ label-sticky-foreground = #fba922
 label-sticky-padding = 2
 label-sticky-underline = #c9665e
 label-urgent = %icon%
-label-urgent-background = #bd2c40
+label-urgent-background = #f38ba8
 label-urgent-font = 4
-label-urgent-foreground = #000000
+label-urgent-foreground = #7f849c
 label-urgent-padding = 2
 label-urgent-underline = #9b0a20
 pin-workspace = true
@@ -172,7 +177,7 @@ type = custom/text
 [module/cpu]
 format = <label>
 format-overline = #f5a97f
-format-foreground = #f8f8f2
+format-foreground = #cdd6f4
 interval = 1
 label =   %percentage%%
 type = internal/cpu
@@ -180,7 +185,7 @@ type = internal/cpu
 [module/date]
 type = internal/date
 date  =   %H:%M |  %d/%m/%Y
-format-foreground = #f8f8f2
+format-foreground = #cdd6f4
 
 [module/vpn]
 type = custom/script
@@ -202,7 +207,7 @@ format = <label>
 format-overline = #50fa7b
 label =   %percentage_used%%
 type = internal/memory
-format-foreground = #f8f8f2
+format-foreground = #cdd6f4
 
 [module/mic]
 type = custom/script
@@ -232,7 +237,7 @@ ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
 use-ui-max = false
-label-volume-foreground = #f8f8f2
+label-volume-foreground = #cdd6f4
 format-volume-overline = #bd93f9
 
 [module/wired-network]
@@ -241,7 +246,7 @@ interface = ${env:NETWORK_WIRED_INTERFACE}
 label-connected = 
 interval = 3
 label-disconnected = 
-label-packageloss-foreground = #f8f8f2
+label-packageloss-foreground = #cdd6f4
 
 [module/wireless-network]
 type  =  internal/network
@@ -249,17 +254,17 @@ interface = ${env:NETWORK_WIRELESS_INTERFACE}
 interval = 3
 label-connected = %signal%%
 label-disconnected = 
-label-packageloss-foreground = #f8f8f2
+label-packageloss-foreground = #cdd6f4
 
 format-connected = %{A1:networkmanager_dmenu &:}<ramp-signal> <label-connected>%{A}
 format-packetloss = %{A1:networkmanager_dmenu &:}<animation-packetloss> <label-connected>%{A}
 format-disconnected = %{A1:networkmanager_dmenu &:}󰤮 <label-disconnected>%{A}
 
-format-connected-overline = #ffb86c
-format-packetloss-overline = #ffb86c
-format-disconnected-overline = #ffb86c
+format-connected-overline = #cdd6f4
+format-packetloss-overline = #cdd6f4
+format-disconnected-overline = #cdd6f4
 
-format-packetloss-foreground = #ffb86c
+format-packetloss-foreground = #cdd6f4
 
 ramp-signal-0 = 
 ramp-signal-1 = 
@@ -280,4 +285,4 @@ type = custom/text
 content = 
 content-padding = 2
 click-left = powermenu
-content-foreground = #ff5555
+content-foreground = #f38ba8

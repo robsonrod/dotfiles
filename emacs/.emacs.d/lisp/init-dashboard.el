@@ -8,13 +8,18 @@
         show-week-agenda-p t) 
     (setq dashboard-set-heading-icons t 
         dashboard-set-file-icons t 
-        dashboard-startup-banner "/home/robson/Downloads/emacs.png" 
+        dashboard-center-content    t
+        dashboard-show-shortcuts    t
+        dashboard-set-navigator     t
+        dashboard-startup-banner    'logo
+        dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name
+        initial-buffer-choice       (lambda () (get-buffer "*dashboard*"))
         dashboard-footer-messages '("Happy codding")) 
-  (dashboard-setup-startup-hook))
-
-(define-key dashboard-mode-map (kbd "C-c d") #'(lambda () 
-                                                 (interactive) 
-                                                 (dashboard-refresh-buffer) 
-                                                 (message "refreshing... done")))
+    (setq dashboard-items '((recents  . 15)
+                            (agenda   . 10)
+                            (projects . 10)))
+  (dashboard-setup-startup-hook)
+  :init
+  (add-hook 'after-init-hook 'dashboard-refresh-buffer))
 
 (provide 'init-dashboard)

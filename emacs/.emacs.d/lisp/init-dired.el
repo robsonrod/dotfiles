@@ -52,9 +52,6 @@
     (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*")))
 
 (use-package 
-  dired-single)
-
-(use-package 
   dired-ranger 
   :defer t)
 

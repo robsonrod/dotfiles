@@ -1,12 +1,3 @@
-;; ccls server
-(use-package 
-  ccls 
-  :ensure t 
-  :config 
-  :hook ((c-mode c++-mode objc-mode cuda-mode) . (lambda () 
-                                                   (require 'ccls) 
-                                                   (lsp))))
-
 (use-package 
   clang-format 
   :ensure t 
