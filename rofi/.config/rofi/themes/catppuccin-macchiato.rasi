@@ -9,7 +9,7 @@
     grey: #6e738d;
 
     width: 50%;
-    font: "JetBrainsMono Nerd Font 9";
+    font: "JetBrainsMono Nerd Font 14";
 }
 
 element-text, element-icon , mode-switcher {
@@ -71,7 +71,7 @@ element {
 }
 
 element-icon {
-    size: 60px;
+    size: 25px;
 }
 
 element selected {
@@ -87,7 +87,7 @@ button {
     padding: 10px;
     background-color: @bg-col-light;
     text-color: @grey;
-    vertical-align: 0.5; 
+    vertical-align: 0.5;
     horizontal-align: 0.5;
 }
 

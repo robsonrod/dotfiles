@@ -44,36 +44,6 @@ spacing = 1.5
 width = 100%
 wm-restack = bspwm
 
-[bar/emacs]
-background = #1e1e2e
-foreground = #cdd6f4
-font-0 = ${env:FONT0}
-font-1 = ${env:FONT1}
-font-2 = ${env:FONT2}
-font-3 = ${env:FONT3}
-font-4 = ${env:FONT4}
-height = ${env:PBHEIGHT}
-module-margin-left = 1
-modules-left = exwm
-modules-right = vpn pad mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery pad wired-network pad wireless-network pad updates pad firmware pad powermenu
-modules-center = pad date
-monitor = ${env:MONITOR}
-offset-y = 1
-padding-right = 1
-tray-detached = false
-tray-position = right
-width = 100%
-m-restack = bspwm
-overline-size = 0
-enable-ipc  =  true
-
-[module/exwm]
-type  =  custom/ipc
-hook-0  =  emacsclient -e "(robsonrod/polybar-exwm-workspace)" | sed -e 's/^"//' -e 's/"$//'
-initial  =  1
-format-foreground = #50fa7b
-format-padding  =  1
-
 [module/battery]
 animation-charging-0 = 
 animation-charging-1 = 
@@ -140,9 +110,9 @@ label-monocle-padding = 2
 label-monocle-underline = #c9665e
 label-occupied = %icon%
 label-occupied-font = 4
-label-occupied-foreground = #f9e2af
+label-occupied-foreground = #b4befe
 label-occupied-padding = 2
-label-occupied-underline = #f9e2af
+label-occupied-underline = #b4befe
 label-private = P
 label-private-foreground = #bd2c40
 label-private-padding = 2

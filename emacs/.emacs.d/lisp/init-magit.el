@@ -29,4 +29,5 @@
   (robsonrod/major-mode-leader-map
     "l"  'git-link))
 
+
 (provide 'init-magit)

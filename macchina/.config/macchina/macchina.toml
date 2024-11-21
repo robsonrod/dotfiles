@@ -1,5 +1,4 @@
-# Specifies the network interface to use for the LocalIP readout
-interface = "wlan0"
+interface = "enp10s0"
 
 # Lengthen uptime output
 long_uptime = true
@@ -28,7 +27,7 @@ physical_cores = true
 #  if theme path is /home/foo/.config/macchina/themes/Sodium.toml
 #  theme should be uncommented and set to "Sodium"
 #
-theme = "Hydrogen"
+theme = "Catppuccin"
 
 # Displays only the specified readouts.
 # Accepted values (case-sensitive):
@@ -53,4 +52,4 @@ theme = "Hydrogen"
 #   - GPU
 #   - DiskSpace
 # Example:
-show = ["Host", "Distribution", "Kernel", "Processor", "GPU", "Memory"]
+show = ["Host", "Distribution", "Kernel", "Processor", "Memory", "Packages", "Terminal", "Shell"]

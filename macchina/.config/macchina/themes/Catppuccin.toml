@@ -1,0 +1,46 @@
+separator = "󰅂"
+separator_color = "#cdd6f4"
+key_color = "#89b4fa"
+hide_ascii = true
+
+[palette]
+type = "Dark"
+visible = true
+glyph = " ⬤ "
+
+[box]
+title = ""
+border = "single"
+visible = true
+
+[bar]
+glyph           = "ߋ"
+symbol_open     = '['
+symbol_close    = ']'
+hide_delimiters = true
+visible         = true
+
+[box.inner_margin]
+x = 1
+y = 0
+
+[randomize]
+key_color = false
+separator_color = false
+
+[keys]
+host = " Host"
+machine = "󰷵 Machine"
+de = " Desktop"
+wm = " WM"
+kernel = " Kernel"
+distro = "󰌽 Distro"
+packages = " Packages"
+terminal = " Terminal"
+shell = " Shell"
+cpu = " CPU"
+cpu_load = " CPU Load"
+memory = "󰍛 Memory"
+battery = " Battery"
+uptime = " Uptime"
+resolution = "󱡶 Resolution"

@@ -87,6 +87,7 @@ enable_services() {
 	sudo systemctl enable --now polkit
 	sudo systemctl enable --now NetworkManager
 	sudo systemctl enable --now systemd-timesyncd
+	sudo systemctl enable --now pcscd
 }
 
 enable_darkmode_gtk4() {

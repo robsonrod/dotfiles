@@ -52,17 +52,16 @@ if test "$(uname -a | cut -d ' ' -f2)" = "iracema"
 end
 
 # system admin
-set OS_ID (awk -F= ' /^ID=/ { gsub("\"", ""); print $2 } ' /etc/os-release)
-if test $OS_ID = arch
-    abbr -a i 'sudo pacman -Sy'
-    abbr -a u 'sudo pacman -Syy'
-    abbr -a up 'sudo pacman -Suy '
-    abbr -a r 'sudo pacman -Rs'
+if command -v paru > /dev/null
+	abbr -a p 'paru'
+	abbr -a up 'paru -Syu'
+    abbr -a i 'paru -Sy'
+    abbr -a r 'paru -Rs'
 else
-    abbr -a i 'sudo apt-get install'
-    abbr -a u 'sudo apt-get update'
-    abbr -a up 'sudo apt-get upgrade'
-    abbr -a r 'sudo apt-get remove'
+	abbr -a p 'sudo pacman'
+	abbr -a up 'sudo pacman -Syu'
+    abbr -a i 'sudo pacman -Sy'
+    abbr -a r 'sudo pacman -Rs'
 end
 
 # general aliases
@@ -98,6 +97,7 @@ abbr -a branchd 'git branch -D'
 abbr -a master 'git checkout master'
 abbr -a stashl 'git stash lis'
 abbr -a stashp 'git stash pop'
+abbr -a cdev 'ssh dev'
 
 abbr -a .. 'cd ..'
 abbr -a 2. 'cd ../..'
@@ -119,9 +119,16 @@ abbr -a untar 'tar -xvzf'
 
 abbr -a s systemctl
 abbr -a suser 'systemctl --user'
+abbr -a btw 'macchina'
 
-set -Ux FZF_DEFAULT_OPTS '--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+set -Ux FZF_DEFAULT_OPTS "\
+--color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
+--color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
+--color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
+--color=selected-bg:#494d64 \
+--multi"
 set -Ux FZF_DEFAULT_COMMAND 'rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/,.git/,.venv/}"'
+set -Ux LS_COLORS $(vivid generate catppuccin-macchiato)
 
 set -g fish_prompt_pwd_dir_length 3
 set __fish_git_prompt_showupstream none

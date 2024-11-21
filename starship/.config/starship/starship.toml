@@ -1,80 +1,32 @@
-palette = "catppuccin_macchiato"
+"$schema" = 'https://starship.rs/config-schema.json'
 
-[character]
-success_symbol = "[[](green) ❯](peach)"
-error_symbol = "[[](red) ❯](peach)"
-vimcmd_symbol = "[❮](subtext1)" # For use with zsh-vi-mode
+format = """
+[](surface0)\
+$os\
+$username\
+[](bg:peach fg:surface0)\
+$directory\
+[](fg:peach bg:green)\
+$git_branch\
+$git_status\
+[](fg:green bg:teal)\
+$c\
+$rust\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+[](fg:teal bg:blue)\
+$docker_context\
+[](fg:blue bg:purple)\
+$time\
+[ ](fg:purple)\
+$line_break$character"""
 
-[directory]
-truncation_length = 8
-style = "bold lavender"
-
-[cmd_duration]
-style = "bold #f1fa8c"
-
-[git_branch]
-style = "bold mauve"
-
-[git_status]
-style = "bold green"
-
-[battery]
-full_symbol = "🔋"
-charging_symbol = "⚡️"
-discharging_symbol = "💀"
-
-[sudo]
-style = "bold green"
-symbol = ""
-disabled = false
-
-[hostname]
-ssh_symbol = "🌏 "
-ssh_only = true
-format = "[$ssh_symbol](bold blue) on [$hostname](bold red)"
-style = "bold dimmed white"
-trim_at = "-"
-disabled = false
-
-[username]
-format = "[$user]($style) on "
-style_user = "bold #bd93f9"
-disabled = false
-
-[package]
-disabled = true
-
-[c]
-symbol = " "
-format = "via [$name $version]($style) "
-detect_extensions = ["c", "h", "cpp", "hpp"]
-style = "bold red"
-
-[cmake]
-symbol = " "
-format = "via [$name $version]($style) "
-detect_files = ["Makefile"]
-style = "bold red"
-
-[python]
-symbol = ""
-format = "[$symbol$version]($style) "
-style = "bold green"
-
-[rust]
-symbol = "🦀 "
-format = "via [$symbol($version)]($style) "
-style = "bold red"
-
-[golang]
-symbol = "🐹"
-format = "[$symbol$version]($style) "
-style = "bold cyan"
-
-[custom.lisp]
-extensions = ["lisp", "el", "clj"]
-symbol = "λ "
-style = "bold green"
+palette = 'catppuccin_macchiato'
 
 [palettes.catppuccin_macchiato]
 rosewater = "#f4dbd6"
@@ -103,3 +55,124 @@ surface0 = "#363a4f"
 base = "#24273a"
 mantle = "#1e2030"
 crust = "#181926"
+
+[os]
+disabled = false
+style = "bg:surface0 fg:text"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = ""
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+[username]
+show_always = true
+style_user = "bg:surface0 fg:text"
+style_root = "bg:surface0 fg:text"
+format = '[ $user ]($style)'
+
+[directory]
+style = "fg:mantle bg:peach"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol $branch ](fg:base bg:green)]($style)'
+
+[git_status]
+style = "bg:teal"
+format = '[[($all_status$ahead_behind )](fg:base bg:green)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[c]
+symbol = " "
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[php]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[java]
+symbol = " "
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[python]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:mantle"
+format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:peach"
+format = '[[  $time ](fg:mantle bg:purple)]($style)'
+
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+success_symbol = '[❯](bold fg:green)'
+error_symbol = '[❯](bold fg:red)'
+vimcmd_symbol = '[❮](bold fg:creen)'
+vimcmd_replace_one_symbol = '[❮](bold fg:purple)'
+vimcmd_replace_symbol = '[❮](bold fg:purple)'
+vimcmd_visual_symbol = '[❮](bold fg:lavender)'

@@ -46,6 +46,6 @@
            (setq doom-modeline-buffer-file-name-style 'truncate-except-project) 
            (setq doom-modeline-major-mode-icon t)))
 
-(load-theme 'doom-dracula t) 
+(load-theme 'catppuccin t) 
 
 (provide 'init-gui)

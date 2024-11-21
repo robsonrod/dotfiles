@@ -78,6 +78,7 @@
 (global-auto-revert-mode 1)
 (global-hl-line-mode 1)
 (global-display-line-numbers-mode t)
+(xterm-mouse-mode +1)
 
 (server-start)
 
