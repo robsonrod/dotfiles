@@ -4,6 +4,9 @@
 [includeIf "gitdir:~/dev/personal/"]
     path = gituser-personal
 
+[includeIf "gitdir:~/dotfiles/"]
+    path = gituser-personal
+
 [includeIf "gitdir:~/dev/work/"]
     path = gituser-work
 
