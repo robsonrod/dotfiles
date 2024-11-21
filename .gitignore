@@ -43,5 +43,7 @@ tmux/.config/tmux/plugins/
 **/fish/.config/fish/fish_variables
 bash/.config/bash/bash_history
 emacs/.emacs.d/var/
+emacs/.emacs.d/.cache/
+emacs/.emacs.d/.lsp-session-v1
 **/bin/.local/share/*
 **/bin/.local/state/*
