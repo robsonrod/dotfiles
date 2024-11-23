@@ -120,6 +120,7 @@ abbr -a untar 'tar -xvzf'
 abbr -a s systemctl
 abbr -a suser 'systemctl --user'
 abbr -a btw 'macchina'
+abbr -a wget 'wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
 
 set -Ux FZF_DEFAULT_COMMAND 'rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/,.git/,.venv/}"'
 set -Ux FZF_DEFAULT_OPTS "\
