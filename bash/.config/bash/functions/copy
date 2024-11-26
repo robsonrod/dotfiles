@@ -1,0 +1,3 @@
+copy_file() {
+    xclip -sel clip < $1
+}

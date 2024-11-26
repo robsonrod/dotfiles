@@ -1,0 +1,5303 @@
+eza
+la
+zi
+ls -la
+nvim ~/.bashrc 
+reload 
+nvim ~/.bashrc 
+reload 
+mkcd ~/.config/blesh
+cd ~/.config/blesh/
+ls
+curl https://raw.githubusercontent.com/akinomyoga/ble.sh/refs/heads/master/blerc.template -o init.sh
+ll
+man ble
+man blesh
+man cp
+nvim init.sh 
+reload 
+"${EDITOR}"
+fg
+1.
+.3
+cat init.sh 
+batf.
+bat ${BASHFUNCTIONS}/ 
+nvim init.sh 
+fzf --height=$(($(tput lines)-1)) --preview "bat --color=always --line-range :100 {}" 
+nvim init.sh
+reload 
+cd ~/dotfiles
+cd bash/
+rg "emacs"
+rg --hi "emacs"
+rg --hid "emacs"
+rg --hidden "emacs"
+nvim ~/.config/blesh/init.sh 
+nvim ~/.bashrc 
+reload 
+bind -V | grep editing-mode
+ls 
+la
+git branch \branch
+git checkout \branch
+git checkout main 
+git add .
+status
+cd ~/dotfiles/bash/.config/bash/functions/
+ls
+n 
+ls -la
+cd 
+exit
+ls -la
+exit
+nvim ~/.config/blesh/init.sh 
+exit
+ls 
+ls -la
+la
+nvim ~/.config/blesh/init.sh 
+reload 
+atuin 
+atuin history list 
+ls -la
+echo $PATH
+nvim ~/.bashrc 
+reload 
+echo $PATH
+nvim ~/.bash_profile 
+reload 
+exit
+nvim ~/.bash_profile 
+cd ~/dotfiles/bash/.config/bash/functions/
+ls -la
+ip a
+cd ..
+mv aliases aliases.old
+mkcd aliases
+cd aliases/
+ll
+nvim colorful.sh
+ls
+nvim ~/.bashrc 
+reload 
+ip a
+netstat 
+alias
+free
+free -h
+la
+cd ..
+ls -la
+nvim aliases.old 
+mv aliases.old aliases/general
+cat functions.old 
+env
+ls
+nvim functions.old 
+cd functions/
+ll
+nvim ~/.bashrc 
+reload 
+reload
+exit
+la
+reload
+open 
+zi
+nvim ~/.bashrc 
+echo $PATH
+nvim ~/.bashrc 
+cd dotfiles/bash/
+rg --hidden "PATH="
+nvim .
+fg
+exit
+cd dotfiles/bash/
+cd .config/
+mkcd variables
+cd variables/
+nvim history
+nvim ~/.bashrc
+rustup default stable
+makepkg -si
+exit
+la
+nvim ~/.config/bash/functions 
+nvim ~/.bashrc 
+exit
+fzf-evars
+nvim ~/.bashrc 
+xit
+exit
+nvim .bashrc
+exit
+atuin 
+exit
+atuin history 
+atuin history list 
+exit
+atuin 
+exit
+echo $PTAH
+echo $PATH
+exit
+up
+exit
+la
+echo $LS_COLORS 
+env
+exit
+zi
+exit
+print -lr ${(q)LESS_TERMCAP_mb}
+exit
+man rg
+exit
+man
+man rg
+exit
+man
+ls -la
+status
+man rg
+exit
+cd ~/dotfiles/
+status
+cd ~/dotfiles/bash/.config/bash
+mv functions functions.old
+mkdir -p functions
+ls
+cd functions/
+nvim mkcd
+cat mkcd 
+nvim path_append
+nvim path_preppend
+nvim agent_ssh
+find . -t
+find . -type f 
+find . 
+find . -type f -type d
+find . -type f
+find . -type f -print 
+ll
+fg
+find . -type f -print
+for f in $(find . -type f -print); do echo $f; done
+eza
+la
+zi
+ls -la
+nvim ~/.bashrc 
+reload 
+nvim ~/.bashrc 
+reload 
+mkcd ~/.config/blesh
+cd ~/.config/blesh/
+ls
+curl https://raw.githubusercontent.com/akinomyoga/ble.sh/refs/heads/master/blerc.template -o init.sh
+ll
+man ble
+man blesh
+man cp
+nvim init.sh 
+reload 
+"${EDITOR}"
+fg
+1.
+.3
+cat init.sh 
+batf.
+bat ${BASHFUNCTIONS}/ 
+nvim init.sh 
+fzf --height=$(($(tput lines)-1)) --preview "bat --color=always --line-range :100 {}" 
+nvim init.sh
+reload 
+cd ~/dotfiles
+cd bash/
+rg "emacs"
+rg --hi "emacs"
+rg --hid "emacs"
+rg --hidden "emacs"
+nvim ~/.config/blesh/init.sh 
+nvim ~/.bashrc 
+reload 
+bind -V | grep editing-mode
+ls 
+la
+git branch \branch
+git checkout \branch
+git checkout main 
+git add .
+status
+cd ~/dotfiles/bash/.config/bash/functions/
+ls
+n 
+ls -la
+cd 
+exit
+ls -la
+exit
+nvim ~/.config/blesh/init.sh 
+exit
+ls 
+ls -la
+la
+nvim ~/.config/blesh/init.sh 
+reload 
+atuin 
+atuin history list 
+ls -la
+echo $PATH
+nvim ~/.bashrc 
+reload 
+echo $PATH
+nvim ~/.bash_profile 
+reload 
+exit
+nvim ~/.bash_profile 
+cd ~/dotfiles/bash/.config/bash/functions/
+ls -la
+ip a
+cd ..
+mv aliases aliases.old
+mkcd aliases
+cd aliases/
+ll
+nvim colorful.sh
+ls
+nvim ~/.bashrc 
+reload 
+ip a
+netstat 
+alias
+free
+free -h
+la
+cd ..
+ls -la
+nvim aliases.old 
+mv aliases.old aliases/general
+cat functions.old 
+env
+ls
+nvim functions.old 
+cd functions/
+ll
+nvim ~/.bashrc 
+reload 
+reload
+exit
+la
+reload
+open 
+zi
+nvim ~/.bashrc 
+echo $PATH
+nvim ~/.bashrc 
+cd dotfiles/bash/
+rg --hidden "PATH="
+nvim .
+fg
+exit
+rustup default stable
+makepkg -si
+exit
+la
+nvim ~/.config/bash/functions 
+nvim ~/.bashrc 
+exit
+fzf-evars
+nvim ~/.bashrc 
+xit
+exit
+nvim .bashrc
+exit
+atuin 
+exit
+atuin history 
+atuin history list 
+exit
+atuin 
+exit
+echo $PTAH
+echo $PATH
+exit
+up
+exit
+la
+echo $LS_COLORS 
+env
+exit
+zi
+exit
+print -lr ${(q)LESS_TERMCAP_mb}
+exit
+man rg
+exit
+man
+man rg
+exit
+man
+ls -la
+status
+man rg
+exit
+cd ~/dotfiles/
+status
+cd ~/dotfiles/bash/.config/bash
+mv functions functions.old
+mkdir -p functions
+ls
+cd functions/
+nvim mkcd
+cat mkcd 
+nvim path_append
+nvim path_preppend
+nvim agent_ssh
+find . -t
+find . -type f 
+find . 
+find . -type f -type d
+find . -type f
+find . -type f -print 
+ll
+fg
+find . -type f -print
+for f in $(find . -type f -print); do echo $f; done
+eza
+la
+zi
+ls -la
+nvim ~/.bashrc 
+reload 
+nvim ~/.bashrc 
+reload 
+mkcd ~/.config/blesh
+cd ~/.config/blesh/
+ls
+curl https://raw.githubusercontent.com/akinomyoga/ble.sh/refs/heads/master/blerc.template -o init.sh
+ll
+man ble
+man blesh
+man cp
+nvim init.sh 
+reload 
+"${EDITOR}"
+fg
+1.
+.3
+cat init.sh 
+batf.
+bat ${BASHFUNCTIONS}/ 
+nvim init.sh 
+fzf --height=$(($(tput lines)-1)) --preview "bat --color=always --line-range :100 {}" 
+nvim init.sh
+reload 
+cd ~/dotfiles
+cd bash/
+rg "emacs"
+rg --hi "emacs"
+rg --hid "emacs"
+rg --hidden "emacs"
+nvim ~/.config/blesh/init.sh 
+nvim ~/.bashrc 
+reload 
+bind -V | grep editing-mode
+ls 
+la
+git branch \branch
+git checkout \branch
+git checkout main 
+git add .
+status
+cd ~/dotfiles/bash/.config/bash/functions/
+ls
+n 
+ls -la
+cd 
+exit
+ls -la
+exit
+nvim ~/.config/blesh/init.sh 
+exit
+ls 
+ls -la
+la
+nvim ~/.config/blesh/init.sh 
+reload 
+atuin 
+atuin history list 
+ls -la
+echo $PATH
+nvim ~/.bashrc 
+reload 
+echo $PATH
+nvim ~/.bash_profile 
+reload 
+exit
+nvim ~/.bash_profile 
+cd ~/dotfiles/bash/.config/bash/functions/
+ls -la
+ip a
+cd ..
+mv aliases aliases.old
+mkcd aliases
+cd aliases/
+ll
+nvim colorful.sh
+ls
+nvim ~/.bashrc 
+reload 
+ip a
+netstat 
+alias
+free
+free -h
+la
+cd ..
+ls -la
+nvim aliases.old 
+mv aliases.old aliases/general
+cat functions.old 
+env
+ls
+nvim functions.old 
+cd functions/
+ll
+nvim ~/.bashrc 
+reload 
+reload
+exit
+la
+reload
+open 
+zi
+nvim ~/.bashrc 
+echo $PATH
+nvim ~/.bashrc 
+cd dotfiles/bash/
+rg --hidden "PATH="
+nvim .
+fg
+exit
+cd dotfiles/bash/
+cd .config/
+mkcd variables
+cd variables/
+nvim history
+nvim ~/.bashrc
+la
+#1732476018
+cat env 
+#1732476096
+nvim variables/fzf.sh
+#1732476160
+nvim variables/eza.sh
+#1732476449
+ll variables/
+#1732476464
+mv variables/history variables/history.sh
+#1732476488
+cat variables/history.sh 
+#1732476492
+sh variables/history.sh 
+nvim ~/.bashrc
+reload
+#1732476018
+cat env 
+#1732476096
+nvim variables/fzf.sh
+#1732476160
+nvim variables/eza.sh
+#1732476449
+ll variables/
+#1732476464
+mv variables/history variables/history.sh
+#1732476488
+cat variables/history.sh 
+#1732476554
+zi 
+#1732476558
+la
+#1732476564
+man cp
+#1732476573
+nvim ~/.bashrc
+#1732476597
+nvim ../env 
+#1732476613
+exit
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476558
+zi 
+#1732476564
+la
+#1732476573
+man cp
+#1732476597
+nvim ~/.bashrc
+#1732476613
+nvim ../env 
+#1732476613
+exit
+#1732476617
+man cp
+#1732476623
+cd dotfiles/bash/
+#1732476628
+rg --hidden "LESS"
+#1732476811
+ll
+#1732476816
+ll variables/
+#1732476830
+nvim ../env 
+#1732476845
+cd .config/
+#1732476845
+ls
+#1732476849
+cd bash/
+#1732476858
+nvim .
+#1732477490
+exit
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476558
+zi 
+#1732476564
+la
+#1732476573
+man cp
+#1732476597
+nvim ~/.bashrc
+#1732476613
+nvim ../env 
+#1732476096
+exit
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476613
+nvim ../env 
+#1732476617
+exit
+#1732476623
+man cp
+#1732476628
+cd dotfiles/bash/
+#1732476811
+rg --hidden "LESS"
+#1732476816
+ll
+#1732476830
+ll variables/
+#1732476845
+nvim ../env 
+#1732476845
+cd .config/
+#1732476849
+ls
+#1732476858
+cd bash/
+#1732477490
+nvim .
+#1732477490
+exit
+#1732477500
+echo $TERMINAL 
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476558
+zi 
+#1732476564
+la
+#1732476573
+man cp
+#1732476597
+nvim ~/.bashrc
+#1732476613
+nvim ../env 
+#1732476096
+exit
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476613
+nvim ../env 
+#1732476617
+exit
+#1732476623
+man cp
+#1732476628
+cd dotfiles/bash/
+#1732476811
+rg --hidden "LESS"
+#1732476816
+ll
+#1732476830
+ll variables/
+#1732476845
+nvim ../env 
+#1732476845
+cd .config/
+#1732476849
+ls
+#1732476858
+cd bash/
+#1732477490
+nvim .
+#1732476096
+exit
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732477490
+nvim .
+#1732477500
+exit
+#1732477500
+echo $TERMINAL 
+#1732477509
+exit
+#1732477506
+$TERMINAL
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476558
+zi 
+#1732476564
+la
+#1732476573
+man cp
+#1732476597
+nvim ~/.bashrc
+#1732476613
+nvim ../env 
+#1732476096
+exit
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476613
+nvim ../env 
+#1732476617
+exit
+#1732476623
+man cp
+#1732476628
+cd dotfiles/bash/
+#1732476811
+rg --hidden "LESS"
+#1732476816
+ll
+#1732476830
+ll variables/
+#1732476845
+nvim ../env 
+#1732476845
+cd .config/
+#1732476849
+ls
+#1732476858
+cd bash/
+#1732477490
+nvim .
+#1732476096
+exit
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732477490
+nvim .
+#1732477500
+exit
+#1732476096
+echo $TERMINAL 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732476096
+nvim .
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732477490
+cd bash/
+#1732477500
+nvim .
+#1732477500
+exit
+#1732477509
+echo $TERMINAL 
+#1732477506
+exit
+#1732477506
+$TERMINAL
+#1732477536
+nvim ~/.bashrc
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476558
+zi 
+#1732476564
+la
+#1732476573
+man cp
+#1732476597
+nvim ~/.bashrc
+#1732476613
+nvim ../env 
+#1732476096
+exit
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476613
+nvim ../env 
+#1732476617
+exit
+#1732476623
+man cp
+#1732476628
+cd dotfiles/bash/
+#1732476811
+rg --hidden "LESS"
+#1732476816
+ll
+#1732476830
+ll variables/
+#1732476845
+nvim ../env 
+#1732476845
+cd .config/
+#1732476849
+ls
+#1732476858
+cd bash/
+#1732477490
+nvim .
+#1732476096
+exit
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732477490
+nvim .
+#1732477500
+exit
+#1732476096
+echo $TERMINAL 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732476096
+nvim .
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732477490
+cd bash/
+#1732477500
+nvim .
+#1732477500
+exit
+#1732477509
+echo $TERMINAL 
+#1732477506
+exit
+#1732476096
+$TERMINAL
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732476096
+nvim .
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732477490
+cd bash/
+#1732477500
+nvim .
+#1732476096
+exit
+#1732476160
+echo $TERMINAL 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732476096
+cd bash/
+#1732476160
+nvim .
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476096
+man cp
+#1732476160
+nvim ~/.bashrc
+#1732476449
+nvim ../env 
+#1732476464
+exit
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476018
+nvim variables/eza.sh
+#1732476096
+ll variables/
+#1732476160
+mv variables/history variables/history.sh
+#1732476449
+cat variables/history.sh 
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476554
+nvim variables/eza.sh
+#1732476558
+ll variables/
+#1732476564
+mv variables/history variables/history.sh
+#1732476573
+cat variables/history.sh 
+#1732476613
+zi 
+#1732476613
+la
+#1732476617
+man cp
+#1732476623
+nvim ~/.bashrc
+#1732476628
+nvim ../env 
+#1732476811
+exit
+#1732476816
+man cp
+#1732476830
+cd dotfiles/bash/
+#1732476845
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476849
+ll variables/
+#1732476858
+nvim ../env 
+#1732477490
+cd .config/
+#1732477490
+ls
+#1732477500
+cd bash/
+#1732477500
+nvim .
+#1732477509
+exit
+#1732477506
+echo $TERMINAL 
+#1732477506
+exit
+#1732477536
+$TERMINAL
+#1732477536
+nvim ~/.bashrc
+#1732477661
+e
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476558
+zi 
+#1732476564
+la
+#1732476573
+man cp
+#1732476597
+nvim ~/.bashrc
+#1732476613
+nvim ../env 
+#1732476096
+exit
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476613
+nvim ../env 
+#1732476617
+exit
+#1732476623
+man cp
+#1732476628
+cd dotfiles/bash/
+#1732476811
+rg --hidden "LESS"
+#1732476816
+ll
+#1732476830
+ll variables/
+#1732476845
+nvim ../env 
+#1732476845
+cd .config/
+#1732476849
+ls
+#1732476858
+cd bash/
+#1732477490
+nvim .
+#1732476096
+exit
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732477490
+nvim .
+#1732477500
+exit
+#1732476096
+echo $TERMINAL 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732476096
+nvim .
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732477490
+cd bash/
+#1732477500
+nvim .
+#1732477500
+exit
+#1732477509
+echo $TERMINAL 
+#1732477506
+exit
+#1732476096
+$TERMINAL
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732476096
+nvim .
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732477490
+cd bash/
+#1732477500
+nvim .
+#1732476096
+exit
+#1732476160
+echo $TERMINAL 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732476096
+cd bash/
+#1732476160
+nvim .
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476096
+man cp
+#1732476160
+nvim ~/.bashrc
+#1732476449
+nvim ../env 
+#1732476464
+exit
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476018
+nvim variables/eza.sh
+#1732476096
+ll variables/
+#1732476160
+mv variables/history variables/history.sh
+#1732476449
+cat variables/history.sh 
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476554
+nvim variables/eza.sh
+#1732476558
+ll variables/
+#1732476564
+mv variables/history variables/history.sh
+#1732476573
+cat variables/history.sh 
+#1732476613
+zi 
+#1732476613
+la
+#1732476617
+man cp
+#1732476623
+nvim ~/.bashrc
+#1732476628
+nvim ../env 
+#1732476811
+exit
+#1732476816
+man cp
+#1732476830
+cd dotfiles/bash/
+#1732476845
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476849
+ll variables/
+#1732476858
+nvim ../env 
+#1732477490
+cd .config/
+#1732477490
+ls
+#1732477500
+cd bash/
+#1732477500
+nvim .
+#1732477509
+exit
+#1732477506
+echo $TERMINAL 
+#1732477506
+exit
+#1732477536
+$TERMINAL
+#1732477536
+nvim ~/.bashrc
+#1732477592
+$TERMINAL
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476096
+cat env 
+#1732476160
+nvim variables/fzf.sh
+#1732476449
+nvim variables/eza.sh
+#1732476464
+ll variables/
+#1732476488
+mv variables/history variables/history.sh
+#1732476492
+cat variables/history.sh 
+#1732476558
+zi 
+#1732476564
+la
+#1732476573
+man cp
+#1732476597
+nvim ~/.bashrc
+#1732476613
+nvim ../env 
+#1732476096
+exit
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476613
+nvim ../env 
+#1732476617
+exit
+#1732476623
+man cp
+#1732476628
+cd dotfiles/bash/
+#1732476811
+rg --hidden "LESS"
+#1732476816
+ll
+#1732476830
+ll variables/
+#1732476845
+nvim ../env 
+#1732476845
+cd .config/
+#1732476849
+ls
+#1732476858
+cd bash/
+#1732477490
+nvim .
+#1732476096
+exit
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732477490
+nvim .
+#1732477500
+exit
+#1732476096
+echo $TERMINAL 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732476096
+nvim .
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732477490
+cd bash/
+#1732477500
+nvim .
+#1732477500
+exit
+#1732477509
+echo $TERMINAL 
+#1732477506
+exit
+#1732476096
+$TERMINAL
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732476096
+nvim .
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732477490
+cd bash/
+#1732477500
+nvim .
+#1732476096
+exit
+#1732476160
+echo $TERMINAL 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732476096
+cd bash/
+#1732476160
+nvim .
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476096
+man cp
+#1732476160
+nvim ~/.bashrc
+#1732476449
+nvim ../env 
+#1732476464
+exit
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476018
+nvim variables/eza.sh
+#1732476096
+ll variables/
+#1732476160
+mv variables/history variables/history.sh
+#1732476449
+cat variables/history.sh 
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476554
+nvim variables/eza.sh
+#1732476558
+ll variables/
+#1732476564
+mv variables/history variables/history.sh
+#1732476573
+cat variables/history.sh 
+#1732476613
+zi 
+#1732476613
+la
+#1732476617
+man cp
+#1732476623
+nvim ~/.bashrc
+#1732476628
+nvim ../env 
+#1732476811
+exit
+#1732476816
+man cp
+#1732476830
+cd dotfiles/bash/
+#1732476845
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476849
+ll variables/
+#1732476858
+nvim ../env 
+#1732477490
+cd .config/
+#1732477490
+ls
+#1732477500
+cd bash/
+#1732477500
+nvim .
+#1732477509
+exit
+#1732477506
+echo $TERMINAL 
+#1732477506
+exit
+#1732477536
+$TERMINAL
+#1732476096
+nvim ~/.bashrc
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732476096
+nvim .
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732477490
+cd bash/
+#1732477500
+nvim .
+#1732476096
+exit
+#1732476160
+echo $TERMINAL 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732476096
+cd bash/
+#1732476160
+nvim .
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476096
+man cp
+#1732476160
+nvim ~/.bashrc
+#1732476449
+nvim ../env 
+#1732476464
+exit
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476018
+nvim variables/eza.sh
+#1732476096
+ll variables/
+#1732476160
+mv variables/history variables/history.sh
+#1732476449
+cat variables/history.sh 
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476554
+nvim variables/eza.sh
+#1732476558
+ll variables/
+#1732476564
+mv variables/history variables/history.sh
+#1732476573
+cat variables/history.sh 
+#1732476613
+zi 
+#1732476613
+la
+#1732476617
+man cp
+#1732476623
+nvim ~/.bashrc
+#1732476628
+nvim ../env 
+#1732476811
+exit
+#1732476816
+man cp
+#1732476830
+cd dotfiles/bash/
+#1732476845
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476849
+ll variables/
+#1732476858
+nvim ../env 
+#1732477490
+cd .config/
+#1732477490
+ls
+#1732477500
+cd bash/
+#1732477500
+nvim .
+#1732477509
+exit
+#1732477506
+echo $TERMINAL 
+#1732476096
+exit
+#1732476160
+$TERMINAL
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732476096
+cd bash/
+#1732476160
+nvim .
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476096
+man cp
+#1732476160
+nvim ~/.bashrc
+#1732476449
+nvim ../env 
+#1732476464
+exit
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476018
+nvim variables/eza.sh
+#1732476096
+ll variables/
+#1732476160
+mv variables/history variables/history.sh
+#1732476449
+cat variables/history.sh 
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476554
+nvim variables/eza.sh
+#1732476558
+ll variables/
+#1732476564
+mv variables/history variables/history.sh
+#1732476573
+cat variables/history.sh 
+#1732476613
+zi 
+#1732476613
+la
+#1732476617
+man cp
+#1732476623
+nvim ~/.bashrc
+#1732476628
+nvim ../env 
+#1732476811
+exit
+#1732476816
+man cp
+#1732476830
+cd dotfiles/bash/
+#1732476845
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476849
+ll variables/
+#1732476858
+nvim ../env 
+#1732477490
+cd .config/
+#1732477490
+ls
+#1732477500
+cd bash/
+#1732476096
+nvim .
+#1732476160
+exit
+#1732476449
+echo $TERMINAL 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476096
+man cp
+#1732476160
+nvim ~/.bashrc
+#1732476449
+nvim ../env 
+#1732476464
+exit
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476018
+nvim variables/eza.sh
+#1732476096
+ll variables/
+#1732476160
+mv variables/history variables/history.sh
+#1732476449
+cat variables/history.sh 
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476554
+nvim variables/eza.sh
+#1732476558
+ll variables/
+#1732476564
+mv variables/history variables/history.sh
+#1732476573
+cat variables/history.sh 
+#1732476613
+zi 
+#1732476613
+la
+#1732476617
+man cp
+#1732476623
+nvim ~/.bashrc
+#1732476628
+nvim ../env 
+#1732476811
+exit
+#1732476816
+man cp
+#1732476830
+cd dotfiles/bash/
+#1732476845
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476849
+ll variables/
+#1732476858
+nvim ../env 
+#1732477490
+cd .config/
+#1732476096
+ls
+#1732476160
+cd bash/
+#1732476449
+nvim .
+#1732476464
+exit
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476018
+nvim variables/eza.sh
+#1732476096
+ll variables/
+#1732476160
+mv variables/history variables/history.sh
+#1732476449
+cat variables/history.sh 
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476554
+nvim variables/eza.sh
+#1732476558
+ll variables/
+#1732476564
+mv variables/history variables/history.sh
+#1732476573
+cat variables/history.sh 
+#1732476613
+zi 
+#1732476096
+la
+#1732476160
+man cp
+#1732476449
+nvim ~/.bashrc
+#1732476464
+nvim ../env 
+#1732476488
+exit
+#1732476492
+cat env 
+#1732476018
+nvim variables/fzf.sh
+#1732476096
+nvim variables/eza.sh
+#1732476160
+ll variables/
+#1732476449
+mv variables/history variables/history.sh
+#1732476464
+cat variables/history.sh 
+#1732476492
+cat env 
+#1732476554
+nvim variables/fzf.sh
+#1732476558
+nvim variables/eza.sh
+#1732476564
+ll variables/
+#1732476573
+mv variables/history variables/history.sh
+#1732476597
+cat variables/history.sh 
+#1732476613
+zi 
+#1732476617
+la
+#1732476623
+man cp
+#1732476628
+nvim ~/.bashrc
+#1732476811
+nvim ../env 
+#1732476816
+exit
+#1732476830
+man cp
+#1732476845
+cd dotfiles/bash/
+#1732476845
+rg --hidden "LESS"
+#1732476849
+ll
+#1732476858
+ll variables/
+#1732477490
+nvim ../env 
+#1732477490
+cd .config/
+#1732477500
+ls
+#1732477500
+cd bash/
+#1732477509
+nvim .
+#1732477506
+exit
+#1732477506
+echo $TERMINAL 
+#1732477536
+exit
+#1732477536
+$TERMINAL
+#1732477661
+nvim ~/.bashrc
+#1732476096
+e
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476018
+cat variables/history.sh 
+#1732476160
+cat env 
+#1732476449
+nvim variables/fzf.sh
+#1732476464
+nvim variables/eza.sh
+#1732476488
+ll variables/
+#1732476492
+mv variables/history variables/history.sh
+#1732476554
+cat variables/history.sh 
+#1732476564
+zi 
+#1732476573
+la
+#1732476597
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476096
+nvim ../env 
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476613
+nvim ~/.bashrc
+#1732476617
+nvim ../env 
+#1732476623
+exit
+#1732476628
+man cp
+#1732476811
+cd dotfiles/bash/
+#1732476816
+rg --hidden "LESS"
+#1732476830
+ll
+#1732476845
+ll variables/
+#1732476845
+nvim ../env 
+#1732476849
+cd .config/
+#1732476858
+ls
+#1732477490
+cd bash/
+#1732476096
+nvim .
+#1732476160
+exit
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732477490
+cd bash/
+#1732477500
+nvim .
+#1732476096
+exit
+#1732476160
+echo $TERMINAL 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732476096
+cd bash/
+#1732476160
+nvim .
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476096
+man cp
+#1732476160
+nvim ~/.bashrc
+#1732476449
+nvim ../env 
+#1732476464
+exit
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476018
+nvim variables/eza.sh
+#1732476096
+ll variables/
+#1732476160
+mv variables/history variables/history.sh
+#1732476449
+cat variables/history.sh 
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476554
+nvim variables/eza.sh
+#1732476558
+ll variables/
+#1732476564
+mv variables/history variables/history.sh
+#1732476573
+cat variables/history.sh 
+#1732476613
+zi 
+#1732476613
+la
+#1732476617
+man cp
+#1732476623
+nvim ~/.bashrc
+#1732476628
+nvim ../env 
+#1732476811
+exit
+#1732476816
+man cp
+#1732476830
+cd dotfiles/bash/
+#1732476845
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476849
+ll variables/
+#1732476858
+nvim ../env 
+#1732477490
+cd .config/
+#1732477490
+ls
+#1732477500
+cd bash/
+#1732477500
+nvim .
+#1732477509
+exit
+#1732477506
+echo $TERMINAL 
+#1732476096
+exit
+#1732476160
+$TERMINAL
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476018
+mv variables/history variables/history.sh
+#1732476096
+cat variables/history.sh 
+#1732476449
+cat env 
+#1732476464
+nvim variables/fzf.sh
+#1732476488
+nvim variables/eza.sh
+#1732476492
+ll variables/
+#1732476554
+mv variables/history variables/history.sh
+#1732476558
+cat variables/history.sh 
+#1732476573
+zi 
+#1732476597
+la
+#1732476613
+man cp
+#1732476096
+nvim ~/.bashrc
+#1732476160
+nvim ../env 
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476613
+man cp
+#1732476617
+nvim ~/.bashrc
+#1732476623
+nvim ../env 
+#1732476628
+exit
+#1732476811
+man cp
+#1732476816
+cd dotfiles/bash/
+#1732476830
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476845
+ll variables/
+#1732476849
+nvim ../env 
+#1732476858
+cd .config/
+#1732477490
+ls
+#1732476096
+cd bash/
+#1732476160
+nvim .
+#1732476449
+exit
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476096
+man cp
+#1732476160
+nvim ~/.bashrc
+#1732476449
+nvim ../env 
+#1732476464
+exit
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476018
+nvim variables/eza.sh
+#1732476096
+ll variables/
+#1732476160
+mv variables/history variables/history.sh
+#1732476449
+cat variables/history.sh 
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476554
+nvim variables/eza.sh
+#1732476558
+ll variables/
+#1732476564
+mv variables/history variables/history.sh
+#1732476573
+cat variables/history.sh 
+#1732476613
+zi 
+#1732476613
+la
+#1732476617
+man cp
+#1732476623
+nvim ~/.bashrc
+#1732476628
+nvim ../env 
+#1732476811
+exit
+#1732476816
+man cp
+#1732476830
+cd dotfiles/bash/
+#1732476845
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476849
+ll variables/
+#1732476858
+nvim ../env 
+#1732477490
+cd .config/
+#1732477490
+ls
+#1732477500
+cd bash/
+#1732476096
+nvim .
+#1732476160
+exit
+#1732476449
+echo $TERMINAL 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476018
+ll variables/
+#1732476096
+mv variables/history variables/history.sh
+#1732476160
+cat variables/history.sh 
+#1732476464
+cat env 
+#1732476488
+nvim variables/fzf.sh
+#1732476492
+nvim variables/eza.sh
+#1732476554
+ll variables/
+#1732476558
+mv variables/history variables/history.sh
+#1732476564
+cat variables/history.sh 
+#1732476597
+zi 
+#1732476613
+la
+#1732476096
+man cp
+#1732476160
+nvim ~/.bashrc
+#1732476449
+nvim ../env 
+#1732476464
+exit
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476018
+nvim variables/eza.sh
+#1732476096
+ll variables/
+#1732476160
+mv variables/history variables/history.sh
+#1732476449
+cat variables/history.sh 
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476554
+nvim variables/eza.sh
+#1732476558
+ll variables/
+#1732476564
+mv variables/history variables/history.sh
+#1732476573
+cat variables/history.sh 
+#1732476613
+zi 
+#1732476613
+la
+#1732476617
+man cp
+#1732476623
+nvim ~/.bashrc
+#1732476628
+nvim ../env 
+#1732476811
+exit
+#1732476816
+man cp
+#1732476830
+cd dotfiles/bash/
+#1732476845
+rg --hidden "LESS"
+#1732476845
+ll
+#1732476849
+ll variables/
+#1732476858
+nvim ../env 
+#1732477490
+cd .config/
+#1732476096
+ls
+#1732476160
+cd bash/
+#1732476449
+nvim .
+#1732476464
+exit
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476018
+nvim variables/eza.sh
+#1732476096
+ll variables/
+#1732476160
+mv variables/history variables/history.sh
+#1732476449
+cat variables/history.sh 
+#1732476488
+cat env 
+#1732476492
+nvim variables/fzf.sh
+#1732476554
+nvim variables/eza.sh
+#1732476558
+ll variables/
+#1732476564
+mv variables/history variables/history.sh
+#1732476573
+cat variables/history.sh 
+#1732476613
+zi 
+#1732476096
+la
+#1732476160
+man cp
+#1732476449
+nvim ~/.bashrc
+#1732476464
+nvim ../env 
+#1732476488
+exit
+#1732476492
+cat env 
+#1732476018
+nvim variables/fzf.sh
+#1732476096
+nvim variables/eza.sh
+#1732476160
+ll variables/
+#1732476449
+mv variables/history variables/history.sh
+#1732476464
+cat variables/history.sh 
+#1732476492
+cat env 
+#1732476554
+nvim variables/fzf.sh
+#1732476558
+nvim variables/eza.sh
+#1732476564
+ll variables/
+#1732476573
+mv variables/history variables/history.sh
+#1732476597
+cat variables/history.sh 
+#1732476613
+zi 
+#1732476617
+la
+#1732476623
+man cp
+#1732476628
+nvim ~/.bashrc
+#1732476811
+nvim ../env 
+#1732476816
+exit
+#1732476830
+man cp
+#1732476845
+cd dotfiles/bash/
+#1732476845
+rg --hidden "LESS"
+#1732476849
+ll
+#1732476858
+ll variables/
+#1732477490
+nvim ../env 
+#1732477490
+cd .config/
+#1732477500
+ls
+#1732477500
+cd bash/
+#1732477509
+nvim .
+#1732477506
+exit
+#1732477506
+echo $TERMINAL 
+#1732477536
+exit
+#1732477536
+$TERMINAL
+#1732477592
+nvim ~/.bashrc
+#1732477592
+$TERMINAL
+#1732477744
+ll
+#1732477753
+cd ~/dotfiles/bash/.config/bash/variables/
+#1732477764
+nvim xdg.sh
+#1732478335
+exit
+#1732478386
+env
+#1732478388
+exit
+#1732478377
+$TERMINAL
+#1732478389
+exit
+#1732478471
+nvim ~/.bashrc
+#1732478508
+cd ~/dotfiles/bash/.config/bash/functions/
+#1732478515
+l
+#1732478520
+ls
+#1732478530
+fg
+#1732478747
+la
+#1732478750
+exit
+#1732478785
+ll $HOME/.config/bash/functions/agent_ssh
+#1732478792
+nvim ~/.bashrc
+#1732478809
+exit
+#1732478813
+la
+#1732478817
+echo $TERMINAL 
+#1732478822
+ps
+#1732478829
+exit
+#1732479014
+kill -9 114454
+#1732479027
+kill -9 117985
+#1732479032
+ps
+#1732479079
+tty
+#1732479087
+exit
+#1732479141
+cd ~/dotfiles/bash/.config/bash
+#1732479148
+mkcd prompt
+#1732479150
+ll
+#1732479206
+nvim tty.bash
+#1732479451
+nvim ~/.bashrc
+#1732479488
+exit
+#1732474045
+ls -la
+#1732474046
+la
+#1732474050
+l
+#1732478416
+uptime
+#1732478442
+nvim ~/.config/bspwm/bspwmrc 
+#1732478838
+ps
+#1732479097
+tty
+#1732479103
+startx ~/.xinitrc 
+#1732479503
+exit
+#1732479547
+ls -la
+#1732479567
+nvim ~/.config/bash/functions 
+#1732480687
+cd ~/dotfiles/bash/.config/bash/variables/
+#1732480727
+nvim xdgfix.sh
+#1732481127
+cat dev.sh 
+#1732481135
+rm -rf dev.sh 
+#1732481139
+rm -rf dev.sh extra.sh 
+#1732481142
+ll
+#1732481149
+nvim ~/.bashrc
+#1732481164
+la
+#1732481166
+fg
+#1732481287
+exit
+#1732481180
+la ~/.config/bash/variables/
+#1732481180
+la ~/.config/bash/variables/
+#1732481292
+ls -la
+#1732481294
+la
+#1732481296
+exit
+#1732481303
+history 
+#1732481328
+echo $HISTFILE 
+#1732481345
+cat ~/.config/bash/bash_history 
+#1732481353
+exit
+#1732481385
+rm -rf \\
+#1732481403
+cat ~/.bash_history 
+#1732481409
+rm ~/.bash_history 
+#1732481467
+zi
+#1732481477
+ls -la
+#1732481488
+ll
+#1732481489
+la
+#1732481492
+nvim ~/.bashrc
+#1732481524
+nvim ~/.config/bash/variables/history.sh 
+#1732481662
+exit
+#1732482266
+ll
+#1732482302
+exit
+#1732487498
+nvim ~/.config/bash/functions
+#1732495297
+nvim ~/.bashrc
+#1732495348
+reload
+#1732495350
+exit
+#1732495352
+la
+#1732495366
+checkexec starship
+#1732495370
+checkexec starship2
+#1732495473
+echo $PATH
+#1732495498
+nvim ~/.bashrc
+#1732495512
+exit
+#1732495541
+rm ~/.emacs.d/elpa/
+#1732495546
+rm -rf ~/.emacs.d/elpa/
+#1732495549
+exit
+#1732495553
+nvim ~/.bashrc
+#1732496180
+exit

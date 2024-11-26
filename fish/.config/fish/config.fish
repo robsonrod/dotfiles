@@ -5,6 +5,8 @@ end
 function fish_greeting
 end
 
+fenv source ~/.config/bash/env
+
 set -gx EDITOR nvim
 set -gx GPG_TTY (tty)
 set -gx COLORTERM truecolor

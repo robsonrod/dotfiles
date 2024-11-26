@@ -1,29 +1,8 @@
-# git alias
-alias clone='git clone'
-alias add='git add .'
-alias status='git status'
-alias commit='git commit -v -m'
-alias checkoutb='git checkout -b'
-alias checkout='git checkout'
-alias gdiff='git diff'
-alias log="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
-alias grm='git rm'
-alias gfetch='git fetch --all --prune --verbose'
-alias greset='git reset HEAD'
-alias pull='git pull && git push'
-alias push='git push origin'
-alias gclear='git clean -xfd'
-alias branchd='git branch -D'
-alias master='git checkout master'
-alias stashl="git stash list"
-alias stashp="git stash pop"
-
 # general aliases
 alias c='clear'
 alias e='exit'
-alias g='git'
 alias h='history'
-alias nv='emacs -nw'
+alias nv='nvim'
 alias em='emacs -nw'
 if [ -x "$(command -v zoxide)" ]; then
 	alias cd='z'
@@ -34,20 +13,11 @@ fi
 alias open='xdg-open'
 
 # system admin
-if [[ "$OS_ID" == "arch" ]]; then
-	alias i='sudo pacman -Sy'
-	alias u='sudo pacman -Syy'
-	alias up='sudo pacman -Suy '
-	alias r='sudo pacman -Rs'
-	alias cat='bat'
-else
-	alias i='sudo apt-get install'
-	alias u='sudo apt-get update'
-	alias up='sudo apt-get upgrade'
-	alias r='sudo apt-get remove'
-	alias cat='batcat'
-	alias fd='fdfind'
-fi
+alias i='sudo pacman -Sy'
+alias u='sudo pacman -Syy'
+alias up='sudo pacman -Suy '
+alias r='sudo pacman -Rs'
+alias cat='bat'
 
 alias ..='cd ..'
 alias 2.='cd ../..'

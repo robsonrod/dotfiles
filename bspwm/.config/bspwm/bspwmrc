@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.config/bash/env
+PATH="${PATH}:$HOME/.local/bin"
 
 pgrep -x sxhkd >/dev/null || sxhkd &
 pkill -f dunst &

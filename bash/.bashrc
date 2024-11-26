@@ -1,17 +1,45 @@
 #### General ####
+if [[ $- == *i* ]]; then
+    source ~/.local/share/blesh/ble.sh --noattach
+fi
 
-source $HOME/.config/bash/env
-
-HISTCONTROL=ignoredups:erasedups
-HISTSIZE=1000000
-HISTFILESIZE=20000
-HISTTIMEFORMAT="%d/%m/%y %T "
-
-PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
-
+set -o emacs
 shopt -s histappend
 shopt -s checkwinsize
 shopt -s expand_aliases
+shopt -s autocd   # Para auto-cd: cambiar de directorio sin tener que usar cd
+shopt -s globstar # Glob '**' empareja recursivamente debajo
+shopt -s cdspell  # cd a directorio aun si deletraste mal 1 letra
+shopt -s cdable_vars  # cd a nombres de variables, sin tener que poner '$'
+
+# update PS1 variable
+source $HOME/.config/bash/prompt/tty.bash
+
+# dont duplicate env
+source $HOME/.config/bash/functions/path_append
+source $HOME/.config/bash/functions/path_preppend
+
+# used to ckeck app
+source $HOME/.config/bash/functions/checkexec
+
+# variables
+source $HOME/.config/bash/variables/xdg.sh
+source $HOME/.config/bash/variables/xdgfix.sh
+source $HOME/.config/bash/variables/apps.sh
+source $HOME/.config/bash/variables/configs.sh
+source $HOME/.config/bash/variables/eza.sh
+source $HOME/.config/bash/variables/fzf.sh
+source $HOME/.config/bash/variables/history.sh
+source $HOME/.config/bash/variables/man.sh
+source $HOME/.config/bash/variables/asdf.bash
+
+source $HOME/.config/bash/env
+
+# functions
+source $HOME/.config/bash/functions/agent_ssh
+source $HOME/.config/bash/functions/copy
+source $HOME/.config/bash/functions/extract
+source $HOME/.config/bash/functions/mkcd
 
 # If not running interactively, don't do anything
 case $- in
@@ -21,7 +49,7 @@ esac
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case ${TERM} in
-    xterm* | rxvt* | Eterm* | aterm | kterm | gnome* | alacritty | st-256color | konsole*)
+    xterm* | rxvt* | Eterm* | aterm | kterm | gnome* | alacritty | kitty | st-256color | konsole*)
         PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
         ;;
     screen*)
@@ -29,24 +57,10 @@ case ${TERM} in
         ;;
 esac
 
-git_branch() {
-    if [ -d .git ]; then
-        printf "%s" "($(git branch 2>/dev/null | awk '/\*/{print $2}'))"
-    fi
-}
-
-bind 'set colored-stats on'
-bind 'set colored-completion-prefix on'
-bind 'set echo-control-characters off'
-
-bind 'set show-all-if-ambiguous on'
-bind 'TAB:menu-complete'
-
-# starship
-eval "$(starship init bash)"
-
 # zoxide
-eval "$(zoxide init bash)"
+if checkexec zoxide; then
+    eval "$(zoxide init bash)"
+fi
 
 if [[ $- != *i* ]]; then
     return
@@ -54,42 +68,14 @@ elif [[ $TERM == urxvt* && -z "$TMUX" ]]; then
     exec tmux && exit 0
 fi
 
-# asdf configuration
-if [ -f ${HOME}/.asdf/asdf.sh ]; then
-    . ${HOME}/.asdf/asdf.sh
-    . ${HOME}/.asdf/completions/asdf.bash
-fi
+# aliases
+source $HOME/.config/bash/aliases/general
+source $HOME/.config/bash/aliases/git
+source $HOME/.config/bash/aliases/colorful.sh
 
-[[ -s $HOME/.config/bash/aliases ]] && source $HOME/.config/bash/aliases
+[ -s $HOME/.config/bash/bash_custom ] && source $HOME/.config/bash/bash_custom
 
-[[ -s $HOME/.config/bash/functions ]] && source $HOME/.config/bash/functions
+path_preppend "$HOME/.local/bin"
+path_preppend "${CARGO_HOME}/bin"
 
-[[ -s $HOME/.config/bash/bash_custom ]] && source $HOME/.config/bash/bash_custom
-
-case "$OSTYPE" in
-    "darwin"*)
-        if [ -f $(brew --prefix)/etc/bash_completion ]; then
-            . $(brew --prefix)/etc/bash_completion
-        fi
-        ;;
-    "linux-gnu"*)
-        if [ -f /etc/profile.d/bash_completion.sh ]; then
-            . /etc/profile.d/bash_completion.sh
-        fi
-
-        if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
-            . /usr/share/doc/fzf/examples/key-bindings.bash
-        fi
-        if [ -f /usr/share/fzf/key-bindings.bash ]; then
-            . /usr/share/fzf/key-bindings.bash
-        fi
-        ;;
-    *) ;;
-
-esac
-
-if [ -f "$HOME/.local/share/bin/env" ]; then
-    . "$HOME/.local/share/bin/env"
-fi
-
-export PATH="$PATH:$CARGO_HOME/bin"
+[[ ! ${BLE_VERSION-} ]] || ble-attach

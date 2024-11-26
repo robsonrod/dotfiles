@@ -1,0 +1,11 @@
+export OPENER="${OPENER:-xdg\-open}"
+export GPG_TTY=$(tty)
+export TERM='xterm-256color'
+export COLORTERM=truecolor
+export EDITOR="${EDITOR:-nvim}"
+export MANPAGER='less'
+export PAGER='less -s -M +Gg'
+export BROWSER='firefox'
+export FILE="thunar"
+export TERMINAL="kitty"
+export LSP_USE_PLISTS=true

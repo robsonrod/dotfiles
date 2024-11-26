@@ -1,69 +1,13 @@
-if [ -f "$HOME/.config/user-dirs.dirs" ]; then
-    . "$HOME/.config/user-dirs.dirs"
-fi
-
 if ! [[ -z "$DISPLAY" ]]; then
     export RESOLUTION=$(xdpyinfo | awk '/dimensions/{print $2}')
     export SCREEN_RESOLUTION=$(xdpyinfo | awk '/dimensions/{print $2}')
     export MONITOR=$(xrandr -q | grep " connected primary" | cut -d ' ' -f1)
 fi
 
-export HISTFILE="$HOME/.config/bash/bash_history"
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-export DOTFILES="$HOME/dotfiles"
 export OS_ID=$(awk -F= ' /^ID=/ { gsub("\"", ""); print $2 } ' /etc/os-release)
-export GPG_TTY=$(tty)
-export TERM='xterm-256color'
-export COLORTERM=truecolor
-export EDITOR='nvim'
-export MANPAGER='less'
-export PAGER='less -s -M +Gg'
-export BROWSER='firefox'
-export FILE="thunar"
-export SCREENSHOTS_DIR="$XDG_PICTURES_DIR/screenshots"
 export COMPUTER_NAME=$(uname -a | cut -d ' ' -f2)
-export XCURSOR_THEME="Adwaita"
-
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_CACHE_HOME="$HOME/.cache"
 
 export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/x11/xinitrc"
-export SUDO_ASKPASS="$HOME/.local/bin/rofiaskpasswd"
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-export GOPATH="${XDG_DATA_HOME:-$HOME/.asdf/shims}/go"
-export USER_BIN="$HOME/.local/bin"
-
-export PERSONAL_PROJECTS="${PROJECTS}/personal"
-export SUDO_ASKPASS="${HOME}/.local/bin/rofiaskpasswd"
-export LSP_USE_PLISTS=true
-
-# manpages color
-export LESS="-R --use-color -Ddr"
-export LESS_TERMCAP_mb=$'\e[1;31m'
-export LESS_TERMCAP_md=$'\e[1;33m'
-export LESS_TERMCAP_so=$'\e[01;44;37m'
-export LESS_TERMCAP_us=$'\e[01;37m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export GROFF_NO_SGR=1
-
-# fzf color
-export FZF_DEFAULT_OPTS=" \
---color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
---color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
---color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
---color=selected-bg:#494d64 \
---multi"
-
-#fzf options
-export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/,.git/,.venv/}"'
-
-# eza color
-export LS_COLORS="$(vivid generate catppuccin-macchiato)"
-
 alias wget='wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
 
 if [[ "$COMPUTER_NAME" == "iracema" ]]; then
@@ -92,5 +36,3 @@ if [ "$COMPUTER_NAME" != "iracema" ]; then
     FONT4="FontAwesome6Brands:style=Regular:size=10"
     PBHEIGHT="20"
 fi
-
-export PATH=$USER_BIN:$PATH

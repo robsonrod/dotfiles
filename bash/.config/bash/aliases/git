@@ -1,0 +1,20 @@
+# git alias
+alias g='git'
+alias clone='git clone'
+alias add='git add .'
+alias status='git status'
+alias commit='git commit -v -m'
+alias checkoutb='git checkout -b'
+alias checkout='git checkout'
+alias gdiff='git diff'
+alias log="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+alias grm='git rm'
+alias gfetch='git fetch --all --prune --verbose'
+alias greset='git reset HEAD'
+alias pull='git pull && git push'
+alias push='git push origin'
+alias gclear='git clean -xfd'
+alias branchd='git branch -D'
+alias master='git checkout master'
+alias stashl="git stash list"
+alias stashp="git stash pop"
