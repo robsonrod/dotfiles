@@ -173,7 +173,6 @@
   (require 'init-exwm))
 
 (require 'init-gui)
-(require 'init-evil)
 (require 'init-dashboard)
 (require 'init-functions)
 (require 'init-eshell)

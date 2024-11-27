@@ -1,0 +1,5 @@
+if checkexec zoxide; then
+    eval "$(zoxide init --cmd cd bash)"
+else
+	alias cd='cd'
+fi

@@ -4,39 +4,27 @@ alias e='exit'
 alias h='history'
 alias nv='nvim'
 alias em='emacs -nw'
-if [ -x "$(command -v zoxide)" ]; then
-	alias cd='z'
-	alias cdi='zi'
-else
-	alias cd='cd'
-fi
 alias open='xdg-open'
 
 # system admin
-alias i='sudo pacman -Sy'
-alias u='sudo pacman -Syy'
-alias up='sudo pacman -Suy '
-alias r='sudo pacman -Rs'
-alias cat='bat'
+if checkexec paru; then
+    alias i='paru -Sy'
+    alias u='paru -Syy'
+    alias up='paru -Suy '
+else
+    alias i='sudo pacman -Sy'
+    alias u='sudo pacman -Syy'
+    alias up='sudo pacman -Suy '
+    alias r='sudo pacman -Rs'
+    alias cat='bat'
+fi
 
+#
 alias ..='cd ..'
 alias 2.='cd ../..'
 alias 3.='cd ../../..'
 alias 4.='cd ../../../..'
 alias 5.='cd ../../../../..'
-
-if [ -x "$(command -v eza)" ]; then
-	alias l='eza -l --color=always --group-directories-first'
-	alias ls='eza --color=always --group-directories-first'
-	alias la='eza -la --color=always --octal-permissions --group-directories-first -g --icons'
-	alias ll='eza -l --color=always --octal-permissions --group-directories-first'
-	alias tree='eza --tree'
-else
-	alias l='ls'
-	alias ls='ls -l'
-	alias la='ls -la'
-	alias ll='ls -la'
-fi
 
 alias cp="cp -i"
 alias mv='mv -i'
@@ -61,4 +49,4 @@ alias ec='echo -e "${RED} $?"'
 alias path='echo -e "${GREEN} $PATH"'
 
 #dotfiles
-alias cdot="cd ${DOTFILES}"
+alias cfg="cd ${DOTFILES}"

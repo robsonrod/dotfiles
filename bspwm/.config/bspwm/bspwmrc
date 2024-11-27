@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-PATH="${PATH}:$HOME/.local/bin"
-
 pgrep -x sxhkd >/dev/null || sxhkd &
 pkill -f dunst &
 pkill -f polybar &

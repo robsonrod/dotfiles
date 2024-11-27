@@ -1,0 +1,12 @@
+if [ -x "$(command -v eza)" ]; then
+	alias l='eza -l --color=always --group-directories-first'
+	alias ls='eza --color=always --group-directories-first'
+	alias la='eza -la --color=always --octal-permissions --group-directories-first -g --icons'
+	alias ll='eza -l --color=always --octal-permissions --group-directories-first'
+	alias tree='eza --tree'
+else
+	alias l='ls'
+	alias ls='ls -l'
+	alias la='ls -la'
+	alias ll='ls -la'
+fi
