@@ -64,5 +64,6 @@ source $HOME/.config/bash/aliases/zoxide
 # update PS1 variable
 source $HOME/.config/bash/prompt/tty.bash
 
+path_preppend "$HOME/.config/bin"
 path_preppend "$HOME/.local/bin"
 path_preppend "${CARGO_HOME}/bin"
