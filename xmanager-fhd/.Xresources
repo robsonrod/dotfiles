@@ -92,3 +92,11 @@ URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.urlLauncher: firefox
 URxvt.underlineURLs: true
 URxvt.urlButton: 1
+
+st.termname:     xst-256color
+st.borderless:        0
+st.font:              JetBrainsMono Nerd Font:size=10:antialias=true:autohint=true;
+st.font_fallback:     JetBrainsMono Nerd Font:style=Regular:size=10:antialias=true,Material\\-Design\\-Iconic\\-Font:style=Design-Iconic-Font:pixelsize=13,JoyPixels:pixelsize=13
+st.borderpx:          10
+st.cursorshape:       2
+st.opacity:      245

@@ -43,18 +43,8 @@ source $HOME/.config/bash/variables/fzf.sh
 source $HOME/.config/bash/variables/history.sh
 source $HOME/.config/bash/variables/man.sh
 source $HOME/.config/bash/variables/asdf.bash
-
+source $HOME/.config/bash/variables/direnv.bash
 source $HOME/.config/bash/env
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case ${TERM} in
-    xterm* | rxvt* | Eterm* | aterm | kterm | gnome* | alacritty | kitty | st-256color | konsole*)
-        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
-        ;;
-    screen*)
-        PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'
-        ;;
-esac
 
 if [ -f /usr/share/bash-completion/bash_completion ]
 then
@@ -73,8 +63,6 @@ source $HOME/.config/bash/aliases/zoxide
 
 # update PS1 variable
 source $HOME/.config/bash/prompt/tty.bash
-
-[ -s $HOME/.config/bash/bash_custom ] && source $HOME/.config/bash/bash_custom
 
 path_preppend "$HOME/.local/bin"
 path_preppend "${CARGO_HOME}/bin"

@@ -11,7 +11,7 @@ super + t
 
 # urxvt
 super + alt + t
-    urxvt -e fish
+    xst
 
 # program launcher
 super + alt + d
@@ -31,7 +31,7 @@ super + b
 
 # open power menu
 super + shift + q
-    powermenu 
+    powermenu
 
 # show all active windows
 super + alt + w
@@ -179,7 +179,7 @@ Print
 
 # screen lock
 ctrl + shift + l
-     betterlockscreen -l blur 
+     betterlockscreen -l blur
 
 # hiberate
 ctrl + shift + h
