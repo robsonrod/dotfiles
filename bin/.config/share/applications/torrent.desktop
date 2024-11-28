@@ -1,4 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Bittorrent client
-Exec=/usr/bin/kitty -e transmission-cli %U
