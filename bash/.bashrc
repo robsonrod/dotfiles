@@ -30,6 +30,8 @@ source $HOME/.config/bash/functions/agent_ssh
 source $HOME/.config/bash/functions/copy
 source $HOME/.config/bash/functions/extract
 source $HOME/.config/bash/functions/mkcd
+source $HOME/.config/bash/functions/backupthis
+source $HOME/.config/bash/functions/pyserver
 
 # variables
 source $HOME/.config/bash/variables/xdg.sh
@@ -53,6 +55,14 @@ case ${TERM} in
         PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'
         ;;
 esac
+
+if [ -f /usr/share/bash-completion/bash_completion ]
+then
+    source /usr/share/bash-completion/bash_completion
+elif [ -f /etc/bash_completion ]
+then
+    source /etc/bash_completion
+fi
 
 # aliases
 source $HOME/.config/bash/aliases/general
