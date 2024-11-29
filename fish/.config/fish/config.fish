@@ -11,7 +11,6 @@ set -gx EDITOR nvim
 set -gx GPG_TTY (tty)
 set -gx COLORTERM truecolor
 set -gx TERM xterm-256color
-set -gx VBOX_USER_HOME "$HOME/VMS"
 
 if status --is-interactive
     eval (gpgconf --launch gpg-agent)
@@ -148,4 +147,5 @@ function fish_command_not_found
     __fish_default_command_not_found_handler $argv
 end
 
+set -gx PATH $HOME/.config/bin:$PATH
 set fish_function_path $fish_function_path "$HOME/.config/fish/functions/work"

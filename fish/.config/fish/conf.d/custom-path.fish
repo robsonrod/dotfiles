@@ -1,4 +1,4 @@
-set -gx CUSTOM_BIN_HOME "$XDG_CONFIG_HOME/bin"
+set -gx CUSTOM_BIN_HOME "$HOME/.config/bin"
 
 switch ":$PATH:"
     case "*$CUSTOM_BIN_HOME*"
