@@ -1,11 +1,14 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-$os\
-$username\
 $hostname\
 $sudo\
+$jobs\
 $directory\
+$line_break\
+$character"""
+
+right_format = """
 $git_branch\
 $git_status\
 $c\
@@ -20,10 +23,7 @@ $python\
 $custom\
 $container\
 $docker_context\
-$direnv\
-$time\
-$line_break\
-$character"""
+$direnv"""
 
 palette = 'catppuccin_macchiato'
 
@@ -55,45 +55,13 @@ base = "#24273a"
 mantle = "#1e2030"
 crust = "#181926"
 
-[os]
-disabled = false
-style = "bold text"
-
-[os.symbols]
-Windows = "󰍲"
-Ubuntu = "󰕈"
-SUSE = ""
-Raspbian = "󰐿"
-Mint = "󰣭"
-Macos = ""
-Manjaro = ""
-Linux = "󰌽"
-Gentoo = "󰣨"
-Fedora = "󰣛"
-Alpine = ""
-Amazon = ""
-Android = ""
-Arch = "󰣇"
-Artix = "󰣇"
-CentOS = ""
-Debian = "󰣚"
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
-
 [hostname]
 ssh_symbol = " "
-ssh_only = false
+ssh_only = true
 disabled = false
 style = "bold blue"
-format = '[$ssh_symbol](bold blue)[@$hostname ](bold blue)'
+format = '[$ssh_symbol](bold blue)[$hostname ](bold blue)'
 trim_at = "-"
-
-[username]
-show_always = true
-disabled = false
-style_user = "fg:bold blue"
-style_root = "fg:bold blue"
-format = '[ $user]($style)'
 
 [sudo]
 style = "fg:blue"
@@ -104,7 +72,7 @@ disabled = false
 style = "fg:pink"
 format = "[$path]($style)"
 truncation_length = 2
-truncation_symbol = "../"
+truncation_symbol = ""
 truncate_to_repo = true
 
 [directory.substitutions]
@@ -121,10 +89,10 @@ format = '[[ $symbol $branch ](fg:lavender)]($style)'
 
 [git_status]
 style = "fg:lavender"
-modified = '[!\($count\)](yellow)'
-ahead = '⇡${count}'
-behind = '⇣${count}'
-staged = '[+\($count\)](green)'
+stashed = '[  \($count\)](lavender)'
+modified = '[  \($count\)](peach)'
+staged = '[ 󱓏 \($count\)](green)'
+untracked = '[  \($count\)](yellow)'
 format = '[[($all_status$ahead_behind )](fg:lavender)]($style)'
 
 [c]
@@ -177,10 +145,13 @@ symbol = ' '
 format = '[[ $symbol( $name)](fg:blue)]($style)'
 
 [docker_context]
-format = 'via [🐋 $context](blue bold)'
-
-[time]
 disabled = true
+
+[jobs]
+symbol = ' '
+style = 'red'
+number_threshold = 1
+format = '[$symbol]($style)'
 
 [line_break]
 disabled = false
@@ -189,7 +160,7 @@ disabled = false
 disabled = false
 success_symbol = '[❯](bold fg:green)'
 error_symbol = '[❯](bold fg:red)'
-vimcmd_symbol = '[❮](bold fg:creen)'
+vimcmd_symbol = '[❮](bold fg:blue)'
 vimcmd_replace_one_symbol = '[❮](bold fg:purple)'
 vimcmd_replace_symbol = '[❮](bold fg:purple)'
 vimcmd_visual_symbol = '[❮](bold fg:lavender)'
