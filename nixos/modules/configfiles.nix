@@ -28,7 +28,7 @@ in
     home.file.".xinitrc" = {
       source = ../../xmanager-fhd/.xinitrc;
     };
-    
+
     home.file.".xinitrc.exwm" = {
       source = ../../xmanager-hdpi/.xinitrc.exwm;
     };
@@ -78,6 +78,10 @@ in
       recursive = true;
     };
 
+    home.file.".config/macchina" = {
+      source = ../../macchina/.config/macchina;
+      recursive = true;
+    };
 
     home.activation.linkFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
       ln -Tsf ${dotfiles}/bash/.config/bash ~/.config/bash

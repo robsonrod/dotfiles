@@ -14,6 +14,7 @@
     libnotify
     lshw
     man-pages
+    macchina
     nerdfetch
     peek
     pinentry
