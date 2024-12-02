@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "nixpkgs/nixos-23.05";
+    catppuccin.url = "github:catppuccin/nix";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,7 +15,7 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, nixos-hardware, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, nixos-hardware, catppuccin, ... }:
     let
       cfg = {
         system = "x86_64-linux";
@@ -73,6 +74,7 @@
                     ./modules/gtk.nix
                     ./modules/services/gpg.nix
                     ./home
+                    catppuccin.homeManagerModules.catppuccin
                   ];
                 };
               };

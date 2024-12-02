@@ -1,2 +1,5 @@
 export DIRENV_LOG_FORMAT=''
-eval "$(direnv hook bash)"
+
+if checkexec direnv; then
+    eval "$(direnv hook bash)"
+fi

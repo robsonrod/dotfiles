@@ -23,5 +23,9 @@
     stow
     xdg-utils
     zoxide
+    vivid
+    direnv
+    hstr
+    blesh
   ];
 }

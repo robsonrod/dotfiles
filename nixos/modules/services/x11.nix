@@ -77,7 +77,8 @@ in {
 
       dconf = { enable = true; };
 
-      bash = { completion.enable = true; };
+      bash = {
+          completion.enable = true; };
 
       fish = {
         enable = true;
@@ -138,7 +139,12 @@ in {
         source-code-pro
         fira-code
         emacs-all-the-icons-fonts
-        (nerdfonts.override { fonts = [ "Terminus" "Iosevka" "JetBrainsMono" "Ubuntu" "RobotoMono" "FiraCode" ]; })
+        nerd-fonts.terminess-ttf
+        nerd-fonts.iosevka
+        nerd-fonts.jetbrains-mono
+        nerd-fonts.ubuntu
+        nerd-fonts.roboto-mono
+        nerd-fonts.fira-code
       ];
     };
 

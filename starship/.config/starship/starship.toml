@@ -5,10 +5,7 @@ $hostname\
 $sudo\
 $jobs\
 $directory\
-$line_break\
-$character"""
-
-right_format = """
+$direnv\
 $git_branch\
 $git_status\
 $c\
@@ -21,9 +18,11 @@ $kotlin\
 $haskell\
 $python\
 $custom\
+$zig\
 $container\
 $docker_context\
-$direnv"""
+$line_break\
+$character"""
 
 palette = 'catppuccin_macchiato'
 
@@ -82,10 +81,16 @@ truncate_to_repo = true
 "Pictures" = " "
 "Developer" = "󰲋 "
 
+[direnv]
+disabled = false
+detect_files = ['.envrc', '.env']
+symbol = '[env]'
+format = '[[ $symbol](fg:blue)]($style)'
+
 [git_branch]
 symbol = ""
 style = "fg:green"
-format = '[[ $symbol $branch ](fg:lavender)]($style)'
+format = '[[ $symbol $branch](fg:lavender)]($style)'
 
 [git_status]
 style = "fg:lavender"
@@ -110,11 +115,16 @@ symbol = ""
 style = "fg:teal"
 format = '[[ $symbol( $version)](fg:teal)]($style)'
 
+[zig]
+symbol = " "
+style = "fg:teal"
+format = '[[ $symbol( $version)](fg:teal)]($style)'
+
 [custom.lisp]
 symbol = "λ "
 extensions = ["lisp", "el", "clj"]
 style = "bg:teal"
-format = '[[$symbol ](fg:teal)]($style)'
+format = '[[ $symbol ](fg:teal)]($style)'
 
 [nodejs]
 disabled = true
@@ -138,12 +148,6 @@ disabled = true
 symbol = "⬢"
 format = '[[ $symbol( $name)](fg:blue)]($style)'
 
-[direnv]
-disabled = false
-detect_files = ['.envrc', '.env']
-symbol = ' '
-format = '[[ $symbol( $name)](fg:blue)]($style)'
-
 [docker_context]
 disabled = true
 
@@ -151,7 +155,7 @@ disabled = true
 symbol = ' '
 style = 'red'
 number_threshold = 1
-format = '[$symbol]($style)'
+format = '[$symbol ]($style)'
 
 [line_break]
 disabled = false

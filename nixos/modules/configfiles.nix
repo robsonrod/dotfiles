@@ -16,8 +16,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.file.".local/bin" = {
-      source = ../../bin/.local/bin;
+    home.file.".config/bin" = {
+      source = ../../bin/.config/bin;
       recursive = true;
     };
 
@@ -53,18 +53,8 @@ in
       recursive = true;
     };
 
-    home.file.".config/ranger" = {
-      source = ../../ranger/.config/ranger;
-      recursive = true;
-    };
-
     home.file.".config/rofi" = {
       source = ../../rofi/.config/rofi;
-      recursive = true;
-    };
-
-    home.file.".config/terminator" = {
-      source = ../../terminator/.config/terminator;
       recursive = true;
     };
 
@@ -82,6 +72,12 @@ in
       source = ../../starship/.config/starship;
       recursive = true;
     };
+
+    home.file.".config/direnv" = {
+      source = ../../direnv/.config/direnv;
+      recursive = true;
+    };
+
 
     home.activation.linkFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
       ln -Tsf ${dotfiles}/bash/.config/bash ~/.config/bash

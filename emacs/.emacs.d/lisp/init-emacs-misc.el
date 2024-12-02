@@ -139,5 +139,9 @@
   "f" '(avy-goto-line :which-key "jump to line")
   "c" '(avy-goto-char :which-key "jump to char"))
 
+(use-package anzu
+  :ensure t
+  :config
+  (global-anzu-mode +1))
 
 (provide 'init-emacs-misc)
