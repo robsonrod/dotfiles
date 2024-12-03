@@ -85,7 +85,7 @@ truncate_to_repo = true
 disabled = false
 detect_files = ['.envrc', '.env']
 symbol = '[env]'
-format = '[[ $symbol](fg:blue)]($style)'
+format = '[[ $symbol](fg:rosewater)]($style)'
 
 [git_branch]
 symbol = ""

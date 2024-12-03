@@ -38,15 +38,25 @@ alias tkill='tmux kill-server'
 alias rebuildx='xrdb ~/.Xresources'
 alias reload='exec $BASH'
 
-# check aliases
-RED="\e[31m"
-GREEN="\e[32m"
-CYAN="\e[36m"
-BLUE="\e[34m"
-PURPLE="\e[35m"
-ENDCOLOR="\e[0m"
-alias ec='echo -e "${RED} $?"'
-alias path='echo -e "${GREEN} $PATH"'
+cstatus() {
+    local red="\e[31m"
+    local green="\e[32m"
+    local no_color="\e[0m"
+    if [ "$?" == 0 ]; then
+       echo -e "${green}$?${no_color}"
+    else
+        echo -e "${red}$?${no_color}"
+    fi
+}
+
+path() {
+    local blue="\e[34m"
+    local no_color="\e[0m"
+    echo -e "${blue}$PATH${no_color}"
+}
 
 #dotfiles
+alias bashrc="$EDITOR $HOME/.bashrc"
+alias termcfg="$EDITOR $STARSHIP_CONFIG"
 alias cfg="cd ${DOTFILES}"
+alias aliascfg="${EDITOR} $HOME/.config/bash/aliases"
