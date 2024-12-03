@@ -32,6 +32,7 @@ source $HOME/.config/bash/functions/extract
 source $HOME/.config/bash/functions/mkcd
 source $HOME/.config/bash/functions/backupthis
 source $HOME/.config/bash/functions/pyserver
+source $HOME/.config/bash/functions/fzf-git.sh
 
 # variables
 source $HOME/.config/bash/variables/xdg.sh

@@ -1,6 +1,9 @@
 [include]
     path = gituser-default
 
+[includeIf "gitdir:~/dotfiles/"]
+    path = gituser-personal
+
 [includeIf "gitdir:~/dev/personal/"]
     path = gituser-personal
 
