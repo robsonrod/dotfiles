@@ -9,3 +9,5 @@ fzf-ps() {
         kill -9 $pid
     fi
 }
+
+if [[ $- =~ .*i.* ]]; then bind -x '"\e\C-p": "fzf-ps"'; fi
