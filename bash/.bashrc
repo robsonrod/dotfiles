@@ -34,6 +34,7 @@ source $HOME/.config/bash/functions/backupthis
 source $HOME/.config/bash/functions/pyserver
 source $HOME/.config/bash/functions/fzf-git.sh
 source $HOME/.config/bash/functions/rgf
+source $HOME/.config/bash/functions/fzf-ps
 
 # variables
 source $HOME/.config/bash/variables/xdg.sh
