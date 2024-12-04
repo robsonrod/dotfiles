@@ -20,6 +20,7 @@ $python\
 $custom\
 $zig\
 $container\
+$nix_shell\
 $docker_context\
 $line_break\
 $character"""
@@ -144,8 +145,15 @@ disabled = true
 [python]
 disabled = true
 
+[nix_shell]
+symbol = ' '
+impure_msg = 'impure'
+pure_msg = 'pure'
+unknown_msg = 'unknown'
+format = '[ $state(\($name\))](fg:blue)'
+
 [container]
-symbol = "⬢"
+symbol = " "
 format = '[[ $symbol( $name)](fg:blue)]($style)'
 
 [docker_context]
