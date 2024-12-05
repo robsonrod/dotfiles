@@ -210,8 +210,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("0527c20293f587f79fc1544a2472c8171abcc0fa767074a0d3ebac74793ab117"
-     default))
+   '("0527c20293f587f79fc1544a2472c8171abcc0fa767074a0d3ebac74793ab117" default))
  '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode")
  '(package-selected-packages nil))
 (custom-set-faces
