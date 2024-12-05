@@ -1,10 +1,12 @@
 # general aliases
 alias c='clear'
-alias e='exit'
+alias x='exit'
 alias h='history'
 alias nv='nvim'
 alias em='emacs -nw'
 alias open='xdg-open'
+alias btw='macchina'
+alias wget='wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
 
 # system admin
 if checkexec paru; then

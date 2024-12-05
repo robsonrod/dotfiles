@@ -2,6 +2,7 @@
 alias g='git'
 alias clone='git clone'
 alias add='git add .'
+alias adu='git add -u'
 alias status='git status'
 alias commit='git commit -v -m'
 alias checkoutb='git checkout -b'

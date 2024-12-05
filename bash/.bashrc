@@ -22,32 +22,33 @@ case $- in
     *) return ;;
 esac
 
+BASHDIR="${HOME}/.config/bash"
+
 # functions
-source $HOME/.config/bash/functions/path_append
-source $HOME/.config/bash/functions/path_preppend
-source $HOME/.config/bash/functions/checkexec
-source $HOME/.config/bash/functions/agent_ssh
-source $HOME/.config/bash/functions/copy
-source $HOME/.config/bash/functions/extract
-source $HOME/.config/bash/functions/mkcd
-source $HOME/.config/bash/functions/backupthis
-source $HOME/.config/bash/functions/pyserver
-source $HOME/.config/bash/functions/fzf-git.sh
-source $HOME/.config/bash/functions/rgf
-source $HOME/.config/bash/functions/fzf-ps
+source ${BASHDIR}/functions/path_append
+source ${BASHDIR}/functions/path_preppend
+source ${BASHDIR}/functions/checkexec
+source ${BASHDIR}/functions/agent_ssh
+source ${BASHDIR}/functions/copy
+source ${BASHDIR}/functions/extract
+source ${BASHDIR}/functions/mkcd
+source ${BASHDIR}/functions/backupthis
+source ${BASHDIR}/functions/pyserver
+source ${BASHDIR}/functions/fzf-git.sh
+source ${BASHDIR}/functions/rgf
+source ${BASHDIR}/functions/fzf-ps
 
 # variables
-source $HOME/.config/bash/variables/xdg.sh
-source $HOME/.config/bash/variables/xdgfix.sh
-source $HOME/.config/bash/variables/apps.sh
-source $HOME/.config/bash/variables/configs.sh
-source $HOME/.config/bash/variables/eza.sh
-source $HOME/.config/bash/variables/fzf.sh
-source $HOME/.config/bash/variables/history.sh
-source $HOME/.config/bash/variables/man.sh
-source $HOME/.config/bash/variables/asdf.bash
-source $HOME/.config/bash/variables/direnv.bash
-source $HOME/.config/bash/env
+source ${BASHDIR}/variables/xdg.sh
+source ${BASHDIR}/variables/xdgfix.sh
+source ${BASHDIR}/variables/apps.sh
+source ${BASHDIR}/variables/configs.sh
+source ${BASHDIR}/variables/eza.sh
+source ${BASHDIR}/variables/fzf.sh
+source ${BASHDIR}/variables/history.sh
+source ${BASHDIR}/variables/man.sh
+source ${BASHDIR}/variables/asdf.bash
+source ${BASHDIR}/variables/direnv.bash
 
 if [ -f /usr/share/bash-completion/bash_completion ]
 then
@@ -58,15 +59,15 @@ then
 fi
 
 # aliases
-source $HOME/.config/bash/aliases/general
-source $HOME/.config/bash/aliases/colorful.sh
-source $HOME/.config/bash/aliases/git
-source $HOME/.config/bash/aliases/eza
-source $HOME/.config/bash/aliases/zoxide
+source ${BASHDIR}/aliases/general
+source ${BASHDIR}/aliases/colorful.sh
+source ${BASHDIR}/aliases/git
+source ${BASHDIR}/aliases/eza
+source ${BASHDIR}/aliases/zoxide
 
 # update PS1 variable
-source $HOME/.config/bash/prompt/tty.bash
+source ${BASHDIR}/prompt/tty.bash
 
-path_preppend "$HOME/.config/bin"
-path_preppend "$HOME/.local/bin"
+path_preppend "${HOME}/.config/bin"
+path_preppend "${HOME}/.local/bin"
 path_preppend "${CARGO_HOME}/bin"
