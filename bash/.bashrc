@@ -51,11 +51,9 @@ source ${BASHDIR}/variables/man.sh
 source ${BASHDIR}/variables/asdf.bash
 source ${BASHDIR}/variables/direnv.bash
 
-if [ -f /usr/share/bash-completion/bash_completion ]
-then
+if [ -f /usr/share/bash-completion/bash_completion ]; then
     source /usr/share/bash-completion/bash_completion
-elif [ -f /etc/bash_completion ]
-then
+elif [ -f /etc/bash_completion ]; then
     source /etc/bash_completion
 fi
 
@@ -72,3 +70,7 @@ source ${BASHDIR}/prompt/tty.bash
 path_preppend "${HOME}/.config/bin"
 path_preppend "${HOME}/.local/bin"
 path_preppend "${CARGO_HOME}/bin"
+
+if [ -f ${HOME}/.local/share/blesh/ble.sh ]; then
+    source ~/.local/share/blesh/ble.sh
+fi
