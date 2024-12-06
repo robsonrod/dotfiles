@@ -37,6 +37,7 @@ source ${BASHDIR}/functions/pyserver
 source ${BASHDIR}/functions/fzf-git.sh
 source ${BASHDIR}/functions/rgf
 source ${BASHDIR}/functions/fzf-ps
+source ${BASHDIR}/functions/cdd
 
 # variables
 source ${BASHDIR}/variables/xdg.sh
