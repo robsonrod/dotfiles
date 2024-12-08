@@ -26,25 +26,12 @@
  :config
  (setq catppuccin-flavor 'macchiato))
 
-;; doom modeline
-(use-package 
-  doom-modeline 
-  :ensure t 
-  :init (doom-modeline-mode 1) 
-  :custom ((setq doom-modeline-height 15) 
-           (setq doom-modeline-bar-width 6) 
-           (setq doom-modeline-lsp t) 
-           (setq doom-modeline-persp-name nil)
-           (setq doom-modeline-battery t)
-           (setq doom-modeline-irc nil)
-           (setq doom-modeline-icon t)
-           (setq doom-modeline-modal t)
-           (setq doom-modeline-modal-modern-icon t)
-           (setq doom-modeline-modal-icon t)
-           (setq doom-modeline-mu4e nil) 
-           (setq doom-modeline-minor-modes t) 
-           (setq doom-modeline-buffer-file-name-style 'truncate-except-project) 
-           (setq doom-modeline-major-mode-icon t)))
+(use-package mood-line
+  :config
+  (mood-line-mode)
+  :custom
+  (mood-line-glyph-alist mood-line-glyphs-fira-code)
+  (mood-line-format mood-line-format-default))
 
 (load-theme 'catppuccin t) 
 
