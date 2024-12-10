@@ -49,7 +49,8 @@
       mouse-wheel-follow-mouse 't   ; scroll window under mouse cursor
       scroll-step 1                 ;
       dictionary-server "dict.org"
-      vc-follow-symlinks t)
+      vc-follow-symlinks t
+      shift-select-mode t)
                                         ; scroll 1 line with keyboard
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup")) backup-by-copying t ; Don't delink hardlinks
       version-control t      ; Use version numbers on backups

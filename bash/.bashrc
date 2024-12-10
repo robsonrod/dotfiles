@@ -70,7 +70,3 @@ source ${BASHDIR}/prompt/tty.bash
 path_preppend "${HOME}/.config/bin"
 path_preppend "${HOME}/.local/bin"
 path_preppend "${CARGO_HOME}/bin"
-
-if [ -f ${HOME}/.local/share/blesh/ble.sh ]; then
-    source ~/.local/share/blesh/ble.sh
-fi
