@@ -19,5 +19,5 @@ alias gp='git push origin'
 alias gclear='git clean -xfd'
 alias gbd='git branch -D'
 alias gcm='git checkout master'
-alias gsl="git stash list"
-alias gsp="git stash pop"
+alias gsl='git stash list'
+alias gsp='git stash pop'
