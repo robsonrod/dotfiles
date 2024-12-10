@@ -38,6 +38,7 @@ source ${BASHDIR}/functions/fzf-git.sh
 source ${BASHDIR}/functions/rgf
 source ${BASHDIR}/functions/fzf-ps
 source ${BASHDIR}/functions/cdd
+source ${BASHDIR}/functions/truecolor
 
 # variables
 source ${BASHDIR}/variables/xdg.sh
