@@ -40,23 +40,23 @@ source ${BASHDIR}/functions/fzf-ps
 source ${BASHDIR}/functions/cdd
 source ${BASHDIR}/functions/truecolor
 
+
+# update PS1 variable
+source ${BASHDIR}/prompt/tty.bash
+
 # variables
 source ${BASHDIR}/variables/xdg.sh
 source ${BASHDIR}/variables/xdgfix.sh
 source ${BASHDIR}/variables/apps.sh
 source ${BASHDIR}/variables/configs.sh
+source ${BASHDIR}/variables/completion.sh
 source ${BASHDIR}/variables/eza.sh
 source ${BASHDIR}/variables/fzf.sh
 source ${BASHDIR}/variables/history.sh
 source ${BASHDIR}/variables/man.sh
 source ${BASHDIR}/variables/asdf.bash
 source ${BASHDIR}/variables/direnv.bash
-
-if [ -f /usr/share/bash-completion/bash_completion ]; then
-    source /usr/share/bash-completion/bash_completion
-elif [ -f /etc/bash_completion ]; then
-    source /etc/bash_completion
-fi
+source ${BASHDIR}/variables/atuin.sh
 
 # aliases
 source ${BASHDIR}/aliases/general
@@ -64,9 +64,6 @@ source ${BASHDIR}/aliases/colorful.sh
 source ${BASHDIR}/aliases/git
 source ${BASHDIR}/aliases/eza
 source ${BASHDIR}/aliases/zoxide
-
-# update PS1 variable
-source ${BASHDIR}/prompt/tty.bash
 
 path_preppend "${HOME}/.config/bin"
 path_preppend "${HOME}/.local/bin"
