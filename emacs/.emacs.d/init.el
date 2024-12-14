@@ -1,70 +1,58 @@
-;;; init.el --- my emacs file -*- coding: utf-8; lexical-binding: t -*-
-
-;;; Commentary:
-
-;; My Emacs file
-
-;;; Code:
-
-(message "Starting emacs")
-;;
-
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-
 ;;; gc
 (setq gc-cons-threshold (* 50 1000 1000))
 
 ;;; profile
-(add-hook 'emacs-startup-hook (lambda () 
-                                (message "*** Emacs loaded in %s with %d garbage collections."
-                                         (format "%.2f seconds" (float-time (time-subtract
-                                                                             after-init-time
-                                                                             before-init-time)))
-                                         gcs-done)))
+(add-hook
+ 'emacs-startup-hook
+ (lambda ()
+   (message
+    "*** Emacs loaded in %s with %d garbage collections."
+    (format "%.2f seconds"
+            (float-time
+             (time-subtract after-init-time before-init-time)))
+    gcs-done)))
 
-;; fix obsolete warning
-(setq byte-compile-warnings '(cl-functions))
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(load custom-file :no-error-if-file-is-missing)
 
-;; Encoding
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
+(when (eq (string-match "d728970d49a1" system-name) 0)
+  (message "Changing to latin1")
+  (prefer-coding-system 'iso-8859-1)
+  (set-default-coding-systems 'iso-8859-1)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8))
 
+;;; Tweak the looks of Emacs
 ;; general variables
-(setq inhibit-startup-message t         ; no welcome buffer
-      initial-scratch-message nil       ; no scratch buffer
-      ring-bell-function 'ignore        ; never ding
-      history-length 20                 ; max history saves
-      use-dialog-box nil                ; no ugly dialogs
-      case-fold-search nil              ; case sensitive search
-      confirm-kill-processes nil        ; just quit
-      global-auto-revert-non-file-buffers t ; update buffers thar are non-files too
-      sentence-end-double-space nil         ; no way double spaces
-      load-prefer-newer t                   ; always load the new file
-      tab-always-indent 'complete       ; use TAB to complete symbols
-      native-comp-async-report-warnings-erros 'silent ; there's not very much I can do
-      mouse-wheel-scroll-amount '(2 ((shift) . 1))    ; scroll 2 lines
-      mouse-wheel-progressive-speed nil ; don't accelerate
-      mouse-wheel-follow-mouse 't   ; scroll window under mouse cursor
-      scroll-step 1                 ;
-      dictionary-server "dict.org"
-      vc-follow-symlinks t
-      shift-select-mode t)
-                                        ; scroll 1 line with keyboard
-(setq backup-directory-alist '(("." . "~/.emacs.d/backup")) backup-by-copying t ; Don't delink hardlinks
-      version-control t      ; Use version numbers on backups
-      delete-old-versions t  ; Automatically delete excess backups
-      kept-new-versions 20   ; how many of the newest versions to keep
-      kept-old-versions 5)   ; and how many of the old
-;; window title
-(setq frame-title-format "%b - emacs")
+(setq
+ inhibit-startup-message t ; no welcome buffer
+ initial-scratch-message nil ; no scratch buffer
+ ring-bell-function 'ignore ; never ding
+ history-length 20 ; max history saves
+ use-dialog-box nil ; no ugly dialogs
+ case-fold-search nil ; case sensitive search
+ confirm-kill-processes nil ; just quit
+ global-auto-revert-non-file-buffers t ; update buffers thar are non-files too
+ sentence-end-double-space nil ; no way double spaces
+ load-prefer-newer t ; always load the new file
+ tab-always-indent 'complete ; use TAB to complete symbols
+ native-comp-async-report-warnings-erros 'silent ; there's not very much I can do
+ mouse-wheel-scroll-amount '(2 ((shift) . 1)) ; scroll 2 lines
+ mouse-wheel-progressive-speed nil ; don't accelerate
+ mouse-wheel-follow-mouse 't ; scroll window under mouse cursor
+ epa-pinentry-mode 'loopback
+ vc-follow-symlinks t
+ show-paren-style 'mixed)
 
-;; window resize
-(set-frame-parameter (selected-frame) 'alpha '(98 98))
-(add-to-list 'default-frame-alist '(alpha . (98 . 98)))
-(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(setq
+ backup-directory-alist '(("." . "~/.emacs.d/backup"))
+ backup-by-copying t ; Don't delink hardlinks
+ version-control t ; Use version numbers on backups
+ delete-old-versions t ; Automatically delete excess backups
+ kept-new-versions 20 ; how many of the newest versions to keep
+ kept-old-versions 5
+ display-line-numbers-type 't
+ dired-kill-when-opening-new-dired-buffer t) ; and how many of the old
 
 ;; enable/disable modes
 (menu-bar-mode -1)
@@ -77,146 +65,846 @@
 (column-number-mode t)
 (save-place-mode 1)
 (global-auto-revert-mode 1)
-(global-hl-line-mode 1)
-(global-display-line-numbers-mode t)
+(global-hl-line-mode +1)
+(show-paren-mode 1)
+(global-display-line-numbers-mode 1)
 (xterm-mouse-mode +1)
 
-(server-start)
+;; Save and revert operations
+
+;; auto-save file name conversion.
+(setq auto-save-file-name-transforms
+      `((".*"
+         ,(expand-file-name "auto-save-list" user-emacs-directory)
+         t)))
+
+;; Auto save buffer if idled for 2 seconds.
+(setq auto-save-timeout 2)
+(auto-save-visited-mode 1)
+
+;; Watch and reload the file changed on the disk.
+(setq auto-revert-remote-files t)
+(global-auto-revert-mode 1)
+
+;; Do not generate any messages.
+(setq auto-revert-verbose nil)
+
+;; Do not create lock files (prefix ".#").
+(setq create-lockfiles nil)
+
 
 ;; disable line numbers for some modes
-(dolist (mode '(org-mode-hook term-mode-hook vterm-mode-hook shell-mode-hook eshell-mode-hook
-                              dired-mode-hook pdf-view-mode-hook neotree-mode-hook treemacs-mode-hook ielm-mode-hook)) 
-  (add-hook mode (lambda () 
-                   (display-line-numbers-mode -1))))
+(dolist (mode
+         '(org-mode-hook
+           term-mode-hook
+           vterm-mode-hook
+           shell-mode-hook
+           eshell-mode-hook
+           dired-mode-hook
+           pdf-view-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode -1))))
 
 ;; spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 
-;; gpg prompt
-(setq epa-pinentry-mode 'loopback)
-
-;; font configuration
-(set-face-attribute 'default nil 
-                    :font "JetBrainsMono Nerd Font" 
-                    :height 100)
-(set-face-attribute 'fixed-pitch nil 
-                    :font "RobotoMono Nerd Font" 
-                    :height 100)
-(set-face-attribute 'variable-pitch nil 
-                    :font "Iosevka Nerd Font" 
-                    :height 100)
-
 ;; yes or no question
-(defalias 'yes-or-no-p 'y-or-n-p)
+(fset 'yes-or-no-p 'y-or-n-p)
 
-;; Custom functions
-(global-set-key [(control shift return)] 'robsonrod/smart-open-line-above)
-(global-set-key [(shift return)] 'robsonrod/smart-open-line)
+;;; Set up the package manager
+(require 'package)
+(setq package-archives
+      '(("melpa" . "https://melpa.org/packages/")
+        ("org" . "https://orgmode.org/elpa/")
+        ("elpa" . "https://elpa.gnu.org/packages/")
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+(package-initialize)
 
-;; replace list-buffer
-(global-set-key (kbd "C-x C-b") 'counsel-ibuffer)
+;; install package manager
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(require 'use-package)
+(setq use-package-always-ensure t)
 
-;; custom window management
+(when (< emacs-major-version 29)
+  (unless (package-installed-p 'use-package)
+    (unless package-archive-contents
+      (package-refresh-contents))
+    (package-install 'use-package)))
+
+(add-to-list
+ 'display-buffer-alist
+ '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
+   (display-buffer-no-window)
+   (allow-no-window . t)))
+(setq use-package-always-ensure t)
+;;; Basic behaviour
+
+;; spaces instead of tabs
+(setq-default indent-tabs-mode nil)
+
+(use-package diminish :ensure t)
+
+(use-package
+ delsel
+ :ensure nil
+ :hook (after-init . delete-selection-mode))
+
+(defun prot/keyboard-quit-dwim ()
+  "Do-What-I-Mean behaviour for a general `keyboard-quit'.
+
+The generic `keyboard-quit' does not do the expected thing when
+the minibuffer is open.  Whereas we want it to close the
+minibuffer, even without explicitly focusing it.
+
+The DWIM behaviour of this command is as follows:
+
+- When the region is active, disable it.
+- When a minibuffer is open, but not focused, close the minibuffer.
+- When the Completions buffer is selected, close it.
+- In every other case use the regular `keyboard-quit'."
+  (interactive)
+  (cond
+   ((region-active-p)
+    (keyboard-quit))
+   ((derived-mode-p 'completion-list-mode)
+    (delete-completion-window))
+   ((> (minibuffer-depth) 0)
+    (abort-recursive-edit))
+   (t
+    (keyboard-quit))))
+
+(define-key global-map (kbd "C-g") #'prot/keyboard-quit-dwim)
+
+(let ((mono-spaced-font "Fira Code")
+      (proportionately-spaced-font "Noto Sans"))
+  (set-face-attribute 'default nil
+                      :family mono-spaced-font
+                      :height 100)
+  (set-face-attribute 'fixed-pitch nil
+                      :family mono-spaced-font
+                      :height 1.0)
+  (set-face-attribute 'variable-pitch nil
+                      :family proportionately-spaced-font
+                      :height 1.0))
+
+(use-package
+ modus-themes
+ :ensure t
+ :custom
+ (modus-themes-italic-constructs t)
+ (modus-themes-bold-constructs t)
+ (modus-vivendi-tinted-palette-overrides
+  '((bg-main "#1e1e2e")
+    (fg-main "#cdd6f4")
+    (fg-active fg-main)
+    (bg-hl-line "#313244")
+    (fg-mode-line-active "#bac2de")
+    (bg-mode-line-active "#181825")
+    (fg-mode-line-inactive "#bac2de")
+    (bg-mode-line-inactive "#313244")
+    (border-mode-line-active bg-mode-line-active)
+    (border-mode-line-inactive bg-mode-line-inactive)
+    (bg-line-number-active "#1e1e2e")
+    (fg-line-number-active "#cba6f7")
+    (bg-line-number-inactive "#1e1e2e")
+    (fg-line-number-inactive "#6c7086")))
+ (modus-operandi-deuteranopia-palette-overrides
+  '((bg-main "#eff1f5")
+    (fg-main "#4c4f69")
+    (border-mode-line-active "#303446")
+    (border-mode-line-inactive "#303446")))
+ :config (load-theme 'modus-vivendi-tinted :no-confirm-loading))
+
+;; Remember to do M-x and run `nerd-icons-install-fonts' to get the
+;; font files.  Then restart Emacs to see the effect.
+(use-package nerd-icons :ensure t)
+
+(use-package
+ nerd-icons-completion
+ :ensure t
+ :after marginalia
+ :config
+ (add-hook
+  'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+
+(use-package
+ nerd-icons-corfu
+ :ensure t
+ :after corfu
+ :config
+ (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
+(use-package
+ nerd-icons-dired
+ :ensure t
+ :hook (dired-mode . nerd-icons-dired-mode))
+
+;;; Configure the minibuffer and completions
+(use-package
+ vertico
+ :bind
+ (:map
+  vertico-map
+  ("C-j" . vertico-next)
+  ("C-k" . vertico-previous)
+  ("C-f" . vertico-exit)
+  :map
+  minibuffer-local-map
+  ("M-h" . backward-kill-word))
+ :custom (vertico-cycle t)
+ :init (vertico-mode))
+
+(use-package
+ marginalia
+ :after vertico
+ :custom
+ (marginalia-annotators
+  '(marginalia-annotators-heavy marginalia-annotators-ligh nil))
+ :init (marginalia-mode))
+
+(use-package
+ embark
+ :ensure t
+ :bind
+ (("C-c ." . embark-act) ; pick some comfortable binding
+  ("C-c ;" . embark-dwim) ; good alternative: M-.
+  ("C-h B" . embark-bindings)) ; alternative for `describe-bindings'
+ :init
+ ;; Optionally replace the key help with a completing-read interface
+ (setq prefix-help-command #'embark-prefix-help-command)
+ :config
+ ;; Hide the mode line of the Embark live/completions buffers
+ (add-to-list
+  'display-buffer-alist
+  '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+    nil
+    (window-parameters (mode-line-format . none)))))
+
+(use-package
+ embark-consult
+ :ensure t ; only need to install it, embark loads it after consult if found
+ :hook (embark-collect-mode . consult-preview-at-point-mode))
+
+(use-package
+ consult
+ :bind
+ (("C-s" . 'consult-line)
+  ("C-x b" . 'consult-buffer)
+  ("C-x C-b" . 'consult-buffer)
+  ("M-g o" . 'consult-outline)
+  ("M-s g" . 'consult-grep)
+  ("M-s r" . 'consult-ripgrep)))
+
+(use-package
+ orderless
+ :ensure t
+ :config
+ (setq completion-styles '(orderless basic))
+ (setq completion-category-defaults nil)
+ (setq completion-category-overrrides nil))
+
+(use-package
+ savehist
+ :ensure nil ; it is built-in
+ :hook (after-init . savehist-mode))
+
+(use-package
+ corfu
+ :ensure t
+ :hook (after-init . global-corfu-mode)
+ :bind (:map corfu-map ("<tab>" . corfu-complete))
+ :config
+ (setq tab-always-indent 'complete)
+ (setq corfu-preview-current nil)
+ (setq corfu-min-width 20)
+
+ (setq corfu-popupinfo-delay '(1.25 . 0.5))
+ (corfu-popupinfo-mode 1) ; shows documentation after `corfu-popupinfo-delay'
+
+ ;; Sort by input history (no need to modify `corfu-sort-function').
+ (with-eval-after-load 'savehist
+   (corfu-history-mode 1)
+   (add-to-list 'savehist-additional-variables 'corfu-history)))
+
+;;; Helpers
+(use-package
+ which-key
+ :init (which-key-mode)
+ :diminish which-key-mode
+ :config (setq which-key-idle-delay 0.3))
+
+(use-package helpful)
+
+;; Text and code complement
+(use-package
+ company
+ :ensure t
+ :bind ("C-M-/" . company-complete-common-or-cycle)
+ :init (add-hook 'after-init-hook 'global-company-mode)
+ :config
+ (setq
+  company-show-quick-access t
+  company-minimum-prefix-length 1
+  company-idle-delay 0.5
+  company-backends
+  '((company-files ; files & directory
+     company-keywords ; keywords
+     company-capf ; what is this?
+     company-yasnippet company-restclient)
+    (company-abbrev company-dabbrev))))
+
+(use-package
+ company-box
+ :ensure t
+ :after company
+ :hook (company-mode . company-box-mode))
+
+;;; The file manager (Dired)
+(use-package
+ dired
+ :ensure nil
+ :commands (dired)
+ :hook
+ ((dired-mode . dired-hide-details-mode) (dired-mode . hl-line-mode))
+ :config
+ (setq dired-recursive-copies 'always)
+ (setq dired-recursive-deletes 'always)
+ (setq delete-by-moving-to-trash t)
+ (setq dired-dwim-target t))
+
+(use-package
+ dired-subtree
+ :ensure t
+ :after dired
+ :bind
+ (:map
+  dired-mode-map
+  ("<tab>" . dired-subtree-toggle)
+  ("TAB" . dired-subtree-toggle)
+  ("<backtab>" . dired-subtree-remove)
+  ("S-TAB" . dired-subtree-remove))
+ :config (setq dired-subtree-use-backgrounds nil))
+
+(use-package
+ trashed
+ :ensure t
+ :commands (trashed)
+ :config
+ (setq trashed-action-confirmer 'y-or-n-p)
+ (setq trashed-use-header-line t)
+ (setq trashed-sort-key '("Date deleted" . t))
+ (setq trashed-date-format "%Y-%m-%d %H:%M:%S"))
+
+;;; Named workspaces
+(use-package
+ perspective
+ :demand t
+ :bind
+ (("C-M-k" . persp-switch)
+  ("C-M-n" . persp-next)
+  ("C-x k" . persp-kill-buffer*))
+ :custom
+ (persp-initial-frame-name "Main")
+ (persp-mode-prefix-key (kbd "C-c M-p"))
+ :config
+ ;; Running `persp-mode' multiple times resets the perspective list...
+ (unless (equal persp-mode t)
+   (persp-mode)))
+
+;;; Projects
+(defun robsonrod/switch-project-action ()
+  "Switch to a workspace with the project name and start `magit-status'."
+  (persp-switch (projectile-project-name))
+  (magit-status))
+
+(use-package
+ projectile
+ :diminish projectile-mode
+ :config (projectile-mode)
+ (setq projectile-globally-ignored-directories
+       (append
+        '(".git" ".ccls_cache")
+        projectile-globally-ignored-directories))
+ :demand t
+ :bind-keymap ("C-c p" . projectile-command-map)
+ :init
+ (when (file-directory-p "~/dev/personal")
+   (setq projectile-project-search-path '("~/dev/personal")))
+ (setq projectile-switch-project-action
+       #'robsonrod/switch-project-action))
+
+;; Git support
+(use-package
+ magit
+ :bind ("C-M-;" . magit-status)
+ :commands (magit-status magit-get-current-branch)
+ :custom
+ (magit-display-buffer-function
+  #'magit-display-buffer-same-window-except-diff-v1))
+
+(use-package
+ git-gutter
+ :hook (prog-mode . git-gutter-mode)
+ :config (setq git-gutter:update-interval 0.02))
+
+;; Convenient key definitions
+(use-package
+ general
+ :config
+ (general-create-definer
+  robsonrod/major-mode-leader-map
+  :prefix "C-,")
+ (general-create-definer robsonrod/ctrl-c-definer :prefix "C-c"))
+
+;; Modeline and themes
+(use-package minions :config (minions-mode 1))
+
+(use-package
+ doom-themes
+ :ensure t
+ :config
+ (setq
+  doom-themes-enable-bold t
+  doom-themes-enable-italic t)
+ ;;(load-theme 'doom-dracula t)
+ (doom-themes-org-config) (doom-themes-neotree-config))
+
+;; Undo/redo framework
+(use-package
+ undo-fu
+ :ensure t
+ :config
+ (global-set-key (kbd "C-/") 'undo-fu-only-undo)
+ (global-set-key (kbd "C-M-/") 'undo-fu-only-redo))
+
+(use-package
+ undo-fu-session
+ :ensure t
+ :config
+ (setq undo-fu-session-incompatible-files
+       '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
+ (global-undo-fu-session-mode))
+
+;; comment code efficiently
+(use-package
+ evil-nerd-commenter
+ :bind ("M-/" . 'evilnc-comment-or-uncomment-lines))
+
+
+;;;; Programming
+;; LSP
+(use-package
+ lsp-mode
+ :ensure t
+ :defer t
+ :commands (lsp lsp-deferred)
+ :bind (:map lsp-mode-map ("M-<RET>" . lsp-execute-action))
+ :custom
+ (lsp-auto-guess-root nil)
+ (lsp-prefer-flymake nil) ; Use flycheck instead of flymake
+ (lsp-enable-file-watchers nil)
+ (lsp-enable-folding nil)
+ (read-process-output-max (* 1024 1024))
+ (lsp-keep-workspace-alive nil)
+ (lsp-eldoc-hook nil)
+ :hook
+ ((c-mode . lsp-deferred)
+  (c++-mode . lsp-deferred)
+  (clojure-mode . lsp-deferred)
+  (rust-mode . lsp-deferred)
+  (lsp-mode . lsp-enable-which-key-integration))
+ :config
+ (setq lsp-keymap-prefix "C-c l")
+ (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
+ (setq lsp-clients-clangd-executable "/usr/bin/clangd")
+ (setq lsp-file-watch-threshold 15000)
+ (setq lsp-ui-doc-enable nil)
+ (setq lsp-ui-doc-show-with-cursor nil)
+ (setq lsp-modeline-code-actions-enable nil)
+ (setq lsp-signature-render-documentation nil)
+ (setq lsp-lens-enable nil)
+ (setq lsp-enable-symbol-highlighting nil)
+ (setq lsp-eldoc-enable-hover nil)
+ (setq lsp-eldoc-hook nil)
+ (setq lsp-enable-links nil)
+ (setq lsp-log-io nil)
+ (setq lsp-enable-file-watchers nil)
+ (setq lsp-enable-on-type-formatting nil)
+ (setq lsp-completion-show-detail nil)
+ (setq lsp-completion-show-kind nil)
+ (setq lsp-headerline-breadcrumb-enable nil))
+
+;; a hight level UI modules of lsp
+(use-package
+ lsp-ui
+ :ensure t
+ :diminish
+ :defer t
+ :after lsp
+ :hook (lsp-mode . lsp-ui-mode)
+ :config
+ (setq lsp-ui-sideline-enable t)
+ (setq lsp-ui-sideline-show-hover nil)
+ (setq lsp-ui-doc-position 'bottom)
+ (lsp-ui-doc-show)
+ :bind (:map lsp-ui-mode-map ("C-c i" . lsp-ui-menu)))
+
+;; cpp language server
+(use-package
+ ccls
+ :ensure t
+ :config
+ :hook
+ ((c-mode c++-mode objc-mode cuda-mode)
+  .
+  (lambda ()
+    (require 'ccls)
+    (lsp))))
+
+;; C++ Formatter
+(use-package
+ clang-format
+ :ensure t
+ :config
+ (add-hook
+  'c-mode-common-hook
+  (lambda ()
+    (add-hook
+     (make-local-variable 'before-save-hook) 'clang-format-buffer))))
+
+(use-package
+ modern-cpp-font-lock
+ :ensure t
+ :hook (c++-mode . modern-c++-font-lock-mode))
+
+;; Rust
+(use-package
+ rust-mode
+ :defer t
+ :mode "\\.rs\\'"
+ :custom
+ (rust-format-on-save t)
+ (lsp-rust-server 'rust-analyzer))
+
+;;; markdown
+(use-package
+ markdown-mode
+ :mode "\\.md\\'"
+ :config
+ (setq markdown-command "pandoc")
+ (setq markdown-asymmetric-header t)
+ (setq markdown-header-scaling t)
+ (setq markdown-enable-math t))
+
+(use-package markdown-preview-mode :commands markdown-preview)
+
+;; Elisp
+(use-package
+ elisp-autofmt
+ :commands (elisp-autofmt-mode elisp-autofmt-buffer)
+ :hook (emacs-lisp-mode . elisp-autofmt-mode))
+
+(use-package
+ eldoc
+ :defer t
+ :after company
+ :init
+ (eldoc-add-command
+  'company-complete-selection
+  'company-complete-common
+  'company-capf
+  'company-abort))
+
+(use-package
+ shell
+ :defer t
+ :init
+ :hook (shell-mode . tree-sitter-hl-mode))
+
+(use-package ssh-config-mode :defer t)
+
+(use-package dotenv-mode :defer t :init)
+
+(use-package
+ toml-mode
+ :init
+ :defer t
+ :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'")
+
+(use-package
+ yaml-mode
+ :defer t
+ :init
+ :mode "\\.yml\\'"
+ :mode "\\.yaml\\'")
+
+(use-package
+ python-mode
+ :ensure t
+ :hook (python-mode . lsp-deferred)
+ :custom (python-shell-interpreter "python"))
+
+(use-package pyvenv :config (pyvenv-mode 1))
+
+;; syntax check
+(use-package flycheck :ensure t :init (global-flycheck-mode 1))
+
+;; Terminal
+(use-package
+ vterm
+ :hook
+ (vterm-mode
+  .
+  (lambda ()
+    (hl-line-mode -1)
+    (display-line-numbers-mode -1))))
+
+(use-package multi-vterm :after vterm :ensure t :defer t)
+
+(use-package
+ eat
+ :init
+ :hook
+ (eat-mode
+  .
+  (lambda ()
+    (hl-line-mode -1)
+    (display-line-numbers-mode -1))))
+
+;; Programming enhacements
+(use-package
+ rainbow-delimiters
+ :defer t
+ :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+
+(use-package
+ smartparens
+ :ensure t
+ :init
+ (require 'smartparens-config)
+ (smartparens-global-mode t)
+ :diminish smartparens-mode
+ :config (show-smartparens-mode t))
+
+(use-package highlight-parentheses :ensure t)
+
+;; Buffer search
+(use-package
+ visual-replace
+ :defer t
+ :bind
+ (("C-c r" . visual-replace)
+  :map
+  isearch-mode-map
+  ("C-c r" . visual-replace-from-isearch)))
+
+;; Authentication
+(use-package
+ pinentry
+ :config (setq epg-pinentry-mode 'loopback) (pinentry-start))
+
+
+;;; My functions
+(defun robsonrod/smart-open-line-above ()
+  "Insert an empty line above the current line.
+Position the cursor at it's beginning, according to the current mode."
+  (interactive)
+  (move-beginning-of-line nil)
+  (newline-and-indent)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(defun robsonrod/smart-open-line ()
+  "Insert an empty line after the current line.
+Position the cursor at its beginning, according to the current mode."
+  (interactive)
+  (move-end-of-line nil)
+  (newline-and-indent))
+
+(defun robsonrod/kill-line ()
+  (interactive)
+  (move-beginning-of-line nil)
+  (kill-line))
+
+(defun robsonrod/open-config ()
+  "Open Emacs config file."
+  (interactive)
+  (find-file user-init-file))
+
+(defun robsonrod/reload-config ()
+  "Reload Emacs config file."
+  (interactive)
+  (load-file (expand-file-name "init.el" user-emacs-directory)))
+
+(defun robsonrod/split-window-two ()
+  "Split current window into two."
+  (interactive)
+  (split-window-right)
+  (balance-windows))
+
+(defun robsonrod/kill-current-buffer ()
+  "Kill the current buffer."
+  (interactive)
+  (kill-buffer nil))
+
+(defun robsonrod/kill-all-buffers ()
+  "Kill all buffers."
+  (interactive)
+  (let ((lsp-restart 'ignore))
+    (delete-other-windows)
+    (save-some-buffers)
+    (let ((kill-buffer-query-functions '()))
+      (mapc 'kill-buffer (buffer-list)))))
+
+(defun robsonrod/text-scale-restore ()
+  "Restore text scale."
+  (interactive)
+  (text-scale-set 0)
+  (message "restored"))
+
+(defun robsonrod/sha512 (&optional filename)
+  "Compute sha512 message digest from FILENAME."
+  (interactive)
+  (let ((filename (or filename (read-file-name "Filename:"))))
+    (secure-hash
+     'sha512 (-> filename (message filename) (find-file-noselect)))))
+
+(defun robsonrod/2base64 (&optional filename)
+  "Encode FILENAME to base64."
+  (-> filename (robsonrod/sha512) (base64-encode-string)))
+
+(defun robsonrod/sha512-dir (dir)
+  "Compute sha512 message digest to all files into DIR."
+  (interactive)
+  (mapcar
+   (lambda (x)
+     (cons (concat dir "/" x) (robsonrod/sha512 (concat dir "/" x))))
+   (directory-files dir nil directory-files-no-dot-files-regexp)))
+
+(defun robsonrod/load-darkmode ()
+  "Load spacemacs darkmode."
+  (interactive)
+  (load-theme 'modus-vivendi-tinted t))
+
+(defun robsonrod/load-lightmode ()
+  "Load spacemacs lightmode."
+  (interactive)
+  (load-theme 'modus-operandi-deuteranopia t))
+
+(defun robsonrod/load-dracula ()
+  "Load doom dracula."
+  (interactive)
+  (load-theme 'doom-dracula t))
+
+(defun robsonrod/choose-theme ()
+  "Select color theme."
+  (interactive)
+  (let ((chose-theme
+         (completing-read "Choose:" '(light dark dark-alternative))))
+    (message chose-theme)
+    (cond
+     ((equal "dark" chose-theme)
+      (robsonrod/load-darkmode))
+     ((equal "light" chose-theme)
+      (robsonrod/load-lightmode))
+     ((equal "dark-alternative" chose-theme)
+      (robsonrod/load-dracula))))
+  (funcall major-mode))
+
+(defun robsonrod/duplicate-line ()
+  "Duplicate line."
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
+  (yank))
+
+;; from: https://emacs.stackexchange.com/a/34307
+(defun robsonrod/move-line-up ()
+  "Move up the current line."
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2)
+  (indent-according-to-mode))
+
+;; from: https://emacs.stackexchange.com/a/34307
+(defun robsonrod/move-line-down ()
+  "Move down the current line."
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(defun robsonrod/switch-to-scratch-buffer ()
+  "Switch to scratch buffer."
+  (interactive)
+  (switch-to-buffer "*scratch*"))
+
+(defun robsonrod/switch-to-message-buffer ()
+  "Switch to messages buffer."
+  (interactive)
+  (switch-to-buffer "*Messages*"))
+
+(defun robsonrod/custom-tab-indent ()
+  "Use tabs instead of spaces."
+  (setq-local indent-tabs-mode 1))
+
+(defun robsonrod/su-find-file (filename)
+  "Open FILENAME as a super user."
+  (interactive "FFind file(sudo): ")
+  (let ((file-to-open (concat "/sudo::" (expand-file-name filename))))
+    (find-file file-to-open)))
+
+(defun robsonrod/supress-warnings ()
+  "Supress emergency messages."
+  (interactive)
+  (setq warning-minimum-level :emergency))
+
+(defun robsonrod/default-warnings ()
+  "Supress warning messages."
+  (interactive)
+  (setq warning-minimum-level :warning))
+
+(defun robsonrod/my-change-number-at-point (change increment)
+  "Change the number at point."
+  (let ((number (number-at-point))
+        (point (point)))
+    (when number
+      (progn
+        (forward-word)
+        (search-backward (number-to-string number))
+        (replace-match
+         (number-to-string (funcall change number increment)))
+        (goto-char point)))))
+
+(defun robsonrod/my-increment-number-at-point (&optional increment)
+  "Increment number at point like vim's C-a."
+  (interactive "p")
+  (robsonrod/my-change-number-at-point '+ (or increment 1)))
+
+(defun robsonrod/my-decrement-number-at-point (&optional increment)
+  "Decrement number at point like vim's C-x."
+  (interactive "p")
+  (robsonrod/my-change-number-at-point '- (or increment 1)))
+
+;; Remap
 (global-set-key (kbd "C-<tab>") 'other-window)
 (global-set-key (kbd "M-<down>") 'enlarge-window)
 (global-set-key (kbd "M-<up>") 'shrink-window)
 (global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-<left>") 'shrink-window-horizontally)
 
-(defun robsonrod/modeline-contitional-buffer-encoding () 
-  "Hide \"LF UTF-8\" in modeline.
-   It is expected of files to be encoded with LF UTF-8, so only show
-   the encoding in the modeline if the encoding is worth notifying
-   the user."
-  (setq-local doom-modeline-buffer-encoding (unless (and (memq (plist-get (coding-system-plist
-                                                                           buffer-file-coding-system) 
-                                                                          :category) 
-                                                               '(coding-category-undecided
-                                                                 coding-category-utf-8)) 
-                                                         (not (memq (coding-system-eol-type
-                                                                     buffer-file-coding-system) 
-                                                                    '(1 2)))) t)))
+;; https://whhone.com/emacs-config/#modern-editor-behavior
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(keymap-global-unset "C-x <escape> <escape>") ; repeat-complex-command
 
-(add-hook 'after-change-major-mode-hook #'robsonrod/modeline-contitional-buffer-encoding)
-(add-hook 'makefile-mode-hook #'robsonrod/custom-tab-indent)
-;; configure package manager
-(require 'package)
-(setq package-archives '(("melpa" . "https://melpa.org/packages/") 
-                         ("org" . "https://orgmode.org/elpa/") 
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
-(package-initialize)
+(global-set-key (kbd "C-c a") 'robsonrod/my-increment-number-at-point)
+(global-set-key (kbd "C-c x") 'robsonrod/my-decrement-number-at-point)
+(global-set-key (kbd "M-s-<down>") 'robsonrod/move-line-down)
+(global-set-key (kbd "M-s-<up>") 'robsonrod/move-line-up)
 
-;; install package manager
-(unless (package-installed-p 'use-package) 
-  (package-refresh-contents) 
-  (package-install 'use-package))
-(require 'use-package)
-(setq use-package-always-ensure t)
-
-;; 
-(use-package general
-  :config
-  (general-create-definer robsonrod/major-mode-leader-map
-    :prefix "C-,")
-  (general-create-definer robsonrod/ctrl-c-definer
-    :prefix "C-c"))
-
-(global-set-key (kbd "M-o") 'ff-find-related-file)
-
-(defvar robsonrod/exwm-running
-  (cond ((and (memq window-system '(x))
-              (seq-contains-p command-line-args "--use-exwm")
-              :true))
-        (t :false)))
-
-(when (eq robsonrod/exwm-running :true)
-  (message "Starting EXWM")
-  (require 'init-exwm))
-
-(require 'init-gui)
-(require 'init-dashboard)
-(require 'init-functions)
-(require 'init-eshell)
-(require 'init-lsp)
-(require 'init-dired)
-(require 'init-company)
-(require 'init-org)
-(require 'init-magit)
-(require 'init-vterm)
-(require 'init-templates)
-(require 'init-cpp)
-(require 'init-rust)
-(require 'init-nix)
-(require 'init-lispy)
-(require 'init-elisp)
-(require 'init-pdf)
-(require 'init-completion)
-(require 'init-project)
-(require 'init-clojure)
-(require 'init-scheme)
-(require 'init-dap)
-(require 'init-prog-common)
-(require 'init-treemacs)
-(require 'init-sh)
-(require 'init-emacs-misc)
-(require 'init-commenter)
-(require 'init-rss)
-(require 'init-dictionary)
-(require 'init-undo)
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("0527c20293f587f79fc1544a2472c8171abcc0fa767074a0d3ebac74793ab117" default))
- '(eldoc-documentation-functions nil t nil "Customized with use-package lsp-mode")
- '(package-selected-packages nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(provide init)

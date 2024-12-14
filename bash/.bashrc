@@ -13,7 +13,7 @@ bind 'set colored-completion-prefix on'
 bind 'set echo-control-characters off'
 
 bind 'set show-all-if-ambiguous on'
-bind 'set completion-ignore-case on'
+bind 'set completion-ignore-case off'
 bind 'TAB:menu-complete'
 
 # If not running interactively, don't do anything
@@ -21,6 +21,8 @@ case $- in
     *i*) ;;
     *) return ;;
 esac
+
+[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && source "$EAT_SHELL_INTEGRATION_DIR/bash"
 
 BASHDIR="${HOME}/.config/bash"
 
@@ -39,7 +41,6 @@ source ${BASHDIR}/functions/rgf
 source ${BASHDIR}/functions/fzf-ps
 source ${BASHDIR}/functions/cdd
 source ${BASHDIR}/functions/truecolor
-
 
 # update PS1 variable
 source ${BASHDIR}/prompt/tty.bash
