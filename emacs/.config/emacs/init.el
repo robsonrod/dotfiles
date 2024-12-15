@@ -26,7 +26,7 @@
 ;; general variables
 (setq
  inhibit-startup-message t ; no welcome buffer
- initial-scratch-message nil ; no scratch buffer
+ initial-scratch-message ";; scratch buffer\n\n" ; scratch buffer text
  ring-bell-function 'ignore ; never ding
  history-length 20 ; max history saves
  use-dialog-box nil ; no ugly dialogs
@@ -40,9 +40,9 @@
  mouse-wheel-scroll-amount '(2 ((shift) . 1)) ; scroll 2 lines
  mouse-wheel-progressive-speed nil ; don't accelerate
  mouse-wheel-follow-mouse 't ; scroll window under mouse cursor
- epa-pinentry-mode 'loopback
- vc-follow-symlinks t
- show-paren-style 'mixed)
+ vc-follow-symlinks t ; goto the real file
+ show-paren-style 'mixed ;highlight the matching paren
+ )
 
 (setq
  backup-directory-alist '(("." . "~/.emacs.d/backup"))
@@ -140,9 +140,6 @@
 (setq use-package-always-ensure t)
 ;;; Basic behaviour
 
-;; spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-
 (use-package diminish :ensure t)
 
 (use-package
@@ -194,21 +191,53 @@ The DWIM behaviour of this command is as follows:
  :custom
  (modus-themes-italic-constructs t)
  (modus-themes-bold-constructs t)
- (modus-vivendi-tinted-palette-overrides
-  '((bg-main "#1e1e2e")
-    (fg-main "#cdd6f4")
+ (modus-vivendi-tinted-palette-overrides ;; doom-moonlight
+  '((bg-main "#212337")
+    (fg-main "#c8d3f5")
     (fg-active fg-main)
-    (bg-hl-line "#313244")
-    (fg-mode-line-active "#bac2de")
-    (bg-mode-line-active "#181825")
+    (bg-hl-line "#2f334d")
+    (fg-mode-line-active "#b4c2f0")
+    (bg-mode-line-active "#1e2030")
     (fg-mode-line-inactive "#bac2de")
     (bg-mode-line-inactive "#313244")
     (border-mode-line-active bg-mode-line-active)
     (border-mode-line-inactive bg-mode-line-inactive)
-    (bg-line-number-active "#1e1e2e")
-    (fg-line-number-active "#cba6f7")
-    (bg-line-number-inactive "#1e1e2e")
-    (fg-line-number-inactive "#6c7086")))
+    (bg-line-number-active line-highlight)
+    (fg-line-number-active fg-main)
+    (bg-line-number-inactive "#212337")
+    (fg-line-number-inactive "#444a73")
+    (bg-region "#383e5c")
+    (fg-region fg-main)
+    (bg-completion bg-region)
+    (fg-completion fg-main)
+    (fg-prompt "#c099ff")
+    (bg-prompt unspecified)
+    (cursor "#baacff")
+
+    (rainbow-0 "#c099ff")
+    (rainbow-1 "#ff995e")
+    (rainbow-2 "#ff98a4")
+    (rainbow-3 "#b4f9f8")
+    (rainbow-4 "#f989d3")
+    (rainbow-5 "#ffc777")
+    (rainbow-6 "#82aaff")
+    (rainbow-7 "#4fd6be")
+    (rainbow-8 "#86e1fc")
+
+    (keyword "#c099ff")
+    (builtin "#c099ff")
+    (comment "#7a88cf")
+    (string "#c3e88d")
+    (fnname "#82aaff")
+    (name fnname)
+    (type "#ffc777")
+    (variable "#ff98a4")
+    (docstring "#7a88cf")
+    (constant "#ff995e")
+    (number "#ff995e")
+    (err "#ff757f")
+    (warning "#ffc777")
+    (info "#b4f9f8")))
  (modus-operandi-deuteranopia-palette-overrides
   '((bg-main "#eff1f5")
     (fg-main "#4c4f69")
@@ -265,6 +294,7 @@ The DWIM behaviour of this command is as follows:
 
 (use-package
  embark
+ :after vertico
  :ensure t
  :bind
  (("C-c ." . embark-act) ; pick some comfortable binding
@@ -294,7 +324,9 @@ The DWIM behaviour of this command is as follows:
   ("C-x C-b" . 'consult-buffer)
   ("M-g o" . 'consult-outline)
   ("M-s g" . 'consult-grep)
-  ("M-s r" . 'consult-ripgrep)))
+  ("M-s r" . 'consult-ripgrep))
+ :custom
+ (completion-in-region-function #'consult-completion-in-region))
 
 (use-package
  orderless
@@ -327,6 +359,18 @@ The DWIM behaviour of this command is as follows:
    (corfu-history-mode 1)
    (add-to-list 'savehist-additional-variables 'corfu-history)))
 
+(use-package wgrep :after consult :hook (grep-mode . wgrep-setup))
+
+(use-package
+ consult-dir
+ :bind
+ (("C-x C-d" . consult-dir)
+  :map
+  vertico-map
+  ("C-x C-d" . consult-dir)
+  ("C-x C-j" . consult-dir-jump-file))
+ :custom (consult-dir-project-list-function nil))
+
 ;;; Helpers
 (use-package
  which-key
@@ -334,7 +378,15 @@ The DWIM behaviour of this command is as follows:
  :diminish which-key-mode
  :config (setq which-key-idle-delay 0.3))
 
-(use-package helpful)
+(use-package
+ helpful
+ :init
+ :defer t
+ :bind
+ ([remap describe-function] . helpful-function)
+ ([remap describe-command] . helpful-command)
+ ([remap describe-variable] . helpful-variable)
+ ([remap describe-key] . helpful-key))
 
 ;; Text and code complement
 (use-package
@@ -491,7 +543,6 @@ The DWIM behaviour of this command is as follows:
  evil-nerd-commenter
  :bind ("M-/" . 'evilnc-comment-or-uncomment-lines))
 
-
 ;;;; Programming
 ;; LSP
 (use-package
@@ -550,7 +601,9 @@ The DWIM behaviour of this command is as follows:
  (lsp-ui-doc-show)
  :bind (:map lsp-ui-mode-map ("C-c i" . lsp-ui-menu)))
 
-;; cpp language server
+(use-package consult-lsp :init :defer t :after lsp)
+
+;; C++ language server
 (use-package
  ccls
  :ensure t
@@ -595,7 +648,12 @@ The DWIM behaviour of this command is as follows:
  (setq markdown-command "pandoc")
  (setq markdown-asymmetric-header t)
  (setq markdown-header-scaling t)
- (setq markdown-enable-math t))
+ (setq markdown-enable-math t)
+ :bind
+ (:map markdown-mode-map ("M-<left>" . markdown-promote))
+ (:map markdown-mode-map ("M-<right>" . markdown-demote))
+ (:map markdown-mode-map ("M-S-<left>" . markdown-promote-subtree))
+ (:map markdown-mode-map ("M-S-<right>" . markdown-demote-subtree)))
 
 (use-package markdown-preview-mode :commands markdown-preview)
 
@@ -616,22 +674,31 @@ The DWIM behaviour of this command is as follows:
   'company-capf
   'company-abort))
 
+;; shell
 (use-package
  shell
  :defer t
  :init
- :hook (shell-mode . tree-sitter-hl-mode))
+ :hook (shell-mode . tree-sitter-hl-mode)
+ :config
+ (add-hook
+  'after-save-hook
+  'executable-make-buffer-file-executable-if-script-p))
 
+;; ssh
 (use-package ssh-config-mode :defer t)
 
-(use-package dotenv-mode :defer t :init)
+;; direnv
+(use-package envrc :hook (after-init . envrc-global-mode))
 
+;; toml
 (use-package
  toml-mode
  :init
  :defer t
  :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'")
 
+;; yaml
 (use-package
  yaml-mode
  :defer t
@@ -639,18 +706,61 @@ The DWIM behaviour of this command is as follows:
  :mode "\\.yml\\'"
  :mode "\\.yaml\\'")
 
+;; python
 (use-package
  python-mode
  :ensure t
  :hook (python-mode . lsp-deferred)
  :custom (python-shell-interpreter "python"))
 
+;; pyenv
 (use-package pyvenv :config (pyvenv-mode 1))
 
-;; syntax check
-(use-package flycheck :ensure t :init (global-flycheck-mode 1))
+;; clojure check
+(use-package flycheck-clj-kondo)
 
-;; Terminal
+;; clojure mode
+(use-package
+ clojure-mode
+ :after flycheck-clj-kondo
+ :config (require 'flycheck-clj-kondo))
+
+;; cider clojure
+(setq org-babel-clojure-backend 'cider)
+(use-package
+ cider
+ :defer t
+ :init
+ (progn
+   (add-hook 'clojure-mode-hook 'cider-mode)
+   (add-hook 'clojurec-mode-hook 'cider-mode)
+   (add-hook 'cider-repl-mode-hook 'cider-mode))
+ :config
+ (setq cider-repl-display-help-banner nil)
+ (setq cider-auto-mode nil))
+
+;; scheme
+(use-package
+ geiser-guile
+ :ensure t
+ :config
+ (setq scheme-program-name "guile")
+ (setq geiser-default-implementation 'guile)
+ (setq geiser-active-implementations '(guile))
+ (setq geiser-implementations-alist '(((regexp "\\.scm$") guile)))
+ (setq geiser-guile-binary "guile")
+ (add-hook 'geiser-repl-mode-hook 'rainbow-delimiters-mode)
+ (add-hook 'inferior-scheme-mode-hook 'rainbow-delimiters-mode))
+
+;; syntax check
+(use-package
+ flycheck
+ :ensure t
+ :init
+ :config (add-hook 'sh-mode-hook 'flyckeck-mode))
+
+;; Terminals
+;; vterm
 (use-package
  vterm
  :hook
@@ -660,8 +770,7 @@ The DWIM behaviour of this command is as follows:
     (hl-line-mode -1)
     (display-line-numbers-mode -1))))
 
-(use-package multi-vterm :after vterm :ensure t :defer t)
-
+;; eat
 (use-package
  eat
  :init
@@ -673,6 +782,8 @@ The DWIM behaviour of this command is as follows:
     (display-line-numbers-mode -1))))
 
 ;; Programming enhacements
+(use-package iedit :bind ("C-;" . iedit-mode) :diminish)
+
 (use-package
  rainbow-delimiters
  :defer t
@@ -704,6 +815,29 @@ The DWIM behaviour of this command is as follows:
  pinentry
  :config (setq epg-pinentry-mode 'loopback) (pinentry-start))
 
+;; Templates
+(use-package
+ tempel
+ :custom (tempel-trigger-prefix "<")
+ :bind
+ (("M-+" . tempel-complete) ;; Alternative tempel-expand
+  ("M-*" . tempel-insert))
+ :init
+ (defun tempel-setup-capf ()
+   (setq-local completion-at-point-functions
+               (cons #'tempel-expand completion-at-point-functions)))
+
+ (add-hook 'conf-mode-hook 'tempel-setup-capf)
+ (add-hook 'prog-mode-hook 'tempel-setup-capf)
+ (add-hook 'text-mode-hook 'tempel-setup-capf)
+
+ ;; Optionally make the Tempel templates available to Abbrev,
+ ;; either locally or globally. `expand-abbrev' is bound to C-x '.
+ (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
+ ;; (global-tempel-abbrev-mode)
+ )
+
+(use-package tempel-collection :ensure t :after tempel)
 
 ;;; My functions
 (defun robsonrod/smart-open-line-above ()
@@ -723,6 +857,8 @@ Position the cursor at its beginning, according to the current mode."
   (newline-and-indent))
 
 (defun robsonrod/kill-line ()
+  "Kill the whole current line.
+Position the cursor at its beginning, according to the current mode."
   (interactive)
   (move-beginning-of-line nil)
   (kill-line))
@@ -819,7 +955,7 @@ Position the cursor at its beginning, according to the current mode."
   (kill-line)
   (yank)
   (open-line 1)
-  (next-line 1)
+  (forward-line 1)
   (yank))
 
 ;; from: https://emacs.stackexchange.com/a/34307
@@ -854,7 +990,7 @@ Position the cursor at its beginning, according to the current mode."
   (setq-local indent-tabs-mode 1))
 
 (defun robsonrod/su-find-file (filename)
-  "Open FILENAME as a super user."
+  "Find file with FILENAME and open a super user."
   (interactive "FFind file(sudo): ")
   (let ((file-to-open (concat "/sudo::" (expand-file-name filename))))
     (find-file file-to-open)))
@@ -897,6 +1033,7 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "M-<up>") 'shrink-window)
 (global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-c C-k") 'robsonrod/kill-line)
 
 ;; https://whhone.com/emacs-config/#modern-editor-behavior
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -906,5 +1043,3 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "C-c x") 'robsonrod/my-decrement-number-at-point)
 (global-set-key (kbd "M-s-<down>") 'robsonrod/move-line-down)
 (global-set-key (kbd "M-s-<up>") 'robsonrod/move-line-up)
-
-(provide init)
