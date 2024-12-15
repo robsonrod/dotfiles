@@ -7,6 +7,8 @@ alias em='emacs -nw'
 alias open='xdg-open'
 alias btw='macchina'
 alias wget='wget --hsts-file=$XDG_CACHE_HOME/wget-hsts'
+alias startxb='startx $HOME/.xinitrc'
+alias startxe='startx $HOME/.xinitrc.exwm'
 
 # system admin
 if checkexec paru; then

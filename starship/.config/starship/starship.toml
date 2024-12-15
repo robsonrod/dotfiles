@@ -69,7 +69,7 @@ symbol = " "
 disabled = false
 
 [directory]
-style = "fg:pink"
+style = "fg:blue"
 format = "[$path]($style)"
 truncation_length = 2
 truncation_symbol = ""
