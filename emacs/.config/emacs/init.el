@@ -26,7 +26,7 @@
 ;; general variables
 (setq
  inhibit-startup-message t ; no welcome buffer
- initial-scratch-message ";; scratch buffer\n\n" ; scratch buffer text
+ initial-scratch-message ";;scratch buffer\n\n" ; scratch buffer text
  ring-bell-function 'ignore ; never ding
  history-length 20 ; max history saves
  use-dialog-box nil ; no ugly dialogs
@@ -223,6 +223,7 @@ The DWIM behaviour of this command is as follows:
     (rainbow-6 "#82aaff")
     (rainbow-7 "#4fd6be")
     (rainbow-8 "#86e1fc")
+    (accent-0 "#82aaff")
 
     (keyword "#c099ff")
     (builtin "#c099ff")
@@ -358,6 +359,11 @@ The DWIM behaviour of this command is as follows:
  (with-eval-after-load 'savehist
    (corfu-history-mode 1)
    (add-to-list 'savehist-additional-variables 'corfu-history)))
+
+(use-package corfu-terminal
+  :config
+  (unless (display-graphic-p)
+    (corfu-terminal-mode +1)))
 
 (use-package wgrep :after consult :hook (grep-mode . wgrep-setup))
 
@@ -752,6 +758,21 @@ The DWIM behaviour of this command is as follows:
  (add-hook 'geiser-repl-mode-hook 'rainbow-delimiters-mode)
  (add-hook 'inferior-scheme-mode-hook 'rainbow-delimiters-mode))
 
+(use-package nix-mode
+  :mode ("\\.nix\\'" "\\.nix.in\\'"))
+
+(use-package nix-drv-mode
+  :ensure nix-mode
+  :mode "\\.drv\\'")
+
+(use-package nix-shell
+  :ensure nix-mode
+  :commands (nix-shell-unpack nix-shell-configure nix-shell-build))
+
+(use-package nix-repl
+  :ensure nix-mode
+  :commands (nix-repl))
+
 ;; syntax check
 (use-package
  flycheck
@@ -839,6 +860,123 @@ The DWIM behaviour of this command is as follows:
 
 (use-package tempel-collection :ensure t :after tempel)
 
+
+;; Orgmode
+(defun efs/org-mode-setup () 
+  (org-indent-mode) 
+  (variable-pitch-mode 1) 
+  (visual-line-mode 1))
+
+(defun efs/org-font-setup () 
+  "Replace list hyphen with dot."
+  (font-lock-add-keywords 
+   'org-mode
+   '(("^ *\\([-]\\) " (0 (prog1 () 
+                           (compose-region (match-beginning 1) 
+                                           (match-end 1) "•"))))))
+
+  ;; Set faces for heading levels
+  (dolist (face '((org-level-1 . 1.2) 
+                  (org-level-2 . 1.1) 
+                  (org-level-3 . 1.05) 
+                  (org-level-4 . 1.0) 
+                  (org-level-5 . 1.1) 
+                  (org-level-6 . 1.1) 
+                  (org-level-7 . 1.1) 
+                  (org-level-8 . 1.1))) 
+    (set-face-attribute (car face) nil 
+                        :font "RobotoMono Nerd Font"
+                        :weight 'regular 
+                        :height (cdr face)))
+
+  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+  (set-face-attribute 'org-block nil
+                      :foreground "unspeficied"
+                      :inherit 'fixed-pitch) 
+  (set-face-attribute 'org-code nil 
+                      :inherit '(shadow fixed-pitch)) 
+  (set-face-attribute 'org-table nil 
+                      :inherit '(shadow fixed-pitch)) 
+  (set-face-attribute 'org-verbatim nil 
+                      :inherit '(shadow fixed-pitch)) 
+  (set-face-attribute 'org-special-keyword nil 
+                      :inherit '(font-lock-comment-face fixed-pitch)) 
+  (set-face-attribute 'org-meta-line nil 
+                      :inherit '(font-lock-comment-face fixed-pitch)) 
+  (set-face-attribute 'org-checkbox nil 
+                      :inherit 'fixed-pitch))
+
+;; org mode
+(use-package 
+  org 
+  :hook (org-mode . efs/org-mode-setup) 
+  :config (setq org-ellipsis " ▾" org-hide-emphasis-markers t org-confirm-babel-evaluate nil
+                org-fontify-quote-and-verse-blocks t org-startup-folded 'content
+                org-agenda-start-with-log-mode t org-log-done 'time org-log-into-drawer t) 
+  (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) 
+                                                           (python . t) 
+                                                           (shell . t) 
+                                                           (clojure . t) 
+                                                           (scheme . t))) 
+  (efs/org-font-setup))
+
+;; custom bullets
+(use-package 
+  org-bullets 
+  :after org 
+  :hook (org-mode . org-bullets-mode) 
+  :custom (org-bullets-bullet-list '("◉" "○" "✸" "○" "●" "○" "●")))
+
+(defun efs/org-mode-visual-fill () 
+  (setq visual-fill-column-width 200 visual-fill-column-center-text t) 
+  (visual-fill-column-mode 1))
+
+(use-package 
+  visual-fill-column 
+  :hook (org-mode . efs/org-mode-visual-fill))
+
+(setq org-babel-clojure-backend 'cider)
+
+;; org templates
+(require 'org-tempo)
+
+(add-to-list 'org-modules 'org-tempo t)
+(add-to-list 'org-structure-template-alist '("clj" . "src clojure"))
+(add-to-list 'org-structure-template-alist '("pyt" . "src python"))
+(add-to-list 'org-structure-template-alist '("sh"  . "src shell"))
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("scm" . "src scheme"))
+
+(use-package 
+  org-auto-tangle 
+  :defer t 
+  :hook (org-mode . org-auto-tangle-mode))
+
+(use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory "~/Notes/Roam/")
+  (org-roam-completion-everywhere t)
+  (org-roam-dailies-capture-templates
+    '(("d" "default" entry "* %<%I:%M %p>: %?"
+       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         :map org-mode-map
+         ("C-M-i" . completion-at-point)
+         :map org-roam-dailies-map
+         ("Y" . org-roam-dailies-capture-yesterday)
+         ("T" . org-roam-dailies-capture-tomorrow))
+  :bind-keymap
+  ("C-c n d" . org-roam-dailies-map)
+  :config
+  (require 'org-roam-dailies) ;; Ensure the keymap is available
+  (org-roam-db-autosync-mode))
+
+
 ;;; My functions
 (defun robsonrod/smart-open-line-above ()
   "Insert an empty line above the current line.
@@ -861,6 +999,7 @@ Position the cursor at its beginning, according to the current mode."
 Position the cursor at its beginning, according to the current mode."
   (interactive)
   (move-beginning-of-line nil)
+  (kill-line)
   (kill-line))
 
 (defun robsonrod/open-config ()
@@ -1027,13 +1166,22 @@ Position the cursor at its beginning, according to the current mode."
   (interactive "p")
   (robsonrod/my-change-number-at-point '- (or increment 1)))
 
+(defun robsonrod/insert-comment()
+  (interactive)
+  (move-beginning-of-line nil)
+  (newline-and-indent)
+  (forward-line -1)
+  (insert "//")
+  (insert-char ?= 97))
+
 ;; Remap
 (global-set-key (kbd "C-<tab>") 'other-window)
 (global-set-key (kbd "M-<down>") 'enlarge-window)
 (global-set-key (kbd "M-<up>") 'shrink-window)
 (global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "C-c C-k") 'robsonrod/kill-line)
+(global-set-key (kbd "C-c k") 'robsonrod/kill-line)
+(global-set-key (kbd "C-c c") 'robsonrod/insert-comment)
 
 ;; https://whhone.com/emacs-config/#modern-editor-behavior
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
