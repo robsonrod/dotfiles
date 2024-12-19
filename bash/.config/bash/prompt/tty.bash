@@ -96,14 +96,14 @@ parse_ssh_connection() {
 }
 
 parse_prompt_symbol() {
-    local green="$(tput setaf 2 2>/dev/null || printf '')"
-    local red="$(tput setaf 1 2>/dev/null || printf '')"
-    local no_color="$(tput sgr0 2>/dev/null || printf '')"
-
-    if [[ $? -eq 0 ]]; then
-        printf '%s' "${green}${no_color}"
+    local exit_code="$?"
+    local red="\033[38;5;9m"
+    local white="\033[38;5;15m"
+    local no_format="\033[0m"
+    if [[ $exit_code -eq 0 ]]; then
+        PROMPT_SYMBOL=$(echo -e "${white}${no_format}")
     else
-        printf '%s' "${red}${no_color}"
+        PROMPT_SYMBOL=$(echo -e "${red}${no_format}")
     fi
 }
 
@@ -111,9 +111,10 @@ bash_prompt() {
     PROMPT_DIRTRIM=2
     PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
     if [[ "$(tty)" == '/dev/pts/'* ]]; then
-        PS1='\n\[$(tput bold)\]\[$(tput setaf 4)\]\u\[$(tput setaf 4)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 4)\]$(parse_ssh_connection)\[$(tput setaf 5)\]\w\[$(tput setaf 12)\]$(parse_direnv)$(parse_docker_env)\[$(tput setaf 147)\]$(parse_git_branch)\[$(tput setaf 3)\]$(parse_git_dirty) $(parse_prompt_symbol) \[$(tput sgr0)\]'
+        PS1='\n\[$(tput bold)\]\[$(tput setaf 4)\]\u\[$(tput setaf 4)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 4)\]$(parse_ssh_connection)\[$(tput setaf 5)\]\w\[$(tput setaf 12)\]$(parse_direnv)$(parse_docker_env)\[$(tput setaf 147)\]$(parse_git_branch)\[$(tput setaf 3)\]$(parse_git_dirty) ${PROMPT_SYMBOL} \[$(tput sgr0)\]'
     fi
 }
 
+PROMPT_COMMAND='parse_prompt_symbol'
 bash_prompt
 unset -f bash_prompt
