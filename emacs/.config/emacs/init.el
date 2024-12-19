@@ -506,14 +506,6 @@ The DWIM behaviour of this command is as follows:
  :hook (prog-mode . git-gutter-mode)
  :config (setq git-gutter:update-interval 0.02))
 
-;; Convenient key definitions
-(use-package
- general
- :config
- (general-create-definer
-  robsonrod/major-mode-leader-map
-  :prefix "C-,")
- (general-create-definer robsonrod/ctrl-c-definer :prefix "C-c"))
 
 ;; Modeline and themes
 (use-package minions :config (minions-mode 1))
@@ -976,6 +968,14 @@ The DWIM behaviour of this command is as follows:
   (require 'org-roam-dailies) ;; Ensure the keymap is available
   (org-roam-db-autosync-mode))
 
+;; Convenient key definitions
+(use-package
+ general
+ :config
+ (general-create-definer
+  robsonrod/major-mode-leader-map
+  :prefix "C-x")
+ (general-create-definer robsonrod/ctrl-c-definer :prefix "C-c"))
 
 ;;; My functions
 (defun robsonrod/smart-open-line-above ()
@@ -1187,7 +1187,21 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (keymap-global-unset "C-x <escape> <escape>") ; repeat-complex-command
 
+
 (global-set-key (kbd "C-c a") 'robsonrod/my-increment-number-at-point)
 (global-set-key (kbd "C-c x") 'robsonrod/my-decrement-number-at-point)
 (global-set-key (kbd "M-s-<down>") 'robsonrod/move-line-down)
 (global-set-key (kbd "M-s-<up>") 'robsonrod/move-line-up)
+
+(robsonrod/ctrl-c-definer
+  "2" '(robsonrod/split-window-two :which-key "split into two windows")
+  "k" '(robsonrod/kill-current-buffer :which-key "kill current buffer")
+  "K" '(robsonrod/kill-all-buffers :which-key "kill all buffers")
+  "l" '(robsonrod/kill-line        :which-key "kill current line")
+  "e" '(eval-buffer :which-key "eval current buffer")
+  "=" '(robsonrod/text-scale-restore :which-key "restore font size")
+  "+" '(text-scale-increase :which-key "increase font size")
+  "-" '(text-scale-decrease :which-key "decrease font size"))
+
+(robsonrod/major-mode-leader-map
+  "c" '(robsonrod/open-config :which-key "open emacs config"))
