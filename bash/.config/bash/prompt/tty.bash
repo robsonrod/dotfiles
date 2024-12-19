@@ -101,9 +101,9 @@ parse_prompt_symbol() {
     local no_color="$(tput sgr0 2>/dev/null || printf '')"
 
     if [[ $? -eq 0 ]]; then
-        printf '%s' "${green} ${no_color}"
+        printf '%s' "${green}${no_color}"
     else
-        printf '%s' "${red} ${no_color}"
+        printf '%s' "${red}${no_color}"
     fi
 }
 
