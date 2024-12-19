@@ -5,18 +5,18 @@ parse_git_dirty() {
     local blue="$(tput setaf 4 2>/dev/null || printf '')"
     local no_color="$(tput sgr0 2>/dev/null || printf '')"
 
-    STATUS="$(git status --porcelain 2> /dev/null)"
+    local status="$(git status --porcelain 2> /dev/null)"
     if [[ $? -ne 0 ]]; then
         printf "";
         return;
     fi
 
-    local renamed=$(echo "${STATUS}" | grep -c "renamed:")
-    local modified=$(echo "${STATUS}" | grep -c " M")
-    local staged=$(echo "${STATUS}" | grep -c "^M")
-    local untracked=$(echo "${STATUS}" | grep -c "??")
-    local deleted=$(echo "${STATUS}" | grep -c "^D")
-    local new_file=$(echo "${STATUS}" | grep -c "^A")
+    local renamed=$(echo "${status}" | grep -c "renamed:")
+    local modified=$(echo "${status}" | grep -c " M")
+    local staged=$(echo "${status}" | grep -c "^M")
+    local untracked=$(echo "${status}" | grep -c "??")
+    local deleted=$(echo "${status}" | grep -c "^D")
+    local new_file=$(echo "${status}" | grep -c "^A")
 
     if [ -n $renamed ] && [ $renamed != "0" ]; then
         printf '%s' "${blue}  $renamed${no_color} ";
@@ -93,7 +93,7 @@ parse_prompt_symbol() {
     local green="$(tput setaf 2 2>/dev/null || printf '')"
     local red="$(tput setaf 1 2>/dev/null || printf '')"
     local no_color="$(tput sgr0 2>/dev/null || printf '')"
-    if [ "$?" == "0" ]; then
+    if [[ $? -eq  0 ]]; then
         printf '%s' "${green}${no_color}"
     else
         printf '%s' "${red}${no_color}"
