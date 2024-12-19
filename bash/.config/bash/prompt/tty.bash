@@ -109,7 +109,10 @@ parse_prompt_symbol() {
 
 bash_prompt() {
     PROMPT_DIRTRIM=2
-    PS1='\n\[$(tput bold)\]\[$(tput setaf 4)\]$(parse_ssh_connection)\[$(tput setaf 5)\]\w\[$(tput setaf 12)\]$(parse_direnv)$(parse_docker_env)\[$(tput setaf 10)\]$(parse_git_branch)\[$(tput setaf 3)\]$(parse_git_dirty)\n$(parse_prompt_symbol) \[$(tput sgr0)\]'
+    PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
+    if [[ "$(tty)" == '/dev/pts/'* ]]; then
+        PS1='\n\[$(tput bold)\]\[$(tput setaf 4)\]\u\[$(tput setaf 4)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 4)\]$(parse_ssh_connection)\[$(tput setaf 5)\]\w\[$(tput setaf 12)\]$(parse_direnv)$(parse_docker_env)\[$(tput setaf 147)\]$(parse_git_branch)\[$(tput setaf 3)\]$(parse_git_dirty) $(parse_prompt_symbol) \[$(tput sgr0)\]'
+    fi
 }
 
 bash_prompt
