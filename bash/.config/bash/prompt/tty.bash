@@ -70,6 +70,12 @@ parse_direnv() {
     else
         printf ""
     fi
+
+    if [ -n "$VIRTUAL_ENV" ]; then
+        printf " [pyenv]"
+    else
+        printf ""
+    fi
 }
 
 parse_docker_env() {
@@ -93,15 +99,17 @@ parse_prompt_symbol() {
     local green="$(tput setaf 2 2>/dev/null || printf '')"
     local red="$(tput setaf 1 2>/dev/null || printf '')"
     local no_color="$(tput sgr0 2>/dev/null || printf '')"
-    if [[ $? -eq  0 ]]; then
-        printf '%s' "${green}${no_color}"
+
+    if [[ $? -eq 0 ]]; then
+        printf '%s' "${green} ${no_color}"
     else
-        printf '%s' "${red}${no_color}"
+        printf '%s' "${red} ${no_color}"
     fi
 }
 
 bash_prompt() {
-    PS1='\n\[$(tput bold)\]\[$(tput setaf 4)\]$(parse_ssh_connection)\[$(tput setaf 5)\]\W\[$(tput setaf 12)\]$(parse_direnv)$(parse_docker_env)\[$(tput setaf 10)\]$(parse_git_branch)\[$(tput setaf 3)\]$(parse_git_dirty)\n$(parse_prompt_symbol) \[$(tput sgr0)\]'
+    PROMPT_DIRTRIM=2
+    PS1='\n\[$(tput bold)\]\[$(tput setaf 4)\]$(parse_ssh_connection)\[$(tput setaf 5)\]\w\[$(tput setaf 12)\]$(parse_direnv)$(parse_docker_env)\[$(tput setaf 10)\]$(parse_git_branch)\[$(tput setaf 3)\]$(parse_git_dirty)\n$(parse_prompt_symbol) \[$(tput sgr0)\]'
 }
 
 bash_prompt
