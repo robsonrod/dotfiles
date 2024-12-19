@@ -1,4 +1,10 @@
 parse_git_dirty() {
+    local green="$(tput setaf 2 2>/dev/null || printf '')"
+    local red="$(tput setaf 1 2>/dev/null || printf '')"
+    local yellow="$(tput setaf 3 2>/dev/null || printf '')"
+    local blue="$(tput setaf 4 2>/dev/null || printf '')"
+    local no_color="$(tput sgr0 2>/dev/null || printf '')"
+
     STATUS="$(git status --porcelain 2> /dev/null)"
     if [[ $? -ne 0 ]]; then
         printf "";
@@ -13,37 +19,37 @@ parse_git_dirty() {
     local new_file=$(echo "${STATUS}" | grep -c "^A")
 
     if [ -n $renamed ] && [ $renamed != "0" ]; then
-        printf "$renamed";
+        printf '%s' "${blue}  $renamed${no_color} ";
     else
         printf "";
     fi
 
-    if [ -n ${new_file} ] && [ ${new_file} != "0" ]; then
-        printf "  ($new_file)";
+    if [ -n $new_file ] && [ $new_file != "0" ]; then
+        printf '%s' "${green}  ($new_file)${no_color}";
     else
         printf "";
     fi
 
-    if [ -n $untracked ]; then
-        printf "  ($untracked)";
+    if [ -n $untracked ] && [ $untracked != "0" ]; then
+        printf '%s' "${yellow}  ($untracked)${no_color}";
     else
         printf "";
     fi
 
-    if [ -n $modified ]; then
-        printf "  ($modified)";
+    if [ -n $modified ] && [ $modified != "0" ]; then
+        printf '%s' "${blue}  ($modified)${no_color}";
     else
         printf "";
     fi
 
-    if [ -n $staged ]; then
-        printf " 󱓏 ($staged)";
+    if [ -n $staged ] && [ $staged != "0" ]; then
+        printf '%s' " ${green}󱓏 ($staged)${no_color}";
     else
         printf "";
     fi
 
     if [ -n $deleted ] && [ $deleted != "0" ]; then
-        printf " ($deleted)";
+        printf '%s' "${red} 󱀷 ($deleted)${no_color}";
     else
         printf "";
     fi
@@ -83,11 +89,19 @@ parse_ssh_connection() {
     fi
 }
 
+parse_prompt_symbol() {
+    local green="$(tput setaf 2 2>/dev/null || printf '')"
+    local red="$(tput setaf 1 2>/dev/null || printf '')"
+    local no_color="$(tput sgr0 2>/dev/null || printf '')"
+    if [ "$?" == "0" ]; then
+        printf '%s' "${green}${no_color}"
+    else
+        printf '%s' "${red}${no_color}"
+    fi
+}
+
 bash_prompt() {
-    export PROMPT_DIRTRIM=2
-    #PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 2)\] \[$(tput sgr0)\]"
-    #PS1='\[$(tput bold)\]\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 12)\]$(parse_direnv)$(parse_docker_env)\[$(tput setaf 10)\]$(parse_git_branch)\[$(tput setaf 222)\]$(parse_git_dirty)\n\[$(tput setaf 2)\]❯ \[$(tput sgr0)\]'
-    PS1='\n\[$(tput bold)\]\[$(tput setaf 4)\]$(parse_ssh_connection)\[$(tput setaf 5)\]\w\[$(tput setaf 12)\]$(parse_direnv)$(parse_docker_env)\[$(tput setaf 10)\]$(parse_git_branch)\[$(tput setaf 3)\]$(parse_git_dirty)\n\[$(tput setaf 2)\]❯ \[$(tput sgr0)\]'
+    PS1='\n\[$(tput bold)\]\[$(tput setaf 4)\]$(parse_ssh_connection)\[$(tput setaf 5)\]\W\[$(tput setaf 12)\]$(parse_direnv)$(parse_docker_env)\[$(tput setaf 10)\]$(parse_git_branch)\[$(tput setaf 3)\]$(parse_git_dirty)\n$(parse_prompt_symbol) \[$(tput sgr0)\]'
 }
 
 bash_prompt
