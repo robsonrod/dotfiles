@@ -409,7 +409,7 @@ The DWIM behaviour of this command is as follows:
   '((company-files ; files & directory
      company-keywords ; keywords
      company-capf ; what is this?
-     company-yasnippet company-restclient)
+     company-yasnippet)
     (company-abbrev company-dabbrev))))
 
 (use-package
@@ -854,77 +854,77 @@ The DWIM behaviour of this command is as follows:
 
 
 ;; Orgmode
-(defun efs/org-mode-setup () 
-  (org-indent-mode) 
-  (variable-pitch-mode 1) 
+(defun efs/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
   (visual-line-mode 1))
 
-(defun efs/org-font-setup () 
+(defun efs/org-font-setup ()
   "Replace list hyphen with dot."
-  (font-lock-add-keywords 
+  (font-lock-add-keywords
    'org-mode
-   '(("^ *\\([-]\\) " (0 (prog1 () 
-                           (compose-region (match-beginning 1) 
+   '(("^ *\\([-]\\) " (0 (prog1 ()
+                           (compose-region (match-beginning 1)
                                            (match-end 1) "•"))))))
 
   ;; Set faces for heading levels
-  (dolist (face '((org-level-1 . 1.2) 
-                  (org-level-2 . 1.1) 
-                  (org-level-3 . 1.05) 
-                  (org-level-4 . 1.0) 
-                  (org-level-5 . 1.1) 
-                  (org-level-6 . 1.1) 
-                  (org-level-7 . 1.1) 
-                  (org-level-8 . 1.1))) 
-    (set-face-attribute (car face) nil 
+  (dolist (face '((org-level-1 . 1.2)
+                  (org-level-2 . 1.1)
+                  (org-level-3 . 1.05)
+                  (org-level-4 . 1.0)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.1)
+                  (org-level-7 . 1.1)
+                  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil
                         :font "RobotoMono Nerd Font"
-                        :weight 'regular 
+                        :weight 'regular
                         :height (cdr face)))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'org-block nil
                       :foreground "unspeficied"
-                      :inherit 'fixed-pitch) 
-  (set-face-attribute 'org-code nil 
-                      :inherit '(shadow fixed-pitch)) 
-  (set-face-attribute 'org-table nil 
-                      :inherit '(shadow fixed-pitch)) 
-  (set-face-attribute 'org-verbatim nil 
-                      :inherit '(shadow fixed-pitch)) 
-  (set-face-attribute 'org-special-keyword nil 
-                      :inherit '(font-lock-comment-face fixed-pitch)) 
-  (set-face-attribute 'org-meta-line nil 
-                      :inherit '(font-lock-comment-face fixed-pitch)) 
-  (set-face-attribute 'org-checkbox nil 
+                      :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil
+                      :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-table nil
+                      :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil
+                      :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil
+                      :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil
+                      :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil
                       :inherit 'fixed-pitch))
 
 ;; org mode
-(use-package 
-  org 
-  :hook (org-mode . efs/org-mode-setup) 
+(use-package
+  org
+  :hook (org-mode . efs/org-mode-setup)
   :config (setq org-ellipsis " ▾" org-hide-emphasis-markers t org-confirm-babel-evaluate nil
                 org-fontify-quote-and-verse-blocks t org-startup-folded 'content
-                org-agenda-start-with-log-mode t org-log-done 'time org-log-into-drawer t) 
-  (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) 
-                                                           (python . t) 
-                                                           (shell . t) 
-                                                           (clojure . t) 
-                                                           (scheme . t))) 
+                org-agenda-start-with-log-mode t org-log-done 'time org-log-into-drawer t)
+  (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)
+                                                           (python . t)
+                                                           (shell . t)
+                                                           (clojure . t)
+                                                           (scheme . t)))
   (efs/org-font-setup))
 
 ;; custom bullets
-(use-package 
-  org-bullets 
-  :after org 
-  :hook (org-mode . org-bullets-mode) 
+(use-package
+  org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode)
   :custom (org-bullets-bullet-list '("◉" "○" "✸" "○" "●" "○" "●")))
 
-(defun efs/org-mode-visual-fill () 
-  (setq visual-fill-column-width 200 visual-fill-column-center-text t) 
+(defun efs/org-mode-visual-fill ()
+  (setq visual-fill-column-width 200 visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
-(use-package 
-  visual-fill-column 
+(use-package
+  visual-fill-column
   :hook (org-mode . efs/org-mode-visual-fill))
 
 (setq org-babel-clojure-backend 'cider)
@@ -939,9 +939,9 @@ The DWIM behaviour of this command is as follows:
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("scm" . "src scheme"))
 
-(use-package 
-  org-auto-tangle 
-  :defer t 
+(use-package
+  org-auto-tangle
+  :defer t
   :hook (org-mode . org-auto-tangle-mode))
 
 (use-package org-roam
