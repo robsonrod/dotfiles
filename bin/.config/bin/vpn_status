@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-status=$(ps aux | grep cshell | head -1 | awk '{ print $NF }' | cut -d '/' -f 3)
+status=$(ps aux | grep cshell.fifo | head -1 | awk '{ print $NF }' | cut -d '/' -f 3)
 
 if [[ "$status" == "cshell.fifo" ]]; then
     echo "%{F#a6e3a1}"
