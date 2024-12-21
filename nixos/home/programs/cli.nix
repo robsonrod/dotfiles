@@ -13,6 +13,7 @@
     hwinfo
     libnotify
     lshw
+    tmux
     man-pages
     macchina
     nerdfetch

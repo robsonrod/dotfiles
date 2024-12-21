@@ -90,7 +90,7 @@ in
       ln -Tsf ${dotfiles}/polybar/.config/polybar ~/.config/polybar
       ln -Tsf ${dotfiles}/sxhkd/.config/sxhkd ~/.config/sxhkd
       ln -Tsf ${dotfiles}/tmux/.config/tmux ~/.config/tmux
-      ln -Tsf ${dotfiles}/emacs/.emacs.d ~/.emacs.d
+      ln -Tsf ${dotfiles}/emacs/.config/emacs ~/.config/emacs
     '';
 
   };

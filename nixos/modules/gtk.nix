@@ -63,6 +63,19 @@ in {
       '';
     };
 
+    home.file.".config/gtk-3.0/gtk.css" = {
+      text = ''
+      VteTerminal,
+      vte-terminal,
+      TerminalScreen {
+          padding: 0px;
+          margin: 0px;
+          -VteTerminal-inner-border: 0px;
+        }
+      '';
+    };
+
+
     home.file.".config/gtk-3.0/bookmarks" = {
       text = ''
         file:///home/robson/Documents
