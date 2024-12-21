@@ -9,8 +9,6 @@ export NETWORK_WIRED_INTERFACE=$(ip -o -4 route show to default |  awk '{print $
 export XINITRC="${HOME}/.xinitrc"
 
 if ! [ -z "$DISPLAY" ]; then
-    export RESOLUTION=$(xdpyinfo | awk '/dimensions/{print $2}')
-    export SCREEN_RESOLUTION=$(xdpyinfo | awk '/dimensions/{print $2}')
     export MONITOR=$(xrandr -q | grep " connected primary" | cut -d ' ' -f1)
 fi
 
