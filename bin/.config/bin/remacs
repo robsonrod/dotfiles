@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+emacs -q -l ~/.config/emacs/init.el $@
