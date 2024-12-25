@@ -70,7 +70,6 @@
                     ./modules/xresources.nix
                     ./modules/configfiles.nix
                     ./modules/emacs.nix
-                    ./modules/atuin.nix
                     ./modules/gtk.nix
                     ./modules/services/gpg.nix
                     ./home

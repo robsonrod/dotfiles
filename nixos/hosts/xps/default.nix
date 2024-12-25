@@ -72,7 +72,7 @@
   };
 
   users.users.robson = {
-    #shell = pkgs.fish;
+    shell = pkgs.fish;
     isNormalUser = true;
     description = "robson";
     extraGroups = [
