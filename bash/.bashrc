@@ -57,7 +57,6 @@ source ${BASHDIR}/variables/history.sh
 source ${BASHDIR}/variables/man.sh
 source ${BASHDIR}/variables/asdf.bash
 source ${BASHDIR}/variables/direnv.bash
-source ${BASHDIR}/variables/atuin.sh
 
 # aliases
 source ${BASHDIR}/aliases/general
