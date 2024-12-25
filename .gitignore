@@ -40,6 +40,8 @@ emacs/.config/emacs/undo-fu-session/
 emacs/.config/emacs/var/
 emacs/.config/emacs/.cache/
 emacs/.config/emacs/.lsp-session-v1
+emacs/.config/emacs/ielm-history.eld
+emacs/.config/emacs/tramp
 tmux/.config/tmux/plugins/
 **/fish/.config/fish/completions/
 **/fish/.config/fish/conf.d/
