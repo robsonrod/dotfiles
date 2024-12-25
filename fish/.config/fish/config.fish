@@ -5,7 +5,7 @@ end
 function fish_greeting
 end
 
-fenv source ~/.config/bash/env
+fenv source ~/.config/bash/variables/configs.sh
 
 set -gx EDITOR nvim
 set -gx GPG_TTY (tty)
