@@ -14,5 +14,5 @@
     source = ../../../fish/.config/fish;
     recursive = true;
   };
-  programs.fish.catppuccin.enable = true;
+  catppuccin.fish.enable = true;
 }
