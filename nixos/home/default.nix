@@ -19,7 +19,6 @@
     };
     configfiles.enable = true;
     emacs.enable = true;
-    atuin.enable = true;
     services.gpg.enable = true;
   };
 }
