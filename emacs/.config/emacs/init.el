@@ -137,9 +137,8 @@
  '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
    (display-buffer-no-window)
    (allow-no-window . t)))
-(setq use-package-always-ensure t)
-;;; Basic behaviour
 
+;;; Basic behaviour
 (use-package diminish :ensure t)
 
 (use-package

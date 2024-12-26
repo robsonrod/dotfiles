@@ -68,7 +68,7 @@ end
 
 # general aliases
 abbr -a c clear
-abbr -a e exit
+abbr -a x exit
 abbr -a g git
 abbr -a h history
 abbr -a nv nvim
@@ -81,20 +81,20 @@ abbr -a top btm
 abbr -a add 'git add'
 abbr -a addu 'git add -u'
 abbr -a adda 'git add .'
-abbr -a clone 'git clone'
-abbr -a status 'git status'
+abbr -a gcl 'git clone'
+abbr -a gst 'git status'
 abbr -a commit 'git commit -v -m'
-abbr -a checkoutb 'git checkout -b'
-abbr -a checkout 'git checkout'
-abbr -a gdiff 'git diff'
-abbr -a log 'git log --graph --pretty=format:\'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset\' --abbrev-commit --date=relative'
+abbr -a gcb 'git checkout -b'
+abbr -a gch 'git checkout'
+abbr -a gdf 'git diff'
+abbr -a glg 'git log --graph --pretty=format:\'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset\' --abbrev-commit --date=relative'
 abbr -a grm 'git rm'
 abbr -a gfetch 'git fetch --all --prune --verbose'
 abbr -a greset 'git reset HEAD'
-abbr -a pull 'git pull'
-abbr -a ppush 'git pull && git push'
+abbr -a gpl 'git pull'
+abbr -a gpp 'git pull && git push'
 abbr -a push 'git push origin'
-abbr -a gclear 'git clean -xfd'
+abbr -a gcl 'git clean -xfd'
 abbr -a branchd 'git branch -D'
 abbr -a master 'git checkout master'
 abbr -a stashl 'git stash lis'
@@ -122,6 +122,7 @@ abbr -a untar 'tar -xvzf'
 abbr -a s systemctl
 abbr -a suser 'systemctl --user'
 abbr -a btw 'macchina'
+abbr -a pfile 'fzf --preview \'bat --style=numbers --color=always --line-range :500 {}\' --bind \'enter:become(nvim {}),ctrl-e:become(emacs {})\''
 
 set -Ux FZF_DEFAULT_COMMAND 'rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/,.git/,.venv/}"'
 set -Ux FZF_DEFAULT_OPTS "\
@@ -137,7 +138,11 @@ set __fish_git_prompt_showupstream none
 set __fish_git_prompt_showuntrackedfiles yes
 set __fish_git_prompt_showdirtystate yes
 set __fish_git_prompt_showdirtystate ''
-set sponge_purge_only_on_exit true
+
+set fzf_history_time_format %d-%m-%Y
+
+bind \cr _fzf_search_history
+bind -M insert \cr _fzf_search_history
 
 function fish_command_not_found
     __fish_default_command_not_found_handler $argv
