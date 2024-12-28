@@ -1076,7 +1076,7 @@ Position the cursor at its beginning, according to the current mode."
 (defun robsonrod/open-config ()
   "Open Emacs config file."
   (interactive)
-  (find-file user-init-file))
+  (find-file (expand-file-name "init.el" user-emacs-directory)))
 
 (defun robsonrod/reload-config ()
   "Reload Emacs config file."

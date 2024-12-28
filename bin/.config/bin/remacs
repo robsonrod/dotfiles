@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-emacs -q -l ~/.config/emacs/init.el $@
+emacs -q -l ${XDG_CONFIG_HOME}/emacs/init.el --init-directory ${XDG_CONFIG_HOME}/emacs $@
