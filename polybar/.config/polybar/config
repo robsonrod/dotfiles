@@ -22,7 +22,7 @@ border-color = #45475a
 
 module-margin-left = 1
 modules-left = pad date
-modules-right = vpn pad mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery pad wired-network pad wireless-network pad updates pad firmware pad powermenu
+modules-right = vpn pad dockerst pad mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery pad wired-network pad wireless-network pad updates pad firmware pad powermenu
 modules-center = bspwm
 
 [bar/sec]
@@ -160,6 +160,11 @@ format-foreground = #cdd6f4
 [module/vpn]
 type = custom/script
 exec = vpn_status
+interval = 5
+
+[module/dockerst]
+type = custom/script
+exec = dockerst
 interval = 5
 
 [module/updates]

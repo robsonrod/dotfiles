@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+backupthis() {
+	cp -r "$1" "$1.bak.$(date +%Y%m%d%H%M%S)"
+}
+
+backupthis "$@"
