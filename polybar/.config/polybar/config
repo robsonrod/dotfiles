@@ -165,7 +165,7 @@ interval = 5
 [module/dockerst]
 type = custom/script
 exec = dockerst
-interval = 5
+interval = 1800
 
 [module/updates]
 type = custom/script
