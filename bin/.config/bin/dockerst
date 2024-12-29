@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
 dockerst() {
-    if ! docker info > /dev/null 2>&1; then
+
+	if ! docker info >/dev/null 2>&1; then
 		printf '%s' ""
 	else
-		local count=$(docker ps -q | wc -l | tr -d '\n')
-		printf '%s(%d)' "%{F#a6e3a1}" $count
+		local count=0
+		count=$(docker ps -q | wc -l | tr -d '\n')
+		printf '%s' "%{F#a6e3a1} ${count}"
 	fi
+
 }
 
 dockerst "$@"

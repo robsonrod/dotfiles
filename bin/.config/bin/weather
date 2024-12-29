@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
 main() {
-    if [ $# -lt 1 ]; then
-        local selected=$(echo Brasilia$'\n'Sao Paulo$'\n'Sao Luis | awk '{print}' | fzf)
-        local city=$(echo $selected | sed 's|\s|_|g')
-    fi
+	if [ $# -lt 1 ]; then
+		local selected
+		selected=$(echo Brasilia$'\n'Sao Paulo$'\n'Sao Luis | awk '{print}' | fzf)
+		local city
+		city="${selected//\s/_/}"
+	fi
 
-    city=${1}
-    local url="http://v2.wttr.in/$city"
-    curl $url
+	city=${1}
+	local url="http://v2.wttr.in/$city"
+	curl "${url}"
 }
 
 main "$@"
