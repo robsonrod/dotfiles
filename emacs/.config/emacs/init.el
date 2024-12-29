@@ -360,10 +360,11 @@ The DWIM behaviour of this command is as follows:
    (corfu-history-mode 1)
    (add-to-list 'savehist-additional-variables 'corfu-history)))
 
-(use-package corfu-terminal
-  :config
-  (unless (display-graphic-p)
-    (corfu-terminal-mode +1)))
+(use-package
+ corfu-terminal
+ :config
+ (unless (display-graphic-p)
+   (corfu-terminal-mode +1)))
 
 (use-package wgrep :after consult :hook (grep-mode . wgrep-setup))
 
@@ -396,15 +397,15 @@ The DWIM behaviour of this command is as follows:
 
 ;; Text and code complement
 (use-package
-  company
-  :ensure t
-  :bind ("C-M-/" . company-complete-common-or-cycle)
-  :diminish
-  :custom
-  (global-company-mode t)
-  (setq
+ company
+ :ensure t
+ :bind ("C-M-/" . company-complete-common-or-cycle)
+ :diminish
+ :init (global-company-mode)
+ :config
+ (setq
   company-show-quick-access t
-  company-minimum-prefix-length 1
+  company-minimum-prefix-length 2
   company-idle-delay 0.5
   company-show-numbers t
   company-tooltip-align-annotations t
@@ -548,8 +549,8 @@ The DWIM behaviour of this command is as follows:
 ;;;; Programming
 ;; LSP
 (use-package
-  lsp-mode
-  :after company
+ lsp-mode
+ :after company
  :ensure t
  :defer t
  :commands (lsp lsp-deferred)
@@ -755,20 +756,16 @@ The DWIM behaviour of this command is as follows:
  (add-hook 'geiser-repl-mode-hook 'rainbow-delimiters-mode)
  (add-hook 'inferior-scheme-mode-hook 'rainbow-delimiters-mode))
 
-(use-package nix-mode
-  :mode ("\\.nix\\'" "\\.nix.in\\'"))
+(use-package nix-mode :mode ("\\.nix\\'" "\\.nix.in\\'"))
 
-(use-package nix-drv-mode
-  :ensure nix-mode
-  :mode "\\.drv\\'")
+(use-package nix-drv-mode :ensure nix-mode :mode "\\.drv\\'")
 
-(use-package nix-shell
-  :ensure nix-mode
-  :commands (nix-shell-unpack nix-shell-configure nix-shell-build))
+(use-package
+ nix-shell
+ :ensure nix-mode
+ :commands (nix-shell-unpack nix-shell-configure nix-shell-build))
 
-(use-package nix-repl
-  :ensure nix-mode
-  :commands (nix-repl))
+(use-package nix-repl :ensure nix-mode :commands (nix-repl))
 
 ;; syntax check
 (use-package
@@ -799,43 +796,65 @@ The DWIM behaviour of this command is as follows:
     (hl-line-mode -1)
     (display-line-numbers-mode -1))))
 
-(defun robsonrod/eshell-config () 
+(defun robsonrod/eshell-config ()
   "Eshell config"
-  (add-hook 'eshell-pre-command-hook (lambda () 
-(setenv "TERM" "xterm-256color"))) 
-(add-hook 'eshell-post-command-hook (lambda () 
-(setenv "TERM" "dumb"))) 
-(setq eshell-prompt-function 'eshell-prompt eshell-highlight-prompt nil ;;
-        eshell-buffer-shorthand t         ;;
-        eshell-history-size 5000          ;;
-        eshell-buffer-maximum-lines 12000 ;; truncate after 12k lines
-        eshell-hist-ignoredups t          ;; ignore duplicates
-        eshell-error-if-no-glob t         ;;
-        eshell-glob-case-insensitive t    ;;
-        eshell-scroll-to-bottom-on-input 'all ;;
-        eshell-list-files-after-cd t          ;;
-        eshell-aliases-file (concat user-emacs-directory "eshell/alias") ;;
-        eshell-banner-message "" ;; welcome message
-)
+  (add-hook
+   'eshell-pre-command-hook
+   (lambda () (setenv "TERM" "xterm-256color")))
+  (add-hook
+   'eshell-post-command-hook (lambda () (setenv "TERM" "dumb")))
+  (setq
+   eshell-prompt-function 'eshell-prompt
+   eshell-highlight-prompt nil ;;
+   eshell-buffer-shorthand t ;;
+   eshell-history-size 5000 ;;
+   eshell-buffer-maximum-lines 12000 ;; truncate after 12k lines
+   eshell-hist-ignoredups t ;; ignore duplicates
+   eshell-error-if-no-glob t ;;
+   eshell-glob-case-insensitive t ;;
+   eshell-scroll-to-bottom-on-input 'all ;;
+   eshell-list-files-after-cd t ;;
+   eshell-aliases-file (concat user-emacs-directory "eshell/alias") ;;
+   eshell-banner-message "" ;; welcome message
+   )
 
-(setq eshell-visual-commands '("vim" "nvim" "screen" "top" "less" "more" "lynx" "ncftp" "pine" "tin" "trn" "elm" "vim" "nmtui" "alsamixer" "htop" "el" "elinks" "btm")) 
-(setq eshell-visual-subcommands '(("git" "log" "diff" "show")))
-(with-eval-after-load "esh-opt"
-  (autoload 'epe-theme-lambda "eshell-prompt-extras") 
-  (setq eshell-highlight-prompt nil eshell-prompt-function 'epe-theme-multiline-with-status)))
+  (setq eshell-visual-commands
+        '("vim"
+          "nvim"
+          "screen"
+          "top"
+          "less"
+          "more"
+          "lynx"
+          "ncftp"
+          "pine"
+          "tin"
+          "trn"
+          "elm"
+          "vim"
+          "nmtui"
+          "alsamixer"
+          "htop"
+          "el"
+          "elinks"
+          "btm"))
+  (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))
+  (with-eval-after-load "esh-opt"
+    (autoload 'epe-theme-lambda "eshell-prompt-extras")
+    (setq
+     eshell-highlight-prompt nil
+     eshell-prompt-function 'epe-theme-multiline-with-status)))
 
-(use-package eshell-prompt-extras 
-  :ensure t 
-  :after eshell)
+(use-package eshell-prompt-extras :ensure t :after eshell)
 
-(use-package eshell 
-:config (robsonrod/eshell-config))
+(use-package eshell :config (robsonrod/eshell-config))
 
 ;;(setenv "EXA_COLORS" "uu=36:gu=37:sn=32:sb=32:da=34:ur=34:uw=35:ux=36:ue=36:gr=34:gw=35:gx=36:tr=34:tw=35:tx=36:")
 
-(use-package eshell-syntax-highlighting 
-:after esh-mode 
-:config (eshell-syntax-highlighting-global-mode +1))
+(use-package
+ eshell-syntax-highlighting
+ :after esh-mode
+ :config (eshell-syntax-highlighting-global-mode +1))
 
 ;; Programming enhacements
 (use-package iedit :bind ("C-;" . iedit-mode) :diminish)
@@ -907,18 +926,18 @@ The DWIM behaviour of this command is as follows:
   (font-lock-add-keywords
    'org-mode
    '(("^ *\\([-]\\) " (0 (prog1 ()
-                           (compose-region (match-beginning 1)
-                                           (match-end 1) "•"))))))
+           (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
   ;; Set faces for heading levels
-  (dolist (face '((org-level-1 . 1.2)
-                  (org-level-2 . 1.1)
-                  (org-level-3 . 1.05)
-                  (org-level-4 . 1.0)
-                  (org-level-5 . 1.1)
-                  (org-level-6 . 1.1)
-                  (org-level-7 . 1.1)
-                  (org-level-8 . 1.1)))
+  (dolist (face
+           '((org-level-1 . 1.2)
+             (org-level-2 . 1.1)
+             (org-level-3 . 1.05)
+             (org-level-4 . 1.0)
+             (org-level-5 . 1.1)
+             (org-level-6 . 1.1)
+             (org-level-7 . 1.1)
+             (org-level-8 . 1.1)))
     (set-face-attribute (car face) nil
                         :font "RobotoMono Nerd Font"
                         :weight 'regular
@@ -928,47 +947,55 @@ The DWIM behaviour of this command is as follows:
   (set-face-attribute 'org-block nil
                       :foreground "unspeficied"
                       :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil
-                      :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-table nil
-                      :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-table nil :inherit '(shadow fixed-pitch))
   (set-face-attribute 'org-verbatim nil
                       :inherit '(shadow fixed-pitch))
   (set-face-attribute 'org-special-keyword nil
                       :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-meta-line nil
                       :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox nil
-                      :inherit 'fixed-pitch))
+  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
 
 ;; org mode
 (use-package
-  org
-  :hook (org-mode . efs/org-mode-setup)
-  :config (setq org-ellipsis " ▾" org-hide-emphasis-markers t org-confirm-babel-evaluate nil
-                org-fontify-quote-and-verse-blocks t org-startup-folded 'content
-                org-agenda-start-with-log-mode t org-log-done 'time org-log-into-drawer t)
-  (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)
-                                                           (python . t)
-                                                           (shell . t)
-                                                           (clojure . t)
-                                                           (scheme . t)))
-  (efs/org-font-setup))
+ org
+ :hook (org-mode . efs/org-mode-setup)
+ :config
+ (setq
+  org-ellipsis " ▾"
+  org-hide-emphasis-markers t
+  org-confirm-babel-evaluate nil
+  org-fontify-quote-and-verse-blocks t
+  org-startup-folded 'content
+  org-agenda-start-with-log-mode t
+  org-log-done 'time
+  org-log-into-drawer t)
+ (org-babel-do-load-languages
+  'org-babel-load-languages
+  '((emacs-lisp . t)
+    (python . t)
+    (shell . t)
+    (clojure . t)
+    (scheme . t)))
+ (efs/org-font-setup))
 
 ;; custom bullets
 (use-package
-  org-bullets
-  :after org
-  :hook (org-mode . org-bullets-mode)
-  :custom (org-bullets-bullet-list '("◉" "○" "✸" "○" "●" "○" "●")))
+ org-bullets
+ :after org
+ :hook (org-mode . org-bullets-mode)
+ :custom (org-bullets-bullet-list '("◉" "○" "✸" "○" "●" "○" "●")))
 
 (defun efs/org-mode-visual-fill ()
-  (setq visual-fill-column-width 200 visual-fill-column-center-text t)
+  (setq
+   visual-fill-column-width 200
+   visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
 (use-package
-  visual-fill-column
-  :hook (org-mode . efs/org-mode-visual-fill))
+ visual-fill-column
+ :hook (org-mode . efs/org-mode-visual-fill))
 
 (setq org-babel-clojure-backend 'cider)
 
@@ -978,38 +1005,41 @@ The DWIM behaviour of this command is as follows:
 (add-to-list 'org-modules 'org-tempo t)
 (add-to-list 'org-structure-template-alist '("clj" . "src clojure"))
 (add-to-list 'org-structure-template-alist '("pyt" . "src python"))
-(add-to-list 'org-structure-template-alist '("sh"  . "src shell"))
+(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("scm" . "src scheme"))
 
 (use-package
-  org-auto-tangle
-  :defer t
-  :hook (org-mode . org-auto-tangle-mode))
+ org-auto-tangle
+ :defer t
+ :hook (org-mode . org-auto-tangle-mode))
 
-(use-package org-roam
-  :ensure t
-  :init
-  (setq org-roam-v2-ack t)
-  :custom
-  (org-roam-directory "~/Notes/Roam/")
-  (org-roam-completion-everywhere t)
-  (org-roam-dailies-capture-templates
-    '(("d" "default" entry "* %<%I:%M %p>: %?"
-       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert)
-         :map org-mode-map
-         ("C-M-i" . completion-at-point)
-         :map org-roam-dailies-map
-         ("Y" . org-roam-dailies-capture-yesterday)
-         ("T" . org-roam-dailies-capture-tomorrow))
-  :bind-keymap
-  ("C-c n d" . org-roam-dailies-map)
-  :config
-  (require 'org-roam-dailies) ;; Ensure the keymap is available
-  (org-roam-db-autosync-mode))
+(use-package
+ org-roam
+ :ensure t
+ :init (setq org-roam-v2-ack t)
+ :custom
+ (org-roam-directory "~/Notes/Roam/")
+ (org-roam-completion-everywhere t)
+ (org-roam-dailies-capture-templates
+  '(("d" "default" entry "* %<%I:%M %p>: %?"
+     :if-new
+     (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+ :bind
+ (("C-c n l" . org-roam-buffer-toggle)
+  ("C-c n f" . org-roam-node-find)
+  ("C-c n i" . org-roam-node-insert)
+  :map
+  org-mode-map
+  ("C-M-i" . completion-at-point)
+  :map
+  org-roam-dailies-map
+  ("Y" . org-roam-dailies-capture-yesterday)
+  ("T" . org-roam-dailies-capture-tomorrow))
+ :bind-keymap ("C-c n d" . org-roam-dailies-map)
+ :config
+ (require 'org-roam-dailies) ;; Ensure the keymap is available
+ (org-roam-db-autosync-mode))
 
 ;; Convenient key definitions
 (use-package
@@ -1020,39 +1050,48 @@ The DWIM behaviour of this command is as follows:
   :prefix "C-x")
  (general-create-definer robsonrod/ctrl-c-definer :prefix "C-c"))
 
-(use-package treesit
-  :defer t
-  :hook ((c-ts-mode
-          c++-ts-mode
-          rust-ts-mode
-          python-ts-mode) . lsp-deferred)
-  :init
-  (setq treesit-font-lock-level 4
-        treesit-language-source-alist
-        '((astro "https://github.com/virchau13/tree-sitter-astro")
-          (bash "https://github.com/tree-sitter/tree-sitter-bash")
-          (c "https://github.com/tree-sitter/tree-sitter-c")
-          (cmake "https://github.com/uyha/tree-sitter-cmake")
-          (common-lisp "https://github.com/theHamsta/tree-sitter-commonlisp")
-          (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
-          (css "https://github.com/tree-sitter/tree-sitter-css")
-          (csharp "https://github.com/tree-sitter/tree-sitter-c-sharp")
-          (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-          (go "https://github.com/tree-sitter/tree-sitter-go")
-          (go-mod "https://github.com/camdencheek/tree-sitter-go-mod")
-          (html "https://github.com/tree-sitter/tree-sitter-html")
-          (js ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
-          (json "https://github.com/tree-sitter/tree-sitter-json")
-          (lua "https://github.com/Azganoth/tree-sitter-lua")
-          (make "https://github.com/alemuller/tree-sitter-make")
-          (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-          (python "https://github.com/tree-sitter/tree-sitter-python")
-          (r "https://github.com/r-lib/tree-sitter-r")
-          (rust "https://github.com/tree-sitter/tree-sitter-rust")
-          (toml "https://github.com/tree-sitter/tree-sitter-toml")
-          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-          (yaml "https://github.com/ikatyang/tree-sitter-yaml"))))
+(use-package
+ treesit
+ :defer t
+ :hook ((c-ts-mode c++-ts-mode rust-ts-mode python-ts-mode) . lsp-deferred)
+ :init
+ (setq
+  treesit-font-lock-level 4
+  treesit-language-source-alist
+  '((astro "https://github.com/virchau13/tree-sitter-astro")
+    (bash "https://github.com/tree-sitter/tree-sitter-bash")
+    (c "https://github.com/tree-sitter/tree-sitter-c")
+    (cmake "https://github.com/uyha/tree-sitter-cmake")
+    (common-lisp
+     "https://github.com/theHamsta/tree-sitter-commonlisp")
+    (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+    (css "https://github.com/tree-sitter/tree-sitter-css")
+    (csharp "https://github.com/tree-sitter/tree-sitter-c-sharp")
+    (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+    (go "https://github.com/tree-sitter/tree-sitter-go")
+    (go-mod "https://github.com/camdencheek/tree-sitter-go-mod")
+    (html "https://github.com/tree-sitter/tree-sitter-html")
+    (js
+     ("https://github.com/tree-sitter/tree-sitter-javascript"
+      "master"
+      "src"))
+    (json "https://github.com/tree-sitter/tree-sitter-json")
+    (lua "https://github.com/Azganoth/tree-sitter-lua")
+    (make "https://github.com/alemuller/tree-sitter-make")
+    (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+    (python "https://github.com/tree-sitter/tree-sitter-python")
+    (r "https://github.com/r-lib/tree-sitter-r")
+    (rust "https://github.com/tree-sitter/tree-sitter-rust")
+    (toml "https://github.com/tree-sitter/tree-sitter-toml")
+    (tsx
+     "https://github.com/tree-sitter/tree-sitter-typescript"
+     "master"
+     "tsx/src")
+    (typescript
+     "https://github.com/tree-sitter/tree-sitter-typescript"
+     "master"
+     "typescript/src")
+    (yaml "https://github.com/ikatyang/tree-sitter-yaml"))))
 
 ;;; My functions
 (defun robsonrod/smart-open-line-above ()
@@ -1243,7 +1282,7 @@ Position the cursor at its beginning, according to the current mode."
   (interactive "p")
   (robsonrod/my-change-number-at-point '- (or increment 1)))
 
-(defun robsonrod/insert-comment()
+(defun robsonrod/insert-comment ()
   (interactive)
   (move-beginning-of-line nil)
   (newline-and-indent)
@@ -1251,7 +1290,7 @@ Position the cursor at its beginning, according to the current mode."
   (insert "//")
   (insert-char ?= 97))
 
-(defun robsonrod/other-window-backward()
+(defun robsonrod/other-window-backward ()
   (interactive)
   (other-window -1))
 
@@ -1276,14 +1315,16 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "M-s-<up>") 'robsonrod/move-line-up)
 
 (robsonrod/ctrl-c-definer
-  "2" '(robsonrod/split-window-two :which-key "split into two windows")
-  "k" '(robsonrod/kill-current-buffer :which-key "kill current buffer")
-  "K" '(robsonrod/kill-all-buffers :which-key "kill all buffers")
-  "l" '(robsonrod/kill-line        :which-key "kill current line")
-  "e" '(eval-buffer :which-key "eval current buffer")
-  "=" '(robsonrod/text-scale-restore :which-key "restore font size")
-  "+" '(text-scale-increase :which-key "increase font size")
-  "-" '(text-scale-decrease :which-key "decrease font size"))
+ "2"
+ '(robsonrod/split-window-two :which-key "split into two windows") "k"
+ '(robsonrod/kill-current-buffer :which-key "kill current buffer") "K"
+ '(robsonrod/kill-all-buffers :which-key "kill all buffers") "l"
+ '(robsonrod/kill-line :which-key "kill current line") "e"
+ '(eval-buffer :which-key "eval current buffer") "="
+ '(robsonrod/text-scale-restore :which-key "restore font size") "+"
+ '(text-scale-increase :which-key "increase font size") "-"
+ '(text-scale-decrease :which-key "decrease font size"))
 
 (robsonrod/major-mode-leader-map
-  "c" '(robsonrod/open-config :which-key "open emacs config"))
+ "c"
+ '(robsonrod/open-config :which-key "open emacs config"))
