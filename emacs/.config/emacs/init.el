@@ -69,6 +69,7 @@
 (show-paren-mode 1)
 (global-display-line-numbers-mode 1)
 (xterm-mouse-mode +1)
+(winner-mode +1)
 
 ;; Save and revert operations
 
@@ -395,15 +396,19 @@ The DWIM behaviour of this command is as follows:
 
 ;; Text and code complement
 (use-package
- company
- :ensure t
- :bind ("C-M-/" . company-complete-common-or-cycle)
- :init (add-hook 'after-init-hook 'global-company-mode)
- :config
- (setq
+  company
+  :ensure t
+  :bind ("C-M-/" . company-complete-common-or-cycle)
+  :diminish
+  :custom
+  (global-company-mode t)
+  (setq
   company-show-quick-access t
   company-minimum-prefix-length 1
   company-idle-delay 0.5
+  company-show-numbers t
+  company-tooltip-align-annotations t
+  company-begin-commands '(self-insert-command)
   company-backends
   '((company-files ; files & directory
      company-keywords ; keywords
@@ -543,7 +548,8 @@ The DWIM behaviour of this command is as follows:
 ;;;; Programming
 ;; LSP
 (use-package
- lsp-mode
+  lsp-mode
+  :after company
  :ensure t
  :defer t
  :commands (lsp lsp-deferred)
@@ -1245,8 +1251,13 @@ Position the cursor at its beginning, according to the current mode."
   (insert "//")
   (insert-char ?= 97))
 
+(defun robsonrod/other-window-backward()
+  (interactive)
+  (other-window -1))
+
 ;; Remap
-(global-set-key (kbd "C-<tab>") 'other-window)
+(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "M-i") 'robsonrod/other-window-backward)
 (global-set-key (kbd "M-<down>") 'enlarge-window)
 (global-set-key (kbd "M-<up>") 'shrink-window)
 (global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
