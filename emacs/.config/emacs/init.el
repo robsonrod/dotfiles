@@ -1295,24 +1295,26 @@ Position the cursor at its beginning, according to the current mode."
   (other-window -1))
 
 ;; Remap
-(global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "M-i") 'robsonrod/other-window-backward)
-(global-set-key (kbd "M-<down>") 'enlarge-window)
-(global-set-key (kbd "M-<up>") 'shrink-window)
-(global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "M-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "C-c k") 'robsonrod/kill-line)
-(global-set-key (kbd "C-c c") 'robsonrod/insert-comment)
+(global-set-key (kbd "M-o") #'other-window)
+(global-set-key (kbd "M-i") #'robsonrod/other-window-backward)
+(global-set-key (kbd "M-<down>") #'enlarge-window)
+(global-set-key (kbd "M-<up>") #'shrink-window)
+(global-set-key (kbd "M-<right>") #'enlarge-window-horizontally)
+(global-set-key (kbd "M-<left>") #'shrink-window-horizontally)
+(global-set-key (kbd "C-c k") #'robsonrod/kill-line)
+(global-set-key (kbd "C-c c") #'robsonrod/insert-comment)
 
 ;; https://whhone.com/emacs-config/#modern-editor-behavior
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(global-set-key (kbd "<escape>") #'keyboard-escape-quit)
 (keymap-global-unset "C-x <escape> <escape>") ; repeat-complex-command
 
 
-(global-set-key (kbd "C-c a") 'robsonrod/my-increment-number-at-point)
-(global-set-key (kbd "C-c x") 'robsonrod/my-decrement-number-at-point)
-(global-set-key (kbd "M-s-<down>") 'robsonrod/move-line-down)
-(global-set-key (kbd "M-s-<up>") 'robsonrod/move-line-up)
+(global-set-key
+ (kbd "C-c a") #'robsonrod/my-increment-number-at-point)
+(global-set-key
+ (kbd "C-c x") #'robsonrod/my-decrement-number-at-point)
+(global-set-key (kbd "M-s-<down>") #'robsonrod/move-line-down)
+(global-set-key (kbd "M-s-<up>") #'robsonrod/move-line-up)
 
 (robsonrod/ctrl-c-definer
  "2"
