@@ -39,6 +39,8 @@ source ${BASHDIR}/functions/rgf
 source ${BASHDIR}/functions/fzf-ps
 source ${BASHDIR}/functions/cdd
 source ${BASHDIR}/functions/truecolor
+source ${BASHDIR}/functions/ew
+source ${BASHDIR}/functions/et
 
 # update PS1 variable
 source ${BASHDIR}/prompt/tty.bash
