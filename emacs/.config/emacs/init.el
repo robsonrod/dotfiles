@@ -176,8 +176,8 @@ The DWIM behaviour of this command is as follows:
 
 (define-key global-map (kbd "C-g") #'prot/keyboard-quit-dwim)
 
-(let ((mono-spaced-font "Fira Code")
-      (proportionately-spaced-font "Noto Sans"))
+(let ((mono-spaced-font "JetBrainsMono Nerd Font")
+      (proportionately-spaced-font "JetBrainsMono Nerd Font"))
   (set-face-attribute 'default nil
                       :family mono-spaced-font
                       :height 100)
@@ -696,7 +696,9 @@ The DWIM behaviour of this command is as follows:
 (use-package ssh-config-mode :defer t)
 
 ;; direnv
-(use-package envrc :hook (after-init . envrc-global-mode))
+(use-package
+  envrc
+  :hook (after-init . envrc-global-mode))
 
 ;; toml
 (use-package
@@ -796,15 +798,12 @@ The DWIM behaviour of this command is as follows:
     (display-line-numbers-mode -1))))
 
 ;; eat
-(use-package
- eat
- :init
- :hook
- (eat-mode
-  .
-  (lambda ()
-    (hl-line-mode -1)
-    (display-line-numbers-mode -1))))
+(use-package eat
+  :custom
+  (eat-term-name "xterm-256color")
+  :config
+  (eat-eshell-mode)
+  (eat-eshell-visual-command-mode))
 
 (defun robsonrod/eshell-config ()
   "Eshell config"
@@ -926,6 +925,10 @@ The DWIM behaviour of this command is as follows:
   tempel-collection
   :ensure t
   :after tempel)
+
+(use-package
+  sxhkdrc-mode
+  :ensure t)
 
 ;; Orgmode
 (defun efs/org-mode-setup ()
@@ -1286,15 +1289,13 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "M-s-<up>") #'robsonrod/move-line-up)
 
 (robsonrod/ctrl-c-definer
- "2"
- '(robsonrod/split-window-two :which-key "split into two windows") "k"
- '(robsonrod/kill-current-buffer :which-key "kill current buffer") "K"
- '(robsonrod/kill-all-buffers :which-key "kill all buffers") "l"
- '(robsonrod/kill-line :which-key "kill current line") "e"
- '(eval-buffer :which-key "eval current buffer") "="
- '(robsonrod/text-scale-restore :which-key "restore font size") "+"
- '(text-scale-increase :which-key "increase font size") "-"
- '(text-scale-decrease :which-key "decrease font size"))
+  "2" '(robsonrod/split-window-two :which-key "split into two windows")
+  "k" '(robsonrod/kill-current-buffer :which-key "kill current buffer")
+  "K" '(robsonrod/kill-all-buffers :which-key "kill all buffers")
+  "l" '(robsonrod/kill-line :which-key "kill current line")
+  "=" '(robsonrod/text-scale-restore :which-key "restore font size")
+  "+" '(text-scale-increase :which-key "increase font size")
+  "-" '(text-scale-decrease :which-key "decrease font size"))
 
 (robsonrod/major-mode-leader-map
  "c"

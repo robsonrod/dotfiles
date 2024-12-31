@@ -18,11 +18,9 @@ bind 'TAB:menu-complete'
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-    *) return ;;
+*i*) ;;
+*) return ;;
 esac
-
-[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && source "$EAT_SHELL_INTEGRATION_DIR/bash"
 
 BASHDIR="${HOME}/.config/bash"
 
@@ -64,6 +62,9 @@ source ${BASHDIR}/aliases/colorful.sh
 source ${BASHDIR}/aliases/git
 source ${BASHDIR}/aliases/eza
 source ${BASHDIR}/aliases/zoxide
+
+# Emacs EAT
+[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && source "$EAT_SHELL_INTEGRATION_DIR/bash"
 
 path_preppend "${HOME}/.config/bin"
 path_preppend "${HOME}/.local/bin"
