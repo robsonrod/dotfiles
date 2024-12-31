@@ -102,6 +102,7 @@
          '(org-mode-hook
            term-mode-hook
            vterm-mode-hook
+           eat-mode-hook
            shell-mode-hook
            eshell-mode-hook
            dired-mode-hook
