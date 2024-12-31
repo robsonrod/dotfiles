@@ -96,7 +96,6 @@
 ;; Do not create lock files (prefix ".#").
 (setq create-lockfiles nil)
 
-
 ;; disable line numbers for some modes
 (dolist (mode
          '(org-mode-hook
@@ -144,6 +143,14 @@
    (allow-no-window . t)))
 
 ;;; Basic behaviour
+(use-package server
+  :ensure nil
+  :defer 1
+  :config
+  (setq server-client-instructions nil)
+  (unless (server-running-p)
+    (server-start)))
+
 (use-package diminish :ensure t)
 
 (use-package
