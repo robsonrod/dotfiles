@@ -786,7 +786,7 @@ The DWIM behaviour of this command is as follows:
   :ensure t
   :init
   :hook
-  (sh-mode . (lambda () (global-flycheck-mode))))
+  (sh-mode . (lambda () (flycheck-mode))))
 
 (use-package
   shfmt
@@ -799,9 +799,7 @@ The DWIM behaviour of this command is as follows:
 (use-package
  vterm
  :hook
- (vterm-mode
-  .
-  (lambda ()
+ (vterm-mode . (lambda ()
     (hl-line-mode -1)
     (display-line-numbers-mode -1))))
 
@@ -811,7 +809,11 @@ The DWIM behaviour of this command is as follows:
   (eat-term-name "xterm-256color")
   :config
   (eat-eshell-mode)
-  (eat-eshell-visual-command-mode))
+  (eat-eshell-visual-command-mode)
+:hook
+ (vterm-mode . (lambda ()
+    (hl-line-mode -1)
+    (display-line-numbers-mode -1))))
 
 (defun remacs/eshell-config ()
   "Eshell config"
