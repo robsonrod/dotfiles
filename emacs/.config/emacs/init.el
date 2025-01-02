@@ -1285,11 +1285,12 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "M-<left>") #'shrink-window-horizontally)
 (global-set-key (kbd "C-c k") #'remacs/kill-line)
 (global-set-key (kbd "C-c c") #'remacs/insert-comment)
+(global-set-key [(control shift return)] #'remacs/smart-open-line-above)
+(global-set-key [(shift return)] #'remacs/smart-open-line)
 
 ;; https://whhone.com/emacs-config/#modern-editor-behavior
 (global-set-key (kbd "<escape>") #'keyboard-escape-quit)
 (keymap-global-unset "C-x <escape> <escape>") ; repeat-complex-command
-
 
 (global-set-key
  (kbd "C-c a") #'remacs/my-increment-number-at-point)
