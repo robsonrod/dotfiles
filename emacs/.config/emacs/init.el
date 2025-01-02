@@ -487,7 +487,7 @@ The DWIM behaviour of this command is as follows:
    (persp-mode)))
 
 ;;; Projects
-(defun robsonrod/switch-project-action ()
+(defun remacs/switch-project-action ()
   "Switch to a workspace with the project name and start `magit-status'."
   (persp-switch (projectile-project-name))
   (magit-status))
@@ -506,7 +506,7 @@ The DWIM behaviour of this command is as follows:
  (when (file-directory-p "~/dev/personal")
    (setq projectile-project-search-path '("~/dev/personal")))
  (setq projectile-switch-project-action
-       #'robsonrod/switch-project-action))
+       #'remacs/switch-project-action))
 
 ;; Git support
 (use-package
@@ -813,7 +813,7 @@ The DWIM behaviour of this command is as follows:
   (eat-eshell-mode)
   (eat-eshell-visual-command-mode))
 
-(defun robsonrod/eshell-config ()
+(defun remacs/eshell-config ()
   "Eshell config"
   (add-hook
    'eshell-pre-command-hook
@@ -864,7 +864,7 @@ The DWIM behaviour of this command is as follows:
 
 (use-package eshell-prompt-extras :ensure t :after eshell)
 
-(use-package eshell :config (robsonrod/eshell-config))
+(use-package eshell :config (remacs/eshell-config))
 
 ;;(setenv "EXA_COLORS" "uu=36:gu=37:sn=32:sb=32:da=34:ur=34:uw=35:ux=36:ue=36:gr=34:gw=35:gx=36:tr=34:tw=35:tx=36:")
 
@@ -1069,12 +1069,12 @@ The DWIM behaviour of this command is as follows:
  general
  :config
  (general-create-definer
-  robsonrod/major-mode-leader-map
+  remacs/major-mode-leader-map
   :prefix "C-x")
- (general-create-definer robsonrod/ctrl-c-definer :prefix "C-c"))
+ (general-create-definer remacs/ctrl-c-definer :prefix "C-c"))
 
 ;;; My functions
-(defun robsonrod/smart-open-line-above ()
+(defun remacs/smart-open-line-above ()
   "Insert an empty line above the current line.
 Position the cursor at it's beginning, according to the current mode."
   (interactive)
@@ -1083,14 +1083,14 @@ Position the cursor at it's beginning, according to the current mode."
   (forward-line -1)
   (indent-according-to-mode))
 
-(defun robsonrod/smart-open-line ()
+(defun remacs/smart-open-line ()
   "Insert an empty line after the current line.
 Position the cursor at its beginning, according to the current mode."
   (interactive)
   (move-end-of-line nil)
   (newline-and-indent))
 
-(defun robsonrod/kill-line ()
+(defun remacs/kill-line ()
   "Kill the whole current line.
 Position the cursor at its beginning, according to the current mode."
   (interactive)
@@ -1098,28 +1098,28 @@ Position the cursor at its beginning, according to the current mode."
   (kill-line)
   (kill-line))
 
-(defun robsonrod/open-config ()
+(defun remacs/open-config ()
   "Open Emacs config file."
   (interactive)
   (find-file (expand-file-name "init.el" user-emacs-directory)))
 
-(defun robsonrod/reload-config ()
+(defun remacs/reload-config ()
   "Reload Emacs config file."
   (interactive)
   (load-file (expand-file-name "init.el" user-emacs-directory)))
 
-(defun robsonrod/split-window-two ()
+(defun remacs/split-window-two ()
   "Split current window into two."
   (interactive)
   (split-window-right)
   (balance-windows))
 
-(defun robsonrod/kill-current-buffer ()
+(defun remacs/kill-current-buffer ()
   "Kill the current buffer."
   (interactive)
   (kill-buffer nil))
 
-(defun robsonrod/kill-all-buffers ()
+(defun remacs/kill-all-buffers ()
   "Kill all buffers."
   (interactive)
   (let ((lsp-restart 'ignore))
@@ -1128,47 +1128,47 @@ Position the cursor at its beginning, according to the current mode."
     (let ((kill-buffer-query-functions '()))
       (mapc 'kill-buffer (buffer-list)))))
 
-(defun robsonrod/text-scale-restore ()
+(defun remacs/text-scale-restore ()
   "Restore text scale."
   (interactive)
   (text-scale-set 0)
   (message "restored"))
 
-(defun robsonrod/sha512 (&optional filename)
+(defun remacs/sha512 (&optional filename)
   "Compute sha512 message digest from FILENAME."
   (interactive)
   (let ((filename (or filename (read-file-name "Filename:"))))
     (secure-hash
      'sha512 (-> filename (message filename) (find-file-noselect)))))
 
-(defun robsonrod/2base64 (&optional filename)
+(defun remacs/2base64 (&optional filename)
   "Encode FILENAME to base64."
-  (-> filename (robsonrod/sha512) (base64-encode-string)))
+  (-> filename (remacs/sha512) (base64-encode-string)))
 
-(defun robsonrod/sha512-dir (dir)
+(defun remacs/sha512-dir (dir)
   "Compute sha512 message digest to all files into DIR."
   (interactive)
   (mapcar
    (lambda (x)
-     (cons (concat dir "/" x) (robsonrod/sha512 (concat dir "/" x))))
+     (cons (concat dir "/" x) (remacs/sha512 (concat dir "/" x))))
    (directory-files dir nil directory-files-no-dot-files-regexp)))
 
-(defun robsonrod/load-darkmode ()
+(defun remacs/load-darkmode ()
   "Load spacemacs darkmode."
   (interactive)
   (load-theme 'modus-vivendi-tinted t))
 
-(defun robsonrod/load-lightmode ()
+(defun remacs/load-lightmode ()
   "Load spacemacs lightmode."
   (interactive)
   (load-theme 'modus-operandi-deuteranopia t))
 
-(defun robsonrod/load-dracula ()
+(defun remacs/load-dracula ()
   "Load doom dracula."
   (interactive)
   (load-theme 'doom-dracula t))
 
-(defun robsonrod/choose-theme ()
+(defun remacs/choose-theme ()
   "Select color theme."
   (interactive)
   (let ((chose-theme
@@ -1176,14 +1176,14 @@ Position the cursor at its beginning, according to the current mode."
     (message chose-theme)
     (cond
      ((equal "dark" chose-theme)
-      (robsonrod/load-darkmode))
+      (remacs/load-darkmode))
      ((equal "light" chose-theme)
-      (robsonrod/load-lightmode))
+      (remacs/load-lightmode))
      ((equal "dark-alternative" chose-theme)
-      (robsonrod/load-dracula))))
+      (remacs/load-dracula))))
   (funcall major-mode))
 
-(defun robsonrod/duplicate-line ()
+(defun remacs/duplicate-line ()
   "Duplicate line."
   (interactive)
   (move-beginning-of-line 1)
@@ -1194,7 +1194,7 @@ Position the cursor at its beginning, according to the current mode."
   (yank))
 
 ;; from: https://emacs.stackexchange.com/a/34307
-(defun robsonrod/move-line-up ()
+(defun remacs/move-line-up ()
   "Move up the current line."
   (interactive)
   (transpose-lines 1)
@@ -1202,7 +1202,7 @@ Position the cursor at its beginning, according to the current mode."
   (indent-according-to-mode))
 
 ;; from: https://emacs.stackexchange.com/a/34307
-(defun robsonrod/move-line-down ()
+(defun remacs/move-line-down ()
   "Move down the current line."
   (interactive)
   (forward-line 1)
@@ -1210,37 +1210,37 @@ Position the cursor at its beginning, according to the current mode."
   (forward-line -1)
   (indent-according-to-mode))
 
-(defun robsonrod/switch-to-scratch-buffer ()
+(defun remacs/switch-to-scratch-buffer ()
   "Switch to scratch buffer."
   (interactive)
   (switch-to-buffer "*scratch*"))
 
-(defun robsonrod/switch-to-message-buffer ()
+(defun remacs/switch-to-message-buffer ()
   "Switch to messages buffer."
   (interactive)
   (switch-to-buffer "*Messages*"))
 
-(defun robsonrod/custom-tab-indent ()
+(defun remacs/custom-tab-indent ()
   "Use tabs instead of spaces."
   (setq-local indent-tabs-mode 1))
 
-(defun robsonrod/su-find-file (filename)
+(defun remacs/su-find-file (filename)
   "Find file with FILENAME and open a super user."
   (interactive "FFind file(sudo): ")
   (let ((file-to-open (concat "/sudo::" (expand-file-name filename))))
     (find-file file-to-open)))
 
-(defun robsonrod/supress-warnings ()
+(defun remacs/supress-warnings ()
   "Supress emergency messages."
   (interactive)
   (setq warning-minimum-level :emergency))
 
-(defun robsonrod/default-warnings ()
+(defun remacs/default-warnings ()
   "Supress warning messages."
   (interactive)
   (setq warning-minimum-level :warning))
 
-(defun robsonrod/my-change-number-at-point (change increment)
+(defun remacs/my-change-number-at-point (change increment)
   "Change the number at point."
   (let ((number (number-at-point))
         (point (point)))
@@ -1252,17 +1252,17 @@ Position the cursor at its beginning, according to the current mode."
          (number-to-string (funcall change number increment)))
         (goto-char point)))))
 
-(defun robsonrod/my-increment-number-at-point (&optional increment)
+(defun remacs/my-increment-number-at-point (&optional increment)
   "Increment number at point like vim's C-a."
   (interactive "p")
-  (robsonrod/my-change-number-at-point '+ (or increment 1)))
+  (remacs/my-change-number-at-point '+ (or increment 1)))
 
-(defun robsonrod/my-decrement-number-at-point (&optional increment)
+(defun remacs/my-decrement-number-at-point (&optional increment)
   "Decrement number at point like vim's C-x."
   (interactive "p")
-  (robsonrod/my-change-number-at-point '- (or increment 1)))
+  (remacs/my-change-number-at-point '- (or increment 1)))
 
-(defun robsonrod/insert-comment ()
+(defun remacs/insert-comment ()
   (interactive)
   (move-beginning-of-line nil)
   (newline-and-indent)
@@ -1270,19 +1270,19 @@ Position the cursor at its beginning, according to the current mode."
   (insert "//")
   (insert-char ?= 97))
 
-(defun robsonrod/other-window-backward ()
+(defun remacs/other-window-backward ()
   (interactive)
   (other-window -1))
 
 ;; Remap
 (global-set-key (kbd "M-o") #'other-window)
-(global-set-key (kbd "M-i") #'robsonrod/other-window-backward)
+(global-set-key (kbd "M-i") #'remacs/other-window-backward)
 (global-set-key (kbd "M-<down>") #'enlarge-window)
 (global-set-key (kbd "M-<up>") #'shrink-window)
 (global-set-key (kbd "M-<right>") #'enlarge-window-horizontally)
 (global-set-key (kbd "M-<left>") #'shrink-window-horizontally)
-(global-set-key (kbd "C-c k") #'robsonrod/kill-line)
-(global-set-key (kbd "C-c c") #'robsonrod/insert-comment)
+(global-set-key (kbd "C-c k") #'remacs/kill-line)
+(global-set-key (kbd "C-c c") #'remacs/insert-comment)
 
 ;; https://whhone.com/emacs-config/#modern-editor-behavior
 (global-set-key (kbd "<escape>") #'keyboard-escape-quit)
@@ -1290,21 +1290,22 @@ Position the cursor at its beginning, according to the current mode."
 
 
 (global-set-key
- (kbd "C-c a") #'robsonrod/my-increment-number-at-point)
+ (kbd "C-c a") #'remacs/my-increment-number-at-point)
 (global-set-key
- (kbd "C-c x") #'robsonrod/my-decrement-number-at-point)
-(global-set-key (kbd "M-s-<down>") #'robsonrod/move-line-down)
-(global-set-key (kbd "M-s-<up>") #'robsonrod/move-line-up)
+ (kbd "C-c x") #'remacs/my-decrement-number-at-point)
+(global-set-key (kbd "M-s-<down>") #'remacs/move-line-down)
+(global-set-key (kbd "M-s-<up>") #'remacs/move-line-up)
 
-(robsonrod/ctrl-c-definer
-  "2" '(robsonrod/split-window-two :which-key "split into two windows")
-  "k" '(robsonrod/kill-current-buffer :which-key "kill current buffer")
-  "K" '(robsonrod/kill-all-buffers :which-key "kill all buffers")
-  "l" '(robsonrod/kill-line :which-key "kill current line")
-  "=" '(robsonrod/text-scale-restore :which-key "restore font size")
+(remacs/ctrl-c-definer
+  "2" '(remacs/split-window-two :which-key "split into two windows")
+  "k" '(remacs/kill-current-buffer :which-key "kill current buffer")
+  "s" '(remacs/switch-to-scratch-buffer :which-key "goto scratch buffer")
+  "m" '(remacs/switch-to-message-buffer :which-key "goto message buffer")
+  "l" '(remacs/kill-line :which-key "kill current line")
+  "=" '(remacs/text-scale-restore :which-key "restore font size")
   "+" '(text-scale-increase :which-key "increase font size")
   "-" '(text-scale-decrease :which-key "decrease font size"))
 
-(robsonrod/major-mode-leader-map
+(remacs/major-mode-leader-map
  "c"
- '(robsonrod/open-config :which-key "open emacs config"))
+ '(remacs/open-config :which-key "open emacs config"))
