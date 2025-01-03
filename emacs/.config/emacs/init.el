@@ -389,6 +389,11 @@ The DWIM behaviour of this command is as follows:
   ("C-x C-j" . consult-dir-jump-file))
  :custom (consult-dir-project-list-function nil))
 
+(use-package vertico-posframe
+  :ensure t
+  :config
+  (setq vertico-posframe-mode 1))
+
 ;;; Helpers
 (use-package
  which-key

@@ -1,47 +1,47 @@
-(defun robsonrod/run-in-background (command)
+(defun remacs/run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
     (apply #'call-process `(, (car command-parts) nil 0 nil ,@ (cdr command-parts)))))
 
-(defun robsonrod/exwm-update-class ()
+(defun remacs/exwm-update-class ()
   (exwm-workspace-rename-buffer exwm-class-name))
 
-(defvar robsonrod/polybar-process nil)
-(defun robsonrod/kill-panel ()
+(defvar remacs/polybar-process nil)
+(defun remacs/kill-panel ()
   (interactive)
-  (when robsonrod/polybar-process
+  (when remacs/polybar-process
     (ignore-errors
-      (kill-process robsonrod/polybar-process)))
-  (setq robsonrod/polybar-process nil))
+      (kill-process remacs/polybar-process)))
+  (setq remacs/polybar-process nil))
 
 
-(defun robsonrod/start-polybar ()
+(defun remacs/start-polybar ()
   (interactive)
-  (robsonrod/kill-panel)
-  (setq robsonrod/polybar-process (start-process-shell-command "polybar" nil "polybar emacs")))
+  (remacs/kill-panel)
+  (setq remacs/polybar-process (start-process-shell-command "polybar" nil "polybar emacs")))
 
-(defun robsonrod/set-wallpaper ()
+(defun remacs/set-wallpaper ()
   (interactive)
   (start-process-shell-command "feh" nil "feh --bg-scale $HOME/.config/wallpaper/wallpaper.jpg"))
 
-(defun robsonrod/exwm-init-hook ()
+(defun remacs/exwm-init-hook ()
   (exwm-workspace-switch-create 1)
-  (robsonrod/set-wallpaper)
-  (robsonrod/start-polybar)
-  (robsonrod/run-in-background "dunst")
-  (robsonrod/run-in-background "picom")
-  (robsonrod/run-in-background "screensaver")
-  (robsonrod/run-in-background "low_bat_notifier")
+  (remacs/set-wallpaper)
+  (remacs/start-polybar)
+  (remacs/run-in-background "dunst")
+  (remacs/run-in-background "picom")
+  (remacs/run-in-background "screensaver")
+  (remacs/run-in-background "low_bat_notifier")
   (exwm-modeline-mode)
   (dashboard-open))
 
 
-(defun robsonrod/send-polybar-hook (name number)
+(defun remacs/send-polybar-hook (name number)
   (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" name number)))
 
-(defun robsonrod/update-polybar-exwm (&optional path)
-  (robsonrod/send-polybar-hook "exwm" 1))
+(defun remacs/update-polybar-exwm (&optional path)
+  (remacs/send-polybar-hook "exwm" 1))
 
-(defun robsonrod/polybar-exwm-workspace ()
+(defun remacs/polybar-exwm-workspace ()
   (pcase exwm-workspace-current-index
     (0 "")
     (1 "")
@@ -50,9 +50,9 @@
     (4 " ")
     (5 " ")))
 
-(add-hook 'exwm-workspace-switch-hook #'robsonrod/update-polybar-exwm)
+(add-hook 'exwm-workspace-switch-hook #'remacs/update-polybar-exwm)
 
-(defun robsonrod/setup-window-by-class ()
+(defun remacs/setup-window-by-class ()
   (interactive)
   (pcase exwm-class-name
     ("Emacs" (call-interactively #'exwm-input-toggle-keyboard))
@@ -65,9 +65,9 @@
             (lambda ()
               (pcase exwm-class-name
                 ("Firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title))))))
-  (add-hook 'exwm-update-class-hook #'robsonrod/exwm-update-class)
-  (add-hook 'exwm-init-hook #'robsonrod/exwm-init-hook)
-  (add-hook 'exwm-manage-finish-hook #'robsonrod/setup-window-by-class)
+  (add-hook 'exwm-update-class-hook #'remacs/exwm-update-class)
+  (add-hook 'exwm-init-hook #'remacs/exwm-init-hook)
+  (add-hook 'exwm-manage-finish-hook #'remacs/setup-window-by-class)
   
 
   ;; Hide the modeline on all X windows
