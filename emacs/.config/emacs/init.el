@@ -26,7 +26,13 @@
 ;; general variables
 (setq
  inhibit-startup-message t ; no welcome buffer
- initial-scratch-message ";;scratch buffer\n\n" ; scratch buffer text
+ initial-scratch-message nil ; scratch buffer text
+ initial-scratch-message
+      (format ";; This is `%s'.  Use `%s' to evaluate and print results.\n\n"
+              'lisp-interaction-mode
+              (propertize
+               (substitute-command-keys "\\<lisp-interaction-mode-map>\\[eval-print-last-sexp]")
+               'face 'help-key-binding))
  ring-bell-function 'ignore ; never ding
  history-length 20 ; max history saves
  use-dialog-box nil ; no ugly dialogs
@@ -111,9 +117,6 @@
 ;; spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 
-;; yes or no question
-(fset 'yes-or-no-p 'y-or-n-p)
-
 ;;; Set up the package manager
 (require 'package)
 (setq package-archives
@@ -150,8 +153,6 @@
   (setq server-client-instructions nil)
   (unless (server-running-p)
     (server-start)))
-
-(use-package diminish :ensure t)
 
 (use-package
  delsel
@@ -509,7 +510,7 @@ The DWIM behaviour of this command is as follows:
  :bind-keymap ("C-c p" . projectile-command-map)
  :init
  (when (file-directory-p "~/dev/personal")
-   (setq projectile-project-search-path '("~/dev/personal")))
+   (setq projectile-project-search-path '("~/dotfiles" "~/dev/personal")))
  (setq projectile-switch-project-action
        #'remacs/switch-project-action))
 
@@ -1080,6 +1081,12 @@ The DWIM behaviour of this command is as follows:
   :prefix "C-x")
  (general-create-definer remacs/ctrl-c-definer :prefix "C-c"))
 
+(use-package
+  deft
+  :bind ("<f8>" . deft)
+  :commands (deft)
+  :config (setq deft-directory "~/Dropbox/Notes"
+                deft-extensions '("md" "org" "txt" "tex")))
 ;;; My functions
 (defun remacs/smart-open-line-above ()
   "Insert an empty line above the current line.
