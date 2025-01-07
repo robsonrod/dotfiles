@@ -413,10 +413,19 @@ The DWIM behaviour of this command is as follows:
   ("C-x C-j" . consult-dir-jump-file))
  :custom (consult-dir-project-list-function nil))
 
-(use-package vertico-posframe
+(use-package
+  vertico-posframe
   :ensure t
   :config
   (setq vertico-posframe-mode 1))
+
+
+(use-package
+  avy
+  :config
+  (global-set-key (kbd "C-:") #'avy-goto-char)
+  (global-set-key (kbd "M-g w") #'avy-goto-word-1)
+  (global-set-key (kbd "C-c C-j") 'avy-resume)) 
 
 ;;; Helpers
 (use-package
