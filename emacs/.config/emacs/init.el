@@ -1,4 +1,10 @@
+(when (version< emacs-version "28.2")
+  (error "Emacs Version 28.2 required"))
+
 ;;; gc
+
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
 (setq gc-cons-threshold (* 50 1000 1000))
 
 ;;; profile
@@ -76,9 +82,16 @@
 (global-display-line-numbers-mode 1)
 (xterm-mouse-mode +1)
 (winner-mode +1)
+(global-prettify-symbols-mode +1)
 
 ;; yes or no question
 (fset 'yes-or-no-p 'y-or-n-p)
+
+;; don't quit immediately
+(when (display-graphic-p)
+  (setq confirm-kill-emacs 'y-or-n-p)
+  (global-unset-key (kbd "C-x C-z"))
+  (global-unset-key (kbd "C-z")))
 
 ;; Save and revert operations
 
@@ -144,6 +157,16 @@
  '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
    (display-buffer-no-window)
    (allow-no-window . t)))
+
+(defvar robsonrod/exwm-running
+  (cond ((and (memq window-system '(x))
+              (seq-contains-p command-line-args "--use-exwm")
+              :true))
+        (t :false)))
+
+(when (eq robsonrod/exwm-running :true)
+  (message "Starting EXWM")
+  (require 'init-exwm))
 
 ;;; Basic behaviour
 (use-package server
@@ -439,6 +462,12 @@ The DWIM behaviour of this command is as follows:
  :ensure t
  :after company
  :hook (company-mode . company-box-mode))
+
+(use-package
+  company-shell
+  :after company
+  :config
+  (company-add-local-backend 'sh-mode-hook 'company-shell))
 
 ;;; The file manager (Dired)
 (use-package
@@ -1087,6 +1116,30 @@ The DWIM behaviour of this command is as follows:
   :commands (deft)
   :config (setq deft-directory "~/Dropbox/Notes"
                 deft-extensions '("md" "org" "txt" "tex")))
+
+(use-package 
+  pdf-tools 
+  :magic ("%PDF" . pdf-view-mode)
+  :bind (:map pdf-view-mode-map
+              ("C-s" . isearch-forward)
+              ("C-g" . pdf-view-goto-page))
+  :ensure t 
+  :config
+  (pdf-tools-install :no-query) 
+  (setq-default pdf-view-display-size 'fit-page)
+  (add-hook 'pdf-view-mode-hook (lambda () (robsonrod/pdf-midnight))))
+
+(defun robsonrod/pdf-midnight ()
+  "Set pdf-view-midnight colors"
+  (interactive)
+  (setq pdf-view-midnight-colors '("#d8dee9" . "#2e3440"))
+  (pdf-view-midnight-minor-mode))
+
+(defun robsonrod/pdf-clear ()
+  "Set pdf-view without colors"
+  (interactive)
+  (pdf-view-midnight-minor-mode -1))
+
 ;;; My functions
 (defun remacs/smart-open-line-above ()
   "Insert an empty line above the current line.
@@ -1299,6 +1352,9 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "C-c c") #'remacs/insert-comment)
 (global-set-key [(control shift return)] #'remacs/smart-open-line-above)
 (global-set-key [(shift return)] #'remacs/smart-open-line)
+
+(global-set-key (kbd "C-x C-l") #'downcase-dwim)
+(global-set-key (kbd "C-x C-u") #'upcase-dwim)
 
 ;; https://whhone.com/emacs-config/#modern-editor-behavior
 (global-set-key (kbd "<escape>") #'keyboard-escape-quit)
