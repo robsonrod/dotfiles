@@ -11,7 +11,7 @@ super + t
 
 # urxvt
 super + alt + t
-    xst
+    urxvt
 
 # program launcher
 super + alt + d
