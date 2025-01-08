@@ -193,6 +193,10 @@ super + alt + n
 super + w
     firefox
 
+# browser alternative
+super + shift + w
+    google-chrome-unstable --force-device-scale-factor=2
+
 # thunar
 super + alt + f
     thunar

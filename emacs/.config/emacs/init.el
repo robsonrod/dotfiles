@@ -476,7 +476,7 @@ The DWIM behaviour of this command is as follows:
   company-shell
   :after company
   :config
-  (company-add-local-backend 'sh-mode-hook 'company-shell))
+  (add-to-list 'company-backends '(company-shell company-shell-env company-fish-shell)))
 
 ;;; The file manager (Dired)
 (use-package
