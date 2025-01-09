@@ -419,7 +419,6 @@ The DWIM behaviour of this command is as follows:
   :config
   (setq vertico-posframe-mode 1))
 
-
 (use-package
   avy
   :config
@@ -766,6 +765,15 @@ The DWIM behaviour of this command is as follows:
  :init
  :mode "\\.yml\\'"
  :mode "\\.yaml\\'")
+
+(use-package docker
+  :ensure t
+  :bind ("C-c d" . docker))
+
+(use-package
+  dockerfile-mode
+  :defer t
+  :ensure t)
 
 ;; python
 (use-package
@@ -1137,6 +1145,11 @@ The DWIM behaviour of this command is as follows:
   (pdf-tools-install :no-query) 
   (setq-default pdf-view-display-size 'fit-page)
   (add-hook 'pdf-view-mode-hook (lambda () (robsonrod/pdf-midnight))))
+
+(use-package
+  transmission
+  :defer t
+  :ensure t)
 
 (defun robsonrod/pdf-midnight ()
   "Set pdf-view-midnight colors"
