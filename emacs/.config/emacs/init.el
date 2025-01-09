@@ -1,5 +1,34 @@
+;;; init.el --- emacs configuration -*- lexical-binding: t; -*-
+;;;
+;;; The MIT License (MIT)
+;;;
+;;; Copyright (c) 2025 Robson Rodrigues
+;;;
+;;; Permission is hereby granted, free of charge, to any person
+;;; obtaining a copy of this software and associated documentation
+;;; files (the "Software"), to deal in the Software without
+;;; restriction, including without limitation the rights to use, copy,
+;;; modify, merge, publish, distribute, sublicense, and/or sell copies
+;;; of the Software, and to permit persons to whom the Software is
+;;; furnished to do so, subject to the following conditions:
+;;;
+;;; The above copyright notice and this permission notice shall be
+;;; included in all copies or substantial portions of the Software.
+;;;
+;;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+;;; EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+;;; MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+;;; NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+;;; BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+;;; ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+;;; CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+;;; SOFTWARE.
+;;;
+;;; Commentary:
+;;; Code:
+
 (when (version< emacs-version "28.2")
-  (error "Emacs Version 28.2 required"))
+  (error "Emacs 28.2 is required"))
 
 ;;; gc
 
@@ -158,13 +187,13 @@
    (display-buffer-no-window)
    (allow-no-window . t)))
 
-(defvar robsonrod/exwm-running
+(defvar remacs/exwm-running
   (cond ((and (memq window-system '(x))
               (seq-contains-p command-line-args "--use-exwm")
               :true))
         (t :false)))
 
-(when (eq robsonrod/exwm-running :true)
+(when (eq remacs/exwm-running :true)
   (message "Starting EXWM")
   (require 'init-exwm))
 
@@ -1144,20 +1173,20 @@ The DWIM behaviour of this command is as follows:
   :config
   (pdf-tools-install :no-query) 
   (setq-default pdf-view-display-size 'fit-page)
-  (add-hook 'pdf-view-mode-hook (lambda () (robsonrod/pdf-midnight))))
+  (add-hook 'pdf-view-mode-hook (lambda () (remacs/pdf-midnight))))
 
 (use-package
   transmission
   :defer t
   :ensure t)
 
-(defun robsonrod/pdf-midnight ()
+(defun remacs/pdf-midnight ()
   "Set pdf-view-midnight colors"
   (interactive)
   (setq pdf-view-midnight-colors '("#d8dee9" . "#2e3440"))
   (pdf-view-midnight-minor-mode))
 
-(defun robsonrod/pdf-clear ()
+(defun remacs/pdf-clear ()
   "Set pdf-view without colors"
   (interactive)
   (pdf-view-midnight-minor-mode -1))
@@ -1363,18 +1392,52 @@ Position the cursor at its beginning, according to the current mode."
   (interactive)
   (other-window -1))
 
+(defun remacs/delete-file-and-buffer ()
+  "Kills the current buffer and deletes the file it is visiting."
+  (interactive)
+  (if-let ((filename (buffer-file-name)))
+      (when (y-or-n-p (concat "Do you really want to delete file " filename " ?"))
+        (delete-file filename)
+        (message "Deleted file %s." filename)
+        (kill-buffer))
+    (message "Not a file visiting buffer!")))
+
+;; rename-visited-file is introduced in Emacs 29.
+(unless (fboundp 'rename-visited-file)
+  (defun rename-visited-file ()
+    "Renames the current buffer and the file it is visiting."
+    (interactive)
+    (let ((name (buffer-name))
+          (filename (buffer-file-name)))
+      (if (not (and filename (file-exists-p filename)))
+          (error "Buffer '%s' is not visiting a file!" name)
+        (let ((new-name (read-file-name "New name: " filename)))
+          (if (get-buffer new-name)
+              (error "A buffer named '%s' already exists!" new-name)
+            (rename-file filename new-name 1)
+            (rename-buffer new-name)
+            (set-visited-file-name new-name)
+            (set-buffer-modified-p nil)
+            (message "File '%s' successfully renamed to '%s'"
+                     name (file-name-nondirectory new-name))))))))
+
 ;; Remap
 (global-set-key (kbd "M-o") #'other-window)
 (global-set-key (kbd "M-i") #'remacs/other-window-backward)
+
 (global-set-key (kbd "M-<down>") #'enlarge-window)
 (global-set-key (kbd "M-<up>") #'shrink-window)
 (global-set-key (kbd "M-<right>") #'enlarge-window-horizontally)
 (global-set-key (kbd "M-<left>") #'shrink-window-horizontally)
+
 (global-set-key (kbd "C-c k") #'remacs/kill-line)
 (global-set-key (kbd "C-c c") #'remacs/insert-comment)
+
 (global-set-key [(control shift return)] #'remacs/smart-open-line-above)
 (global-set-key [(shift return)] #'remacs/smart-open-line)
 
+(global-set-key (kbd "C-x K") #'remacs/delete-file-and-buffer)
+(global-set-key (kbd "C-x R") #'rename-visited-file)
 (global-set-key (kbd "C-x C-l") #'downcase-dwim)
 (global-set-key (kbd "C-x C-u") #'upcase-dwim)
 
@@ -1382,10 +1445,8 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "<escape>") #'keyboard-escape-quit)
 (keymap-global-unset "C-x <escape> <escape>") ; repeat-complex-command
 
-(global-set-key
- (kbd "C-c a") #'remacs/my-increment-number-at-point)
-(global-set-key
- (kbd "C-c x") #'remacs/my-decrement-number-at-point)
+(global-set-key (kbd "C-c a") #'remacs/my-increment-number-at-point)
+(global-set-key (kbd "C-c x") #'remacs/my-decrement-number-at-point)
 (global-set-key (kbd "M-s-<down>") #'remacs/move-line-down)
 (global-set-key (kbd "M-s-<up>") #'remacs/move-line-up)
 
@@ -1402,3 +1463,5 @@ Position the cursor at its beginning, according to the current mode."
 (remacs/major-mode-leader-map
  "c"
  '(remacs/open-config :which-key "open emacs config"))
+
+;;; init.el ends here
