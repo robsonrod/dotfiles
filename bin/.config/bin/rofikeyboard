@@ -1,24 +1,42 @@
 #!/usr/bin/env bash
 
 declare -A LAYOUTS=(
-    ["BR - Brazilian ABNT2"]="br"
-    ["US - ANSI"]="us"
-    ["ALT - ANSI ALTERNATIVE"]="us -variant alt-intl"
+	["BR - Brazilian ABNT2"]="br"
+	["US - ANSI"]="us"
+	["ALT - ANSI ALTERNATIVE"]="us -variant alt-intl"
 )
 
 keyboard_list() {
-    for i in "${!LAYOUTS[@]}"; do
-        echo "$i"
-    done
+	for i in "${!LAYOUTS[@]}"; do
+		echo "$i"
+	done
 }
 
 main() {
-    selected=$( (keyboard_list) | rofi -dmenu -location 0 -p "  Layout: ")
+	selected=$( (keyboard_list) | rofi -dmenu -location 0 -p "  Layout: ")
 
-    if [[ -n "$selected" ]]; then
-        layout=${LAYOUTS[$selected]}$query
-        setxkbmap $layout
-    fi
+	if [[ -n "$selected" ]]; then
+		layout=${LAYOUTS[$selected]}$query
+
+		setxkbmap $layout
+		setxkbmap -option ctrl:nocaps
+		xmodmap -e "clear lock"
+		xmodmap -e "clear control"
+		xmodmap -e "clear mod1"
+		xmodmap -e "clear mod2"
+		xmodmap -e "clear mod3"
+		xmodmap -e "clear mod4"
+		xmodmap -e "clear mod5"
+		xmodmap -e "keycode 37 = Hyper_L"
+		xmodmap -e "keycode 66 = Control_L"
+		xmodmap -e "add control = Control_L Control_R"
+		xmodmap -e "add mod1 = Alt_L Alt_R Meta_L"
+		xmodmap -e "add mod2 = Num_Lock"
+		xmodmap -e "add mod3 = Hyper_L"
+		xmodmap -e "add mod4 = Super_L Super_R"
+		xmodmap -e "add mod5 = Mode_switch ISO_Level3_Shift"
+
+	fi
 }
 
 main

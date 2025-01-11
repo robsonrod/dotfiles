@@ -1452,7 +1452,6 @@ Position the cursor at its beginning, according to the current mode."
 
 (remacs/ctrl-c-definer
   "2" '(remacs/split-window-two :which-key "split into two windows")
-  "k" '(remacs/kill-current-buffer :which-key "kill current buffer")
   "s" '(remacs/switch-to-scratch-buffer :which-key "goto scratch buffer")
   "m" '(remacs/switch-to-message-buffer :which-key "goto message buffer")
   "l" '(remacs/kill-line :which-key "kill current line")
