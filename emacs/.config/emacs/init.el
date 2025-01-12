@@ -1180,7 +1180,12 @@ The DWIM behaviour of this command is as follows:
   :defer t
   :ensure t)
 
+(use-package
+  transient
+  :defer t)
+
 (require 'screenshot)
+
 
 (defun remacs/pdf-midnight ()
   "Set pdf-view-midnight colors"
