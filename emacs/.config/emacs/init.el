@@ -766,7 +766,6 @@ The DWIM behaviour of this command is as follows:
  shell
  :defer t
  :init
- :hook (shell-mode . tree-sitter-hl-mode)
  :config
  (add-hook
   'after-save-hook
@@ -1430,6 +1429,17 @@ Position the cursor at its beginning, according to the current mode."
             (set-buffer-modified-p nil)
             (message "File '%s' successfully renamed to '%s'"
                      name (file-name-nondirectory new-name))))))))
+
+(defun remacs/upload-file-to-artifactory (filename)
+  (interactive "FEnter file: ")
+  (let ((upload-command (format "echo curl %s " filename))
+        (output-buffer-name "Upload file"))
+    (generate-new-buffer output-buffer-name)
+    (switch-to-buffer output-buffer-name)
+    (async-shell-command upload-command (current-buffer))
+    (insert "\nUploading...")
+    (insert "\ncurl command: " upload-command)
+    (read-only-mode)))
 
 ;; Remap
 (global-set-key (kbd "M-o") #'other-window)
