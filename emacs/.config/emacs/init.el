@@ -116,7 +116,7 @@
 ;; yes or no question
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; don't quit immediately
+;; don't quit immediately and disable suspend key
 (when (display-graphic-p)
   (setq confirm-kill-emacs 'y-or-n-p)
   (global-unset-key (kbd "C-x C-z"))
@@ -451,7 +451,7 @@ The DWIM behaviour of this command is as follows:
 (use-package
   avy
   :config
-  (global-set-key (kbd "C-:") #'avy-goto-char)
+  (global-set-key (kbd "H-;") #'avy-goto-char)
   (global-set-key (kbd "M-g w") #'avy-goto-word-1)
   (global-set-key (kbd "C-c C-j") 'avy-resume)) 
 
@@ -1153,7 +1153,7 @@ The DWIM behaviour of this command is as follows:
  :config
  (general-create-definer
   remacs/major-mode-leader-map
-  :prefix "C-x")
+  :prefix "H-x")
  (general-create-definer remacs/ctrl-c-definer :prefix "C-c"))
 
 (use-package
@@ -1452,22 +1452,23 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "<escape>") #'keyboard-escape-quit)
 (keymap-global-unset "C-x <escape> <escape>") ; repeat-complex-command
 
-(global-set-key (kbd "C-c a") #'remacs/my-increment-number-at-point)
-(global-set-key (kbd "C-c x") #'remacs/my-decrement-number-at-point)
 (global-set-key (kbd "M-s-<down>") #'remacs/move-line-down)
 (global-set-key (kbd "M-s-<up>") #'remacs/move-line-up)
 
 (remacs/ctrl-c-definer
+  "=" '(remacs/text-scale-restore :which-key "restore font size")
+  "+" '(text-scale-increase :which-key "increase font size")
+  "-" '(text-scale-decrease :which-key "decrease font size")
+  "a" '(remacs/my-increment-number-at-point :which-key "increment number at point")
+  "x" '(remacs/my-decrement-number-at-point :which-key "decrement number at point"))
+
+(remacs/major-mode-leader-map
+  "c" '(remacs/open-config :which-key "open emacs config")
   "2" '(remacs/split-window-two :which-key "split into two windows")
   "s" '(remacs/switch-to-scratch-buffer :which-key "goto scratch buffer")
   "m" '(remacs/switch-to-message-buffer :which-key "goto message buffer")
   "l" '(remacs/kill-line :which-key "kill current line")
-  "=" '(remacs/text-scale-restore :which-key "restore font size")
-  "+" '(text-scale-increase :which-key "increase font size")
-  "-" '(text-scale-decrease :which-key "decrease font size"))
-
-(remacs/major-mode-leader-map
- "c"
- '(remacs/open-config :which-key "open emacs config"))
+  "K" '(remacs/delete-file-and-buffer :which-key "delete file and buffer")
+  "R" '(rename-visited-file :which-key "rename visited file"))
 
 ;;; init.el ends here
