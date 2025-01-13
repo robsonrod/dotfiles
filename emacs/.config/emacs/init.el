@@ -1186,6 +1186,9 @@ The DWIM behaviour of this command is as follows:
 
 (require 'screenshot)
 
+(setq auto-insert-directory (expand-file-name "auto-insert/" user-emacs-directory))
+(define-auto-insert "\.cpp" "template.cpp")
+(define-auto-insert "\.hpp" "template.hpp")
 
 (defun remacs/pdf-midnight ()
   "Set pdf-view-midnight colors"
@@ -1468,7 +1471,10 @@ Position the cursor at its beginning, according to the current mode."
   "s" '(remacs/switch-to-scratch-buffer :which-key "goto scratch buffer")
   "m" '(remacs/switch-to-message-buffer :which-key "goto message buffer")
   "l" '(remacs/kill-line :which-key "kill current line")
+  "a" '(remacs/kill-all-buffers :which-key "kill all open buffers")
+  "k" '(remacs/kill-current-buffer :which-key "kill current buffer")
   "K" '(remacs/delete-file-and-buffer :which-key "delete file and buffer")
-  "R" '(rename-visited-file :which-key "rename visited file"))
+  "R" '(rename-visited-file :which-key "rename visited file")
+  "i" '(auto-insert :which-key "auto insert content from template"))
 
 ;;; init.el ends here
