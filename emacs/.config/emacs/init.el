@@ -96,7 +96,7 @@
  dired-kill-when-opening-new-dired-buffer t) ; and how many of the old
 
 ;; enable/disable modes
-(menu-bar-mode -1)
+(menu-bar-mode +1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (tooltip-mode -1)
@@ -510,14 +510,16 @@ The DWIM behaviour of this command is as follows:
 (use-package
  dired
  :ensure nil
- :commands (dired)
+ :init (with-eval-after-load 'dired (require 'dired-x))
+ :commands (dired dired-jump)
  :hook
  ((dired-mode . dired-hide-details-mode) (dired-mode . hl-line-mode))
  :config
  (setq dired-recursive-copies 'always)
  (setq dired-recursive-deletes 'always)
  (setq delete-by-moving-to-trash t)
- (setq dired-dwim-target t))
+ (setq dired-dwim-target t)
+ (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package
  dired-subtree
