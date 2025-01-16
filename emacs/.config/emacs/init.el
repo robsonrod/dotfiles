@@ -977,14 +977,11 @@ The DWIM behaviour of this command is as follows:
 (use-package highlight-parentheses :ensure t)
 
 ;; Buffer search
-(use-package
- visual-replace
- :defer t
- :bind
- (("C-c r" . visual-replace)
-  :map
-  isearch-mode-map
-  ("C-c r" . visual-replace-from-isearch)))
+(use-package anzu
+  :bind (("M-%" . anzu-query-replace)
+         ("C-M-%" . anzu-query-replace-regexp))
+  :config
+  (global-anzu-mode))
 
 ;; Authentication
 (use-package
@@ -1190,6 +1187,22 @@ The DWIM behaviour of this command is as follows:
 (setq auto-insert-directory (expand-file-name "auto-insert/" user-emacs-directory))
 (define-auto-insert "\.cpp" "template.cpp")
 (define-auto-insert "\.hpp" "template.hpp")
+
+(use-package time
+  :config
+  ;; TZs to display with `world-clock'
+  (setq world-clock-list
+        '(("America/Los_Angeles" "Seattle")
+          ("America/New_York" "New York")
+          ("America/Sao_Paulo" "Brasilia")
+          ("America/Argentina/Buenos_Aires" "Buenos Aires")
+          ("Europe/London" "London")
+          ("Europe/Paris" "Paris")
+          ("Europe/Sofia" "Sofia")
+          ("Asia/Istanbul" "Istanbul")
+          ("Israel" "Tel Aviv")
+          ("Asia/Calcutta" "Bangalore")
+          ("Asia/Tokyo" "Tokyo"))))
 
 (defun remacs/pdf-midnight ()
   "Set pdf-view-midnight colors"
