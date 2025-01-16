@@ -22,7 +22,7 @@ case $- in
 *) return ;;
 esac
 
-BASHDIR="${HOME}/.config/bash"
+export BASHDIR="${HOME}/.config/bash"
 
 # functions
 source ${BASHDIR}/functions/path_append
@@ -41,6 +41,9 @@ source ${BASHDIR}/functions/cdd
 source ${BASHDIR}/functions/truecolor
 source ${BASHDIR}/functions/ew
 source ${BASHDIR}/functions/et
+source ${BASHDIR}/functions/get_keyboard
+source ${BASHDIR}/functions/set_keyboard
+source ${BASHDIR}/functions/toggle_keyboard
 
 # update PS1 variable
 source ${BASHDIR}/prompt/tty.bash

@@ -1,38 +1,8 @@
 #!/usr/bin/env bash
 
-toggle_layout() {
-    layout=$(setxkbmap -query | grep layout | awk -F"layout:" '{gsub(/^[ \t]+/, "", $2); print $2 }')
-    variant=$(setxkbmap -query | grep variant | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
-
-    case "$layout" in
-        "br"*)
-            setxkbmap -layout us
-            ;;
-        "us"*)
-            if [ "$variant" == "alt-intl" ]; then
-                setxkbmap -layout br
-        else
-                setxkbmap -layout us -variant alt-intl
-        fi
-            ;;
-        *)
-            setxkbmap -layout br
-            ;;
-    esac
-}
-
-get_layout() {
-    layout=$(setxkbmap -query | grep variant | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
-    if [ -z "$layout" ]; then
-        layout=$(setxkbmap -query | grep layout | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
-    fi
-
-    if [ "$layout" == "alt-intl" ]; then
-            layout=${layout:0:2}
-    fi
-
-    echo "%{F#cdd6f4}  ${layout^^}"
-}
+source ${BASHDIR}/functions/get_keyboard
+source ${BASHDIR}/functions/set_keyboard
+source ${BASHDIR}/functions/toggle_keyboard
 
 usage() {
     printf "\nUsage:\n"
@@ -48,10 +18,10 @@ fi
 main() {
     case $1 in
         toggle)
-            toggle_layout
+            toggle_keyboard
             ;;
         get)
-            get_layout
+            get_keyboard
             ;;
         *)
            usage

@@ -1,0 +1,12 @@
+get_keyboard() {
+	layout=$(setxkbmap -query | grep variant | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
+	if [ -z "$layout" ]; then
+		layout=$(setxkbmap -query | grep layout | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
+	fi
+
+	if [ "$layout" == "alt-intl" ]; then
+		layout=${layout:0:2}
+	fi
+
+	echo "%{F#cdd6f4}  ${layout^^}"
+}
