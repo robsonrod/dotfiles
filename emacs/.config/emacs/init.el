@@ -876,7 +876,11 @@ The DWIM behaviour of this command is as follows:
   :hook
   (sh-mode . (lambda () (shfmt-on-save-mode))))
 
-;; Terminals
+;;Terminals
+(use-package ielm
+  :config
+  (add-hook 'ielm-mode-hook #'rainbow-delimiters-mode))
+
 ;; vterm
 (use-package
  vterm

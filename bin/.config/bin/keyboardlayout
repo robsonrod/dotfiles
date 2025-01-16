@@ -5,29 +5,31 @@ source ${BASHDIR}/functions/set_keyboard
 source ${BASHDIR}/functions/toggle_keyboard
 
 usage() {
-    printf "\nUsage:\n"
-    echo " toggle - set keyboard layout from list"
-    echo " get show keyboard layout"
+	printf "\nUsage:\n"
+	echo " toggle - set keyboard layout from list"
+	echo " get show keyboard layout"
 }
 
 if [ "$#" -eq 0 ]; then
-    usage
-    exit 1
+	usage
+	exit 1
 fi
 
 main() {
-    case $1 in
-        toggle)
-            toggle_keyboard
-            ;;
-        get)
-            get_keyboard
-            ;;
-        *)
-           usage
-                   exit 1
-        ;;
-    esac
+	case $1 in
+	toggle)
+		toggle_keyboard
+		;;
+	get)
+		get_keyboard
+		;;
+	*)
+		usage
+		exit 1
+		;;
+	esac
 }
 
 main "$@"
+
+exit 0
