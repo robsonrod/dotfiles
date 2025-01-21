@@ -1,3 +1,5 @@
+# -*- mode: sh -*-
+
 backupthis() {
-    cp -riv $1 ${1}-$(date +%Y%m%d%H%M).backup;
+	cp -riv $1 ${1}-$(date +%Y%m%d%H%M).backup
 }

@@ -1,22 +1,27 @@
+# -*- mode: sh -*-
+
 set_keyboard() {
 	local layout=$1
-		setxkbmap $layout
+	setxkbmap $layout
 
-		setxkbmap -option ctrl:nocaps
-		xmodmap -e "clear lock"
-		xmodmap -e "clear control"
-		xmodmap -e "clear mod1"
-		xmodmap -e "clear mod2"
-		xmodmap -e "clear mod3"
-		xmodmap -e "clear mod4"
-		xmodmap -e "clear mod5"
-		xmodmap -e "keycode 37 = Hyper_L"
-		xmodmap -e "keycode 66 = Control_L"
-		xmodmap -e "add control = Control_L Control_R"
-		xmodmap -e "add mod1 = Alt_L Alt_R Meta_L"
-		xmodmap -e "add mod2 = Num_Lock"
-		xmodmap -e "add mod3 = Hyper_L"
-		xmodmap -e "add mod4 = Super_L Super_R"
-		xmodmap -e "add mod5 = Mode_switch ISO_Level3_Shift"
+	# make CapsLock behave like Ctrl:
+	setxkbmap -option ctrl:nocaps
+	xmodmap -e "clear lock"
+	xmodmap -e "clear control"
+	xmodmap -e "clear mod1"
+	xmodmap -e "clear mod2"
+	xmodmap -e "clear mod3"
+	xmodmap -e "clear mod4"
+	xmodmap -e "clear mod5"
+	xmodmap -e "keycode 37 = Hyper_L"
+	xmodmap -e "keycode 66 = Control_L"
+	xmodmap -e "add control = Control_L Control_R"
+	xmodmap -e "add mod1 = Alt_L Alt_R Meta_L"
+	xmodmap -e "add mod2 = Num_Lock"
+	xmodmap -e "add mod3 = Hyper_L"
+	xmodmap -e "add mod4 = Super_L Super_R"
+	xmodmap -e "add mod5 = Mode_switch ISO_Level3_Shift"
 
+	# make short-pressed Ctrl behave like Escape:
+	xcape -e 'Control_L=Escape'
 }

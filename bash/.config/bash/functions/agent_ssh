@@ -1,3 +1,5 @@
+# -*- mode: sh -*-
+
 agent_ssh() {
 	eval $(ssh-agent)
 	ssh-add

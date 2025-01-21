@@ -1,20 +1,22 @@
+# -*- mode: sh -*-
+
 toggle_keyboard() {
 	layout=$(setxkbmap -query | grep layout | awk -F"layout:" '{gsub(/^[ \t]+/, "", $2); print $2 }')
 	variant=$(setxkbmap -query | grep variant | awk -F":" '{gsub(/^[ \t]+/, "", $2); print $2 }')
 
 	case "$layout" in
-		"br"*)
-			set_keyboard "us"
-			;;
-		"us"*)
-			if [ "$variant" == "alt-intl" ]; then
-				set_keyboard "br"
-			else
-				set_keyboard "us -variant alt-intl"
-			fi
-			;;
-		*)
+	"br"*)
+		set_keyboard "us"
+		;;
+	"us"*)
+		if [ "$variant" == "alt-intl" ]; then
 			set_keyboard "br"
-			;;
+		else
+			set_keyboard "us -variant alt-intl"
+		fi
+		;;
+	*)
+		set_keyboard "br"
+		;;
 	esac
 }

@@ -549,8 +549,8 @@ The DWIM behaviour of this command is as follows:
  perspective
  :demand t
  :bind
- (("C-M-k" . persp-switch)
-  ("C-M-n" . persp-next)
+ (("H-c p" . persp-switch)
+  ("H-c n" . persp-next)
   ("C-x k" . persp-kill-buffer*))
  :custom
  (persp-initial-frame-name "Main")
@@ -1211,7 +1211,7 @@ The DWIM behaviour of this command is as follows:
 (defun remacs/pdf-midnight ()
   "Set pdf-view-midnight colors"
   (interactive)
-  (setq pdf-view-midnight-colors '("#d8dee9" . "#2e3440"))
+  (setq pdf-view-midnight-colors '("#c8d3f5" . "#191a2a"))
   (pdf-view-midnight-minor-mode))
 
 (defun remacs/pdf-clear ()
@@ -1496,7 +1496,7 @@ Position the cursor at its beginning, according to the current mode."
 
 (remacs/major-mode-leader-map
   "c" '(remacs/open-config :which-key "open emacs config")
-  "2" '(remacs/split-window-two :which-key "split into two windows")
+  "|" '(remacs/split-window-two :which-key "split into two windows")
   "s" '(remacs/switch-to-scratch-buffer :which-key "goto scratch buffer")
   "m" '(remacs/switch-to-message-buffer :which-key "goto message buffer")
   "l" '(remacs/kill-line :which-key "kill current line")
