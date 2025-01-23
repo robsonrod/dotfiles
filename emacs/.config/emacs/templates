@@ -1,6 +1,10 @@
+;; -*- mode: emacs-lisp -*-
+
 fundamental-mode ;; Available everywhere
 
 (today (format-time-string "%Y-%m-%d"))
+(mmsh "# -*- mode: sh -*-")
+(mmel "# -*- mode: emacs-lisp -*-")
 
 prog-mode
 

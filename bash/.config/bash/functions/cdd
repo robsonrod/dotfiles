@@ -1,3 +1,5 @@
+# -*- mode: sh -*-
+
 cdd() {
     local dirs=$(find ${1:-$HOME} -maxdepth 1 -type d | sort)
     selected=$(fzf --reverse <<< $dirs)

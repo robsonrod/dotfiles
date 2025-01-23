@@ -21,9 +21,9 @@ border-size = 2pt
 border-color = #45475a
 
 module-margin-left = 1
-modules-left = pad date
+modules-left = pad bspwm
 modules-right = vpn pad dockerst pad mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery pad wired-network pad wireless-network pad updates pad firmware pad powermenu
-modules-center = bspwm
+modules-center = pad date
 
 [bar/sec]
 background = #1e1e2e
