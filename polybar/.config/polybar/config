@@ -1,48 +1,42 @@
+[global/wm]
+margin-top    = 0
+margin-bottom = 0
+include-file = $HOME/.config/polybar/colors
+
 [bar/main]
-background = #1e1e2e
-foreground = #cdd6f4
 font-0 = ${env:FONT0}
 font-1 = ${env:FONT1}
-font-2 = ${env:FONT2}
-font-3 = ${env:FONT3}
-font-4 = ${env:FONT4}
+
+width = 100%
+fixed-center = true
 height = ${env:PBHEIGHT}
 monitor = ${env:MONITOR}
 radius = 10.0
-offset-x = 10
-offset-y = 2
-padding-right = 1
+padding = 2
+module-margin = 1
 tray-detached = false
 tray-position = right
-width = 99%
-m-restack = bspwm
-overline-size = 0
-border-size = 2pt
-border-color = #45475a
 
-module-margin-left = 1
-modules-left = pad bspwm
-modules-right = vpn pad dockerst pad mic pad keyboard pad memory pad cpu pad volume pad bluetooth pad battery pad wired-network pad wireless-network pad updates pad firmware pad powermenu
-modules-center = pad date
+background = ${colors.bg}
+foreground = ${colors.fg}
 
-[bar/sec]
-background = #1e1e2e
-foreground = #cdd6f4
-font-0 = ${env:FONT0}
-font-1 = ${env:FONT1}
-font-2 = ${env:FONT2}
-font-3 = ${env:FONT3}
-font-4 = ${env:FONT4}
-height = ${env:PBHEIGHT}
-module-margin-left = 1
-modules-left = bspwm
-modules-right = mic sink volume pad date
-monitor = DP-3
-offset-y = 2
-padding-right = 2
-spacing = 1.5
-width = 100%
+border-size = 2
+border-color = ${colors.bg}
+
+modules-left = menu bspwm
+modules-right = vpn dockerst mic keyboard memory cpu volume bluetooth battery wired-network wireless-network updates firmware powermenu
+modules-center = time
+
+cursor-click  = pointer
 wm-restack = bspwm
+
+[module/menu]
+type    = custom/text
+content = 
+content-foreground = ${colors.cyan}
+content-padding = 1
+click-left = rofi -show drun
+click-right = rofi -show window
 
 [module/battery]
 animation-charging-0 = 
@@ -60,12 +54,10 @@ bar-capacity-fill-foreground = #ddffffff
 bar-capacity-format = %{+u}%{+o}%fill%%empty%%{-u}%{-o}
 bar-capacity-width = 10
 format-charging = "<animation-charging> <label-charging>"
+format-charging-foreground = ${colors.cyan}
 format-discharging = "<ramp-capacity> <label-discharging>"
 format-full = "<ramp-capacity> <label-full>"
 full-at = 98
-format-charging-overline = #ff79c6
-format-discharging-overline  =  #ff79c6
-format-full-overline  =  #ff79c6
 label-charging = %percentage%%
 label-discharging = %percentage%%
 label-full = %percentage%%
@@ -85,77 +77,69 @@ interval = 3
 click-left = exec blueman-manager
 click-right = exec bluetooth_controll toggle
 label = %output%
-format-overline = #8be9fd
 
 [module/bspwm]
-format = <label-state> <label-mode>
-label-dimmed-underline = #ccffffff
-label-empty = %icon%
-label-empty-font = 4
-label-empty-foreground = #45475a
-label-empty-padding = 2
-label-focused = %icon%
-label-focused-background = #1e1e2e
-label-focused-font = 4
-label-focused-foreground = #a6e3a1
-label-focused-padding = 2
-label-focused-underline = #c9665e
-label-locked = L
-label-locked-foreground = #bd2c40
-label-locked-padding = 2
-label-locked-underline = #c9665e
-label-monocle = M
-label-monocle-background = #33ffff
-label-monocle-padding = 2
-label-monocle-underline = #c9665e
-label-occupied = %icon%
-label-occupied-font = 4
-label-occupied-foreground = #b4befe
-label-occupied-padding = 2
-label-occupied-underline = #b4befe
-label-private = P
-label-private-foreground = #bd2c40
-label-private-padding = 2
-label-private-underline = #c9665e
-label-sticky = S
-label-sticky-foreground = #fba922
-label-sticky-padding = 2
-label-sticky-underline = #c9665e
-label-urgent = %icon%
-label-urgent-background = #f38ba8
-label-urgent-font = 4
-label-urgent-foreground = #7f849c
-label-urgent-padding = 2
-label-urgent-underline = #9b0a20
-pin-workspace = true
 type = internal/bspwm
-ws-icon-0 = 1;
-ws-icon-1 = 2;
-ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
-ws-icon-5 = 6;
-ws-icon-6 = 7;
-ws-icon-7 = 8;
-ws-icon-8 = 9;
-ws-icon-9 = 10;
+pin-workspace = true
+format = <label-state> <label-mode>
 
-[module/pad]
-content = " "
-type = custom/text
+label-focused = %icon%
+label-focused-foreground = ${colors.bg}
+label-focused-background = ${colors.blue-alt}
+label-focused-padding = 2
+label-focused-font = 2
+
+label-occupied = %icon%
+label-occupied-foreground = ${colors.fg}
+label-occupied-padding = 2
+label-urgent = %icon%
+label-occupied-font = 2
+
+label-urgent-background = ${colors.red}
+label-urgent-foreground = ${colors.white}
+label-urgent-overline   = ${colors.bg}
+label-urgent-underline  = ${colors.bg}
+label-urgent-padding = 2
+label-urgent-font = 2
+
+label-empty = %icon%
+label-empty-foreground = ${colors.fg-alt}
+label-empty-padding = 2
+label-empty-font = 2
+
+ws-icon-0 = 1;1
+ws-icon-1 = 2;2
+ws-icon-2 = 3;3
+ws-icon-3 = 4;4
+ws-icon-4 = 5;5
+ws-icon-5 = 6;6
+ws-icon-6 = 7;7
+ws-icon-7 = 8;8
+ws-icon-8 = 9;9
+ws-icon-default =
 
 [module/cpu]
-format = <label>
-format-overline = #f5a97f
-format-foreground = #cdd6f4
-interval = 1
-label =   %percentage%%
 type = internal/cpu
+format = <label>
+format-foreground = ${colors.blue}
+interval = 1
+label = 󰘚 %percentage%%
 
 [module/date]
 type = internal/date
-date  =   %H:%M |  %d/%m/%Y
-format-foreground = #cdd6f4
+interval = 5
+label-foreground = ${colors.white}
+time = "  %I:%M %p "
+time-alt =" %A, %d %B %Y "
+label = %time%
+
+[module/time]
+type = internal/date
+interval = 5
+label-foreground = ${colors.white}
+time = "  %A, %d %B %Y "
+time-alt = "  %I:%M %p"
+label = %time%
 
 [module/vpn]
 type = custom/script
@@ -178,42 +162,40 @@ exec = fwupmgr_notifier
 interval = 3600
 
 [module/memory]
-format = <label>
-format-overline = #50fa7b
-label =   %percentage_used%%
 type = internal/memory
-format-foreground = #cdd6f4
+format = <label>
+label =  %gb_used%
+format-foreground = ${colors.magenta}
 
 [module/mic]
 type = custom/script
 exec = mic_controll status
 click-left = mic_controll toggle
 interval = 1
-tail = true
-format-overline = #f1fa8c
 
 [module/keyboard]
 type  =  custom/script
 exec = keyboardlayout get
 click-left = keyboardlayout toggle
 interval = 1
-tail = true
-format-overline = #bd93f9
 
 [module/volume]
 type = internal/pulseaudio
 click-right = pavucontrol
-format-volume = <ramp-volume>  <label-volume>
-interval = 2
-label-muted =   muted
-label-muted-foreground = #b7bdf8
-format-muted-overline = #bd93f9
+format-volume = <ramp-volume> <label-volume>
+interval = 5
+use-ui-max = true
+
+format-muted-foreground = ${colors.red}
+format-muted-prefix-padding = 1
+label-muted = 󰖁 muted
+label-muted-padding = ${self.label-volume-padding}
 ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
-use-ui-max = false
-label-volume-foreground = #cdd6f4
-format-volume-overline = #bd93f9
+ramp-volume-foreground = ${colors.flamingo}
+label-volume-foreground = ${colors.flamingo}
+ramp-volume-padding = 1
 
 [module/wired-network]
 type  =  internal/network
@@ -260,4 +242,4 @@ type = custom/text
 content = 
 content-padding = 2
 click-left = powermenu
-content-foreground = #f38ba8
+content-foreground = ${colors.red}

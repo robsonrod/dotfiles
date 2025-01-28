@@ -12,24 +12,18 @@ if [ -n "$DISPLAY" ]; then
 	export MONITOR=$(xrandr -q | grep " connected primary" | cut -d ' ' -f1)
 fi
 
-if [ "$COMPUTER_NAME" == "iracema" ]; then
+if [ "$COMPUTER_NAME" = "iracema" ]; then
 	export GDK_SCALE=2
 	export GDK_DPI_SCALE=0.5
 	export QT_AUTO_SCREEN_SET_FACTOR=0
 	export QT_SCALE_FACTOR=2
 	export QT_FONT_DPI=96
 
-	export FONT0="Terminus Nerd Font:pixelsize=18,3"
-	export FONT1="Terminus Nerd Font:pixelsize=18,3"
-	export FONT2="FontAwesome6Free:style=Solid:size=20"
-	export FONT3="FontAwesome6Free:style=Regular:size=20"
-	export FONT4="FontAwesome6Brands:style=Regular:size=20"
+	export FONT0="JetbrainsMono Nerd Font:style=Medium:size=18;2"
+	export FONT1="JetbrainsMono Nerd Font:style=Medium:weight=Bold:size=18;2"
 	export PBHEIGHT="50"
 else
-	export FONT0="Terminus Nerd Font:pixelsize=10,3"
-	export FONT1="Terminus Nerd Font:pixelsize=10,3"
-	export FONT2="FontAwesome6Free:style=Solid:size=10"
-	export FONT3="FontAwesome6Free:style=Regular:size=10"
-	export FONT4="FontAwesome6Brands:style=Regular:size=10"
+	export FONT0="JetbrainsMono Nerd Font:style=Medium:size=10;2"
+	export FONT1="JetbrainsMono Nerd Font:style=Medium:weight=Bold:size=10;2"
 	export PBHEIGHT="20"
 fi
