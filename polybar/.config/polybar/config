@@ -39,36 +39,37 @@ click-left = rofi -show drun
 click-right = rofi -show window
 
 [module/battery]
+type = internal/battery
+
+battery = BAT0
+adapter = AC
+
+time-format = %H:%M
+poll-interval = 2
+full-at = 99
+
+format-charging = <animation-charging> <label-charging>
+format-charging-foreground = ${colors.cyan}
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+format-full-foreground = ${colors.lavender}
+
+label-charging = %percentage%%
+label-discharging = ${self.label-charging}
+label-full = ${self.label-charging}
+
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-framerate = 750
-bar-capacity-empty = █
-bar-capacity-empty-font = 3
-bar-capacity-empty-foreground = #44ffffff
-bar-capacity-fill = █
-bar-capacity-fill-font = 3
-bar-capacity-fill-foreground = #ddffffff
-bar-capacity-format = %{+u}%{+o}%fill%%empty%%{-u}%{-o}
-bar-capacity-width = 10
-format-charging = "<animation-charging> <label-charging>"
-format-charging-foreground = ${colors.cyan}
-format-discharging = "<ramp-capacity> <label-discharging>"
-format-full = "<ramp-capacity> <label-full>"
-full-at = 98
-label-charging = %percentage%%
-label-discharging = %percentage%%
-label-full = %percentage%%
+
 ramp-capacity-0 = 
-ramp-capacity-0-foreground = #f53c3c
 ramp-capacity-1 = 
-ramp-capacity-1-foreground = #cdd6f4
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
-type = internal/battery
 
 [module/bluetooth]
 type = custom/script
@@ -145,6 +146,7 @@ label = %time%
 type = custom/script
 exec = vpn_status
 interval = 5
+click-left = vpn.sh stop
 
 [module/dockerst]
 type = custom/script
@@ -193,8 +195,8 @@ label-muted-padding = ${self.label-volume-padding}
 ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
-ramp-volume-foreground = ${colors.flamingo}
-label-volume-foreground = ${colors.flamingo}
+ramp-volume-foreground = ${colors.peach}
+label-volume-foreground = ${colors.peach}
 ramp-volume-padding = 1
 
 [module/wired-network]
@@ -202,26 +204,21 @@ type  =  internal/network
 interface = ${env:NETWORK_WIRED_INTERFACE}
 label-connected = 
 interval = 3
-label-disconnected = 
-label-packageloss-foreground = #cdd6f4
+label-disconnected = 󰌙
+label-packageloss-foreground = ${colors.fg}
 
 [module/wireless-network]
 type  =  internal/network
 interface = ${env:NETWORK_WIRELESS_INTERFACE}
 interval = 3
-label-connected = %signal%%
-label-disconnected = 
-label-packageloss-foreground = #cdd6f4
+label-connected = %netspeed%
+label-connected-foreground = ${colors.pink}
+label-disconnected = 󰌙
+label-packageloss-foreground = ${colors.fg}
 
-format-connected = %{A1:networkmanager_dmenu &:}<ramp-signal> <label-connected>%{A}
+format-connected = %{A1:networkmanager_dmenu &:}<ramp-signal>  <label-connected>%{A}
 format-packetloss = %{A1:networkmanager_dmenu &:}<animation-packetloss> <label-connected>%{A}
 format-disconnected = %{A1:networkmanager_dmenu &:}󰤮 <label-disconnected>%{A}
-
-format-connected-overline = #cdd6f4
-format-packetloss-overline = #cdd6f4
-format-disconnected-overline = #cdd6f4
-
-format-packetloss-foreground = #cdd6f4
 
 ramp-signal-0 = 
 ramp-signal-1 = 

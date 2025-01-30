@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-fwupmgr refresh > /dev/null 2>&1
+fwupmgr refresh >/dev/null 2>&1
 
-updates=$(fwupmgr get-updates 2> /dev/null | grep -c "Updatable")
+updates=$(fwupmgr get-updates 2>/dev/null | grep -c "Updatable")
 
 if [ "$updates" -gt 0 ]; then
-    echo "%{F#a6e3a1}"
+	echo "%{F#a6e3a1}"
 else
-    echo "%{F#cdd6f4}"
+	echo "%{F#f5e0dc}"
 fi
