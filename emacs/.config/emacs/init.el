@@ -98,6 +98,7 @@
 ;; enable/disable modes
 (menu-bar-mode +1)
 (tool-bar-mode -1)
+(blink-cursor-mode -1)
 (scroll-bar-mode -1)
 (tooltip-mode -1)
 (set-fringe-mode 10)
@@ -195,7 +196,7 @@
 
 (when (eq remacs/exwm-running :true)
   (message "Starting EXWM")
-  (require 'init-exwm))
+  )
 
 ;;; Basic behaviour
 (use-package server
@@ -384,7 +385,7 @@ The DWIM behaviour of this command is as follows:
 (use-package
  consult
  :bind
- (("C-s" . 'consult-line)
+ (
   ("C-x b" . 'consult-buffer)
   ("C-x C-b" . 'consult-buffer)
   ("M-g o" . 'consult-outline)

@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-if [ -d $HOME/.emacs.d ]; then
-	rm -rf $HOME/.emacs.d
-fi
-
-emacs --init-directory ${XDG_CONFIG_HOME}/emacs "$@"

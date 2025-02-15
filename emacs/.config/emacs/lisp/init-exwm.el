@@ -35,23 +35,6 @@
   (dashboard-open))
 
 
-(defun remacs/send-polybar-hook (name number)
-  (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" name number)))
-
-(defun remacs/update-polybar-exwm (&optional path)
-  (remacs/send-polybar-hook "exwm" 1))
-
-(defun remacs/polybar-exwm-workspace ()
-  (pcase exwm-workspace-current-index
-    (0 "")
-    (1 "")
-    (3 " ")
-    (2 " ")
-    (4 " ")
-    (5 " ")))
-
-(add-hook 'exwm-workspace-switch-hook #'remacs/update-polybar-exwm)
-
 (defun remacs/setup-window-by-class ()
   (interactive)
   (pcase exwm-class-name
@@ -77,8 +60,6 @@
   (start-process-shell-command "xrdb" nil "rxdb -merge ~/.Xresources")
 
   (require 'exwm-randr)
-  (exwm-randr-enable)
-  (start-process-shell-command "xrandr" nil "xrandr --output $MONITOR --primary --mode 3840x2400 --pos 0x0 --rotate normal --output DP-1-2 --off --output HDMI-2 --off --output HDMI-1 --off --output DP-1 --off --output DP-1-3 --off --output DP-2 --off --output DP-1-1 --off")
   (start-process-shell-command "xrandr" nil "xrandr --output $MONITOR --brightness 1.0")
 
   (setq exwm-workspace-warp-cursor t

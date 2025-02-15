@@ -12,14 +12,14 @@ else
 fi
 
 export MANPAGER='less'
-export PAGER='less -s -M +Gg'
+export PAGER='bat -P --style=grid --wrap=never'
 export BROWSER='firefox'
 export FILE='thunar'
 export TERMINAL='kitty'
 export LSP_USE_PLISTS=true
 
 if [ "$TERM" = "dumb" ] && [ "$INSIDE_EMACS" ] || [ "$TERM" = "dumb-emacs-ansi" ] && [ "$INSIDE_EMACS" ]; then
-	PAGER="cat"
+	export PAGER='bat -P --style=grid --wrap=never'
 	alias less="cat"
 	TERM=dumb-emacs-ansi
 	COLORTERM=1

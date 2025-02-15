@@ -203,7 +203,7 @@ super + alt + f
 
 # emacs
 super + e; e
-    emacsclient -c -a 'remacs'
+    emacsclient -c -a 'emacs'
 
 # f1
 F1
