@@ -443,11 +443,6 @@ The DWIM behaviour of this command is as follows:
   ("C-x C-j" . consult-dir-jump-file))
  :custom (consult-dir-project-list-function nil))
 
-(use-package
-  vertico-posframe
-  :ensure t
-  :config
-  (setq vertico-posframe-mode 1))
 
 (use-package
   avy
@@ -1186,6 +1181,14 @@ The DWIM behaviour of this command is as follows:
 (use-package
   transient
   :defer t)
+
+(use-package
+  nov
+  :ensure t
+  :config
+  (setq nov-unzip-program (executable-find "bsdtar")
+        nov-unzip-args '("-xC" directory "-f" filename))
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
 (require 'screenshot)
 
