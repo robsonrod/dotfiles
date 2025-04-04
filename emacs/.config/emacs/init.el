@@ -801,6 +801,15 @@ The DWIM behaviour of this command is as follows:
   :defer t
   :ensure t)
 
+(use-package
+  cmake-mode
+  :defer t)
+
+(use-package clipetty
+  :ensure t
+  :hook (after-init . global-clipetty-mode)
+  :bind ("H-w" . clipetty-kill-ring-save))
+
 ;; python
 (use-package
  python-mode
