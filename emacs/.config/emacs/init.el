@@ -31,9 +31,6 @@
   (error "Emacs 28.2 is required"))
 
 ;;; gc
-
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-
 (setq gc-cons-threshold (* 50 1000 1000))
 
 ;;; profile
@@ -187,16 +184,6 @@
  '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
    (display-buffer-no-window)
    (allow-no-window . t)))
-
-(defvar remacs/exwm-running
-  (cond ((and (memq window-system '(x))
-              (seq-contains-p command-line-args "--use-exwm")
-              :true))
-        (t :false)))
-
-(when (eq remacs/exwm-running :true)
-  (message "Starting EXWM")
-  )
 
 ;;; Basic behaviour
 (use-package server
@@ -386,7 +373,7 @@ The DWIM behaviour of this command is as follows:
  consult
  :bind
  (
-  ("C-x b" . 'consult-buffer)
+  ;;("C-x b" . 'consult-buffer)
   ("C-x C-b" . 'consult-buffer)
   ("M-g o" . 'consult-outline)
   ("M-s g" . 'consult-grep)
@@ -803,7 +790,7 @@ The DWIM behaviour of this command is as follows:
 
 (use-package
   cmake-mode
-  :defer t)
+ :hook (cmake-mode . lsp-deferred))
 
 (use-package clipetty
   :ensure t
@@ -882,6 +869,11 @@ The DWIM behaviour of this command is as follows:
   (sh-mode . (lambda () (shfmt-on-save-mode))))
 
 ;;Terminals
+(use-package 
+  exec-path-from-shell 
+  :if (memq window-system '(mac ns x)) 
+  :config (exec-path-from-shell-initialize))
+
 (use-package ielm
   :config
   (add-hook 'ielm-mode-hook #'rainbow-delimiters-mode))
@@ -1199,11 +1191,10 @@ The DWIM behaviour of this command is as follows:
         nov-unzip-args '("-xC" directory "-f" filename))
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
-(require 'screenshot)
-
 (setq auto-insert-directory (expand-file-name "auto-insert/" user-emacs-directory))
 (define-auto-insert "\.cpp" "template.cpp")
 (define-auto-insert "\.hpp" "template.hpp")
+(define-auto-insert "CMakeLists.txt" "cmake_template.txt")
 
 (use-package time
   :config
