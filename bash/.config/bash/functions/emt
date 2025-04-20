@@ -1,0 +1,10 @@
+# -*- mode: sh -*-
+
+emt() {
+	if ! emacsclient -t "$@" 2>/dev/null; then
+		echo "Starting Emacs server in the background..."
+		emacs --daemon
+		sleep 1
+		emacsclient -t "$@"
+	fi
+}

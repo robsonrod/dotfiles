@@ -1,0 +1,10 @@
+# -*- mode: sh -*-
+
+emg() {
+	if ! emacsclient -n "$@" 2>/dev/null; then
+		echo "Starting Emacs server..."
+		emacs --daemon
+		sleep 1
+		emacsclient -c "$@"
+	fi
+}

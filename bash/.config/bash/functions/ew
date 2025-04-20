@@ -1,3 +1,0 @@
-ew() {
-	emacsclient "${1}" --no-wait
-}

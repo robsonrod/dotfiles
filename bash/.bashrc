@@ -39,8 +39,8 @@ source ${BASHDIR}/functions/rgf
 source ${BASHDIR}/functions/fzf-ps
 source ${BASHDIR}/functions/cdd
 source ${BASHDIR}/functions/truecolor
-source ${BASHDIR}/functions/ew
-source ${BASHDIR}/functions/et
+source ${BASHDIR}/functions/emg
+source ${BASHDIR}/functions/emt
 source ${BASHDIR}/functions/get_keyboard
 source ${BASHDIR}/functions/set_keyboard
 source ${BASHDIR}/functions/toggle_keyboard
