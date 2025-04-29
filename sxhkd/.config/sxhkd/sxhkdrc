@@ -190,11 +190,11 @@ super + alt + n
     networkmanager_dmenu
 
 # browser
-super + w
+super + w; f
     firefox
 
 # browser alternative
-super + shift + w
+super + w; c
     google-chrome-unstable --force-device-scale-factor=2
 
 # thunar

@@ -76,8 +76,8 @@ xset dpms 240 300 360 &
 # fix cursor shape
 xsetroot -cursor_name left_ptr &
 
-# no caps at all
-#setxkbmap -layout "$(setxkbmap -print | awk -F + '/xkb_symbols/ {print $2}')" -option ctrl:nocaps
+# make short-pressed Ctrl behave like Escape:
+xcape -e 'Control_L=Escape'
 
 # polkit
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
