@@ -1,0 +1,225 @@
+;; -*- lisp -*-
+
+#-quicklisp
+(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
+                                       (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+
+(in-package :stumpwm)
+(setf *default-package* :stumpwm)
+
+(set-module-dir "/usr/share/stupmwm/contrib/")
+(run-shell-command "sh autostart.sh")
+
+(ql:quickload :clx-truetype)
+
+
+(load-module "cpu")
+(load-module "mem")
+(load-module "ttf-fonts")
+(load-module "swm-gaps")
+
+(setf *startup-message* nil
+      *message-window-gravity* :center
+      *input-window-gravity* :center
+      *window-border-style* :thick
+      *message-window-padding* 10
+      *maxsize-border-width* 2
+      *normal-border-width* 2
+      *transient-border-width* 2
+      stumpwm::*float-window-border* 4
+      stumpwm::*float-window-title-height* 20
+      *mouse-focus-policy* :click)
+
+;;(run-shell-command "xmodmap -e 'clear mod4'" t)
+;;(run-shell-command "xmodmap -e \'keycode 133 = F20\'" t)
+(set-prefix-key (kbd "s-t"))
+
+(xft:cache-fonts) ;; Tell clx-truetype about the fonts you have installed. You really only need to do this once, but putting it here means you will not forget in the future.
+;; font settings
+(clx-truetype:get-font-families)
+(set-font (list (make-instance 'xft:font
+                               :family "Fira Code"
+                               :subfamily "Regular"
+                               :size 11)
+                ))
+
+
+(if (not swm-gaps:*gaps-on*)
+  (swm-gaps:toggle-gaps))
+(setf swm-gaps:*inner-gaps-size* 2
+      swm-gaps:*outer-gaps-size* 1
+      swm-gaps:*head-gaps-size* 2)
+
+;;w(which-key-mode)
+
+(defvar *ce/workspaces* (list "Term" "Web" "Code" "Files" "Chat" "Game"))
+(stumpwm:grename (nth 0 *ce/workspaces*))
+(dolist (workspace (cdr *ce/workspaces*))
+  (stumpwm:gnewbg workspace))
+
+(defvar *move-to-keybinds* (list "!" "@" "#" "$" "%" "^" "&" "*" "("))
+(dotimes (y (length *ce/workspaces*))
+  (let ((workspace (write-to-string (+ y 1))))
+    (define-key *root-map* (kbd workspace) (concat "gselect " workspace))
+    (define-key *root-map* (kbd (nth y *move-to-keybinds*)) (concat "gmove-and-follow " workspace))))
+
+(defcommand better-quit () ()
+  (let ((output (string-downcase (completing-read
+                                  (current-screen)
+                                  "Command: "
+                                  (list "restart" "shutdown" "log out" "suspend" "sleep" "hibernate")))))
+    (if (string/= output "")
+        (cond ((string= output "restart")
+               (kill-all-threads)
+               (run-shell-command "reboot"))
+              ((string= output "shutdown")
+               (run-shell-command "shutdown -h now"))
+              ((string= output "log out")
+               (kill-all-threads)
+               (eval-command "quit"))
+              ((or (string= output "suspend") (string= output "sleep"))
+               (run-shell-command "systemctl suspend"))
+              ((string= output "hibernate")
+               (run-shell-command "systemctl hibernate"))
+              (t (echo "Please enter restart, shutdown, log out, suspend or hibernate."))))))
+
+;; border style
+(set-focus-color "#f5bde6")
+(set-win-bg-color "#f5bde6")
+(set-unfocus-color "#6e738d")
+(set-float-focus-color "#f5bde6")
+(set-float-unfocus-color "#6e738d")
+
+(define-key *root-map* (kbd "Q") "better-quit")
+(define-key *root-map* (kbd "R") "restart-hard")
+
+(define-key *root-map* (kbd "q") "delete")
+(define-key *root-map* (kbd "r") "remove")
+
+(define-key *root-map* (kbd "h") "move-focus left")
+(define-key *root-map* (kbd "j") "move-focus down")
+(define-key *root-map* (kbd "k") "move-focus up")
+(define-key *root-map* (kbd "l") "move-focus right")
+(define-key *root-map* (kbd "H") "move-window left")
+(define-key *root-map* (kbd "J") "move-window down")
+(define-key *root-map* (kbd "K") "move-window up")
+(define-key *root-map* (kbd "L") "move-window right")
+
+(setf *resize-increment* 50)
+(define-key *top-map* (kbd "M-l") "resize-direction Right")
+(define-key *top-map* (kbd "M-h") "resize-direction Left")
+(define-key *top-map* (kbd "M-k") "resize-direction Up")
+(define-key *top-map* (kbd "M-j") "resize-direction Down")
+
+(defvar *menu-application-bindings*
+ (let ((m (make-sparse-keymap)))
+ (define-key m (kbd "m") "exec rofi --combi-modi drun,window -show combi")
+ m))
+
+(defvar *browser-application-bindings*
+ (let ((m (make-sparse-keymap)))
+ (define-key m (kbd "f") "exec firefox")
+ (define-key m (kbd "c") "exec google-chrome-unstable")
+m))
+
+(define-key *root-map* (kbd "m") '*menu-application-bindings*)
+(define-key *root-map* (kbd "w") '*browser-application-bindings*)
+
+(define-key *root-map* (kbd "t") "exec kitty")
+
+;; Commands
+(defcommand vsplit-and-term () ()
+  (vsplit)
+  (move-focus :down)
+  (run-shell-command "kitty"))
+
+(defcommand hsplit-and-term () ()
+  (hsplit)
+  (move-focus :right)
+  (run-shell-command "kitty"))
+
+(defcommand kill-and-remove-split () ()
+  (let ((window (current-window)))
+    (remove-split)
+    (delete-window window)))
+
+;; Windows
+(define-key *root-map* (kbd "b") "windowlist")
+
+;; Groups
+(define-key *root-map* (kbd "T") "grouplist")
+(define-key *root-map* (kbd "n") "gnext")
+(define-key *root-map* (kbd "p") "gprev")
+
+;; Frames
+(define-key *root-map* (kbd "0") "remove-split")
+(define-key *root-map* (kbd "1") "only")
+(define-key *root-map* (kbd "2") "vsplit-and-term")
+(define-key *root-map* (kbd "3") "hsplit-and-term")
+(define-key *root-map* (kbd "o") "next")
+(define-key *root-map* (kbd "_") "vsplit-and-term")
+(define-key *root-map* (kbd "|") "hsplit-and-term")
+(define-key *root-map* (kbd "x") "kill-and-remove-split")
+
+(defparameter cpu::*cpu-modeline-fmt* "%c")
+(defparameter mem::*mem-modeline-fmt* "MEM:%p")
+
+;; Modeline
+;;;; Catppuccin Mocha Colors
+(defparameter +catppuccin-base+     "#1e1e2e")
+(defparameter +catppuccin-mantle+   "#181825")
+(defparameter +catppuccin-crust+    "#11111b")
+(defparameter +catppuccin-text+     "#cdd6f4")
+(defparameter +catppuccin-subtext+  "#a6adc8")
+(defparameter +catppuccin-red+      "#f38ba8")
+(defparameter +catppuccin-green+    "#a6e3a1")
+(defparameter +catppuccin-yellow+   "#f9e2af")
+(defparameter +catppuccin-blue+     "#89b4fa")
+(defparameter +catppuccin-mauve+    "#cba6f7")
+(defparameter +catppuccin-teal+     "#94e2d5")
+(defparameter +catppuccin-peach+    "#fab387")
+(defparameter +catppuccin-pink+     "#f5c2e7")
+
+;;;; Color Palette for StumpWM (mapped to indexes 0-9)
+(setf *colors*
+      (list +catppuccin-base+      ; 0
+            +catppuccin-red+       ; 1
+            +catppuccin-green+     ; 2
+            +catppuccin-yellow+    ; 3
+            +catppuccin-blue+      ; 4
+            +catppuccin-mauve+     ; 5
+            +catppuccin-teal+      ; 6
+            +catppuccin-text+      ; 7
+            +catppuccin-peach+     ; 8
+            +catppuccin-pink+))    ; 9
+
+(update-color-map (current-screen))
+
+;;;; Bar Status Colors
+(setf *bar-med-color* "^B^2")  ; green
+(setf *bar-hi-color* "^B^3")   ; yellow
+(setf *bar-crit-color* "^B^1") ; red
+
+;;;; Group and Window Display
+(setf *group-format* " %t ")
+(setf *window-format* "%m%n%s%c")
+
+;;;; Mode Line Styling
+(setf *mode-line-timeout* 1)
+(setf *mode-line-border-width* 1)
+(setf *mode-line-background-color* +catppuccin-base+)
+(setf *mode-line-foreground-color* +catppuccin-text+)
+
+;;;; Time Display with Catppuccin Accents
+(setf *time-modeline-string* "^n^B ^8 %d-%m-%Y %H:%M^b")
+
+(setf *screen-mode-line-format* (list "^B^5%g^n^b | %W ^> |^n^B^4%C^n|%M|%d"))
+
+;;;; Ensure Mode Line is Enabled
+(if (not (head-mode-line (current-head)))
+    (toggle-mode-line (current-screen)
+                      (current-head)))
+
+(setf *startup-message* "Welcome")

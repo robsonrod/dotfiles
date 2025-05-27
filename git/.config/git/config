@@ -4,6 +4,9 @@
 [includeIf "gitdir:~/dotfiles/"]
     path = gituser-personal
 
+[includeIf "gitdir:~/.emacs.d/"]
+    path = gituser-personal
+
 [includeIf "gitdir:~/dev/personal/"]
     path = gituser-personal
 
