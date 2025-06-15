@@ -47,6 +47,7 @@ source ${BASHDIR}/functions/toggle_keyboard
 
 # update PS1 variable
 source ${BASHDIR}/prompt/tty.bash
+source ${BASHDIR}/prompt/startup
 
 # variables
 source ${BASHDIR}/variables/xdg.sh

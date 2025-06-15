@@ -1,0 +1,61 @@
+# (Catppuccin Mocha)
+lavender="\033[1;35m"
+rosewater="\033[1;31m"
+peach="\033[1;33m"
+green="\033[1;32m"
+reset="\033[0m"
+
+# Header
+echo -e "${lavender}Welcome, $USER!${reset}"
+
+# Tux ASCII
+echo -e "${lavender}"
+cat << "EOF"
+   .--.
+  |o_o |
+  |:_/ |
+ //   \ \
+(|     | )
+/'\_   _/`\
+\___)=(___/
+EOF
+echo -e "${reset}"
+
+# System Info
+echo -e "\n${rosewater}🖥️  System Info:${reset}"
+echo -e "${rosewater}----------------------------------${reset}"
+
+# Distro Name
+if command -v lsb_release >/dev/null 2>&1; then
+  distro_name=$(lsb_release -ds)
+elif [ -f /etc/os-release ]; then
+  distro_name=$(grep '^PRETTY_NAME=' /etc/os-release | cut -d= -f2- | tr -d '"')
+elif command -v hostnamectl >/dev/null 2>&1; then
+  distro_name=$(hostnamectl | grep "Operating System" | cut -d: -f2-)
+else
+  distro_name="Unknown Linux"
+fi
+echo -e "${peach}Distro           :${reset} ${green}$distro_name${reset}"
+
+# CPU Load
+cpu_load=$(uptime | awk -F'load average: ' '{ print $2 }')
+echo -e "${peach}CPU Load Averages:${reset} ${green}$cpu_load${reset}"
+
+# Memory
+read total used free <<< $(free -h | awk '/Mem:/ {print $2, $3, $4}')
+echo -e "${peach}Memory Usage     :${reset} ${green}$used / $total (Free: $free)${reset}"
+
+# Disk Usage
+disk_usage=$(df -h / | awk 'NR==2 {print $3 " / " $2 " (Used: " $5 ")"}')
+echo -e "${peach}Disk Usage       :${reset} ${green}$disk_usage${reset}"
+
+# Disk Usage
+disk_usage=$(df -h /home | awk 'NR==2 {print $3 " /home " $2 " (Used: " $5 ")"}')
+echo -e "${peach}Disk Usage       :${reset} ${green}$disk_usage${reset}"
+
+# Uptime
+uptime_text=$(uptime -p)
+echo -e "${peach}Uptime           :${reset} ${green}$uptime_text${reset}"
+
+echo -e "${rosewater}----------------------------------${reset}"
+echo -e "🐧 ${lavender}Stay frosty and code smart!${reset}"

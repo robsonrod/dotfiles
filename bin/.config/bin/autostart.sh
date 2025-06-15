@@ -1,21 +1,38 @@
 #!/usr/bin/env bash
 
-/usr/libexec/at-spi-bus-launcher --laucher-immediately &
-xdg-user-dirs-gtk-update &
-/usr/bin/dunst &
-/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
-feh --bg-scale $HOME/.config/qtile/wallpaper/wallpaper.jpg
-udiskie -T &
-thunar --daemon &
-nm-applet &
-xautolock -time 3 -locker screen_lock &
-/usr/bin/cshell/launcher &
-/usr/bin/teams %U &
-psensor &
-start-pulseaudio-x11 &
-/usr/bin/snap userd --autostart &
-xiccd &
-/usr/bin/nvidia-settings --load-config-only &
-blueman-applet &
-compton -b &
+export PATH="${PATH}:$HOME/.config/bin"
+
+# reload .Xresources
+xrdb -merge ~/.Xresources
+
+# change keyboard layout
+xmodmap ~/.Xmodmap
+
+# enables power saving
+xset dpms 240 300 360 &
+
+# fix cursor shape
 xsetroot -cursor_name left_ptr &
+
+# make short-pressed Ctrl behave like Escape:
+xcape -e 'Control_L=Escape'
+
+# polkit
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# java gui fixes
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# set wallpaper
+feh --bg-scale $HOME/.config/wallpaper/wallpaper.jpg
+
+# fix mouse shape
+xsetroot -cursor_name left_ptr &
+
+dunst &
+
+#picom &
+
+bluetoothctl power off &>/dev/null &
+
+screensaver &

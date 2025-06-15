@@ -99,7 +99,7 @@ fi
 
 dunst &
 
-picom &
+#picom &
 
 bluetoothctl power off &>/dev/null &
 
