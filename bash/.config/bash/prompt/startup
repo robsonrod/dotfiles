@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # (Catppuccin Mocha)
 lavender="\033[1;35m"
 rosewater="\033[1;31m"
@@ -42,16 +44,20 @@ cpu_load=$(uptime | awk -F'load average: ' '{ print $2 }')
 echo -e "${peach}CPU Load Averages:${reset} ${green}$cpu_load${reset}"
 
 # Memory
-read total used free <<< $(free -h | awk '/Mem:/ {print $2, $3, $4}')
+read total used free <<< $(free -h | awk 'NR==2 {print $2, $3, $4}')
 echo -e "${peach}Memory Usage     :${reset} ${green}$used / $total (Free: $free)${reset}"
 
 # Disk Usage
 disk_usage=$(df -h / | awk 'NR==2 {print $3 " / " $2 " (Used: " $5 ")"}')
-echo -e "${peach}Disk Usage       :${reset} ${green}$disk_usage${reset}"
+echo -e "${peach}Root Disk Usage  :${reset} ${green}$disk_usage${reset}"
 
 # Disk Usage
 disk_usage=$(df -h /home | awk 'NR==2 {print $3 " /home " $2 " (Used: " $5 ")"}')
-echo -e "${peach}Disk Usage       :${reset} ${green}$disk_usage${reset}"
+echo -e "${peach}Home Disk Usage  :${reset} ${green}$disk_usage${reset}"
+
+# Internal IP
+internal_ip=$(ip -o -4 addr show scope global | awk '{print $4}' | cut -d/ -f1 | head -n 1)
+echo -e "${peach}Internal IP      :${reset} ${green}$internal_ip${reset}"
 
 # Uptime
 uptime_text=$(uptime -p)

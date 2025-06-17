@@ -75,3 +75,5 @@ source ${BASHDIR}/aliases/zoxide
 path_preppend "${HOME}/.config/bin"
 path_preppend "${HOME}/.local/bin"
 path_preppend "${CARGO_HOME}/bin"
+
+[ -f ${HOME}/.bash_work ] && source ${HOME}/.bash_work
