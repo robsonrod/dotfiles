@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+__git_funcs_loaded=0
+
+load_or_unload_git_functions() {
+    if git rev-parse --is-inside-work-tree &>/dev/null; then
+        if [[ $__git_funcs_loaded -eq 0 ]]; then
+            [ -f ~/.bash_git_functions ] && source ~/.bash_git_functions
+            __git_funcs_loaded=1
+            echo "[Git functions loaded]"
+        fi
+    else
+        if [[ $__git_funcs_loaded -eq 1 ]]; then
+            unset -f my_git_helper git_status_short  # Add all functions here
+            __git_funcs_loaded=0
+            echo "[Git functions unloaded]"
+        fi
+    fi
+}
+
+PROMPT_COMMAND="load_or_unload_git_functions; $PROMPT_COMMAND"
