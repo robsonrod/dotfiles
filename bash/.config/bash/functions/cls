@@ -1,0 +1,14 @@
+# -*- mode: sh -*-
+
+cls() {
+    if builtin cd -P -- "${1:-"${HOME}"}"; then
+        if [ "$1" ]; then
+            shift
+            ls "$@"
+        else
+            ls
+        fi
+    else
+        return $?;
+    fi
+}

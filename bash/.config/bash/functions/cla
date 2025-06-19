@@ -1,0 +1,15 @@
+# -*- mode: sh -*-
+
+# cd + la
+cla() {
+    if builtin cd -P -- "${1:-"${HOME}"}"; then
+        if [ "$1" ]; then
+            shift
+            exa -lA "$@"
+        else
+            exa -lA
+        fi
+    else
+        return $?;
+    fi
+}

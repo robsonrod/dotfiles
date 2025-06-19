@@ -38,6 +38,9 @@ source ${BASHDIR}/functions/fzf-git.sh
 source ${BASHDIR}/functions/rgf
 source ${BASHDIR}/functions/fzf-ps
 source ${BASHDIR}/functions/cdd
+source ${BASHDIR}/functions/cls
+source ${BASHDIR}/functions/cll
+source ${BASHDIR}/functions/cla
 source ${BASHDIR}/functions/truecolor
 source ${BASHDIR}/functions/emg
 source ${BASHDIR}/functions/emt
