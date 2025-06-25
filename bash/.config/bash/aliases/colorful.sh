@@ -1,10 +1,89 @@
 _colorize_alias() {
-	local aliases cmd colorizer='grc'
-	for cmd in \
-		cvs df diff docker docker-compose gcc g++ ls ifconfig make mount mtr netstat ping ps tail traceroute wdiff blkid du dnf docker docker-machine env id ip iostat last lsattr lsblk lspci lsmod lsof getfacl getsebool uptime nmap fdisk findmnt free semanage sar ss sysctl systemctl stat showmount tune2fs tcpdump
-	do
-		aliases+="'$cmd=$colorizer $cmd' "
+    command -v grc >/dev/null || return
+	local cmd
+    local colorizer='grc'
+    local commands=(
+		ant
+		as
+		blkid
+		cc
+		configure
+		curl
+		cvs
+		df
+		dig
+		diff
+		dnf
+		docker
+		docker-compose
+		docker-machine
+		du
+		env
+		fdisk
+		findmnt
+		free
+		g++
+		gas
+		gcc
+		getfacl
+		getsebool
+		gmake
+		id
+		ifconfig
+		iostat
+		ip
+		iptables
+		iwconfig
+		journalctl
+		jq
+		kubectl
+		last
+		ldap
+		ld
+		lolcat
+		ls
+		lsattr
+		lsblk
+		lsmod
+		lsof
+		lspci
+		make
+		mount
+		mtr
+		mvn
+		netstat
+		nmap
+		ntpdate
+		php
+		ping
+		ping6
+		proftpd
+		ps
+		sar
+		semanage
+		sensors
+		showmount
+		sockstat
+		ss
+		stat
+		sysctl
+		systemctl
+		tail
+		tcpdump
+		traceroute
+		traceroute6
+		tune2fs
+		ulimit
+		uptime
+		vmstat
+		wdiff
+		whois
+	)
+
+    for cmd in "${commands[@]}"; do
+        if ! alias "$cmd" &>/dev/null; then
+			alias "$cmd"="$colorizer $cmd"
+        fi
 	done
-	eval "alias ${aliases}"
 }
 _colorize_alias
