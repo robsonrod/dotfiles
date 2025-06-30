@@ -39,6 +39,10 @@ else
 fi
 echo -e "${peach}Distro           :${reset} ${green}$distro_name${reset}"
 
+# Kernel release
+kernel_release=$(uname -r)
+echo -e "${peach}Kernel release   :${reset} ${green}$kernel_release${reset}"
+
 # CPU Load
 cpu_load=$(uptime | awk -F'load average: ' '{ print $2 }')
 echo -e "${peach}CPU Load Averages:${reset} ${green}$cpu_load${reset}"

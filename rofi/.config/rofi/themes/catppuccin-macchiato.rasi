@@ -1,13 +1,13 @@
 * {
     bg-col:  #24273a;
     bg-col-light: #24273a;
-    border-col: #24273a;
+    border-col: #f5bde6;
     selected-col: #24273a;
-    blue: #8aadf4;
     fg-col: #cad3f5;
     fg-col2: #ed8796;
     grey: #6e738d;
-
+    blue: #8aadf4;
+    pink: #f5bde6;
     width: 50%;
     font: "JetBrainsMono Nerd Font 12";
 }
@@ -19,7 +19,7 @@ element-text, element-icon , mode-switcher {
 
 window {
     height: 60%;
-    border: 3px;
+    border: 2px;
     border-color: @border-col;
     background-color: @bg-col;
 }
