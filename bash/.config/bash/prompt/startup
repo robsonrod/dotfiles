@@ -10,19 +10,6 @@ reset="\033[0m"
 # Header
 echo -e "${lavender}Welcome, $USER!${reset}"
 
-# Tux ASCII
-echo -e "${lavender}"
-cat << "EOF"
-   .--.
-  |o_o |
-  |:_/ |
- //   \ \
-(|     | )
-/'\_   _/`\
-\___)=(___/
-EOF
-echo -e "${reset}"
-
 # System Info
 echo -e "\n${rosewater}🖥️  System Info:${reset}"
 echo -e "${rosewater}----------------------------------${reset}"
